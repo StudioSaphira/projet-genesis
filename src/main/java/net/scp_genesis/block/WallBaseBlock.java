@@ -20,6 +20,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import com.google.common.collect.ImmutableMap;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class WallBaseBlock extends Block implements SimpleWaterloggedBlock {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -32,61 +35,70 @@ public class WallBaseBlock extends Block implements SimpleWaterloggedBlock {
 	}
 
 	private ImmutableMap<BlockState, VoxelShape> makeShapes() {
-		return this.getShapeForEachState(state -> {
-			return switch (state.getValue(FACING)) {
-				case NORTH -> box(0, 0, 15.5, 16, 3, 16);
-				case EAST -> box(0, 0, 0, 0.5, 3, 16);
-				case WEST -> box(15.5, 0, 0, 16, 3, 16);
-				default -> box(0, 0, 0, 16, 3, 0.5);
-			};
-		});
+		return this.getShapeForEachState(state -> switch (state.getValue(FACING)) {
+            case NORTH -> box(0, 0, 15.5, 16, 3, 16);
+            case EAST -> box(0, 0, 0, 0.5, 3, 16);
+            case WEST -> box(15.5, 0, 0, 16, 3, 16);
+            default -> box(0, 0, 0, 16, 3, 0.5);
+        });
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		return shapes.get(state);
+	public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return Objects.requireNonNull(shapes.get(state));
 	}
 
 	@Override
-	public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
-		return adjacentBlockState.getBlock() == this ? true : super.skipRendering(state, adjacentBlockState, side);
+	public boolean skipRendering(@NotNull BlockState state, BlockState adjacentBlockState, @NotNull Direction side) {
+		return adjacentBlockState.getBlock() == this || super.skipRendering(state, adjacentBlockState, side);
 	}
 
 	@Override
-	public VoxelShape getVisualShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+	public @NotNull VoxelShape getVisualShape(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return Shapes.empty();
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
 		builder.add(FACING, WATERLOGGED);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) {
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
 		BlockState state = super.getStateForPlacement(context);
-		if (state == null)
+
+		if (state == null) {
 			return null;
-		boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
-		return state.setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, flag);
+		}
+
+		boolean waterlogged =
+				context.getLevel()
+						.getFluidState(context.getClickedPos())
+						.getType() == Fluids.WATER;
+
+		return state
+				.setValue(FACING, context.getHorizontalDirection().getOpposite())
+				.setValue(WATERLOGGED, waterlogged);
 	}
 
-	public BlockState rotate(BlockState state, Rotation rot) {
+	@Override
+	public @NotNull BlockState rotate(BlockState state, Rotation rot) {
 		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
 	}
 
-	public BlockState mirror(BlockState state, Mirror mirrorIn) {
+	@Override
+	public @NotNull BlockState mirror(BlockState state, Mirror mirrorIn) {
 		return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
 	}
 
 	@Override
-	public FluidState getFluidState(BlockState state) {
+	public @NotNull FluidState getFluidState(BlockState state) {
 		return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
 	}
 
 	@Override
-	public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
+	public @NotNull BlockState updateShape(BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor world, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
 		if (state.getValue(WATERLOGGED)) {
 			world.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		}

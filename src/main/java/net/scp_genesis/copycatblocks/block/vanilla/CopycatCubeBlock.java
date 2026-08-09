@@ -1,9 +1,13 @@
 package net.scp_genesis.copycatblocks.block.vanilla;
 
+import com.mojang.serialization.MapCodec;
+
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Basic Copycat Cube Block.
@@ -14,7 +18,15 @@ import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
  */
 public class CopycatCubeBlock extends AbstractCopycatBlock {
 
-    protected CopycatCubeBlock(BlockBehaviour.Properties properties) {
+    public static final MapCodec<CopycatCubeBlock> CODEC =
+            Block.simpleCodec(CopycatCubeBlock::new);
+
+    @Override
+    protected @NotNull MapCodec<? extends CopycatCubeBlock> codec() {
+        return CODEC;
+    }
+
+    public CopycatCubeBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
@@ -24,5 +36,4 @@ public class CopycatCubeBlock extends AbstractCopycatBlock {
                 .sound(SoundType.STONE)
                 .requiresCorrectToolForDrops());
     }
-
 }

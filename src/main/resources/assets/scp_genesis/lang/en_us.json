@@ -7,6 +7,7 @@
   "item_group.scp_genesis.equipments": "SCP: G - Equipments",
   "item_group.scp_genesis.mobs": "SCP: G - Mobs",
   "item_group.scp_genesis.doors": "SCP: G - Doors",
+  "item_group.scp_genesis.copycat_blocks": "SCP: G - Copycat Blocks",
   "item.scp_genesis.ethics_committee_keycard_lv_5": "Ethics Committee Keycard Lv5",
   "item.scp_genesis.ethics_committee_keycard_lv_4": "Ethics Committee Keycard Lv4",
   "item.scp_genesis.ethics_committee_keycard_lv_3": "Ethics Committee Keycard Lv3",
@@ -102,11 +103,9 @@
   "block.scp_genesis.broken_white_wall_two": "Broken White Wall Block Two",
   "block.scp_genesis.dirty_broken_white_wall_one": "Dirty Broken White Wall Block One",
   "block.scp_genesis.dirty_broken_white_wall_two": "Dirty Broken White Wall Block Two",
-  "block.scp_genesis.wall_base": "Wallbase",
+  "block.scp_genesis.wall_base": "Wall base",
   "block.scp_genesis.green_tiled_floor": "Green Tiled Floor",
-  "block.scp_genesis.copycat_block": "Copycat Cube",
   "block.scp_genesis.copycat_cube": "Copycat Cube",
-  "item_group.scp_genesis.copycat_blocks": "SCP: G - Copycat Blocks",
   "item.scp_genesis.copycat_wrench": "Copycat Wrench",
   "item.scp_genesis.copycat_remover": "Copycat Remover"
 }

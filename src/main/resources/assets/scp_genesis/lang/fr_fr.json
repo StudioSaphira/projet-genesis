@@ -7,6 +7,7 @@
   "item_group.scp_genesis.equipments": "SCP: G - Équipements",
   "item_group.scp_genesis.mobs": "SCP: G - Monstres",
   "item_group.scp_genesis.doors": "SCP: G - Portes",
+  "item_group.scp_genesis.copycat_blocks": "SCP: G - Blocs de Copie",
   "item.scp_genesis.ethics_committee_keycard_lv_5": "Carte du Comité d'Éthique Niveau 5",
   "item.scp_genesis.ethics_committee_keycard_lv_4": "Carte du Comité d'Éthique Niveau 4",
   "item.scp_genesis.ethics_committee_keycard_lv_3": "Carte du Comité d'Éthique Niveau 3",
@@ -104,9 +105,7 @@
   "block.scp_genesis.dirty_broken_white_wall_two": "Bloc de carrelages blancs et sales cassés (2)",
   "block.scp_genesis.wall_base": "Broken White Panel One",
   "block.scp_genesis.green_tiled_floor": "Dirty White Wall Block",
-  "block.scp_genesis.copycat_block": "Copycat Cube",
   "block.scp_genesis.copycat_cube": "Copycat Cube",
-  "item_group.scp_genesis.copycat_blocks": "SCP: G - Blocs de Copie",
   "item.scp_genesis.copycat_wrench": "Copycat Wrench",
   "item.scp_genesis.copycat_remover": "Copycat Remover"
 }

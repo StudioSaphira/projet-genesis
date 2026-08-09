@@ -1,5 +1,6 @@
 package net.scp_genesis.copycatblocks.block;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -35,7 +36,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
      * Creates the BlockEntity used by this Copycat Block.
      */
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new CopycatBlockEntity(pos, state);
     }
 
@@ -43,7 +44,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
      * Uses the model renderer.
      */
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
         return RenderShape.MODEL;
     }
 
@@ -101,14 +102,14 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
     }
 
     @Override
-    public ItemInteractionResult useItemOn(
+    public @NotNull ItemInteractionResult useItemOn(
             ItemStack stack,
-            BlockState state,
-            Level level,
-            BlockPos pos,
-            Player player,
-            InteractionHand hand,
-            BlockHitResult hitResult
+            @NotNull BlockState state,
+            @NotNull Level level,
+            @NotNull BlockPos pos,
+            @NotNull Player player,
+            @NotNull InteractionHand hand,
+            @NotNull BlockHitResult hitResult
     ) {
         if (stack.getItem() instanceof CopycatRemoverItem) {
             return onRemover(level, pos).consumesAction()
