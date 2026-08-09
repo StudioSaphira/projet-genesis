@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "all": "scp_genesis:block/copycat_block_alt"
+  },
+  "render_type": "cutout"
+}

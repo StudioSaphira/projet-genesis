@@ -1,0 +1,33 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Assets_Dev
+assets_dev/
+
+# VSCode
+.vscode/
+
+# Runtime
+run/
+
+# Logs
+logs/
+*.log
+
+# Crash reports
+crash-reports/
+
+# OS
+Thumbs.db
+.DS_Store
