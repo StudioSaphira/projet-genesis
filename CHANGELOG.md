@@ -8,9 +8,7 @@
 
 ## Fixes
 
-- Fixed major issues about Copycat Blocks
-  - Missing texture
-  - Incorrect texture when using Grass Block
+- Fixed issue about Copycat Blocks
   - Can't put blocks using Copycat Block as support.
 
 ## Next Update
