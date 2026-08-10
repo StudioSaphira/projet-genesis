@@ -57,10 +57,12 @@ public final class CopycatBakedModel implements BakedModel {
         BlockState copiedState =
                 modelData.get(CopycatModelProperties.COPIED_STATE);
 
+        if (copiedState != null) {copiedState.isAir();}// Show base model of the Copycat
+
         BakedModel model = CopycatModelProvider.getModel(copiedState);
 
         return model.getQuads(
-                state,
+                copiedState,
                 side,
                 random,
                 ModelData.EMPTY,

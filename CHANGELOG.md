@@ -1,4 +1,16 @@
-------------------------------------------------------------------
+# Pre-Alpha-Release 18 - 0.1.3.2 - HOTFIX-2 - COMING SOON
+
+***This is a hotfix about last alpha version.***
+
+## Fixes
+
+- Fixed issue about Copycat Blocks
+  - Incorrect Texture for Default Copycat Block
+  - Incorrect Texture for Grass Block
+
+## Next Update
+
+_The next update will be more custom Copycat blocks, including slab, stairs and more !_
 
 ------------------------------------------------------------------
 

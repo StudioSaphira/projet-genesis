@@ -1,5 +1,5 @@
 {
-  "parent": "scp_genesis:block/copycat_cube",
+  "parent": "scp_genesis:block/copycat_cube_base",
   "display": {
     "thirdperson": {
       "rotation": [

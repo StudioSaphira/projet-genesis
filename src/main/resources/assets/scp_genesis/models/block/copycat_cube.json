@@ -1,4 +1,5 @@
 {
+  "parent": "scp_genesis:block/copycat_cube_base",
   "loader": "scp_genesis:copycat",
   "render_type": "cutout"
 }
