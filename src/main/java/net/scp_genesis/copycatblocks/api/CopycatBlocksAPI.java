@@ -137,11 +137,12 @@ public final class CopycatBlocksAPI {
      * @param pos Position of the Copycat Block.
      * @return the copied BlockState, or AIR if none has been copied.
      */
+    @Nullable
     public static BlockState getCopiedState(Level level, BlockPos pos) {
         CopycatBlockEntity blockEntity = getCopycatBlockEntity(level, pos);
 
         if (blockEntity == null) {
-            return Blocks.AIR.defaultBlockState();
+            return null;
         }
 
         return blockEntity.getCopiedState();

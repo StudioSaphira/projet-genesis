@@ -2,9 +2,9 @@
 
 ------------------------------------------------------------------
 
-# Pre-Alpha-Release 17 - 0.1.2.2
+# Alpha-Release 17 - 0.1.3
 
-***This is still half of the Alpha-Release 17 - 0.1.3. This update only fix the Java classes in preparation for the 0.1.3.***
+***This is a summary and an update of the 2 previous Pre-Alpha Release.***
 
 ## Additions
 
@@ -14,6 +14,10 @@
     - LICENSE.md
     - NOTICE.md - Currently, this file is blank. The content in this file will be added in 0.1.3.
     - CHANGELOG.md
+- Added Java classes
+- Added Copycat Block
+- Added Copycat Wrench
+- Added Copycat Remover
 
 ## Changes
 
@@ -21,24 +25,7 @@
 
 ## Fixes
 
-- Fixed all the classes added in the previous update, as they weren't compiled correctly in the .jar file. They still were presents as .java files and not as .class files.
-
-## Next Update
-
-_The next update will be custom Copycat blocks, working like FramedBlocks or Create: Copycats._
-
-------------------------------------------------------------------
-
-# Pre-Alpha-Release 17 - 0.1.2.1
-
-***This is half of the Alpha-Release 17 - 0.1.3. This update only add the Java classes in preparation for the 0.1.3.***
-
-## Additions
-
-- Added Java classes
-- Added Copycat Block [NOT WORKING]
-- Added Copycat Wrench [NOT WORKING]
-- Added Copycat Remover [NOT WORKING]
+- Fixed incorrect translations for the english tabs in game
 
 ## Deletions
 
@@ -69,7 +56,7 @@ _The next update will be custom Copycat blocks, working like FramedBlocks or Cre
 
 ## Next Update
 
-_The next update will be custom Copycat blocks, working like FramedBlocks or Create: Copycats._
+_The next update will be more custom Copycat blocks, including slab, stairs and more !_
 
 ------------------------------------------------------------------
 

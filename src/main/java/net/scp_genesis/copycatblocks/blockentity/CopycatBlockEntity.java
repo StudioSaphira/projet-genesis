@@ -6,14 +6,17 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.copycatblocks.data.CopycatData;
+import net.scp_genesis.copycatblocks.renderer.model.CopycatModelProperties;
 import net.scp_genesis.copycatblocks.util.CopycatConstants;
 import net.scp_genesis.registry.ModBlockEntities;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * BlockEntity used by every Copycat Block.
@@ -30,13 +33,6 @@ public class CopycatBlockEntity extends BlockEntity {
 
     public CopycatBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.COPYCAT_BLOCK_ENTITY.get(), pos, state);
-    }
-
-    /**
-     * Returns the Copycat data.
-     */
-    public CopycatData getData() {
-        return data;
     }
 
     /**
@@ -70,13 +66,33 @@ public class CopycatBlockEntity extends BlockEntity {
     }
 
     /**
+     * Provides model data used by the Copycat renderer.
+     */
+    @Override
+    public @NotNull ModelData getModelData() {
+        return ModelData.builder()
+                .with(
+                        CopycatModelProperties.COPIED_STATE,
+                        getCopiedState()
+                )
+                .build();
+    }
+
+    /**
      * Marks this BlockEntity as changed and synchronizes it with the client.
      */
     private void updateBlock() {
         setChanged();
 
+        requestModelDataUpdate();
+
         if (level != null) {
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    3
+            );
         }
     }
 
@@ -85,14 +101,14 @@ public class CopycatBlockEntity extends BlockEntity {
     // ------------------------------------------------------------------------
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.saveAdditional(tag, provider);
 
         writeCopycatData(tag, provider);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         super.loadAdditional(tag, provider);
 
         readCopycatData(tag, provider);
@@ -110,7 +126,8 @@ public class CopycatBlockEntity extends BlockEntity {
                 data.getCopiedState()
         );
 
-        result.result().ifPresent(stateTag -> tag.put(CopycatConstants.COPIED_STATE_TAG, stateTag));
+        result.result().ifPresent(stateTag ->
+                tag.put(CopycatConstants.COPIED_STATE_TAG, stateTag));
     }
 
     /**
@@ -139,7 +156,7 @@ public class CopycatBlockEntity extends BlockEntity {
     // ------------------------------------------------------------------------
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
         CompoundTag tag = super.getUpdateTag(provider);
 
         writeCopycatData(tag, provider);
@@ -148,7 +165,7 @@ public class CopycatBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider provider) {
+    public void handleUpdateTag(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider provider) {
         readCopycatData(tag, provider);
     }
 
@@ -159,18 +176,23 @@ public class CopycatBlockEntity extends BlockEntity {
 
     @Override
     public void onDataPacket(
-            Connection connection,
+            @NotNull Connection connection,
             ClientboundBlockEntityDataPacket packet,
-            HolderLookup.Provider provider
+            HolderLookup.@NotNull Provider provider
     ) {
         CompoundTag tag = packet.getTag();
 
-        if (tag != null) {
-            handleUpdateTag(tag, provider);
+        handleUpdateTag(tag, provider);
 
-            if (level != null) {
-                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
-            }
+        requestModelDataUpdate();
+
+        if (level != null) {
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    3
+            );
         }
     }
 }

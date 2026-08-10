@@ -35,3 +35,12 @@ neoForge {
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
+
+tasks.named("jar") {
+    from(rootProject.projectDir) {
+        include "README.md"
+        include "CHANGELOG.md"
+        include "LICENSE.md"
+        include "NOTICE.md"
+    }
+}

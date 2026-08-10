@@ -1,4 +1,4 @@
-package net.scp_genesis.copycatblocks.renderer;
+package net.scp_genesis.copycatblocks.renderer.model;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelProperty;

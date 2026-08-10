@@ -1,4 +1,4 @@
-package net.scp_genesis.copycatblocks.renderer;
+package net.scp_genesis.copycatblocks.renderer.geometry;
 
 /**
  * Represents the geometry used by Copycat Blocks.
