@@ -9,7 +9,7 @@
 ## Fixes
 
 - Fixed issue about Copycat Blocks
-  - Can't put blocks using Copycat Block as support.
+  - Can't put blocks using Copycat Block as support
   - Copycat Block were not saving the copied block
 
 ## Next Update
