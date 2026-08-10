@@ -1,5 +1,6 @@
 package net.scp_genesis.copycatblocks.block;
 
+import net.minecraft.world.item.BlockItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
@@ -124,6 +125,12 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                     ? ItemInteractionResult.SUCCESS
                     : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
+
+        if (stack.getItem() instanceof BlockItem blockItem
+                && blockItem.getBlock() instanceof AbstractCopycatBlock) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
         BlockState copiedState = CopycatBlocksAPI.getBlockStateFromItem(stack);
         if (copiedState.isAir()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

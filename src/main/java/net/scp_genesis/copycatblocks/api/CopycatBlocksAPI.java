@@ -83,6 +83,10 @@ public final class CopycatBlocksAPI {
             return false;
         }
 
+        if (blockEntity.hasCopiedState()) {
+            return false;
+        }
+
         blockEntity.setCopiedState(copiedState);
 
         return true;

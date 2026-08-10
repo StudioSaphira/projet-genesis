@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-// import net.scp_genesis.registry.ModBlocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,20 +30,11 @@ public final class CopycatModelProvider {
      */
     public static @NotNull BakedModel getModel(@Nullable BlockState state) {
 
-        BlockRenderDispatcher dispatcher =
-                Minecraft.getInstance().getBlockRenderer();
+        BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
 
-        if (state == null || state.isAir()) {
-            return dispatcher.getBlockModel(Blocks.AIR.defaultBlockState());
-        }
+                if (state == null || state.isAir()) return dispatcher.getBlockModel(Blocks.STONE.defaultBlockState());
 
-        return dispatcher.getBlockModel(state);
-
-        //BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
-        //
-        //        if (state == null || state.isAir()) return dispatcher.getBlockModel(ModBlocks.COPYCAT_CUBE.get().defaultBlockState());
-        //
-        //        return dispatcher.getBlockModel(state);
+                return dispatcher.getBlockModel(state);
     }
 
 }

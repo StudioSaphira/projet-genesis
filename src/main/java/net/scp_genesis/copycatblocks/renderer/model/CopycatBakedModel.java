@@ -63,7 +63,7 @@ public final class CopycatBakedModel implements BakedModel {
                 state,
                 side,
                 random,
-                modelData,
+                ModelData.EMPTY,
                 renderType
         );
     }

@@ -2,6 +2,23 @@
 
 ------------------------------------------------------------------
 
+# Pre-Alpha-Release 18 - 0.1.3.1 - HOTFIX-1
+
+***This is a hotfix about last version.***
+
+## Fixes
+
+- Fixed major issues about Copycat Blocks
+  - Missing texture
+  - Incorrect texture when using Grass Block
+  - Can't put blocks using Copycat Block as support.
+
+## Next Update
+
+_The next update will be more custom Copycat blocks, including slab, stairs and more !_
+
+------------------------------------------------------------------
+
 # Alpha-Release 17 - 0.1.3
 
 ***This is a summary and an update of the 2 previous Pre-Alpha Release.***
@@ -16,8 +33,8 @@
     - CHANGELOG.md
 - Added Java classes
 - Added Copycat Block
-- Added Copycat Wrench
-- Added Copycat Remover
+- Added Copycat Wrench [NOT WORKING]
+- Added Copycat Remover [NOT WORKING]
 
 ## Changes
 
