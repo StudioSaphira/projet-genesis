@@ -24,7 +24,7 @@ public final class CopycatBlockColor implements BlockColor {
             return -1;
         }
 
-        BlockState copiedState = CopycatBlocksAPI.getCopiedState((Level) level, pos);
+        BlockState copiedState = CopycatBlocksAPI.getCopiedState(level, pos);
 
         if (copiedState == null || copiedState.isAir()) {
             return -1;
