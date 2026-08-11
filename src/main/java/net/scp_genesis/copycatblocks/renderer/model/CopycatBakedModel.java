@@ -22,8 +22,11 @@ import java.util.List;
 
 public final class CopycatBakedModel implements BakedModel {
 
+    private final BakedModel baseModel;
 
-    public CopycatBakedModel() {
+
+    public CopycatBakedModel(@NotNull BakedModel baseModel) {
+        this.baseModel = baseModel;
     }
 
     /**
@@ -57,7 +60,15 @@ public final class CopycatBakedModel implements BakedModel {
         BlockState copiedState =
                 modelData.get(CopycatModelProperties.COPIED_STATE);
 
-        if (copiedState != null) {copiedState.isAir();}// Show base model of the Copycat
+        if (copiedState == null || copiedState.isAir()) {
+            return baseModel.getQuads(
+                    state,
+                    side,
+                    random,
+                    ModelData.EMPTY,
+                    renderType
+            );
+        }
 
         BakedModel model = CopycatModelProvider.getModel(copiedState);
 
