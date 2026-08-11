@@ -1,5 +1,7 @@
 package net.scp_genesis.copycatblocks.api;
 
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -33,6 +35,20 @@ public final class CopycatBlocksAPI {
     private static CopycatBlockEntity getCopycatBlockEntity(Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof CopycatBlockEntity blockEntity) {
             return blockEntity;
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private static CopycatBlockEntity getCopycatBlockEntity(
+            BlockAndTintGetter level,
+            BlockPos pos
+    ) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+
+        if (blockEntity instanceof CopycatBlockEntity copycat) {
+            return copycat;
         }
 
         return null;
@@ -143,6 +159,14 @@ public final class CopycatBlocksAPI {
      */
     @Nullable
     public static BlockState getCopiedState(Level level, BlockPos pos) {
+        return getCopiedState((BlockAndTintGetter) level, pos);
+    }
+
+    @Nullable
+    public static BlockState getCopiedState(
+            BlockAndTintGetter level,
+            BlockPos pos
+    ) {
         CopycatBlockEntity blockEntity = getCopycatBlockEntity(level, pos);
 
         if (blockEntity == null) {
