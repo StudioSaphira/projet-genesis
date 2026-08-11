@@ -6,10 +6,13 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -31,7 +34,16 @@ public final class CopycatUnbakedGeometry
     ) {
         ModConstants.LOGGER.info("[COPYCAT] Baking Copycat Model");
 
-        return new CopycatBakedModel();
+        BakedModel baseModel = baker.bake(
+                ResourceLocation.fromNamespaceAndPath(
+                        "scp_genesis",
+                        "block/copycat_cube_base"
+                ),
+                modelState,
+                spriteGetter
+        );
+
+        return new CopycatBakedModel(Objects.requireNonNull(baseModel));
     }
 
 }
