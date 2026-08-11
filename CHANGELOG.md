@@ -1,4 +1,4 @@
-# Pre-Alpha-Release 18 - 0.1.3.2 - HOTFIX-2 - COMING SOON+
+# Pre-Alpha-Release 18 - 0.1.3.2 - HOTFIX-2 - COMING SOON
 
 ***This is a hotfix about last alpha version.***
 
