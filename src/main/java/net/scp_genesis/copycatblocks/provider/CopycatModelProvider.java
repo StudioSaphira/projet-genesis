@@ -32,7 +32,7 @@ public final class CopycatModelProvider {
 
         BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
 
-                if (state == null || state.isAir()) return dispatcher.getBlockModel(Blocks.STONE.defaultBlockState());
+                if (state == null || state.isAir()) return dispatcher.getBlockModel(Blocks.AIR.defaultBlockState());
 
                 return dispatcher.getBlockModel(state);
     }
