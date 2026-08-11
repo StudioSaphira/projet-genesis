@@ -1,3 +1,18 @@
+# Pre-Alpha-Release 18 - 0.1.3.4 - HOTFIX-4
+
+***This is a hotfix about last alpha version.***
+
+## Fixes
+
+- Fixed issue about Copycat Blocks
+    - Being able to use any blocks on the basic Copycat Cube Block
+
+## Next Update
+
+_The next update will be more custom Copycat blocks, including slab, stairs and more !_
+
+------------------------------------------------------------------
+
 # Pre-Alpha-Release 18 - 0.1.3.3 - HOTFIX-3
 
 ***This is a hotfix about last alpha version.***
