@@ -2,6 +2,7 @@ package net.scp_genesis.copycatblocks.api;
 
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.scp_genesis.copycatblocks.util.CopycatBlockPredicate;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -70,13 +71,16 @@ public final class CopycatBlocksAPI {
      * @param state BlockState to test.
      * @return true if this BlockState can be copied.
      */
-    public static boolean canCopy(BlockState state) {
-
-        if (state.isAir()) {
-            return false;
-        }
-
-        return !isCopycat(state);
+    public static boolean canCopy(
+            Level level,
+            BlockPos pos,
+            BlockState state
+    ) {
+        return CopycatBlockPredicate.isValidForCube(
+                level,
+                pos,
+                state
+        );
     }
 
     /**
@@ -89,7 +93,7 @@ public final class CopycatBlocksAPI {
      */
     public static boolean copy(Level level, BlockPos pos, BlockState copiedState) {
 
-        if (!canCopy(copiedState)) {
+        if (!canCopy(level, pos, copiedState)) {
             return false;
         }
 
