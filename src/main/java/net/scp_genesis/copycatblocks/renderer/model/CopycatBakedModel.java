@@ -11,8 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
@@ -56,8 +56,6 @@ public final class CopycatBakedModel implements BakedModel {
             @Nullable RenderType renderType
     ) {
 
-        ModConstants.LOGGER.info("RenderType = {}", renderType);
-
         BlockState copiedState =
                 modelData.get(CopycatModelProperties.COPIED_STATE);
 
@@ -66,7 +64,7 @@ public final class CopycatBakedModel implements BakedModel {
                     state,
                     side,
                     random,
-                    ModelData.EMPTY,
+                    modelData,
                     renderType
             );
         }
@@ -77,24 +75,50 @@ public final class CopycatBakedModel implements BakedModel {
                 copiedState,
                 side,
                 random,
-                ModelData.EMPTY,
+                modelData,
                 renderType
         );
     }
 
     @Override
+    public @NotNull ChunkRenderTypeSet getRenderTypes(
+            @Nullable BlockState state,
+            @NotNull RandomSource random,
+            @NotNull ModelData modelData
+    ) {
+        BlockState copiedState =
+                modelData.get(CopycatModelProperties.COPIED_STATE);
+
+        if (copiedState == null || copiedState.isAir()) {
+            return baseModel.getRenderTypes(
+                    null,
+                    random,
+                    modelData
+            );
+        }
+
+        return CopycatModelProvider
+                .getModel(copiedState)
+                .getRenderTypes(
+                        copiedState,
+                        random,
+                        modelData
+                );
+    }
+
+    @Override
     public boolean useAmbientOcclusion() {
-        return true;
+        return baseModel.useAmbientOcclusion();
     }
 
     @Override
     public boolean usesBlockLight() {
-        return true;
+        return baseModel.usesBlockLight();
     }
 
     @Override
     public boolean isGui3d() {
-        return true;
+        return baseModel.isGui3d();
     }
 
     @Override
@@ -109,6 +133,21 @@ public final class CopycatBakedModel implements BakedModel {
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
         return baseModel.getParticleIcon();
+    }
+
+    @Override
+    public @NotNull TextureAtlasSprite getParticleIcon(@NotNull ModelData modelData) {
+
+        BlockState copiedState =
+                modelData.get(CopycatModelProperties.COPIED_STATE);
+
+        if (copiedState == null || copiedState.isAir()) {
+            return baseModel.getParticleIcon(modelData);
+        }
+
+        return CopycatModelProvider
+                .getModel(copiedState)
+                .getParticleIcon(modelData);
     }
 
     /**
