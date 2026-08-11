@@ -21,6 +21,7 @@ import net.scp_genesis.registry.ModItems;
 import net.scp_genesis.registry.ModBlocks;
 import net.scp_genesis.constants.ModConstants;
 import net.scp_genesis.client.ModModelLoading;
+import net.scp_genesis.client.ModBlockColors;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -36,6 +37,7 @@ public class Genesis {
         // End of user code block mod constructor
         NeoForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::registerNetworking);
+        modEventBus.addListener(ModBlockColors::register);
         modEventBus.addListener(ModModelLoading::registerGeometryLoaders);
         ModBlockEntities.REGISTRY.register(modEventBus);
         ModBlocks.REGISTRY.register(modEventBus);
