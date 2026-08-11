@@ -12,10 +12,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.level.block.Blocks;
 import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
 
 import java.util.List;
@@ -56,6 +55,8 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
+
+        ModConstants.LOGGER.info("RenderType = {}", renderType);
 
         BlockState copiedState =
                 modelData.get(CopycatModelProperties.COPIED_STATE);
@@ -107,10 +108,7 @@ public final class CopycatBakedModel implements BakedModel {
     @Deprecated
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
-        return Minecraft.getInstance()
-                .getBlockRenderer()
-                .getBlockModel(Blocks.STONE.defaultBlockState())
-                .getParticleIcon();
+        return baseModel.getParticleIcon();
     }
 
     /**
@@ -119,11 +117,11 @@ public final class CopycatBakedModel implements BakedModel {
     @Deprecated
     @Override
     public @NotNull ItemTransforms getTransforms() {
-        return ItemTransforms.NO_TRANSFORMS;
+        return baseModel.getTransforms();
     }
 
     @Override
     public @NotNull ItemOverrides getOverrides() {
-        return ItemOverrides.EMPTY;
+        return baseModel.getOverrides();
     }
 }
