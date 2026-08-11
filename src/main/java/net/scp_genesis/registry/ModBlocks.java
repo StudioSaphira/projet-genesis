@@ -31,6 +31,7 @@ public final class ModBlocks {
 									.strength(2.0F, 6.0F)
 									.sound(SoundType.STONE)
 									.requiresCorrectToolForDrops()
+									.noOcclusion()
 					));
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
