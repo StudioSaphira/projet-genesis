@@ -21,9 +21,9 @@ public final class ModBlockEntities {
             REGISTRY.register(CopycatConstants.BLOCK_ENTITY_ID,
                     () -> BlockEntityType.Builder.of(
                             CopycatBlockEntity::new,
-                            ModBlocks.COPYCAT_CUBE.get()
-                            // ModBlocks.COPYCAT_SLAB.get(),
-                            // ModBlocks.COPYCAT_STAIRS.get(),
+                            ModBlocks.COPYCAT_CUBE.get(),
+                            ModBlocks.COPYCAT_SLAB.get()
+                            // ModBlocks.COPYCAT_STAIRS.get()
                             // ModBlocks.COPYCAT_SLOPE.get()
                     ).build(null)); // Unused
 }

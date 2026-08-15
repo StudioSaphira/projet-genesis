@@ -1,6 +1,7 @@
 package net.scp_genesis.copycatblocks.block;
 
 import net.minecraft.world.item.BlockItem;
+import net.scp_genesis.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
@@ -49,6 +50,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return RenderShape.MODEL;
     }
 
+
+
     /**
      * Returns whether this Copycat supports the Copycat Wrench.
      *
@@ -95,15 +98,42 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
      *
      * @return true if the copy operation succeeded.
      */
-    protected boolean copyState(Level level, BlockPos pos, BlockState copiedState) {
-        if (!CopycatBlocksAPI.copy(level, pos, copiedState)) {
+    protected boolean copyState(
+            Level level,
+            BlockPos pos,
+            CopycatPart part,
+            BlockState copiedState
+    ) {
+        if (!CopycatBlocksAPI.copy(
+                level,
+                pos,
+                part,
+                copiedState
+        )) {
             return false;
         }
-        CopycatBlockEntity blockEntity = getCopycatBlockEntity(level, pos);
+
+        CopycatBlockEntity blockEntity =
+                getCopycatBlockEntity(level, pos);
+
         if (blockEntity != null) {
             afterCopy(blockEntity);
         }
+
         return true;
+    }
+
+    /**
+     * Returns the Copycat part targeted by the interaction.
+     *
+     * <p>Single-part Copycat Blocks use the MAIN part by default.
+     * Specialized Copycat Blocks can override this method.</p>
+     */
+    protected CopycatPart getCopycatPart(
+            BlockState state,
+            BlockHitResult hitResult
+    ) {
+        return CopycatPart.MAIN;
     }
 
     @Override
@@ -139,7 +169,17 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         if (copiedState.isAir()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        if (!copyState(level, pos, copiedState)) {
+        CopycatPart part = getCopycatPart(
+                state,
+                hitResult
+        );
+
+        if (!copyState(
+                level,
+                pos,
+                part,
+                copiedState
+        )) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         return ItemInteractionResult.SUCCESS;

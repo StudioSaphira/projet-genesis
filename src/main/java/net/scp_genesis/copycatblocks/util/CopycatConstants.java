@@ -18,7 +18,7 @@ public final class CopycatConstants {
     /**
      * NBT tag storing the copied BlockState.
      */
-    public static final String COPIED_STATE_TAG = "CopiedState";
+    public static final String COPIED_STATES_TAG = "CopiedStates";
 
     // ------------------------------------------------------------------------
     // Rendering

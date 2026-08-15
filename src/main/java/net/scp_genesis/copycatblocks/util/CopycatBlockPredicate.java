@@ -11,7 +11,7 @@ public final class CopycatBlockPredicate {
     private CopycatBlockPredicate() {
     }
 
-    public static boolean isValidForCube(
+    public static boolean isValid(
             Level level,
             BlockPos pos,
             BlockState state

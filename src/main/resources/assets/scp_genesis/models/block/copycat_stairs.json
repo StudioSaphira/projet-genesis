@@ -1,0 +1,8 @@
+{
+  "loader": "scp_genesis:copycat",
+  "base_model": "minecraft:block/stairs",
+  "textures": {
+    "all": "scp_genesis:block/copycat_block"
+  },
+  "render_type": "cutout"
+}

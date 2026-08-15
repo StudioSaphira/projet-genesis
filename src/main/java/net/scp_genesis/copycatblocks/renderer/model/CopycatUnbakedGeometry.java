@@ -1,51 +1,44 @@
 package net.scp_genesis.copycatblocks.renderer.model;
 
-import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.function.Function;
 
 public final class CopycatUnbakedGeometry
         implements IUnbakedGeometry<CopycatUnbakedGeometry> {
 
-    private BlockModel parent;
+    private final ResourceLocation baseModel;
+    private final Map<String, ResourceLocation> baseModels;
 
-    @Override
-    public void resolveParents(
-            @NotNull Function<ResourceLocation, UnbakedModel> modelGetter,
-            @NotNull IGeometryBakingContext context
+    /**
+     * Constructor used by simple Copycat Blocks such as the Cube.
+     */
+    public CopycatUnbakedGeometry(
+            ResourceLocation baseModel
     ) {
-        ResourceLocation parentLocation =
-                ResourceLocation.withDefaultNamespace("block/cube_all");
-
-        UnbakedModel model = modelGetter.apply(parentLocation);
-
-        if (!(model instanceof BlockModel blockModel)) {
-            throw new IllegalStateException(
-                    "Copycat parent is not a BlockModel: " + parentLocation
-            );
-        }
-
-        this.parent = blockModel;
-
-        this.parent.resolveParents(modelGetter);
+        this.baseModel = baseModel;
+        this.baseModels = null;
     }
 
-    private final ResourceLocation baseModel;
-
-    public CopycatUnbakedGeometry(ResourceLocation baseModel) {
-        this.baseModel = baseModel;
+    /**
+     * Constructor used by multipart Copycat Blocks such as the Slab.
+     */
+    public CopycatUnbakedGeometry(
+            Map<String, ResourceLocation> baseModels
+    ) {
+        this.baseModel = null;
+        this.baseModels = baseModels;
     }
 
     @Override
@@ -62,23 +55,97 @@ public final class CopycatUnbakedGeometry
         );
 
         TextureAtlasSprite copycatSprite =
-                spriteGetter.apply(context.getMaterial("all"));
+                spriteGetter.apply(
+                        context.getMaterial("all")
+                );
 
         Function<Material, TextureAtlasSprite> copycatSpriteGetter =
                 material -> copycatSprite;
 
-        BakedModel baseModelBaked = baker.bake(
-                baseModel,
-                modelState,
-                copycatSpriteGetter
-        );
+        /*
+         * Simple Copycat model.
+         *
+         * Used by Copycat Cube and other single-part blocks.
+         */
+        if (baseModel != null) {
 
-        if (baseModelBaked == null) {
-            throw new IllegalStateException(
-                    "Failed to bake Copycat base model: " + baseModel
+            BakedModel bakedBaseModel = bakeModel(
+                    baker,
+                    baseModel,
+                    modelState,
+                    copycatSpriteGetter
+            );
+
+            return new CopycatBakedModel(
+                    bakedBaseModel
             );
         }
 
-        return new CopycatBakedModel(baseModelBaked);
+        /*
+         * Multipart Copycat model.
+         *
+         * Used by Copycat Slab and future multipart blocks.
+         */
+        if (baseModels != null) {
+
+            BakedModel bottomModel = bakeModel(
+                    baker,
+                    baseModels.get("bottom"),
+                    modelState,
+                    copycatSpriteGetter
+            );
+
+            BakedModel topModel = bakeModel(
+                    baker,
+                    baseModels.get("top"),
+                    modelState,
+                    copycatSpriteGetter
+            );
+
+            BakedModel doubleModel = bakeModel(
+                    baker,
+                    baseModels.get("double"),
+                    modelState,
+                    copycatSpriteGetter
+            );
+
+            return new CopycatBakedModel(
+                    bottomModel,
+                    topModel,
+                    doubleModel
+            );
+        }
+
+        throw new IllegalStateException(
+                "Copycat model has no base model"
+        );
+    }
+
+    private static BakedModel bakeModel(
+            ModelBaker baker,
+            ResourceLocation modelLocation,
+            ModelState modelState,
+            Function<Material, TextureAtlasSprite> spriteGetter
+    ) {
+        if (modelLocation == null) {
+            throw new IllegalStateException(
+                    "Missing Copycat base model"
+            );
+        }
+
+        BakedModel model = baker.bake(
+                modelLocation,
+                modelState,
+                spriteGetter
+        );
+
+        if (model == null) {
+            throw new IllegalStateException(
+                    "Failed to bake Copycat base model: "
+                            + modelLocation
+            );
+        }
+
+        return model;
     }
 }

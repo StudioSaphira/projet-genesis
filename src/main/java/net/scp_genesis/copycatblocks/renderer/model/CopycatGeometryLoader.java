@@ -9,6 +9,9 @@ import net.scp_genesis.constants.ModConstants;
 import net.scp_genesis.copycatblocks.util.CopycatConstants;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Geometry loader used by Copycat models.
  *
@@ -53,11 +56,71 @@ public final class CopycatGeometryLoader
             );
         }
 
-        ResourceLocation baseModel =
-                ResourceLocation.parse(
-                        json.get("base_model").getAsString()
-                );
+        var baseModelElement = json.get("base_model");
 
-        return new CopycatUnbakedGeometry(baseModel);
+        /*
+         * Simple Copycat model.
+         *
+         * Example:
+         * "base_model": "minecraft:block/cube_all"
+         */
+        if (baseModelElement.isJsonPrimitive()) {
+
+            ResourceLocation baseModel =
+                    ResourceLocation.parse(
+                            baseModelElement.getAsString()
+                    );
+
+            return new CopycatUnbakedGeometry(baseModel);
+        }
+
+        /*
+         * Multipart Copycat model.
+         *
+         * Example:
+         * "base_model": {
+         *     "bottom": "...",
+         *     "top": "...",
+         *     "double": "..."
+         * }
+         */
+        if (baseModelElement.isJsonObject()) {
+
+            JsonObject baseModels =
+                    baseModelElement.getAsJsonObject();
+
+            String[] requiredModels = {
+                    "bottom",
+                    "top",
+                    "double"
+            };
+
+            Map<String, ResourceLocation> models =
+                    new HashMap<>();
+
+            for (String key : requiredModels) {
+
+                if (!baseModels.has(key)) {
+                    throw new JsonParseException(
+                            "Copycat model is missing required base model: \""
+                                    + key
+                                    + "\""
+                    );
+                }
+
+                models.put(
+                        key,
+                        ResourceLocation.parse(
+                                baseModels.get(key).getAsString()
+                        )
+                );
+            }
+
+            return new CopycatUnbakedGeometry(models);
+        }
+
+        throw new JsonParseException(
+                "Invalid \"base_model\" in Copycat model"
+        );
     }
 }

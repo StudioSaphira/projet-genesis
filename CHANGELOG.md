@@ -9,7 +9,7 @@
 
 ## Changes
 
-- Changed some classes and .json files for optimizations purposes and in preparation for next Alpha Release.
+- Changed some classes and .json files for optimizations purposes and in preparation for t
 
 ## Next Update
 

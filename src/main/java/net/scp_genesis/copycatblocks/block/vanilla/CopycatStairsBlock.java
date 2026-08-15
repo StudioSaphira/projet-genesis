@@ -1,0 +1,1 @@
+package net.scp_genesis.copycatblocks.block.vanilla;

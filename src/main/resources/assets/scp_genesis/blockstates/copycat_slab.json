@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom,waterlogged=false": {
+      "model": "scp_genesis:block/copycat_slab"
+    },
+    "type=bottom,waterlogged=true": {
+      "model": "scp_genesis:block/copycat_slab"
+    },
+    "type=top,waterlogged=false": {
+      "model": "scp_genesis:block/copycat_slab"
+    },
+    "type=top,waterlogged=true": {
+      "model": "scp_genesis:block/copycat_slab"
+    },
+    "type=double,waterlogged=false": {
+      "model": "scp_genesis:block/copycat_slab"
+    },
+    "type=double,waterlogged=true": {
+      "model": "scp_genesis:block/copycat_slab"
+    }
+  }
+}

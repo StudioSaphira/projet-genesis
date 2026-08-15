@@ -17,8 +17,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CopycatCubeBlock extends AbstractCopycatBlock {
 
-    public static final MapCodec<CopycatCubeBlock> CODEC =
-            Block.simpleCodec(CopycatCubeBlock::new);
+    public static final MapCodec<CopycatCubeBlock> CODEC = Block.simpleCodec(CopycatCubeBlock::new);
 
     public CopycatCubeBlock(BlockBehaviour.Properties properties) {
         super(properties);

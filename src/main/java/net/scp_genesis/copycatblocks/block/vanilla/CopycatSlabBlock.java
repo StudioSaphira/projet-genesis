@@ -1,0 +1,156 @@
+package net.scp_genesis.copycatblocks.block.vanilla;
+
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.SlabType;
+
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
+
+import net.scp_genesis.copycatblocks.data.CopycatPart;
+import org.jetbrains.annotations.NotNull;
+
+public class CopycatSlabBlock extends AbstractCopycatBlock {
+
+    public static final MapCodec<CopycatSlabBlock> CODEC =
+            Block.simpleCodec(CopycatSlabBlock::new);
+
+    public CopycatSlabBlock(Properties properties) {
+        super(properties);
+
+        registerDefaultState(
+                stateDefinition.any()
+                        .setValue(
+                                BlockStateProperties.SLAB_TYPE,
+                                SlabType.BOTTOM
+                        )
+                        .setValue(
+                                BlockStateProperties.WATERLOGGED,
+                                false
+                        )
+        );
+    }
+
+    @Override
+    protected void createBlockStateDefinition(
+            @NotNull StateDefinition.Builder<Block, BlockState> builder
+    ) {
+        builder.add(
+                BlockStateProperties.SLAB_TYPE,
+                BlockStateProperties.WATERLOGGED
+        );
+    }
+
+    @Override
+    public @NotNull BlockState getStateForPlacement(
+            @NotNull BlockPlaceContext context
+    ) {
+        BlockPos pos = context.getClickedPos();
+        FluidState fluidState =
+                context.getLevel().getFluidState(pos);
+
+        return defaultBlockState()
+                .setValue(
+                        BlockStateProperties.SLAB_TYPE,
+                        getSlabType(context)
+                )
+                .setValue(
+                        BlockStateProperties.WATERLOGGED,
+                        fluidState.getType() == Fluids.WATER
+                );
+    }
+
+    private SlabType getSlabType(BlockPlaceContext context) {
+        BlockPos pos = context.getClickedPos();
+        BlockState existingState =
+                context.getLevel().getBlockState(pos);
+
+        if (existingState.getBlock() == this) {
+            SlabType existingType =
+                    existingState.getValue(
+                            BlockStateProperties.SLAB_TYPE
+                    );
+
+            if (existingType == SlabType.BOTTOM
+                    && context.getClickLocation().y - pos.getY() >= 0.5D) {
+                return SlabType.DOUBLE;
+            }
+
+            if (existingType == SlabType.TOP
+                    && context.getClickLocation().y - pos.getY() <= 0.5D) {
+                return SlabType.DOUBLE;
+            }
+        }
+
+        return context.getClickedFace() == Direction.DOWN
+                ? SlabType.TOP
+                : context.getClickedFace() == Direction.UP
+                ? SlabType.BOTTOM
+                : context.getClickLocation().y - pos.getY() > 0.5D
+                ? SlabType.TOP
+                : SlabType.BOTTOM;
+    }
+
+    @Override
+    protected @NotNull VoxelShape getShape(
+            @NotNull BlockState state,
+            @NotNull BlockGetter level,
+            @NotNull BlockPos pos,
+            @NotNull CollisionContext context
+    ) {
+        return switch (state.getValue(BlockStateProperties.SLAB_TYPE)) {
+            case TOP -> Shapes.box(
+                    0.0D, 0.5D, 0.0D,
+                    1.0D, 1.0D, 1.0D
+            );
+
+            case DOUBLE -> Shapes.block();
+
+            default -> Shapes.box(
+                    0.0D, 0.0D, 0.0D,
+                    1.0D, 0.5D, 1.0D
+            );
+        };
+    }
+
+    @Override
+    protected CopycatPart getCopycatPart(
+            BlockState state,
+            BlockHitResult hitResult
+    ) {
+        SlabType type =
+                state.getValue(BlockStateProperties.SLAB_TYPE);
+
+        return switch (type) {
+            case BOTTOM -> CopycatPart.BOTTOM;
+            case TOP -> CopycatPart.TOP;
+
+            case DOUBLE -> {
+                double relativeY =
+                        hitResult.getLocation().y
+                                - hitResult.getBlockPos().getY();
+
+                yield relativeY >= 0.5D
+                        ? CopycatPart.TOP
+                        : CopycatPart.BOTTOM;
+            }
+        };
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends CopycatSlabBlock> codec() {
+        return CODEC;
+    }
+}

@@ -25,14 +25,12 @@ public final class ModBlocks {
 			DIRTY_BROKEN_WHITE_WALL_TWO = REGISTRY.register("dirty_broken_white_wall_two", DirtyBrokenWhiteWallTwoBlock::new),
 			WALL_BASE = REGISTRY.register("wall_base", WallBaseBlock::new),
 			GREEN_TILED_FLOOR = REGISTRY.register("green_tiled_floor", GreenTiledFloorBlock::new),
-			COPYCAT_CUBE = REGISTRY.register("copycat_cube",
-					() -> new CopycatCubeBlock(
-							BlockBehaviour.Properties.of()
-									.strength(2.0F, 6.0F)
-									.sound(SoundType.STONE)
-									.requiresCorrectToolForDrops()
-									.noOcclusion()
-					));
+			COPYCAT_CUBE = REGISTRY.register("copycat_cube", () -> new CopycatCubeBlock(
+							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion())),
+			COPYCAT_SLAB = REGISTRY.register("copycat_slab", () -> new CopycatSlabBlock(
+							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion()));
+			// COPYCAT_STAIRS = REGISTRY.register("copycat_stairs", () -> new CopycatStairsBlock(
+			//		BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion()));
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
 }

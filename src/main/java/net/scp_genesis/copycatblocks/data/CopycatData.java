@@ -1,69 +1,113 @@
 package net.scp_genesis.copycatblocks.data;
 
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Stores the data used by a Copycat Block.
  *
- * <p>This class is only responsible for holding the copied BlockState.
+ * <p>This class is only responsible for holding the copied BlockStates.
  * Serialization is handled by the BlockEntity.</p>
  */
 public final class CopycatData {
 
-    /**
-     * The copied BlockState.
-     */
-    private BlockState copiedState = Blocks.AIR.defaultBlockState();
+    private final java.util.EnumMap<CopycatPart, BlockState> copiedStates =
+            new java.util.EnumMap<>(CopycatPart.class);
 
     /**
      * Creates an empty CopycatData.
      */
     public CopycatData() {
-        this(Blocks.AIR.defaultBlockState());
+        clear();
     }
 
     /**
-     * Creates a CopycatData with an initial BlockState.
+     * Returns the copied BlockState for the specified part.
      *
-     * @param copiedState the copied BlockState
+     * @param part Copycat part.
+     * @return the copied BlockState, or AIR if the part is empty.
      */
-    public CopycatData(BlockState copiedState) {
-        this.copiedState = copiedState;
+    public @NotNull BlockState getCopiedState(CopycatPart part) {
+        return copiedStates.getOrDefault(
+                part,
+                Blocks.AIR.defaultBlockState()
+        );
     }
 
     /**
-     * Returns the copied BlockState.
+     * Sets the copied BlockState for the specified part.
      *
-     * @return the copied BlockState, or {@code null} if none exists
+     * @param part Copycat part.
+     * @param state BlockState to copy.
      */
-    public BlockState getCopiedState() {
-        return copiedState;
+    public void setCopiedState(
+            CopycatPart part,
+            @NotNull BlockState state
+    ) {
+        copiedStates.put(part, state);
     }
 
     /**
-     * Sets the copied BlockState.
+     * Returns whether the specified part contains a copied BlockState.
      *
-     * @param copiedState the BlockState to copy
+     * @param part Copycat part.
+     * @return true if the part contains a copied BlockState.
      */
-    public void setCopiedState(BlockState copiedState) {
-        this.copiedState = copiedState;
+    public boolean hasCopiedState(CopycatPart part) {
+        return !getCopiedState(part).isAir();
     }
 
     /**
-     * Returns whether a BlockState has been copied.
+     * Clears the copied BlockState for the specified part.
      *
-     * @return {@code true} if a BlockState exists
+     * @param part Copycat part.
      */
-    public boolean hasCopiedState() {
-        return !copiedState.isAir();
+    public void clear(CopycatPart part) {
+        copiedStates.put(
+                part,
+                Blocks.AIR.defaultBlockState()
+        );
     }
 
     /**
-     * Clears the copied BlockState.
+     * Clears all copied BlockStates.
      */
     public void clear() {
-        copiedState = Blocks.AIR.defaultBlockState();
+        for (CopycatPart part : CopycatPart.values()) {
+            copiedStates.put(
+                    part,
+                    Blocks.AIR.defaultBlockState()
+            );
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    // Main part compatibility helpers
+    // ------------------------------------------------------------------------
+
+    /**
+     * Returns the main copied BlockState.
+     *
+     * <p>This method preserves the existing Copycat Cube API.</p>
+     */
+    public @NotNull BlockState getCopiedState() {
+        return getCopiedState(CopycatPart.MAIN);
+    }
+
+    /**
+     * Sets the main copied BlockState.
+     *
+     * <p>This method preserves the existing Copycat Cube API.</p>
+     */
+    public void setCopiedState(@NotNull BlockState state) {
+        setCopiedState(CopycatPart.MAIN, state);
+    }
+
+    /**
+     * Returns whether the main part contains a copied BlockState.
+     */
+    public boolean hasCopiedState() {
+        return hasCopiedState(CopycatPart.MAIN);
     }
 }

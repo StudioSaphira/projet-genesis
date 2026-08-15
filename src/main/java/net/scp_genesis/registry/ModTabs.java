@@ -106,18 +106,20 @@ public class ModTabs {
 			}).withSearchBar().build());
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BUILDING_BLOCKS = REGISTRY.register("building_blocks",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.scp_genesis.building_blocks")).icon(() -> new ItemStack(ModBlocks.CLEAN_WHITE_WALL.get())).displayItems((parameters, tabData) -> {
-				tabData.accept(ModBlocks.CLEAN_WHITE_WALL.get().asItem());
-				tabData.accept(ModBlocks.BROKEN_WHITE_WALL_ONE.get().asItem());
-				tabData.accept(ModBlocks.BROKEN_WHITE_WALL_TWO.get().asItem());
-				tabData.accept(ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE.get().asItem());
-				tabData.accept(ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO.get().asItem());
-				tabData.accept(ModBlocks.WALL_BASE.get().asItem());
-				tabData.accept(ModBlocks.GREEN_TILED_FLOOR.get().asItem());
+				tabData.accept(ModItems.CLEAN_WHITE_WALL.get());
+				tabData.accept(ModItems.BROKEN_WHITE_WALL_ONE.get());
+				tabData.accept(ModItems.BROKEN_WHITE_WALL_TWO.get());
+				tabData.accept(ModItems.DIRTY_BROKEN_WHITE_WALL_ONE.get());
+				tabData.accept(ModItems.DIRTY_BROKEN_WHITE_WALL_TWO.get());
+				tabData.accept(ModItems.WALL_BASE.get());
+				tabData.accept(ModItems.GREEN_TILED_FLOOR.get());
 			}).withSearchBar().withTabsBefore(CUSTOM_ITEMS.getId()).build());
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> COPYCAT_BLOCKS = REGISTRY.register("copycat_blocks",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.scp_genesis.copycat_blocks")).icon(() -> new ItemStack(ModBlocks.COPYCAT_CUBE.get())).displayItems((parameters, tabData) -> {
-				tabData.accept(ModItems.COPYCAT_WRENCH.get().asItem());
-				tabData.accept(ModItems.COPYCAT_REMOVER.get().asItem());
+				tabData.accept(ModItems.COPYCAT_WRENCH.get());
+				tabData.accept(ModItems.COPYCAT_REMOVER.get());
 				tabData.accept(ModItems.COPYCAT_CUBE.get());
+				tabData.accept(ModItems.COPYCAT_SLAB.get());
+				// tabData.accept(ModItems.COPYCAT_STAIRS.get());
 			}).withSearchBar().withTabsBefore(BUILDING_BLOCKS.getId()).build());
 }

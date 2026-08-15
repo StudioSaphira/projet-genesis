@@ -13,19 +13,47 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.scp_genesis.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
 
+import java.util.EnumMap;
 import java.util.List;
 
 public final class CopycatBakedModel implements BakedModel {
 
     private final BakedModel baseModel;
+    private final BakedModel bottomModel;
+    private final BakedModel topModel;
+    private final BakedModel doubleModel;
 
-
+    /**
+     * Constructor for COPYCAT_CUBE
+     * @param baseModel
+     */
     public CopycatBakedModel(@NotNull BakedModel baseModel) {
         this.baseModel = baseModel;
+        this.bottomModel = null;
+        this.topModel = null;
+        this.doubleModel = null;
+    }
+
+    /**
+     * Constructor for COPYCAT_SLAB
+     * @param bottomModel
+     * @param topModel
+     * @param doubleModel
+     */
+    public CopycatBakedModel(
+            @NotNull BakedModel bottomModel,
+            @NotNull BakedModel topModel,
+            @NotNull BakedModel doubleModel
+    ) {
+        this.baseModel = null;
+        this.bottomModel = bottomModel;
+        this.topModel = topModel;
+        this.doubleModel = doubleModel;
     }
 
     /**
@@ -47,6 +75,20 @@ public final class CopycatBakedModel implements BakedModel {
         );
     }
 
+    private static BlockState getCopiedState(
+            ModelData modelData,
+            CopycatPart part
+    ) {
+        EnumMap<CopycatPart, BlockState> copiedStates =
+                modelData.get(CopycatModelProperties.COPIED_STATES);
+
+        if (copiedStates == null) {
+            return null;
+        }
+
+        return copiedStates.get(part);
+    }
+
     @Override
     public @NotNull List<BakedQuad> getQuads(
             @Nullable BlockState state,
@@ -57,7 +99,10 @@ public final class CopycatBakedModel implements BakedModel {
     ) {
 
         BlockState copiedState =
-                modelData.get(CopycatModelProperties.COPIED_STATE);
+                getCopiedState(
+                        modelData,
+                        CopycatPart.MAIN
+                );
 
         if (copiedState == null || copiedState.isAir()) {
             return baseModel.getQuads(
@@ -87,7 +132,10 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull ModelData modelData
     ) {
         BlockState copiedState =
-                modelData.get(CopycatModelProperties.COPIED_STATE);
+                getCopiedState(
+                        modelData,
+                        CopycatPart.MAIN
+                );
 
         if (copiedState == null || copiedState.isAir()) {
             return ChunkRenderTypeSet.of(RenderType.cutout());
@@ -102,20 +150,22 @@ public final class CopycatBakedModel implements BakedModel {
                 );
     }
 
-    @Override
-    public boolean useAmbientOcclusion() {
-        return baseModel.useAmbientOcclusion();
+    private BakedModel getReferenceModel() {
+        if (baseModel != null) {
+            return baseModel;
+        }
+
+        return doubleModel;
     }
 
     @Override
-    public boolean usesBlockLight() {
-        return baseModel.usesBlockLight();
-    }
+    public boolean useAmbientOcclusion() {return getReferenceModel().useAmbientOcclusion();}
 
     @Override
-    public boolean isGui3d() {
-        return baseModel.isGui3d();
-    }
+    public boolean usesBlockLight() {return getReferenceModel().usesBlockLight();}
+
+    @Override
+    public boolean isGui3d() {return getReferenceModel().isGui3d();}
 
     @Override
     public boolean isCustomRenderer() {
@@ -127,23 +177,15 @@ public final class CopycatBakedModel implements BakedModel {
      */
     @Deprecated
     @Override
-    public @NotNull TextureAtlasSprite getParticleIcon() {
-        return baseModel.getParticleIcon();
-    }
+    public @NotNull TextureAtlasSprite getParticleIcon() {return getReferenceModel().getParticleIcon();}
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon(@NotNull ModelData modelData) {
+        BlockState copiedState = getCopiedState(modelData, CopycatPart.MAIN);
 
-        BlockState copiedState =
-                modelData.get(CopycatModelProperties.COPIED_STATE);
+        if (copiedState == null || copiedState.isAir()) {return getReferenceModel().getParticleIcon(modelData);}
 
-        if (copiedState == null || copiedState.isAir()) {
-            return baseModel.getParticleIcon(modelData);
-        }
-
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getParticleIcon(modelData);
+        return CopycatModelProvider.getModel(copiedState).getParticleIcon(modelData);
     }
 
     /**
@@ -151,12 +193,8 @@ public final class CopycatBakedModel implements BakedModel {
      */
     @Deprecated
     @Override
-    public @NotNull ItemTransforms getTransforms() {
-        return baseModel.getTransforms();
-    }
+    public @NotNull ItemTransforms getTransforms() {return getReferenceModel().getTransforms();}
 
     @Override
-    public @NotNull ItemOverrides getOverrides() {
-        return baseModel.getOverrides();
-    }
+    public @NotNull ItemOverrides getOverrides() {return getReferenceModel().getOverrides();}
 }

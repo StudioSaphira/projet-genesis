@@ -1,0 +1,12 @@
+{
+  "loader": "scp_genesis:copycat",
+  "base_model": {
+    "bottom": "minecraft:block/slab",
+    "top": "minecraft:block/slab_top",
+    "double": "minecraft:block/cube_all"
+  },
+  "textures": {
+    "all": "scp_genesis:block/copycat_block"
+  },
+  "render_type": "cutout"
+}

@@ -121,25 +121,18 @@ public class ModItems {
 	public static final DeferredItem<Item> MTF_RANK_3_LV_2 = REGISTRY.register("mtf_rank_3_lv_2", MTFRank3Lv2Item::new);
 	public static final DeferredItem<Item> MTF_RANK_3_LV_3 = REGISTRY.register("mtf_rank_3_lv_3", MTFRank3Lv3Item::new);
 	public static final DeferredItem<Item> MTF_RANK_3_LV_4 = REGISTRY.register("mtf_rank_3_lv_4", MTFRank3Lv4Item::new);
-	public static final DeferredItem<Item> CLEAN_WHITE_WALL;
-	public static final DeferredItem<Item> BROKEN_WHITE_WALL_ONE;
-	public static final DeferredItem<Item> BROKEN_WHITE_WALL_TWO;
-	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_ONE;
-	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_TWO;
-	public static final DeferredItem<Item> WALL_BASE;
-	public static final DeferredItem<Item> GREEN_TILED_FLOOR;
+	public static final DeferredItem<Item> CLEAN_WHITE_WALL = block(ModBlocks.CLEAN_WHITE_WALL);
+	public static final DeferredItem<Item> BROKEN_WHITE_WALL_ONE = block(ModBlocks.BROKEN_WHITE_WALL_ONE);
+	public static final DeferredItem<Item> BROKEN_WHITE_WALL_TWO = block(ModBlocks.BROKEN_WHITE_WALL_TWO);
+	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_ONE = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
+	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_TWO = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
+	public static final DeferredItem<Item> WALL_BASE = block(ModBlocks.WALL_BASE);
+	public static final DeferredItem<Item> GREEN_TILED_FLOOR = block(ModBlocks.GREEN_TILED_FLOOR);
 	public static final DeferredItem<Item> COPYCAT_CUBE = block(ModBlocks.COPYCAT_CUBE);
+	// public static final DeferredItem<Item> COPYCAT_STAIRS = block(ModBlocks.COPYCAT_STAIRS);
+	public static final DeferredItem<Item> COPYCAT_SLAB = block(ModBlocks.COPYCAT_SLAB);
 	public static final DeferredItem<Item> COPYCAT_WRENCH = REGISTRY.register("copycat_wrench", CopycatWrenchItem::new);
 	public static final DeferredItem<Item> COPYCAT_REMOVER = REGISTRY.register("copycat_remover", CopycatRemoverItem::new);
-	static {
-		CLEAN_WHITE_WALL = block(ModBlocks.CLEAN_WHITE_WALL);
-		BROKEN_WHITE_WALL_ONE = block(ModBlocks.BROKEN_WHITE_WALL_ONE);
-		BROKEN_WHITE_WALL_TWO = block(ModBlocks.BROKEN_WHITE_WALL_TWO);
-		DIRTY_BROKEN_WHITE_WALL_ONE = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
-		DIRTY_BROKEN_WHITE_WALL_TWO = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
-		WALL_BASE = block(ModBlocks.WALL_BASE);
-		GREEN_TILED_FLOOR = block(ModBlocks.GREEN_TILED_FLOOR);
-	}
 
 	// Start of user code block custom items
 	// End of user code block custom items
