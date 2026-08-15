@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.scp_genesis.copycatblocks.api.CopycatBlocksAPI;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
@@ -20,11 +21,12 @@ public final class CopycatBlockColor implements BlockColor {
             @Nullable BlockPos pos,
             int tintIndex
     ) {
+
         if (level == null || pos == null) {
             return -1;
         }
 
-        CopycatPart part = getCopycatPart(state);
+        CopycatPart part = getPart(state, tintIndex);
 
         BlockState copiedState =
                 CopycatBlocksAPI.getCopiedState(
@@ -47,25 +49,34 @@ public final class CopycatBlockColor implements BlockColor {
                 );
     }
 
-    private static CopycatPart getCopycatPart(
-            @NotNull BlockState state
+    private static CopycatPart getPart(
+            @NotNull BlockState state,
+            int tintIndex
     ) {
+        /*
+         * Simple Copycat Blocks such as the Cube.
+         */
         if (!state.hasProperty(BlockStateProperties.SLAB_TYPE)) {
             return CopycatPart.MAIN;
         }
 
-        return switch (
-                state.getValue(BlockStateProperties.SLAB_TYPE)
-                ) {
-            case BOTTOM -> CopycatPart.BOTTOM;
+        SlabType slabType =
+                state.getValue(BlockStateProperties.SLAB_TYPE);
+
+        return switch (slabType) {
             case TOP -> CopycatPart.TOP;
+            case BOTTOM -> CopycatPart.BOTTOM;
 
             /*
-             * DOUBLE will need additional handling later
-             * because both BOTTOM and TOP can have
-             * independent copied states.
+             * DOUBLE is handled separately below.
+             *
+             * For now, use the tint index to distinguish
+             * the two halves.
              */
-            case DOUBLE -> CopycatPart.BOTTOM;
+            case DOUBLE ->
+                    tintIndex >= 1000
+                            ? CopycatPart.TOP
+                            : CopycatPart.BOTTOM;
         };
     }
 }

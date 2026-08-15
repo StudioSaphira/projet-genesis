@@ -151,6 +151,52 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
     }
 
     @Override
+    protected boolean canBeReplaced(
+            @NotNull BlockState state,
+            @NotNull BlockPlaceContext context
+    ) {
+        SlabType slabType =
+                state.getValue(BlockStateProperties.SLAB_TYPE);
+
+        // A DOUBLE can no longer be replaced.
+        if (slabType == SlabType.DOUBLE) {
+            return false;
+        }
+
+        // Only the same Copycat Slab can merge with this one.
+        if (!context.getItemInHand().is(this.asItem())) {
+            return false;
+        }
+
+        // We must be clicking directly on the Slab.
+        if (!context.replacingClickedOnBlock()) {
+            return false;
+        }
+
+        Direction clickedFace = context.getClickedFace();
+
+        /*
+         * BOTTOM + click on the upper side
+         * → DOUBLE
+         */
+        if (slabType == SlabType.BOTTOM
+                && clickedFace == Direction.UP) {
+            return true;
+        }
+
+        /*
+         * TOP + click on the lower side
+         * → DOUBLE
+         */
+        if (slabType == SlabType.TOP
+                && clickedFace == Direction.DOWN) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     protected @NotNull MapCodec<? extends CopycatSlabBlock> codec() {
         return CODEC;
     }
