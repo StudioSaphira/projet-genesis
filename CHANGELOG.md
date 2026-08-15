@@ -1,3 +1,22 @@
+# Pre-Alpha-Release 18 - 0.1.3.5
+
+***This is a preparation for the next Alpha Release, the 0.1.4.***
+
+## Additions
+
+- Copycat Wrench [I DON'T KNOW IF IT'S WORKING YET]
+- Copycat Remover [WORKING]
+
+## Changes
+
+- Changed some classes and .json files for optimizations purposes and in preparation for next Alpha Release.
+
+## Next Update
+
+_The next update will be more custom Copycat blocks, including slab, stairs and more !_
+
+------------------------------------------------------------------
+
 # Pre-Alpha-Release 18 - 0.1.3.4 - HOTFIX-4
 
 ***This is a hotfix about last alpha version.***
