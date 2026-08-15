@@ -28,9 +28,22 @@ public final class CopycatBakedModel implements BakedModel {
     private final BakedModel topModel;
     private final BakedModel doubleModel;
 
+    private BakedModel getBottomModel() {
+        return java.util.Objects.requireNonNull(bottomModel);
+    }
+
+    private BakedModel getTopModel() {
+        return java.util.Objects.requireNonNull(topModel);
+    }
+
+    private BakedModel getDoubleModel() {
+        return java.util.Objects.requireNonNull(doubleModel);
+    }
+
     /**
-     * Constructor for COPYCAT_CUBE
-     * @param baseModel
+     * Constructor for COPYCAT_CUBE.
+     *
+     * @param baseModel base baked model used by the Copycat Cube.
      */
     public CopycatBakedModel(@NotNull BakedModel baseModel) {
         this.baseModel = baseModel;
@@ -40,10 +53,11 @@ public final class CopycatBakedModel implements BakedModel {
     }
 
     /**
-     * Constructor for COPYCAT_SLAB
-     * @param bottomModel
-     * @param topModel
-     * @param doubleModel
+     * Constructor for COPYCAT_SLAB.
+     *
+     * @param bottomModel baked model used for the bottom half.
+     * @param topModel baked model used for the top half.
+     * @param doubleModel baked model used for the double slab.
      */
     public CopycatBakedModel(
             @NotNull BakedModel bottomModel,
@@ -97,16 +111,31 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
+        /*
+         * ------------------------------------------------------------
+         * Simple Copycat Block
+         * ------------------------------------------------------------
+         */
+        if (baseModel != null) {
 
-        BlockState copiedState =
-                getCopiedState(
+            BlockState copiedState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.MAIN
+                    );
+
+            if (copiedState == null || copiedState.isAir()) {
+                return baseModel.getQuads(
+                        state,
+                        side,
+                        random,
                         modelData,
-                        CopycatPart.MAIN
+                        renderType
                 );
+            }
 
-        if (copiedState == null || copiedState.isAir()) {
             return baseModel.getQuads(
-                    state,
+                    copiedState,
                     side,
                     random,
                     modelData,
@@ -114,15 +143,110 @@ public final class CopycatBakedModel implements BakedModel {
             );
         }
 
-        BakedModel model = CopycatModelProvider.getModel(copiedState);
+        /*
+         * ------------------------------------------------------------
+         * Multi-part Copycat Block
+         * ------------------------------------------------------------
+         */
+        if (state == null) {
+            return List.of();
+        }
 
-        return model.getQuads(
-                copiedState,
-                side,
-                random,
-                modelData,
-                renderType
-        );
+        List<BakedQuad> quads = new java.util.ArrayList<>();
+
+        net.minecraft.world.level.block.state.properties.SlabType slabType =
+                state.getValue(
+                        net.minecraft.world.level.block.state.properties.BlockStateProperties.SLAB_TYPE
+                );
+
+        /*
+         * Bottom
+         */
+        if (slabType ==
+                net.minecraft.world.level.block.state.properties.SlabType.BOTTOM
+                || slabType ==
+                net.minecraft.world.level.block.state.properties.SlabType.DOUBLE) {
+
+            BlockState copiedState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.BOTTOM
+                    );
+
+            if (copiedState != null && !copiedState.isAir()) {
+                quads.addAll(
+                        getBottomModel().getQuads(
+                                copiedState,
+                                side,
+                                random,
+                                modelData,
+                                renderType
+                        )
+                );
+            }
+        }
+
+        /*
+         * Top
+         */
+        if (slabType ==
+                net.minecraft.world.level.block.state.properties.SlabType.TOP
+                || slabType ==
+                net.minecraft.world.level.block.state.properties.SlabType.DOUBLE) {
+
+            BlockState copiedState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.TOP
+                    );
+
+            if (copiedState != null && !copiedState.isAir()) {
+                quads.addAll(
+                        getTopModel().getQuads(
+                                copiedState,
+                                side,
+                                random,
+                                modelData,
+                                renderType
+                        )
+                );
+            }
+        }
+
+        /*
+         * Empty Copycat Slab:
+         * use the normal Copycat texture.
+         */
+        if (quads.isEmpty()) {
+
+            return switch (slabType) {
+                case TOP -> getTopModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
+                );
+
+                case DOUBLE -> getDoubleModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
+                );
+
+                default -> getBottomModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
+                );
+            };
+        }
+
+        return quads;
     }
 
     @Override
@@ -138,7 +262,11 @@ public final class CopycatBakedModel implements BakedModel {
                 );
 
         if (copiedState == null || copiedState.isAir()) {
-            return ChunkRenderTypeSet.of(RenderType.cutout());
+            return getReferenceModel().getRenderTypes(
+                    state,
+                    random,
+                    modelData
+            );
         }
 
         return CopycatModelProvider

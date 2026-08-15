@@ -127,26 +127,27 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
 
     @Override
     protected CopycatPart getCopycatPart(
-            BlockState state,
-            BlockHitResult hitResult
+            @NotNull BlockState state,
+            @NotNull BlockHitResult hitResult
     ) {
-        SlabType type =
+        SlabType slabType =
                 state.getValue(BlockStateProperties.SLAB_TYPE);
 
-        return switch (type) {
-            case BOTTOM -> CopycatPart.BOTTOM;
-            case TOP -> CopycatPart.TOP;
+        if (slabType == SlabType.BOTTOM) {
+            return CopycatPart.BOTTOM;
+        }
 
-            case DOUBLE -> {
-                double relativeY =
-                        hitResult.getLocation().y
-                                - hitResult.getBlockPos().getY();
+        if (slabType == SlabType.TOP) {
+            return CopycatPart.TOP;
+        }
 
-                yield relativeY >= 0.5D
-                        ? CopycatPart.TOP
-                        : CopycatPart.BOTTOM;
-            }
-        };
+        double y =
+                hitResult.getLocation().y
+                        - hitResult.getBlockPos().getY();
+
+        return y < 0.5D
+                ? CopycatPart.BOTTOM
+                : CopycatPart.TOP;
     }
 
     @Override

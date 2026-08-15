@@ -50,8 +50,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return RenderShape.MODEL;
     }
 
-
-
     /**
      * Returns whether this Copycat supports the Copycat Wrench.
      *
@@ -130,8 +128,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
      * Specialized Copycat Blocks can override this method.</p>
      */
     protected CopycatPart getCopycatPart(
-            BlockState state,
-            BlockHitResult hitResult
+            @NotNull BlockState state,
+            @NotNull BlockHitResult hitResult
     ) {
         return CopycatPart.MAIN;
     }
