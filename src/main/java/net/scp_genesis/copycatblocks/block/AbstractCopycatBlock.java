@@ -79,6 +79,10 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             return InteractionResult.PASS;
         }
 
+        if (!blockEntity.hasCopiedState()) {
+            return InteractionResult.PASS;
+        }
+
         CopycatBlocksAPI.clear(level, pos);
 
         afterClear(blockEntity);

@@ -43,12 +43,21 @@ public final class CopycatGeometryLoader
     public @NotNull CopycatUnbakedGeometry read(
             @NotNull JsonObject json,
             @NotNull JsonDeserializationContext context
-
     ) throws JsonParseException {
 
         ModConstants.LOGGER.info("[COPYCAT] Loading Copycat Geometry");
 
-        return new CopycatUnbakedGeometry();
-    }
+        if (!json.has("base_model")) {
+            throw new JsonParseException(
+                    "Copycat model is missing required property: \"base_model\""
+            );
+        }
 
+        ResourceLocation baseModel =
+                ResourceLocation.parse(
+                        json.get("base_model").getAsString()
+                );
+
+        return new CopycatUnbakedGeometry(baseModel);
+    }
 }

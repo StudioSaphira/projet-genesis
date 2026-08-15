@@ -116,8 +116,8 @@ public class ModTabs {
 			}).withSearchBar().withTabsBefore(CUSTOM_ITEMS.getId()).build());
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> COPYCAT_BLOCKS = REGISTRY.register("copycat_blocks",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.scp_genesis.copycat_blocks")).icon(() -> new ItemStack(ModBlocks.COPYCAT_CUBE.get())).displayItems((parameters, tabData) -> {
-				tabData.accept(ModItems.COPYCAT_CUBE.get());
-				tabData.accept(ModItems.COPYCAT_REMOVER.get());
 				tabData.accept(ModItems.COPYCAT_WRENCH.get().asItem());
+				tabData.accept(ModItems.COPYCAT_REMOVER.get().asItem());
+				tabData.accept(ModItems.COPYCAT_CUBE.get());
 			}).withSearchBar().withTabsBefore(BUILDING_BLOCKS.getId()).build());
 }

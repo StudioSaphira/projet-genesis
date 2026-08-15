@@ -1,5 +1,8 @@
 {
-  "parent": "scp_genesis:block/copycat_cube_base",
   "loader": "scp_genesis:copycat",
+  "base_model": "minecraft:block/cube_all",
+  "textures": {
+    "all": "scp_genesis:block/copycat_block"
+  },
   "render_type": "cutout"
 }

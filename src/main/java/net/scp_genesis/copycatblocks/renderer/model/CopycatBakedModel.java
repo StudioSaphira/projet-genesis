@@ -90,11 +90,7 @@ public final class CopycatBakedModel implements BakedModel {
                 modelData.get(CopycatModelProperties.COPIED_STATE);
 
         if (copiedState == null || copiedState.isAir()) {
-            return baseModel.getRenderTypes(
-                    null,
-                    random,
-                    modelData
-            );
+            return ChunkRenderTypeSet.of(RenderType.cutout());
         }
 
         return CopycatModelProvider

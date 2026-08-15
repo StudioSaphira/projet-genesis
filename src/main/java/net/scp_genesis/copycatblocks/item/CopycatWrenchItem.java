@@ -6,6 +6,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Tool used to modify the orientation or geometry of Copycat Blocks.
@@ -17,7 +18,7 @@ public class CopycatWrenchItem extends Item {
 	}
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(UseOnContext context) {
 
         BlockState state = context.getLevel().getBlockState(context.getClickedPos());
 
