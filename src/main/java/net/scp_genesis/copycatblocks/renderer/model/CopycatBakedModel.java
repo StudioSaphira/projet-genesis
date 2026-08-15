@@ -1,6 +1,5 @@
 package net.scp_genesis.copycatblocks.renderer.model;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -9,24 +8,93 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
+import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
 public final class CopycatBakedModel implements BakedModel {
 
+    /*
+     * ================================================================
+     * MODELS
+     * ================================================================
+     */
+
+    /**
+     * Base geometry used by a simple Copycat Block such as the Cube.
+     */
     private final BakedModel baseModel;
+
+    /**
+     * Bottom slab geometry.
+     */
     private final BakedModel bottomModel;
+
+    /**
+     * Top slab geometry.
+     */
     private final BakedModel topModel;
+
+    /**
+     * Double slab geometry.
+     */
     private final BakedModel doubleModel;
+
+
+    /*
+     * ================================================================
+     * CONSTRUCTORS
+     * ================================================================
+     */
+
+    /**
+     * Constructor used by simple Copycat Blocks.
+     */
+    public CopycatBakedModel(
+            @NotNull BakedModel baseModel
+    ) {
+        this.baseModel = baseModel;
+
+        this.bottomModel = null;
+        this.topModel = null;
+        this.doubleModel = null;
+    }
+
+    /**
+     * Constructor used by Copycat Slabs.
+     */
+    public CopycatBakedModel(
+            @NotNull BakedModel bottomModel,
+            @NotNull BakedModel topModel,
+            @NotNull BakedModel doubleModel
+    ) {
+        this.baseModel = null;
+
+        this.bottomModel = bottomModel;
+        this.topModel = topModel;
+        this.doubleModel = doubleModel;
+    }
+
+
+    /*
+     * ================================================================
+     * MODEL ACCESS
+     * ================================================================
+     */
+
+    private BakedModel getBaseModel() {
+        return java.util.Objects.requireNonNull(baseModel);
+    }
 
     private BakedModel getBottomModel() {
         return java.util.Objects.requireNonNull(bottomModel);
@@ -40,38 +108,384 @@ public final class CopycatBakedModel implements BakedModel {
         return java.util.Objects.requireNonNull(doubleModel);
     }
 
-    /**
-     * Constructor for COPYCAT_CUBE.
-     *
-     * @param baseModel base baked model used by the Copycat Cube.
+
+    /*
+     * ================================================================
+     * COPYCAT DATA
+     * ================================================================
      */
-    public CopycatBakedModel(@NotNull BakedModel baseModel) {
-        this.baseModel = baseModel;
-        this.bottomModel = null;
-        this.topModel = null;
-        this.doubleModel = null;
-    }
 
     /**
-     * Constructor for COPYCAT_SLAB.
-     *
-     * @param bottomModel baked model used for the bottom half.
-     * @param topModel baked model used for the top half.
-     * @param doubleModel baked model used for the double slab.
+     * Returns the copied BlockState associated with a Copycat part.
      */
-    public CopycatBakedModel(
-            @NotNull BakedModel bottomModel,
-            @NotNull BakedModel topModel,
-            @NotNull BakedModel doubleModel
+    private static @Nullable BlockState getCopiedState(
+            @NotNull ModelData modelData,
+            @NotNull CopycatPart part
     ) {
-        this.baseModel = null;
-        this.bottomModel = bottomModel;
-        this.topModel = topModel;
-        this.doubleModel = doubleModel;
+        EnumMap<CopycatPart, BlockState> copiedStates =
+                modelData.get(
+                        CopycatModelProperties.COPIED_STATES
+                );
+
+        if (copiedStates == null) {
+            return null;
+        }
+
+        return copiedStates.get(part);
     }
 
+
+    /*
+     * ================================================================
+     * COPIED MODEL
+     * ================================================================
+     */
+
     /**
-     * @deprecated Forge: Use {@link #getQuads(BlockState, Direction, RandomSource, ModelData, RenderType)}
+     * Returns the vanilla BakedModel corresponding to a copied state.
+     */
+    private static @Nullable BakedModel getCopiedModel(
+            @Nullable BlockState copiedState
+    ) {
+        if (copiedState == null || copiedState.isAir()) {
+            return null;
+        }
+
+        return CopycatModelProvider.getModel(copiedState);
+    }
+
+
+    /**
+     * Returns the quads generated by a copied BlockState.
+     */
+    private static List<BakedQuad> getCopiedQuads(
+            @NotNull BakedModel copiedModel,
+            @NotNull BlockState copiedState,
+            @Nullable Direction side,
+            @NotNull RandomSource random,
+            @Nullable RenderType renderType
+    ) {
+        return copiedModel.getQuads(
+                copiedState,
+                side,
+                random,
+                ModelData.EMPTY,
+                renderType
+        );
+    }
+
+
+    /*
+     * ================================================================
+     * TEXTURE SELECTION
+     * ================================================================
+     */
+
+    /**
+     * Finds the most appropriate quad from the copied model for the
+     * specified Copycat quad.
+     *
+     * <p>We first try to find a quad with the same tint index.
+     * This is important for blocks such as Grass Block, which use
+     * tinted and non-tinted quads.</p>
+     */
+    private static @Nullable BakedQuad findMatchingCopiedQuad(
+            @NotNull BakedModel copiedModel,
+            @NotNull BlockState copiedState,
+            @Nullable Direction geometryDirection,
+            @NotNull BakedQuad geometryQuad,
+            @NotNull RandomSource random,
+            @Nullable RenderType renderType
+    ) {
+        Direction direction = geometryDirection;
+
+        /*
+         * If the render pass gave us a precise direction,
+         * we use it.
+         *
+         * Otherwise, we use the real direction of the Copycat quad.
+         */
+        if (direction == null) {
+            direction = geometryQuad.getDirection();
+        }
+
+        /*
+         * For directional faces:
+         * we directly ask the copied model for the quads of this face.
+         */
+        if (direction != null) {
+
+            List<BakedQuad> copiedQuads =
+                    copiedModel.getQuads(
+                            copiedState,
+                            direction,
+                            random,
+                            ModelData.EMPTY,
+                            renderType
+                    );
+
+            if (!copiedQuads.isEmpty()) {
+
+                int geometryTint =
+                        geometryQuad.getTintIndex();
+
+                /*
+                 * Priority to a quad with the same index.
+                 */
+                for (BakedQuad copiedQuad : copiedQuads) {
+                    if (copiedQuad.getTintIndex() == geometryTint) {
+                        return copiedQuad;
+                    }
+                }
+
+                /*
+                 * Otherwise the first quad of this face
+                 */
+                return copiedQuads.get(0);
+            }
+        }
+
+        /*
+         * Non-directional faces.
+         *
+         * Example: certain internal elements or models
+         * individuals.
+         */
+        List<BakedQuad> copiedQuads =
+                copiedModel.getQuads(
+                        copiedState,
+                        null,
+                        random,
+                        ModelData.EMPTY,
+                        renderType
+                );
+
+        if (!copiedQuads.isEmpty()) {
+            return copiedQuads.get(0);
+        }
+
+        return null;
+    }
+
+
+    /*
+     * ================================================================
+     * UV REMAPPING
+     * ================================================================
+     */
+
+    /**
+     * Remaps the UV coordinates of a Copycat quad from its original
+     * sprite to the sprite of the copied block.
+     *
+     * <p>The geometry remains unchanged. Only its texture mapping
+     * is replaced.</p>
+     */
+    private static BakedQuad remapQuad(
+            @NotNull BakedQuad sourceQuad,
+            @NotNull TextureAtlasSprite sourceSprite,
+            @NotNull BakedQuad copiedQuad
+    ) {
+        TextureAtlasSprite targetSprite =
+                copiedQuad.getSprite();
+
+        if (sourceSprite == targetSprite) {
+            return sourceQuad;
+        }
+
+        int[] vertices =
+                sourceQuad.getVertices().clone();
+
+        float sourceMinU =
+                sourceSprite.getU0();
+
+        float sourceMaxU =
+                sourceSprite.getU1();
+
+        float sourceMinV =
+                sourceSprite.getV0();
+
+        float sourceMaxV =
+                sourceSprite.getV1();
+
+        float targetMinU =
+                targetSprite.getU0();
+
+        float targetMaxU =
+                targetSprite.getU1();
+
+        float targetMinV =
+                targetSprite.getV0();
+
+        float targetMaxV =
+                targetSprite.getV1();
+
+        float sourceUSize =
+                sourceMaxU - sourceMinU;
+
+        float sourceVSize =
+                sourceMaxV - sourceMinV;
+
+        if (sourceUSize == 0.0F || sourceVSize == 0.0F) {
+            return sourceQuad;
+        }
+
+        /*
+         * Standard BLOCK vertex format:
+         *
+         * 0-2 : position
+         * 3   : color
+         * 4   : U
+         * 5   : V
+         * 6   : lightmap
+         * 7   : normal
+         */
+        final int vertexSize = 8;
+
+        for (int vertex = 0; vertex < 4; vertex++) {
+
+            int offset =
+                    vertex * vertexSize;
+
+            float u =
+                    Float.intBitsToFloat(
+                            vertices[offset + 4]
+                    );
+
+            float v =
+                    Float.intBitsToFloat(
+                            vertices[offset + 5]
+                    );
+
+            float normalizedU =
+                    (u - sourceMinU)
+                            / sourceUSize;
+
+            float normalizedV =
+                    (v - sourceMinV)
+                            / sourceVSize;
+
+            float newU =
+                    targetMinU
+                            + normalizedU
+                            * (targetMaxU - targetMinU);
+
+            float newV =
+                    targetMinV
+                            + normalizedV
+                            * (targetMaxV - targetMinV);
+
+            vertices[offset + 4] =
+                    Float.floatToRawIntBits(newU);
+
+            vertices[offset + 5] =
+                    Float.floatToRawIntBits(newV);
+        }
+
+        /*
+         * IMPORTANT:
+         *
+         * We take the tint index from the copied quad.
+         * This allows CopycatBlockColor to be invoked for blocks
+         * such as Grass Block.
+         */
+        return new BakedQuad(
+                vertices,
+                copiedQuad.getTintIndex(),
+                sourceQuad.getDirection(),
+                targetSprite,
+                sourceQuad.isShade(),
+                sourceQuad.hasAmbientOcclusion()
+        );
+    }
+
+
+    /**
+     * Retextures a geometry model using the corresponding copied model.
+     */
+    private static List<BakedQuad> retextureModel(
+            @NotNull BakedModel geometryModel,
+            @NotNull BlockState copycatState,
+            @NotNull BlockState copiedState,
+            @Nullable Direction side,
+            @NotNull RandomSource random,
+            @Nullable RenderType renderType,
+            @NotNull ModelData modelData
+    ) {
+        BakedModel copiedModel =
+                CopycatModelProvider.getModel(copiedState);
+
+        /*
+         * IMPORTANT :
+         *
+         * The geometry must be calculated with the Copycat state,
+         * not with that of the copied block.
+         */
+        List<BakedQuad> geometryQuads =
+                geometryModel.getQuads(
+                        copycatState,
+                        side,
+                        random,
+                        modelData,
+                        renderType
+                );
+
+        if (geometryQuads.isEmpty()) {
+            return List.of();
+        }
+
+        List<BakedQuad> result =
+                new ArrayList<>(
+                        geometryQuads.size()
+                );
+
+        for (BakedQuad geometryQuad : geometryQuads) {
+
+            Direction direction =
+                    side != null
+                            ? side
+                            : geometryQuad.getDirection();
+
+            BakedQuad copiedQuad =
+                    findMatchingCopiedQuad(
+                            copiedModel,
+                            copiedState,
+                            direction,
+                            geometryQuad,
+                            random,
+                            renderType
+                    );
+
+            /*
+             * Unable to find a matching texture:
+             * we keep the original quad.
+             */
+            if (copiedQuad == null) {
+                result.add(geometryQuad);
+                continue;
+            }
+
+            result.add(
+                    remapQuad(
+                            geometryQuad,
+                            geometryQuad.getSprite(),
+                            copiedQuad
+                    )
+            );
+        }
+
+        return result;
+    }
+
+
+    /*
+     * ================================================================
+     * QUADS
+     * ================================================================
+     */
+
+    /**
+     * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
     @Override
@@ -89,19 +503,6 @@ public final class CopycatBakedModel implements BakedModel {
         );
     }
 
-    private static BlockState getCopiedState(
-            ModelData modelData,
-            CopycatPart part
-    ) {
-        EnumMap<CopycatPart, BlockState> copiedStates =
-                modelData.get(CopycatModelProperties.COPIED_STATES);
-
-        if (copiedStates == null) {
-            return null;
-        }
-
-        return copiedStates.get(part);
-    }
 
     @Override
     public @NotNull List<BakedQuad> getQuads(
@@ -111,11 +512,13 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
+
         /*
-         * ------------------------------------------------------------
-         * Simple Copycat Block
-         * ------------------------------------------------------------
+         * ============================================================
+         * COPYCAT CUBE
+         * ============================================================
          */
+
         if (baseModel != null) {
 
             BlockState copiedState =
@@ -124,8 +527,14 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.MAIN
                     );
 
-            if (copiedState == null || copiedState.isAir()) {
-                return baseModel.getQuads(
+            /*
+             * No copied block:
+             * render the normal Copycat Cube.
+             */
+            if (copiedState == null
+                    || copiedState.isAir()) {
+
+                return getBaseModel().getQuads(
                         state,
                         side,
                         random,
@@ -134,38 +543,46 @@ public final class CopycatBakedModel implements BakedModel {
                 );
             }
 
-            return baseModel.getQuads(
+            /*
+             * Copied block:
+             * keep the Cube geometry, but replace its texture
+             * with the texture of the copied block.
+             */
+            return retextureModel(
+                    getBaseModel(),
+                    state,
                     copiedState,
                     side,
                     random,
-                    modelData,
-                    renderType
+                    renderType,
+                    modelData
             );
         }
 
+
         /*
-         * ------------------------------------------------------------
-         * Multi-part Copycat Block
-         * ------------------------------------------------------------
+         * ============================================================
+         * COPYCAT SLAB
+         * ============================================================
          */
+
         if (state == null) {
             return List.of();
         }
 
-        List<BakedQuad> quads = new java.util.ArrayList<>();
-
-        net.minecraft.world.level.block.state.properties.SlabType slabType =
+        SlabType slabType =
                 state.getValue(
-                        net.minecraft.world.level.block.state.properties.BlockStateProperties.SLAB_TYPE
+                        BlockStateProperties.SLAB_TYPE
                 );
 
+
         /*
-         * Bottom
+         * ------------------------------------------------------------
+         * BOTTOM
+         * ------------------------------------------------------------
          */
-        if (slabType ==
-                net.minecraft.world.level.block.state.properties.SlabType.BOTTOM
-                || slabType ==
-                net.minecraft.world.level.block.state.properties.SlabType.DOUBLE) {
+
+        if (slabType == SlabType.BOTTOM) {
 
             BlockState copiedState =
                     getCopiedState(
@@ -173,26 +590,37 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.BOTTOM
                     );
 
-            if (copiedState != null && !copiedState.isAir()) {
-                quads.addAll(
-                        getBottomModel().getQuads(
-                                copiedState,
-                                side,
-                                random,
-                                modelData,
-                                renderType
-                        )
+            if (copiedState == null
+                    || copiedState.isAir()) {
+
+                return getBottomModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
                 );
             }
+
+            return retextureModel(
+                    getBottomModel(),
+                    state,
+                    copiedState,
+                    side,
+                    random,
+                    renderType,
+                    modelData
+            );
         }
 
+
         /*
-         * Top
+         * ------------------------------------------------------------
+         * TOP
+         * ------------------------------------------------------------
          */
-        if (slabType ==
-                net.minecraft.world.level.block.state.properties.SlabType.TOP
-                || slabType ==
-                net.minecraft.world.level.block.state.properties.SlabType.DOUBLE) {
+
+        if (slabType == SlabType.TOP) {
 
             BlockState copiedState =
                     getCopiedState(
@@ -200,54 +628,138 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.TOP
                     );
 
-            if (copiedState != null && !copiedState.isAir()) {
-                quads.addAll(
-                        getTopModel().getQuads(
-                                copiedState,
-                                side,
-                                random,
-                                modelData,
-                                renderType
-                        )
+            if (copiedState == null
+                    || copiedState.isAir()) {
+
+                return getTopModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
                 );
             }
+
+            return retextureModel(
+                    getTopModel(),
+                    state,
+                    copiedState,
+                    side,
+                    random,
+                    renderType,
+                    modelData
+            );
         }
+
 
         /*
-         * Empty Copycat Slab:
-         * use the normal Copycat texture.
+         * ------------------------------------------------------------
+         * DOUBLE
+         * ------------------------------------------------------------
+         *
+         * For now the DOUBLE slab keeps the cube geometry.
+         *
+         * The texture is selected from the half represented by
+         * each quad.
          */
-        if (quads.isEmpty()) {
 
-            return switch (slabType) {
-                case TOP -> getTopModel().getQuads(
-                        state,
-                        side,
-                        random,
-                        modelData,
-                        renderType
-                );
+        List<BakedQuad> geometryQuads =
+                getDoubleModel().getQuads(state, side, random, modelData, renderType);
 
-                case DOUBLE -> getDoubleModel().getQuads(
-                        state,
-                        side,
-                        random,
-                        modelData,
-                        renderType
-                );
+        BlockState bottomState =
+                getCopiedState(modelData, CopycatPart.BOTTOM);
 
-                default -> getBottomModel().getQuads(
-                        state,
-                        side,
-                        random,
-                        modelData,
-                        renderType
-                );
-            };
+        BlockState topState =
+                getCopiedState(modelData, CopycatPart.TOP);
+
+        if ((bottomState == null || bottomState.isAir())
+                && (topState == null || topState.isAir())) {
+
+            return geometryQuads;
         }
 
-        return quads;
+        BakedModel bottomCopiedModel =
+                getCopiedModel(bottomState);
+
+        BakedModel topCopiedModel =
+                getCopiedModel(topState);
+
+        List<BakedQuad> result =
+                new ArrayList<>(
+                        geometryQuads.size()
+                );
+
+        for (BakedQuad geometryQuad : geometryQuads) {
+
+            float averageY =
+                    getAverageY(geometryQuad);
+
+            boolean upperHalf =
+                    averageY >= 0.5F;
+
+            BlockState copiedState =
+                    upperHalf
+                            ? topState
+                            : bottomState;
+
+            BakedModel copiedModel =
+                    upperHalf
+                            ? topCopiedModel
+                            : bottomCopiedModel;
+
+            if (copiedState == null
+                    || copiedState.isAir()
+                    || copiedModel == null) {
+
+                result.add(geometryQuad);
+                continue;
+            }
+
+            BakedQuad copiedQuad =
+                    findMatchingCopiedQuad(copiedModel, copiedState, side, geometryQuad, random, renderType);
+
+            if (copiedQuad == null) {
+                result.add(geometryQuad);
+                continue;
+            }
+
+            result.add(remapQuad(geometryQuad, geometryQuad.getSprite(), copiedQuad));
+        }
+
+        return result;
     }
+
+
+    /**
+     * Returns the average Y coordinate of a quad.
+     */
+    private static float getAverageY(
+            @NotNull BakedQuad quad
+    ) {
+        int[] vertices =
+                quad.getVertices();
+
+        float averageY = 0.0F;
+
+        for (int vertex = 0; vertex < 4; vertex++) {
+
+            int offset =
+                    vertex * 8;
+
+            averageY += Float.intBitsToFloat(
+                    vertices[offset + 1]
+            );
+        }
+
+        return averageY / 4.0F;
+    }
+
+
+    /*
+     * ================================================================
+     * RENDER TYPES
+     * ================================================================
+     */
 
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(
@@ -255,74 +767,155 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull RandomSource random,
             @NotNull ModelData modelData
     ) {
-        BlockState copiedState =
-                getCopiedState(
-                        modelData,
-                        CopycatPart.MAIN
-                );
 
-        if (copiedState == null || copiedState.isAir()) {
-            return getReferenceModel().getRenderTypes(
-                    state,
-                    random,
-                    modelData
-            );
-        }
+        /*
+         * Render type handling is intentionally kept simple for now.
+         * We will fix the cutout/translucent behavior separately.
+         */
 
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getRenderTypes(
-                        copiedState,
+        if (baseModel != null) {
+
+            BlockState copiedState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.MAIN
+                    );
+
+            if (copiedState == null
+                    || copiedState.isAir()) {
+
+                return getBaseModel().getRenderTypes(
+                        state,
                         random,
                         modelData
                 );
-    }
+            }
 
-    private BakedModel getReferenceModel() {
-        if (baseModel != null) {
-            return baseModel;
+            return CopycatModelProvider
+                    .getModel(copiedState)
+                    .getRenderTypes(
+                            copiedState,
+                            random,
+                            modelData
+                    );
         }
 
-        return doubleModel;
+        return getDoubleModel().getRenderTypes(
+                state,
+                random,
+                modelData
+        );
     }
 
-    @Override
-    public boolean useAmbientOcclusion() {return getReferenceModel().useAmbientOcclusion();}
+
+    /*
+     * ================================================================
+     * COMMON MODEL PROPERTIES
+     * ================================================================
+     */
+
+    private BakedModel getReferenceModel() {
+
+        if (baseModel != null) {
+            return getBaseModel();
+        }
+
+        return getDoubleModel();
+    }
+
 
     @Override
-    public boolean usesBlockLight() {return getReferenceModel().usesBlockLight();}
+    public boolean useAmbientOcclusion() {
+        return getReferenceModel()
+                .useAmbientOcclusion();
+    }
+
 
     @Override
-    public boolean isGui3d() {return getReferenceModel().isGui3d();}
+    public boolean usesBlockLight() {
+        return getReferenceModel()
+                .usesBlockLight();
+    }
+
+
+    @Override
+    public boolean isGui3d() {
+        return getReferenceModel()
+                .isGui3d();
+    }
+
 
     @Override
     public boolean isCustomRenderer() {
         return false;
     }
 
+
+    /*
+     * ================================================================
+     * PARTICLE
+     * ================================================================
+     */
+
     /**
-     * @deprecated Forge: Use {@link #getParticleIcon(ModelData)}
+     * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
     @Override
-    public @NotNull TextureAtlasSprite getParticleIcon() {return getReferenceModel().getParticleIcon();}
-
-    @Override
-    public @NotNull TextureAtlasSprite getParticleIcon(@NotNull ModelData modelData) {
-        BlockState copiedState = getCopiedState(modelData, CopycatPart.MAIN);
-
-        if (copiedState == null || copiedState.isAir()) {return getReferenceModel().getParticleIcon(modelData);}
-
-        return CopycatModelProvider.getModel(copiedState).getParticleIcon(modelData);
+    public @NotNull TextureAtlasSprite getParticleIcon() {
+        return getReferenceModel()
+                .getParticleIcon();
     }
 
-    /**
-     * @deprecated Forge: Use {@link #applyTransform(ItemDisplayContext, PoseStack, boolean)} instead
-     */
-    @Deprecated
-    @Override
-    public @NotNull ItemTransforms getTransforms() {return getReferenceModel().getTransforms();}
 
     @Override
-    public @NotNull ItemOverrides getOverrides() {return getReferenceModel().getOverrides();}
+    public @NotNull TextureAtlasSprite getParticleIcon(
+            @NotNull ModelData modelData
+    ) {
+
+        BlockState copiedState =
+                getCopiedState(
+                        modelData,
+                        CopycatPart.MAIN
+                );
+
+        if (copiedState == null
+                || copiedState.isAir()) {
+
+            return getReferenceModel()
+                    .getParticleIcon(
+                            modelData
+                    );
+        }
+
+        return CopycatModelProvider
+                .getModel(copiedState)
+                .getParticleIcon(
+                        modelData
+                );
+    }
+
+
+    /*
+     * ================================================================
+     * TRANSFORMS
+     * ================================================================
+     */
+
+    /**
+     * @deprecated Use the modern transform API.
+     */
+    @SuppressWarnings("deprecation")
+    @Deprecated
+    @Override
+    public @NotNull ItemTransforms getTransforms() {
+        return getReferenceModel()
+                .getTransforms();
+    }
+
+
+    @Override
+    public @NotNull ItemOverrides getOverrides() {
+        return getReferenceModel().getOverrides();
+    }
 }
