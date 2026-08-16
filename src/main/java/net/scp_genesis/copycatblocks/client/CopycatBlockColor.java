@@ -14,6 +14,36 @@ import org.jetbrains.annotations.Nullable;
 
 public final class CopycatBlockColor implements BlockColor {
 
+    /**
+     * Offset used to encode the Copycat part inside a tint index.
+     *
+     * <p>This is required for DOUBLE slabs because Minecraft does not
+     * provide the quad's vertical position to a BlockColor.</p>
+     */
+    private static final int PART_TINT_OFFSET = 1000;
+
+    /**
+     * Decodes the original tint index.
+     */
+    private static int decodeTintIndex(int tintIndex) {
+        return tintIndex % PART_TINT_OFFSET;
+    }
+
+    /**
+     * Returns the Copycat part encoded in the tint index.
+     */
+    @Nullable
+    private static CopycatPart getEncodedPart(int tintIndex) {
+
+        int partId = tintIndex / PART_TINT_OFFSET;
+
+        return switch (partId) {
+            case 1 -> CopycatPart.BOTTOM;
+            case 2 -> CopycatPart.TOP;
+            default -> null;
+        };
+    }
+
     @Override
     public int getColor(
             @NotNull BlockState state,
@@ -26,57 +56,139 @@ public final class CopycatBlockColor implements BlockColor {
             return -1;
         }
 
-        CopycatPart part = getPart(state, tintIndex);
+        CopycatPart encodedPart =
+                getEncodedPart(tintIndex);
 
-        BlockState copiedState =
-                CopycatBlocksAPI.getCopiedState(
-                        level,
-                        pos,
-                        part
-                );
+        int originalTintIndex =
+                decodeTintIndex(tintIndex);
 
-        if (copiedState == null || copiedState.isAir()) {
-            return -1;
+        /*
+         * ------------------------------------------------------------
+         * Explicitly encoded part
+         * ------------------------------------------------------------
+         *
+         * Used by Copycat Slab DOUBLE.
+         */
+        if (encodedPart != null) {
+
+            BlockState copiedState =
+                    CopycatBlocksAPI.getCopiedState(
+                            level,
+                            pos,
+                            encodedPart
+                    );
+
+            if (copiedState == null || copiedState.isAir()) {
+                return -1;
+            }
+
+            return Minecraft.getInstance()
+                    .getBlockColors()
+                    .getColor(
+                            copiedState,
+                            level,
+                            pos,
+                            originalTintIndex
+                    );
         }
 
-        return Minecraft.getInstance()
-                .getBlockColors()
-                .getColor(
-                        copiedState,
-                        level,
-                        pos,
-                        tintIndex
-                );
-    }
-
-    private static CopycatPart getPart(
-            @NotNull BlockState state,
-            int tintIndex
-    ) {
         /*
-         * Simple Copycat Blocks such as the Cube.
+         * ------------------------------------------------------------
+         * Copycat Cube
+         * ------------------------------------------------------------
          */
         if (!state.hasProperty(BlockStateProperties.SLAB_TYPE)) {
-            return CopycatPart.MAIN;
+
+            BlockState copiedState =
+                    CopycatBlocksAPI.getCopiedState(
+                            level,
+                            pos,
+                            CopycatPart.MAIN
+                    );
+
+            if (copiedState == null || copiedState.isAir()) {
+                return -1;
+            }
+
+            return Minecraft.getInstance()
+                    .getBlockColors()
+                    .getColor(
+                            copiedState,
+                            level,
+                            pos,
+                            originalTintIndex
+                    );
         }
 
+        /*
+         * ------------------------------------------------------------
+         * Copycat Slab
+         * ------------------------------------------------------------
+         */
+
         SlabType slabType =
-                state.getValue(BlockStateProperties.SLAB_TYPE);
+                state.getValue(
+                        BlockStateProperties.SLAB_TYPE
+                );
 
-        return switch (slabType) {
-            case TOP -> CopycatPart.TOP;
-            case BOTTOM -> CopycatPart.BOTTOM;
+        /*
+         * BOTTOM
+         */
+        if (slabType == SlabType.BOTTOM) {
 
-            /*
-             * DOUBLE is handled separately below.
-             *
-             * For now, use the tint index to distinguish
-             * the two halves.
-             */
-            case DOUBLE ->
-                    tintIndex >= 1000
-                            ? CopycatPart.TOP
-                            : CopycatPart.BOTTOM;
-        };
+            BlockState copiedState =
+                    CopycatBlocksAPI.getCopiedState(
+                            level,
+                            pos,
+                            CopycatPart.BOTTOM
+                    );
+
+            if (copiedState == null || copiedState.isAir()) {
+                return -1;
+            }
+
+            return Minecraft.getInstance()
+                    .getBlockColors()
+                    .getColor(
+                            copiedState,
+                            level,
+                            pos,
+                            originalTintIndex
+                    );
+        }
+
+        /*
+         * TOP
+         */
+        if (slabType == SlabType.TOP) {
+
+            BlockState copiedState =
+                    CopycatBlocksAPI.getCopiedState(
+                            level,
+                            pos,
+                            CopycatPart.TOP
+                    );
+
+            if (copiedState == null || copiedState.isAir()) {
+                return -1;
+            }
+
+            return Minecraft.getInstance()
+                    .getBlockColors()
+                    .getColor(
+                            copiedState,
+                            level,
+                            pos,
+                            originalTintIndex
+                    );
+        }
+
+        /*
+         * DOUBLE without an encoded part.
+         *
+         * This should normally not happen because CopycatBakedModel
+         * encodes the part when generating the quads.
+         */
+        return -1;
     }
 }

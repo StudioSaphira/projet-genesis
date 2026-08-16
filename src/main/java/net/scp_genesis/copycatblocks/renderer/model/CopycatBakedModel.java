@@ -284,7 +284,8 @@ public final class CopycatBakedModel implements BakedModel {
     private static BakedQuad remapQuad(
             @NotNull BakedQuad sourceQuad,
             @NotNull TextureAtlasSprite sourceSprite,
-            @NotNull BakedQuad copiedQuad
+            @NotNull BakedQuad copiedQuad,
+            @Nullable CopycatPart part
     ) {
         TextureAtlasSprite targetSprite =
                 copiedQuad.getSprite();
@@ -382,6 +383,14 @@ public final class CopycatBakedModel implements BakedModel {
                     Float.floatToRawIntBits(newV);
         }
 
+        int tintIndex = copiedQuad.getTintIndex();
+
+        if (part == CopycatPart.BOTTOM) {
+            tintIndex += 1000;
+        } else if (part == CopycatPart.TOP) {
+            tintIndex += 2000;
+        }
+
         /*
          * IMPORTANT:
          *
@@ -391,7 +400,7 @@ public final class CopycatBakedModel implements BakedModel {
          */
         return new BakedQuad(
                 vertices,
-                copiedQuad.getTintIndex(),
+                tintIndex,
                 sourceQuad.getDirection(),
                 targetSprite,
                 sourceQuad.isShade(),
@@ -469,7 +478,8 @@ public final class CopycatBakedModel implements BakedModel {
                     remapQuad(
                             geometryQuad,
                             geometryQuad.getSprite(),
-                            copiedQuad
+                            copiedQuad,
+                            null
                     )
             );
         }
