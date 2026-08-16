@@ -13,7 +13,8 @@ public final class ModBlockColors {
 
         event.register(
                 new CopycatBlockColor(),
-                ModBlocks.COPYCAT_CUBE.get()
+                ModBlocks.COPYCAT_CUBE.get(),
+                ModBlocks.COPYCAT_SLAB.get()
         );
     }
 }
