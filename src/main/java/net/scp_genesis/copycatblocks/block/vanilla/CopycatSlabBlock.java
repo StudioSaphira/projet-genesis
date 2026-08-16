@@ -133,14 +133,26 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
         SlabType slabType =
                 state.getValue(BlockStateProperties.SLAB_TYPE);
 
+        /*
+         * Simple BOTTOM slab.
+         */
         if (slabType == SlabType.BOTTOM) {
             return CopycatPart.BOTTOM;
         }
 
+        /*
+         * Simple TOP slab.
+         */
         if (slabType == SlabType.TOP) {
             return CopycatPart.TOP;
         }
 
+        /*
+         * DOUBLE slab.
+         *
+         * The clicked height determines which logical
+         * half is being modified.
+         */
         double y =
                 hitResult.getLocation().y
                         - hitResult.getBlockPos().getY();

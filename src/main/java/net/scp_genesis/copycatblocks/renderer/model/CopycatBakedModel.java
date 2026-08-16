@@ -512,13 +512,11 @@ public final class CopycatBakedModel implements BakedModel {
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
-
         /*
          * ============================================================
          * COPYCAT CUBE
          * ============================================================
          */
-
         if (baseModel != null) {
 
             BlockState copiedState =
@@ -527,13 +525,7 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.MAIN
                     );
 
-            /*
-             * No copied block:
-             * render the normal Copycat Cube.
-             */
-            if (copiedState == null
-                    || copiedState.isAir()) {
-
+            if (copiedState == null || copiedState.isAir()) {
                 return getBaseModel().getQuads(
                         state,
                         side,
@@ -543,11 +535,6 @@ public final class CopycatBakedModel implements BakedModel {
                 );
             }
 
-            /*
-             * Copied block:
-             * keep the Cube geometry, but replace its texture
-             * with the texture of the copied block.
-             */
             return retextureModel(
                     getBaseModel(),
                     state,
@@ -559,29 +546,23 @@ public final class CopycatBakedModel implements BakedModel {
             );
         }
 
-
         /*
          * ============================================================
          * COPYCAT SLAB
          * ============================================================
          */
-
         if (state == null) {
             return List.of();
         }
 
         SlabType slabType =
-                state.getValue(
-                        BlockStateProperties.SLAB_TYPE
-                );
-
+                state.getValue(BlockStateProperties.SLAB_TYPE);
 
         /*
          * ------------------------------------------------------------
          * BOTTOM
          * ------------------------------------------------------------
          */
-
         if (slabType == SlabType.BOTTOM) {
 
             BlockState copiedState =
@@ -590,9 +571,7 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.BOTTOM
                     );
 
-            if (copiedState == null
-                    || copiedState.isAir()) {
-
+            if (copiedState == null || copiedState.isAir()) {
                 return getBottomModel().getQuads(
                         state,
                         side,
@@ -613,13 +592,11 @@ public final class CopycatBakedModel implements BakedModel {
             );
         }
 
-
         /*
          * ------------------------------------------------------------
          * TOP
          * ------------------------------------------------------------
          */
-
         if (slabType == SlabType.TOP) {
 
             BlockState copiedState =
@@ -628,9 +605,7 @@ public final class CopycatBakedModel implements BakedModel {
                             CopycatPart.TOP
                     );
 
-            if (copiedState == null
-                    || copiedState.isAir()) {
-
+            if (copiedState == null || copiedState.isAir()) {
                 return getTopModel().getQuads(
                         state,
                         side,
@@ -651,82 +626,134 @@ public final class CopycatBakedModel implements BakedModel {
             );
         }
 
-
         /*
          * ------------------------------------------------------------
          * DOUBLE
          * ------------------------------------------------------------
          *
-         * For now the DOUBLE slab keeps the cube geometry.
+         * A DOUBLE slab is still composed of two logical Copycat parts.
          *
-         * The texture is selected from the half represented by
-         * each quad.
+         * Bottom half -> CopycatPart.BOTTOM
+         * Top half    -> CopycatPart.TOP
          */
+        if (slabType == SlabType.DOUBLE) {
 
-        List<BakedQuad> geometryQuads =
-                getDoubleModel().getQuads(state, side, random, modelData, renderType);
+            BlockState bottomState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.BOTTOM
+                    );
 
-        BlockState bottomState =
-                getCopiedState(modelData, CopycatPart.BOTTOM);
+            BlockState topState =
+                    getCopiedState(
+                            modelData,
+                            CopycatPart.TOP
+                    );
 
-        BlockState topState =
-                getCopiedState(modelData, CopycatPart.TOP);
+            boolean hasBottom =
+                    bottomState != null
+                            && !bottomState.isAir();
 
-        if ((bottomState == null || bottomState.isAir())
-                && (topState == null || topState.isAir())) {
+            boolean hasTop =
+                    topState != null
+                            && !topState.isAir();
 
-            return geometryQuads;
-        }
+            /*
+             * No copied state at all.
+             *
+             * Use the normal full-block geometry.
+             */
+            if (!hasBottom && !hasTop) {
+                return getDoubleModel().getQuads(
+                        state,
+                        side,
+                        random,
+                        modelData,
+                        renderType
+                );
+            }
 
-        BakedModel bottomCopiedModel =
-                getCopiedModel(bottomState);
+            List<BakedQuad> result =
+                    new ArrayList<>();
 
-        BakedModel topCopiedModel =
-                getCopiedModel(topState);
+            /*
+             * ============================================================
+             * BOTTOM HALF
+             * ============================================================
+             */
 
-        List<BakedQuad> result =
-                new ArrayList<>(
-                        geometryQuads.size()
+            if (hasBottom) {
+
+                result.addAll(
+                        retextureModel(
+                                getBottomModel(),
+                                state,
+                                bottomState,
+                                side,
+                                random,
+                                renderType,
+                                modelData
+                        )
                 );
 
-        for (BakedQuad geometryQuad : geometryQuads) {
+            } else {
 
-            float averageY =
-                    getAverageY(geometryQuad);
-
-            boolean upperHalf =
-                    averageY >= 0.5F;
-
-            BlockState copiedState =
-                    upperHalf
-                            ? topState
-                            : bottomState;
-
-            BakedModel copiedModel =
-                    upperHalf
-                            ? topCopiedModel
-                            : bottomCopiedModel;
-
-            if (copiedState == null
-                    || copiedState.isAir()
-                    || copiedModel == null) {
-
-                result.add(geometryQuad);
-                continue;
+                /*
+                 * No copied BOTTOM:
+                 * render the normal Copycat bottom texture.
+                 */
+                result.addAll(
+                        getBottomModel().getQuads(
+                                state,
+                                side,
+                                random,
+                                modelData,
+                                renderType
+                        )
+                );
             }
 
-            BakedQuad copiedQuad =
-                    findMatchingCopiedQuad(copiedModel, copiedState, side, geometryQuad, random, renderType);
+            /*
+             * ============================================================
+             * TOP HALF
+             * ============================================================
+             */
 
-            if (copiedQuad == null) {
-                result.add(geometryQuad);
-                continue;
+            if (hasTop) {
+
+                result.addAll(
+                        retextureModel(
+                                getTopModel(),
+                                state,
+                                topState,
+                                side,
+                                random,
+                                renderType,
+                                modelData
+                        )
+                );
+
+            } else {
+
+                /*
+                 * No copied TOP:
+                 * render the normal Copycat top texture.
+                 */
+                result.addAll(
+                        getTopModel().getQuads(
+                                state,
+                                side,
+                                random,
+                                modelData,
+                                renderType
+                        )
+                );
             }
 
-            result.add(remapQuad(geometryQuad, geometryQuad.getSprite(), copiedQuad));
+            return result;
         }
 
-        return result;
+        return List.of();
     }
 
 
