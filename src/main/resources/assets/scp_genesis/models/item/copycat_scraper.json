@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "scp_genesis:item/copycat_remover"
+    "layer0": "scp_genesis:item/copycat_scraper"
   }
 }

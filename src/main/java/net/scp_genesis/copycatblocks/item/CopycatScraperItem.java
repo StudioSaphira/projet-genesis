@@ -11,11 +11,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Tool used to remove the copied BlockState from Copycat Blocks.
  */
-public class CopycatRemoverItem extends Item {
+public class CopycatScraperItem extends Item {
 
-    public CopycatRemoverItem() {
-		super(new Item.Properties().stacksTo(1));
-	}
+    public CopycatScraperItem() {
+        super(new Item.Properties().stacksTo(1));
+    }
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
@@ -26,10 +26,9 @@ public class CopycatRemoverItem extends Item {
             return InteractionResult.PASS;
         }
 
-        return copycat.onRemover(
+        return copycat.onScrape(
                 context.getLevel(),
                 context.getClickedPos()
         );
     }
-
 }
