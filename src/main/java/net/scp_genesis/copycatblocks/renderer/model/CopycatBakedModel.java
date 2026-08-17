@@ -581,7 +581,13 @@ public final class CopycatBakedModel implements BakedModel {
          * ============================================================
          */
         if (state == null) {
-            return List.of();
+            return getBottomModel().getQuads(
+                    null,
+                    side,
+                    random,
+                    modelData,
+                    renderType
+            );
         }
 
         SlabType slabType =
