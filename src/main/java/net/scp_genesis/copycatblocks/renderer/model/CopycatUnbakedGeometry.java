@@ -9,6 +9,7 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -62,6 +63,11 @@ public final class CopycatUnbakedGeometry
                         context.getMaterial("all_alt")
                 );
 
+        ModConstants.LOGGER.info(
+                "[COPYCAT ALT DEBUG] alt sprite = {}",
+                copycatAltSprite.contents().name()
+        );
+
         Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
                 material -> copycatAltSprite;
 
@@ -110,6 +116,10 @@ public final class CopycatUnbakedGeometry
                     baseModels.get("top"),
                     modelState,
                     copycatAltSpriteGetter
+            );
+
+            ModConstants.LOGGER.info(
+                    "[COPYCAT ALT DEBUG] doubleTopModel baked with copycat_block_alt"
             );
 
             BakedModel doubleModel = bakeModel(

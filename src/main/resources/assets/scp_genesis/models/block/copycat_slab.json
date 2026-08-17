@@ -3,6 +3,7 @@
   "base_model": {
     "bottom": "minecraft:block/slab",
     "top": "minecraft:block/slab_top",
+    "double_top": "scp_genesis:block/copycat_slab_double_top",
     "double": "minecraft:block/cube_all"
   },
   "textures": {

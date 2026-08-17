@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.scp_genesis.constants.ModConstants;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
 import net.scp_genesis.copycatblocks.provider.CopycatModelProvider;
 import org.jetbrains.annotations.NotNull;
@@ -669,6 +670,8 @@ public final class CopycatBakedModel implements BakedModel {
          */
         if (slabType == SlabType.DOUBLE) {
 
+
+
             BlockState bottomState =
                     getCopiedState(
                             modelData,
@@ -695,6 +698,10 @@ public final class CopycatBakedModel implements BakedModel {
              * Use the normal full-block geometry.
              */
             if (!hasBottom && !hasTop) {
+                ModConstants.LOGGER.info(
+                        "[COPYCAT ALT DEBUG] DOUBLE empty -> bottomModel + doubleTopModel"
+                );
+
                 return getDoubleModel().getQuads(
                         state,
                         side,
@@ -767,6 +774,9 @@ public final class CopycatBakedModel implements BakedModel {
                 );
 
             } else {
+                ModConstants.LOGGER.info(
+                        "[COPYCAT ALT DEBUG] DOUBLE TOP empty -> doubleTopModel"
+                );
 
                 /*
                  * No copied TOP:
