@@ -37,7 +37,7 @@ public final class CopycatBakedModel implements BakedModel {
     private final BakedModel baseModel;
     private final BakedModel bottomModel;
     private final BakedModel topModel;
-    private final BakedModel doubleTopModel;
+    private final BakedModel doubleSecondaryModel;
     private final BakedModel doubleModel;
 
 
@@ -57,7 +57,7 @@ public final class CopycatBakedModel implements BakedModel {
 
         this.bottomModel = null;
         this.topModel = null;
-        this.doubleTopModel = null;
+        this.doubleSecondaryModel = null;
         this.doubleModel = null;
     }
 
@@ -67,14 +67,14 @@ public final class CopycatBakedModel implements BakedModel {
     public CopycatBakedModel(
             @NotNull BakedModel bottomModel,
             @NotNull BakedModel topModel,
-            @NotNull BakedModel doubleTopModel,
+            @NotNull BakedModel doubleSecondaryModel,
             @NotNull BakedModel doubleModel
     ) {
         this.baseModel = null;
 
         this.bottomModel = bottomModel;
         this.topModel = topModel;
-        this.doubleTopModel = doubleTopModel;
+        this.doubleSecondaryModel = doubleSecondaryModel;
         this.doubleModel = doubleModel;
     }
 
@@ -94,8 +94,8 @@ public final class CopycatBakedModel implements BakedModel {
     private BakedModel getTopModel() {
         return java.util.Objects.requireNonNull(topModel);
     }
-    private BakedModel getDoubleTopModel() {
-        return java.util.Objects.requireNonNull(doubleTopModel);
+    private BakedModel getDoubleSecondaryModel() {
+        return java.util.Objects.requireNonNull(doubleSecondaryModel);
     }
     private BakedModel getDoubleModel() {
         return java.util.Objects.requireNonNull(doubleModel);
@@ -699,7 +699,7 @@ public final class CopycatBakedModel implements BakedModel {
              */
             if (!hasBottom && !hasTop) {
                 ModConstants.LOGGER.info(
-                        "[COPYCAT ALT DEBUG] DOUBLE empty -> bottomModel + doubleTopModel"
+                        "[COPYCAT ALT DEBUG] DOUBLE empty -> bottomModel + doubleSecondaryModel"
                 );
 
                 return getDoubleModel().getQuads(
@@ -762,7 +762,7 @@ public final class CopycatBakedModel implements BakedModel {
 
                 result.addAll(
                         retextureModel(
-                                getDoubleTopModel(),
+                                getDoubleSecondaryModel(),
                                 state,
                                 topState,
                                 side,
@@ -775,7 +775,7 @@ public final class CopycatBakedModel implements BakedModel {
 
             } else {
                 ModConstants.LOGGER.info(
-                        "[COPYCAT ALT DEBUG] DOUBLE TOP empty -> doubleTopModel"
+                        "[COPYCAT ALT DEBUG] DOUBLE TOP empty -> doubleSecondaryModel"
                 );
 
                 /*
@@ -783,7 +783,7 @@ public final class CopycatBakedModel implements BakedModel {
                  * render the normal Copycat top texture.
                  */
                 result.addAll(
-                        getDoubleTopModel().getQuads(
+                        getDoubleSecondaryModel().getQuads(
                                 state,
                                 side,
                                 random,

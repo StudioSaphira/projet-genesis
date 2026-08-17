@@ -1,6 +1,9 @@
 {
   "textures": {
-    "particle": "#side"
+    "particle": "scp_genesis:block/copycat_block_alt",
+    "bottom": "scp_genesis:block/copycat_block_alt",
+    "top": "scp_genesis:block/copycat_block_alt",
+    "side": "scp_genesis:block/copycat_block_alt"
   },
   "elements": [
     {

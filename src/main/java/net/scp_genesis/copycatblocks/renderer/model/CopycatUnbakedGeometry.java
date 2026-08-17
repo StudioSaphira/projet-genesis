@@ -55,21 +55,21 @@ public final class CopycatUnbakedGeometry
                         context.getMaterial("all")
                 );
 
-        Function<Material, TextureAtlasSprite> copycatSpriteGetter =
-                material -> copycatSprite;
-
         TextureAtlasSprite copycatAltSprite =
                 spriteGetter.apply(
                         context.getMaterial("all_alt")
                 );
 
+        Function<Material, TextureAtlasSprite> copycatSpriteGetter =
+                material -> copycatSprite;
+
+        Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
+                material -> copycatAltSprite;
+
         ModConstants.LOGGER.info(
                 "[COPYCAT ALT DEBUG] alt sprite = {}",
                 copycatAltSprite.contents().name()
         );
-
-        Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
-                material -> copycatAltSprite;
 
         /*
          * Simple Copycat model.
@@ -97,6 +97,31 @@ public final class CopycatUnbakedGeometry
          */
         if (baseModels != null) {
 
+            ModConstants.LOGGER.info(
+                    "[COPYCAT DEBUG] baseModels keys = {}",
+                    baseModels.keySet()
+            );
+
+            ModConstants.LOGGER.info(
+                    "[COPYCAT DEBUG] bottom = {}",
+                    baseModels.get("bottom")
+            );
+
+            ModConstants.LOGGER.info(
+                    "[COPYCAT DEBUG] top = {}",
+                    baseModels.get("top")
+            );
+
+            ModConstants.LOGGER.info(
+                    "[COPYCAT DEBUG] double_secondary = {}",
+                    baseModels.get("double_secondary")
+            );
+
+            ModConstants.LOGGER.info(
+                    "[COPYCAT DEBUG] double = {}",
+                    baseModels.get("double")
+            );
+
             BakedModel bottomModel = bakeModel(
                     baker,
                     baseModels.get("bottom"),
@@ -111,9 +136,12 @@ public final class CopycatUnbakedGeometry
                     copycatSpriteGetter
             );
 
+            ResourceLocation doubleSecondaryLocation =
+                    baseModels.get("double_secondary");
+
             BakedModel doubleTopModel = bakeModel(
                     baker,
-                    baseModels.get("top"),
+                    doubleSecondaryLocation,
                     modelState,
                     copycatAltSpriteGetter
             );

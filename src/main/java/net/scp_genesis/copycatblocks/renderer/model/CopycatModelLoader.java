@@ -18,7 +18,7 @@ import java.util.Map;
  * <p>This loader reads the Copycat model JSON and creates the corresponding
  * {@link CopycatUnbakedGeometry} instance used during model baking.</p>
  */
-public final class CopycatGeometryLoader
+public final class CopycatModelLoader
     implements IGeometryLoader<CopycatUnbakedGeometry> {
 
     /**
@@ -33,13 +33,13 @@ public final class CopycatGeometryLoader
     /**
      * Singleton instance.
      */
-    public static final CopycatGeometryLoader INSTANCE =
-            new CopycatGeometryLoader();
+    public static final CopycatModelLoader INSTANCE =
+            new CopycatModelLoader();
 
     /**
      * Prevent external instantiation.
      */
-    private CopycatGeometryLoader() {
+    private CopycatModelLoader() {
     }
 
     @Override
@@ -92,7 +92,8 @@ public final class CopycatGeometryLoader
             String[] requiredModels = {
                     "bottom",
                     "top",
-                    "double"
+                    "double",
+                    "double_secondary"
             };
 
             Map<String, ResourceLocation> models =

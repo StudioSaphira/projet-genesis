@@ -2,7 +2,7 @@ package net.scp_genesis.client;
 
 import net.neoforged.neoforge.client.event.ModelEvent;
 
-import net.scp_genesis.copycatblocks.renderer.model.CopycatGeometryLoader;
+import net.scp_genesis.copycatblocks.renderer.model.CopycatModelLoader;
 
 public final class ModModelLoading {
 
@@ -12,8 +12,8 @@ public final class ModModelLoading {
             ModelEvent.RegisterGeometryLoaders event
     ) {
         event.register(
-                CopycatGeometryLoader.ID,
-                CopycatGeometryLoader.INSTANCE
+                CopycatModelLoader.ID,
+                CopycatModelLoader.INSTANCE
         );
     }
 }
