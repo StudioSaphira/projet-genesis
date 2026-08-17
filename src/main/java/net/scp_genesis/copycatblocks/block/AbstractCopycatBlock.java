@@ -18,7 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.BlockHitResult;
 import net.scp_genesis.copycatblocks.api.CopycatBlocksAPI;
-import net.scp_genesis.copycatblocks.item.CopycatRemoverItem;
+import net.scp_genesis.copycatblocks.item.CopycatScraperItem;
 import net.scp_genesis.copycatblocks.item.CopycatWrenchItem;
 import net.scp_genesis.copycatblocks.blockentity.CopycatBlockEntity;
 
@@ -70,12 +70,49 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
     }
 
     /**
-     * Clears the copied BlockState.
+     * Clears the copied BlockState targeted by the interaction.
      */
-    public InteractionResult onRemover(Level level, BlockPos pos) {
+    public InteractionResult onScrape(
+            Level level,
+            BlockPos pos,
+            @NotNull BlockState state,
+            @NotNull BlockHitResult hitResult
+    ) {
+        CopycatBlockEntity blockEntity =
+                getCopycatBlockEntity(level, pos);
 
-        CopycatBlockEntity blockEntity = getCopycatBlockEntity(level, pos);
-        
+        if (blockEntity == null) {
+            return InteractionResult.PASS;
+        }
+
+        CopycatPart part =
+                getCopycatPart(
+                        state,
+                        hitResult
+                );
+
+        if (!blockEntity.hasCopiedState(part)) {
+            return InteractionResult.PASS;
+        }
+
+        CopycatBlocksAPI.clear(
+                level,
+                pos,
+                part
+        );
+
+        afterClear(blockEntity);
+
+        return InteractionResult.SUCCESS;
+    }
+
+    public InteractionResult onScrape(
+            Level level,
+            BlockPos pos
+    ) {
+        CopycatBlockEntity blockEntity =
+                getCopycatBlockEntity(level, pos);
+
         if (blockEntity == null) {
             return InteractionResult.PASS;
         }
@@ -84,7 +121,11 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             return InteractionResult.PASS;
         }
 
-        CopycatBlocksAPI.clear(level, pos);
+        CopycatBlocksAPI.clear(
+                level,
+                pos,
+                CopycatPart.MAIN
+        );
 
         afterClear(blockEntity);
 
@@ -144,8 +185,13 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             @NotNull InteractionHand hand,
             @NotNull BlockHitResult hitResult
     ) {
-        if (stack.getItem() instanceof CopycatRemoverItem) {
-            return onRemover(level, pos).consumesAction()
+        if (stack.getItem() instanceof CopycatScraperItem) {
+            return onScrape(
+                    level,
+                    pos,
+                    state,
+                    hitResult
+            ).consumesAction()
                     ? ItemInteractionResult.SUCCESS
                     : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }

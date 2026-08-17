@@ -3,8 +3,10 @@ package net.scp_genesis.copycatblocks.block.vanilla;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -123,6 +125,49 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
                     1.0D, 0.5D, 1.0D
             );
         };
+    }
+
+    @Override
+    public boolean isWrenchable() {
+        return true;
+    }
+
+    @Override
+    public InteractionResult onWrench(
+            @NotNull Level level,
+            @NotNull BlockPos pos,
+            @NotNull BlockState state
+    ) {
+        SlabType currentType =
+                state.getValue(
+                        BlockStateProperties.SLAB_TYPE
+                );
+
+        /*
+         * The Wrench only switches between
+         * BOTTOM and TOP.
+         *
+         * DOUBLE is intentionally ignored.
+         */
+        if (currentType == SlabType.DOUBLE) {
+            return InteractionResult.PASS;
+        }
+
+        SlabType newType =
+                currentType == SlabType.BOTTOM
+                        ? SlabType.TOP
+                        : SlabType.BOTTOM;
+
+        level.setBlock(
+                pos,
+                state.setValue(
+                        BlockStateProperties.SLAB_TYPE,
+                        newType
+                ),
+                Block.UPDATE_ALL
+        );
+
+        return InteractionResult.SUCCESS;
     }
 
     @Override
