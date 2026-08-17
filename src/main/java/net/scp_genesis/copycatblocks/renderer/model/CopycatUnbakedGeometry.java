@@ -9,7 +9,6 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
-import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -66,11 +65,6 @@ public final class CopycatUnbakedGeometry
         Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
                 material -> copycatAltSprite;
 
-        ModConstants.LOGGER.info(
-                "[COPYCAT ALT DEBUG] alt sprite = {}",
-                copycatAltSprite.contents().name()
-        );
-
         /*
          * Simple Copycat model.
          *
@@ -97,31 +91,6 @@ public final class CopycatUnbakedGeometry
          */
         if (baseModels != null) {
 
-            ModConstants.LOGGER.info(
-                    "[COPYCAT DEBUG] baseModels keys = {}",
-                    baseModels.keySet()
-            );
-
-            ModConstants.LOGGER.info(
-                    "[COPYCAT DEBUG] bottom = {}",
-                    baseModels.get("bottom")
-            );
-
-            ModConstants.LOGGER.info(
-                    "[COPYCAT DEBUG] top = {}",
-                    baseModels.get("top")
-            );
-
-            ModConstants.LOGGER.info(
-                    "[COPYCAT DEBUG] double_secondary = {}",
-                    baseModels.get("double_secondary")
-            );
-
-            ModConstants.LOGGER.info(
-                    "[COPYCAT DEBUG] double = {}",
-                    baseModels.get("double")
-            );
-
             BakedModel bottomModel = bakeModel(
                     baker,
                     baseModels.get("bottom"),
@@ -144,10 +113,6 @@ public final class CopycatUnbakedGeometry
                     doubleSecondaryLocation,
                     modelState,
                     copycatAltSpriteGetter
-            );
-
-            ModConstants.LOGGER.info(
-                    "[COPYCAT ALT DEBUG] doubleTopModel baked with copycat_block_alt"
             );
 
             BakedModel doubleModel = bakeModel(
