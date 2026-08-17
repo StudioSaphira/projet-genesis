@@ -21,6 +21,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
 
+import net.scp_genesis.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
 
@@ -144,15 +145,50 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
                 );
 
         /*
-         * The Wrench only switches between
-         * BOTTOM and TOP.
-         *
+         * The Wrench only switches between BOTTOM and TOP.
          * DOUBLE is intentionally ignored.
          */
         if (currentType == SlabType.DOUBLE) {
             return InteractionResult.PASS;
         }
 
+        CopycatBlockEntity blockEntity =
+                level.getBlockEntity(pos) instanceof CopycatBlockEntity copycat
+                        ? copycat
+                        : null;
+
+        if (blockEntity == null) {
+            return InteractionResult.PASS;
+        }
+
+        CopycatPart sourcePart =
+                currentType == SlabType.BOTTOM
+                        ? CopycatPart.BOTTOM
+                        : CopycatPart.TOP;
+
+        CopycatPart targetPart =
+                currentType == SlabType.BOTTOM
+                        ? CopycatPart.TOP
+                        : CopycatPart.BOTTOM;
+
+        /*
+         * Transfer the copied state to the new part.
+         */
+        BlockState copiedState =
+                blockEntity.getCopiedState(sourcePart);
+
+        blockEntity.setCopiedState(
+                targetPart,
+                copiedState
+        );
+
+        blockEntity.clearCopiedState(
+                sourcePart
+        );
+
+        /*
+         * Change the physical slab state.
+         */
         SlabType newType =
                 currentType == SlabType.BOTTOM
                         ? SlabType.TOP
@@ -169,7 +205,6 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
 
         return InteractionResult.SUCCESS;
     }
-
     @Override
     protected CopycatPart getCopycatPart(
             @NotNull BlockState state,
