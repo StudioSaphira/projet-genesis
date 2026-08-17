@@ -876,10 +876,8 @@ public final class CopycatBakedModel implements BakedModel {
                     );
 
             if (copiedState == null || copiedState.isAir()) {
-                return getBottomModel().getRenderTypes(
-                        state,
-                        random,
-                        modelData
+                return ChunkRenderTypeSet.of(
+                        RenderType.cutout()
                 );
             }
 
@@ -909,10 +907,8 @@ public final class CopycatBakedModel implements BakedModel {
                     );
 
             if (copiedState == null || copiedState.isAir()) {
-                return getTopModel().getRenderTypes(
-                        state,
-                        random,
-                        modelData
+                return ChunkRenderTypeSet.of(
+                        RenderType.cutout()
                 );
             }
 
@@ -969,10 +965,8 @@ public final class CopycatBakedModel implements BakedModel {
              * No blocks copied.
              */
             if (!hasBottom && !hasTop) {
-                return getDoubleModel().getRenderTypes(
-                        state,
-                        random,
-                        modelData
+                return ChunkRenderTypeSet.of(
+                        RenderType.cutout()
                 );
             }
 
@@ -981,16 +975,8 @@ public final class CopycatBakedModel implements BakedModel {
              * BOTTOM Only.
              */
             if (hasBottom && !hasTop) {
-
-                BakedModel bottomCopiedModel =
-                        CopycatModelProvider.getModel(
-                                bottomState
-                        );
-
-                return bottomCopiedModel.getRenderTypes(
-                        bottomState,
-                        random,
-                        modelData
+                return ChunkRenderTypeSet.of(
+                        RenderType.cutout()
                 );
             }
 
@@ -999,16 +985,8 @@ public final class CopycatBakedModel implements BakedModel {
              * TOP Only.
              */
             if (!hasBottom) {
-
-                BakedModel topCopiedModel =
-                        CopycatModelProvider.getModel(
-                                topState
-                        );
-
-                return topCopiedModel.getRenderTypes(
-                        topState,
-                        random,
-                        modelData
+                return ChunkRenderTypeSet.of(
+                        RenderType.cutout()
                 );
             }
 
