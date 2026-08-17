@@ -105,7 +105,8 @@
   "block.scp_genesis.dirty_broken_white_wall_two": "Dirty Broken White Wall Block Two",
   "block.scp_genesis.wall_base": "Wall base",
   "block.scp_genesis.green_tiled_floor": "Green Tiled Floor",
-  "block.scp_genesis.copycat_cube": "Copycat Cube",
+  "block.scp_genesis.copycat_cube": "Copycat Block",
+  "block.scp_genesis.copycat_slab": "Copycat Slab",
   "item.scp_genesis.copycat_wrench": "Copycat Wrench",
-  "item.scp_genesis.copycat_remover": "Copycat Remover"
+  "item.scp_genesis.copycat_scraper": "Copycat Scraper"
 }

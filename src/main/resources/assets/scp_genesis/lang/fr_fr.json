@@ -105,7 +105,8 @@
   "block.scp_genesis.dirty_broken_white_wall_two": "Bloc de carrelages blancs et sales cassés (2)",
   "block.scp_genesis.wall_base": "Broken White Panel One",
   "block.scp_genesis.green_tiled_floor": "Dirty White Wall Block",
-  "block.scp_genesis.copycat_cube": "Copycat Cube",
-  "item.scp_genesis.copycat_wrench": "Copycat Wrench",
-  "item.scp_genesis.copycat_remover": "Copycat Remover"
+  "block.scp_genesis.copycat_cube": "Bloc Copycat",
+  "block.scp_genesis.copycat_slab": "Dalle Copycat",
+  "item.scp_genesis.copycat_wrench": "Clé à Copycat",
+  "item.scp_genesis.copycat_scraper": "Grattoir à Copycat"
 }
