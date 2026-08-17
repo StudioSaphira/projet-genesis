@@ -6,7 +6,8 @@
     "double": "minecraft:block/cube_all"
   },
   "textures": {
-    "all": "scp_genesis:block/copycat_block"
+    "all": "scp_genesis:block/copycat_block",
+    "all_alt": "scp_genesis:block/copycat_block_alt"
   },
   "render_type": "cutout"
 }
