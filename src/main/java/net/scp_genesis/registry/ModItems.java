@@ -132,7 +132,7 @@ public class ModItems {
 	// public static final DeferredItem<Item> COPYCAT_STAIRS = block(ModBlocks.COPYCAT_STAIRS);
 	public static final DeferredItem<Item> COPYCAT_SLAB = block(ModBlocks.COPYCAT_SLAB);
 	public static final DeferredItem<Item> COPYCAT_WRENCH = REGISTRY.register("copycat_wrench", CopycatWrenchItem::new);
-	public static final DeferredItem<Item> COPYCAT_REMOVER = REGISTRY.register("copycat_remover", CopycatRemoverItem::new);
+	public static final DeferredItem<Item> COPYCAT_SCRAPER = REGISTRY.register("copycat_scraper", CopycatScraperItem::new);
 
 	// Start of user code block custom items
 	// End of user code block custom items
