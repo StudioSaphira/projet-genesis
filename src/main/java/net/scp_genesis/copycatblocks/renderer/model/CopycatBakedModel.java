@@ -34,20 +34,9 @@ public final class CopycatBakedModel implements BakedModel {
      * Base geometry used by a simple Copycat Block such as the Cube.
      */
     private final BakedModel baseModel;
-
-    /**
-     * Bottom slab geometry.
-     */
     private final BakedModel bottomModel;
-
-    /**
-     * Top slab geometry.
-     */
     private final BakedModel topModel;
-
-    /**
-     * Double slab geometry.
-     */
+    private final BakedModel doubleTopModel;
     private final BakedModel doubleModel;
 
 
@@ -67,6 +56,7 @@ public final class CopycatBakedModel implements BakedModel {
 
         this.bottomModel = null;
         this.topModel = null;
+        this.doubleTopModel = null;
         this.doubleModel = null;
     }
 
@@ -76,12 +66,14 @@ public final class CopycatBakedModel implements BakedModel {
     public CopycatBakedModel(
             @NotNull BakedModel bottomModel,
             @NotNull BakedModel topModel,
+            @NotNull BakedModel doubleTopModel,
             @NotNull BakedModel doubleModel
     ) {
         this.baseModel = null;
 
         this.bottomModel = bottomModel;
         this.topModel = topModel;
+        this.doubleTopModel = doubleTopModel;
         this.doubleModel = doubleModel;
     }
 
@@ -95,15 +87,15 @@ public final class CopycatBakedModel implements BakedModel {
     private BakedModel getBaseModel() {
         return java.util.Objects.requireNonNull(baseModel);
     }
-
     private BakedModel getBottomModel() {
         return java.util.Objects.requireNonNull(bottomModel);
     }
-
     private BakedModel getTopModel() {
         return java.util.Objects.requireNonNull(topModel);
     }
-
+    private BakedModel getDoubleTopModel() {
+        return java.util.Objects.requireNonNull(doubleTopModel);
+    }
     private BakedModel getDoubleModel() {
         return java.util.Objects.requireNonNull(doubleModel);
     }
@@ -763,7 +755,7 @@ public final class CopycatBakedModel implements BakedModel {
 
                 result.addAll(
                         retextureModel(
-                                getTopModel(),
+                                getDoubleTopModel(),
                                 state,
                                 topState,
                                 side,
@@ -781,7 +773,7 @@ public final class CopycatBakedModel implements BakedModel {
                  * render the normal Copycat top texture.
                  */
                 result.addAll(
-                        getTopModel().getQuads(
+                        getDoubleTopModel().getQuads(
                                 state,
                                 side,
                                 random,

@@ -9,7 +9,6 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
-import net.scp_genesis.constants.ModConstants;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -49,10 +48,6 @@ public final class CopycatUnbakedGeometry
             @NotNull ModelState modelState,
             @NotNull ItemOverrides overrides
     ) {
-        ModConstants.LOGGER.info(
-                "[COPYCAT] Baking Copycat Model: {}",
-                context.getModelName()
-        );
 
         TextureAtlasSprite copycatSprite =
                 spriteGetter.apply(
@@ -61,6 +56,14 @@ public final class CopycatUnbakedGeometry
 
         Function<Material, TextureAtlasSprite> copycatSpriteGetter =
                 material -> copycatSprite;
+
+        TextureAtlasSprite copycatAltSprite =
+                spriteGetter.apply(
+                        context.getMaterial("all_alt")
+                );
+
+        Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
+                material -> copycatAltSprite;
 
         /*
          * Simple Copycat model.
@@ -102,6 +105,13 @@ public final class CopycatUnbakedGeometry
                     copycatSpriteGetter
             );
 
+            BakedModel doubleTopModel = bakeModel(
+                    baker,
+                    baseModels.get("top"),
+                    modelState,
+                    copycatAltSpriteGetter
+            );
+
             BakedModel doubleModel = bakeModel(
                     baker,
                     baseModels.get("double"),
@@ -112,6 +122,7 @@ public final class CopycatUnbakedGeometry
             return new CopycatBakedModel(
                     bottomModel,
                     topModel,
+                    doubleTopModel,
                     doubleModel
             );
         }
