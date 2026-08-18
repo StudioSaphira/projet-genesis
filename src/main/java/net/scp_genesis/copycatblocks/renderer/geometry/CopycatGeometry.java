@@ -4,7 +4,7 @@ package net.scp_genesis.copycatblocks.renderer.geometry;
  * Represents the geometry used by Copycat Blocks.
  *
  * <p>This class defines the physical shape of a Copycat Block independently
- * from its appearance.</p>
+ * of its appearance.</p>
  *
  * <p>For version 0.1.x, only the Cube geometry will be supported.
  * Future versions will extend this system with Slabs, Stairs,
