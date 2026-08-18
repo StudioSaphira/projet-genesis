@@ -191,7 +191,7 @@ public final class CopycatQuadHelper {
      */
     public static @NotNull List<BakedQuad> retextureModel(
             @NotNull BakedModel geometryModel,
-            @NotNull BlockState copycatState,
+            @Nullable BlockState copycatState,
             @NotNull BlockState copiedState,
             @Nullable Direction side,
             @NotNull RandomSource random,

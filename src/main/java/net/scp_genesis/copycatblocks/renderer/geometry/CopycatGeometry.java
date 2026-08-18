@@ -1,65 +1,59 @@
 package net.scp_genesis.copycatblocks.renderer.geometry;
 
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.ChunkRenderTypeSet;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
 /**
- * Represents the geometry used by Copycat Blocks.
+ * Defines the geometry of a Copycat Block.
  *
- * <p>This class defines the physical shape of a Copycat Block independently
- * of its appearance.</p>
- *
- * <p>For version 0.1.x, only the Cube geometry will be supported.
- * Future versions will extend this system with Slabs, Stairs,
- * Panels, Slopes and other custom shapes.</p>
+ * <p>A Copycat geometry is responsible for generating the physical
+ * geometry of a Copycat Block independently of its appearance.</p>
  */
-public final class CopycatGeometry {
+public interface CopycatGeometry {
 
     /**
-     * The geometry type.
-     */
-    public enum Shape {
-
-        /**
-         * Standard full cube.
-         */
-        CUBE
-
-        // Future:
-        // SLAB,
-        // STAIRS,
-        // PANEL,
-        // SLOPE,
-        // ...
-    }
-
-    /**
-     * Geometry shape.
-     */
-    private final Shape shape;
-
-    /**
-     * Creates a new Copycat geometry.
+     * Generates the quads used to render this geometry.
      *
-     * @param shape the geometry shape
-     */
-    public CopycatGeometry(Shape shape) {
-        this.shape = shape;
-    }
-
-    /**
-     * Returns the geometry shape.
+     * @param state the Copycat BlockState
+     * @param side the requested face
+     * @param random the random source
+     * @param modelData the model data
+     * @param renderType the requested render type
      *
-     * @return the geometry shape
+     * @return the generated quads
      */
-    public Shape getShape() {
-        return shape;
-    }
+    @NotNull
+    List<BakedQuad> getQuads(
+            @Nullable BlockState state,
+            @Nullable Direction side,
+            @NotNull RandomSource random,
+            @NotNull ModelData modelData,
+            @Nullable RenderType renderType
+    );
 
-    /**
-     * Returns whether this geometry represents a full cube.
-     *
-     * @return true if this geometry is a cube
-     */
-    public boolean isCube() {
-        return shape == Shape.CUBE;
-    }
+    @NotNull
+    BakedModel getModel();
 
+    @NotNull
+    ChunkRenderTypeSet getRenderTypes(
+            @Nullable BlockState state,
+            @NotNull RandomSource random,
+            @NotNull ModelData modelData
+    );
+
+    @NotNull
+    TextureAtlasSprite getParticleIcon(
+            @NotNull ModelData modelData
+    );
 }

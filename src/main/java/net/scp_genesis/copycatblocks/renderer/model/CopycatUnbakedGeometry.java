@@ -9,6 +9,9 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import net.scp_genesis.copycatblocks.renderer.geometry.CopycatGeometry;
+import net.scp_genesis.copycatblocks.renderer.geometry.CopycatGeometryCube;
+import net.scp_genesis.copycatblocks.renderer.geometry.CopycatGeometrySlab;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -79,8 +82,13 @@ public final class CopycatUnbakedGeometry
                     copycatSpriteGetter
             );
 
+            CopycatGeometry geometry =
+                    new CopycatGeometryCube(
+                            bakedBaseModel
+                    );
+
             return new CopycatBakedModel(
-                    bakedBaseModel
+                    geometry
             );
         }
 
@@ -108,7 +116,7 @@ public final class CopycatUnbakedGeometry
             ResourceLocation doubleSecondaryLocation =
                     baseModels.get("double_secondary");
 
-            BakedModel doubleTopModel = bakeModel(
+            BakedModel doubleSecondaryModel = bakeModel(
                     baker,
                     doubleSecondaryLocation,
                     modelState,
@@ -122,11 +130,16 @@ public final class CopycatUnbakedGeometry
                     copycatSpriteGetter
             );
 
+            CopycatGeometry geometry =
+                    new CopycatGeometrySlab(
+                            bottomModel,
+                            topModel,
+                            doubleSecondaryModel,
+                            doubleModel
+                    );
+
             return new CopycatBakedModel(
-                    bottomModel,
-                    topModel,
-                    doubleTopModel,
-                    doubleModel
+                    geometry
             );
         }
 
