@@ -2,6 +2,8 @@ package net.scp_genesis.copycatblocks.block;
 
 import net.minecraft.world.item.BlockItem;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
+import net.scp_genesis.copycatblocks.item.CopycatRemoverItem;
+import net.scp_genesis.copycatblocks.util.CopycatItemHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
@@ -60,6 +62,10 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return false;
     }
 
+    public boolean isMultipart() {
+        return false;
+    }
+
     /**
      * Called when the Copycat Wrench is used.
      *
@@ -76,7 +82,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             Level level,
             BlockPos pos,
             @NotNull BlockState state,
-            @NotNull BlockHitResult hitResult
+            @NotNull BlockHitResult hitResult,
+            @Nullable Player player
     ) {
         CopycatBlockEntity blockEntity =
                 getCopycatBlockEntity(level, pos);
@@ -95,11 +102,33 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             return InteractionResult.PASS;
         }
 
+        ItemStack copiedBlockItem =
+                CopycatItemHelper.getCopiedBlockItem(
+                        blockEntity,
+                        part
+                );
+
+        /*
+         * Remove the copied state.
+         */
         CopycatBlocksAPI.clear(
                 level,
                 pos,
                 part
         );
+
+        /*
+         * Survival:
+         * return the block that provided the copied texture.
+         */
+        if (player != null && !player.isCreative()) {
+            CopycatItemHelper.giveOrDrop(
+                    level,
+                    player,
+                    copiedBlockItem,
+                    pos
+            );
+        }
 
         afterClear(blockEntity);
 
@@ -108,7 +137,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
 
     public InteractionResult onScrape(
             Level level,
-            BlockPos pos
+            BlockPos pos,
+            @Nullable Player player
     ) {
         CopycatBlockEntity blockEntity =
                 getCopycatBlockEntity(level, pos);
@@ -121,13 +151,162 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             return InteractionResult.PASS;
         }
 
+        ItemStack copiedBlockItem =
+                CopycatItemHelper.getCopiedBlockItem(
+                        blockEntity,
+                        CopycatPart.MAIN
+                );
+
         CopycatBlocksAPI.clear(
                 level,
                 pos,
                 CopycatPart.MAIN
         );
 
+        if (player != null && !player.isCreative()) {
+            CopycatItemHelper.giveOrDrop(
+                    level,
+                    player,
+                    copiedBlockItem,
+                    pos
+            );
+        }
+
         afterClear(blockEntity);
+
+        return InteractionResult.SUCCESS;
+    }
+
+    protected InteractionResult onRemovePart(
+            Level level,
+            BlockPos pos,
+            @NotNull BlockState state,
+            @NotNull CopycatPart removedPart,
+            @Nullable Player player,
+            @NotNull ItemStack copycatItem,
+            @NotNull ItemStack copiedBlockItem
+    ) {
+        return InteractionResult.PASS;
+    }
+
+    /**
+     * Removes the Copycat Block targeted by the interaction.
+     *
+     * <p>In Survival mode, the Copycat Block and its copied block,
+     * if any, are returned to the player. In Creative mode, nothing
+     * is returned.</p>
+     *
+     * <p>For multipart Copycats, only the targeted part is removed.</p>
+     */
+    public InteractionResult onRemove(
+            Level level,
+            BlockPos pos,
+            @NotNull BlockState state,
+            @NotNull BlockHitResult hitResult,
+            @Nullable Player player
+    ) {
+        CopycatBlockEntity blockEntity =
+                getCopycatBlockEntity(level, pos);
+
+        if (blockEntity == null) {
+            return InteractionResult.PASS;
+        }
+
+        CopycatPart part =
+                getCopycatPart(
+                        state,
+                        hitResult
+                );
+
+        if (!blockEntity.hasCopiedState(part)) {
+            return InteractionResult.PASS;
+        }
+
+        ItemStack copycatItem =
+                CopycatItemHelper.getCopycatItem(state);
+
+        ItemStack copiedBlockItem =
+                CopycatItemHelper.getCopiedBlockItem(
+                        blockEntity,
+                        part
+                );
+
+        /*
+         * Remove the copied state first.
+         */
+        CopycatBlocksAPI.clear(
+                level,
+                pos,
+                part
+        );
+
+        /*
+         * Multipart Copycat.
+         *
+         * The targeted part is removed while the remaining
+         * part stays in place.
+         */
+        if (isMultipart()) {
+
+            CopycatPart remainingPart =
+                    part == CopycatPart.BOTTOM
+                            ? CopycatPart.TOP
+                            : CopycatPart.BOTTOM;
+
+            boolean hasRemainingPart =
+                    blockEntity.hasCopiedState(
+                            remainingPart
+                    );
+
+            if (hasRemainingPart) {
+
+                /*
+                 * The physical Copycat remains.
+                 *
+                 * For now, the multipart block must update its
+                 * physical state through its own implementation.
+                 */
+                return onRemovePart(
+                        level,
+                        pos,
+                        state,
+                        part,
+                        player,
+                        copycatItem,
+                        copiedBlockItem
+                );
+            }
+        }
+
+        /*
+         * No remaining part.
+         *
+         * Remove the entire Copycat.
+         */
+        level.removeBlock(
+                pos,
+                false
+        );
+
+        /*
+         * Creative players receive nothing.
+         */
+        if (player != null && !player.isCreative()) {
+
+            CopycatItemHelper.giveOrDrop(
+                    level,
+                    player,
+                    copycatItem,
+                    pos
+            );
+
+            CopycatItemHelper.giveOrDrop(
+                    level,
+                    player,
+                    copiedBlockItem,
+                    pos
+            );
+        }
 
         return InteractionResult.SUCCESS;
     }
@@ -190,11 +369,25 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                     level,
                     pos,
                     state,
-                    hitResult
+                    hitResult,
+                    player
             ).consumesAction()
                     ? ItemInteractionResult.SUCCESS
                     : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
+
+        if (stack.getItem() instanceof CopycatRemoverItem) {
+            return onRemove(
+                    level,
+                    pos,
+                    state,
+                    hitResult,
+                    player
+            ).consumesAction()
+                    ? ItemInteractionResult.SUCCESS
+                    : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+
         if (stack.getItem() instanceof CopycatWrenchItem) {
             if (!isWrenchable()) {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;

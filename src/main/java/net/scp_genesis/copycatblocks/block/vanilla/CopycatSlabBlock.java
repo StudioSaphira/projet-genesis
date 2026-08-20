@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,7 +25,9 @@ import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
 
 import net.scp_genesis.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.copycatblocks.data.CopycatPart;
+import net.scp_genesis.copycatblocks.util.CopycatItemHelper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class CopycatSlabBlock extends AbstractCopycatBlock {
 
@@ -129,9 +133,10 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
     }
 
     @Override
-    public boolean isWrenchable() {
-        return true;
-    }
+    public boolean isWrenchable() { return true; }
+
+    @Override
+    public boolean isMultipart() { return true; }
 
     @Override
     public InteractionResult onWrench(
@@ -205,6 +210,52 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
 
         return InteractionResult.SUCCESS;
     }
+
+    @Override
+    protected InteractionResult onRemovePart(
+            @NotNull Level level,
+            @NotNull BlockPos pos,
+            @NotNull BlockState state,
+            @NotNull CopycatPart removedPart,
+            @Nullable Player player,
+            @NotNull ItemStack copycatItem,
+            @NotNull ItemStack copiedBlockItem
+    ) {
+        CopycatPart remainingPart =
+                removedPart == CopycatPart.BOTTOM
+                        ? CopycatPart.TOP
+                        : CopycatPart.BOTTOM;
+
+        SlabType newType =
+                remainingPart == CopycatPart.BOTTOM
+                        ? SlabType.BOTTOM
+                        : SlabType.TOP;
+
+        level.setBlock(
+                pos,
+                state.setValue(
+                        BlockStateProperties.SLAB_TYPE,
+                        newType
+                ),
+                Block.UPDATE_ALL
+        );
+
+        /*
+         * The removed part's items are returned only in Survival.
+         */
+        if (player != null && !player.isCreative()) {
+
+            CopycatItemHelper.giveOrDrop(
+                    level,
+                    player,
+                    copiedBlockItem,
+                    pos
+            );
+        }
+
+        return InteractionResult.SUCCESS;
+    }
+
     @Override
     protected CopycatPart getCopycatPart(
             @NotNull BlockState state,

@@ -28,7 +28,8 @@ public class CopycatScraperItem extends Item {
 
         return copycat.onScrape(
                 context.getLevel(),
-                context.getClickedPos()
+                context.getClickedPos(),
+                context.getPlayer()
         );
     }
 }
