@@ -246,10 +246,8 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
         if (player != null && !player.isCreative()) {
 
             CopycatItemHelper.giveOrDrop(
-                    level,
                     player,
-                    copiedBlockItem,
-                    pos
+                    copiedBlockItem
             );
         }
 
@@ -264,16 +262,10 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
         SlabType slabType =
                 state.getValue(BlockStateProperties.SLAB_TYPE);
 
-        /*
-         * Simple BOTTOM slab.
-         */
         if (slabType == SlabType.BOTTOM) {
             return CopycatPart.BOTTOM;
         }
 
-        /*
-         * Simple TOP slab.
-         */
         if (slabType == SlabType.TOP) {
             return CopycatPart.TOP;
         }
@@ -281,16 +273,15 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
         /*
          * DOUBLE slab.
          *
-         * The clicked height determines which logical
-         * half is being modified.
+         * Determine the targeted half from the hit position.
          */
         double y =
                 hitResult.getLocation().y
                         - hitResult.getBlockPos().getY();
 
-        return y < 0.5D
-                ? CopycatPart.BOTTOM
-                : CopycatPart.TOP;
+        return y >= 0.5D
+                ? CopycatPart.TOP
+                : CopycatPart.BOTTOM;
     }
 
     @Override

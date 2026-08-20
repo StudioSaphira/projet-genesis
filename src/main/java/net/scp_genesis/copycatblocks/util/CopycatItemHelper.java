@@ -1,6 +1,5 @@
 package net.scp_genesis.copycatblocks.util;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -56,10 +55,8 @@ public final class CopycatItemHelper {
      * <p>If the inventory is full, the item is dropped.</p>
      */
     public static void giveOrDrop(
-            @NotNull Level level,
             @NotNull Player player,
-            @NotNull ItemStack stack,
-            @NotNull BlockPos pos
+            @NotNull ItemStack stack
     ) {
         if (stack.isEmpty()) {
             return;

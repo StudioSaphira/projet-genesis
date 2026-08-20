@@ -123,10 +123,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
          */
         if (player != null && !player.isCreative()) {
             CopycatItemHelper.giveOrDrop(
-                    level,
                     player,
-                    copiedBlockItem,
-                    pos
+                    copiedBlockItem
             );
         }
 
@@ -165,10 +163,8 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
 
         if (player != null && !player.isCreative()) {
             CopycatItemHelper.giveOrDrop(
-                    level,
                     player,
-                    copiedBlockItem,
-                    pos
+                    copiedBlockItem
             );
         }
 
@@ -294,17 +290,13 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         if (player != null && !player.isCreative()) {
 
             CopycatItemHelper.giveOrDrop(
-                    level,
                     player,
-                    copycatItem,
-                    pos
+                    copycatItem
             );
 
             CopycatItemHelper.giveOrDrop(
-                    level,
                     player,
-                    copiedBlockItem,
-                    pos
+                    copiedBlockItem
             );
         }
 
@@ -419,6 +411,10 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         )) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
+        if (!player.isCreative()) {
+            stack.shrink(1);
+        }
+
         return ItemInteractionResult.SUCCESS;
     }
 
