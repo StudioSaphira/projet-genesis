@@ -62,9 +62,14 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return false;
     }
 
-    public boolean isMultipart() {
-        return false;
-    }
+    /**
+     * Returns whether the current BlockState represents a multipart
+     * physical state.
+     *
+     * <p>Multipart-capable blocks can override this method when only
+     * specific states represent multiple physical parts.</p>
+     */
+    protected boolean isMultipartState(@NotNull BlockState state) { return false; }
 
     /**
      * Called when the Copycat Wrench is used.
@@ -214,10 +219,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                         hitResult
                 );
 
-        if (!blockEntity.hasCopiedState(part)) {
-            return InteractionResult.PASS;
-        }
-
         ItemStack copycatItem =
                 CopycatItemHelper.getCopycatItem(state);
 
@@ -242,36 +243,16 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
          * The targeted part is removed while the remaining
          * part stays in place.
          */
-        if (isMultipart()) {
-
-            CopycatPart remainingPart =
-                    part == CopycatPart.BOTTOM
-                            ? CopycatPart.TOP
-                            : CopycatPart.BOTTOM;
-
-            boolean hasRemainingPart =
-                    blockEntity.hasCopiedState(
-                            remainingPart
-                    );
-
-            if (hasRemainingPart) {
-
-                /*
-                 * The physical Copycat remains.
-                 *
-                 * For now, the multipart block must update its
-                 * physical state through its own implementation.
-                 */
-                return onRemovePart(
-                        level,
-                        pos,
-                        state,
-                        part,
-                        player,
-                        copycatItem,
-                        copiedBlockItem
-                );
-            }
+        if (isMultipartState(state)) {
+            return onRemovePart(
+                    level,
+                    pos,
+                    state,
+                    part,
+                    player,
+                    copycatItem,
+                    copiedBlockItem
+            );
         }
 
         /*

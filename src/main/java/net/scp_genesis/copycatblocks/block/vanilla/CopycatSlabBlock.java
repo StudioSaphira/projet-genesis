@@ -133,10 +133,17 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
     }
 
     @Override
-    public boolean isWrenchable() { return true; }
+    public boolean isWrenchable() {
+        return true;
+    }
 
     @Override
-    public boolean isMultipart() { return true; }
+    protected boolean isMultipartState(
+            @NotNull BlockState state
+    ) {
+        return state.getValue(BlockStateProperties.SLAB_TYPE)
+                == SlabType.DOUBLE;
+    }
 
     @Override
     public InteractionResult onWrench(
@@ -244,6 +251,11 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
          * The removed part's items are returned only in Survival.
          */
         if (player != null && !player.isCreative()) {
+
+            CopycatItemHelper.giveOrDrop(
+                    player,
+                    copycatItem
+            );
 
             CopycatItemHelper.giveOrDrop(
                     player,
