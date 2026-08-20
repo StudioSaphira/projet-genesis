@@ -118,6 +118,7 @@ public class ModTabs {
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.scp_genesis.copycat_blocks")).icon(() -> new ItemStack(ModBlocks.COPYCAT_CUBE.get())).displayItems((parameters, tabData) -> {
 				tabData.accept(ModItems.COPYCAT_WRENCH.get());
 				tabData.accept(ModItems.COPYCAT_SCRAPER.get());
+				tabData.accept(ModItems.COPYCAT_REMOVER.get());
 				tabData.accept(ModItems.COPYCAT_CUBE.get());
 				tabData.accept(ModItems.COPYCAT_SLAB.get());
 				// tabData.accept(ModItems.COPYCAT_STAIRS.get());
