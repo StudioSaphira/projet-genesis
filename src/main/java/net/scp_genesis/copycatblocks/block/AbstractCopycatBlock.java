@@ -416,6 +416,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
     /**
      * Called after a successful copy.
      */
+    @SuppressWarnings("unused")
     protected void afterCopy(CopycatBlockEntity blockEntity) {
 
     }
@@ -423,6 +424,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
     /**
      * Called after the Copycat has been cleared.
      */
+    @SuppressWarnings("unused")
     protected void afterClear(CopycatBlockEntity blockEntity) {
 
     }

@@ -95,6 +95,7 @@ public final class CopycatBlocksAPI {
      * <p>This is the default copy operation used by single-part
      * Copycat Blocks such as the Cube.</p>
      */
+    @SuppressWarnings("unused")
     public static boolean copy(
             Level level,
             BlockPos pos,
@@ -166,6 +167,7 @@ public final class CopycatBlocksAPI {
     /**
      * Clears the main copied BlockState.
      */
+    @SuppressWarnings("unused")
     public static void clear(
             Level level,
             BlockPos pos
@@ -201,6 +203,7 @@ public final class CopycatBlocksAPI {
      * Returns whether the main Copycat currently contains
      * a copied BlockState.
      */
+    @SuppressWarnings("unused")
     public static boolean hasCopiedState(
             Level level,
             BlockPos pos
@@ -235,13 +238,14 @@ public final class CopycatBlocksAPI {
     /**
      * Returns the main copied BlockState.
      */
+    @SuppressWarnings("unused")
     @Nullable
     public static BlockState getCopiedState(
             Level level,
             BlockPos pos
     ) {
         return getCopiedState(
-                (BlockAndTintGetter) level,
+                level,
                 pos,
                 CopycatPart.MAIN
         );
@@ -250,6 +254,7 @@ public final class CopycatBlocksAPI {
     /**
      * Returns the copied BlockState from the specified part.
      */
+    @SuppressWarnings("unused")
     @Nullable
     public static BlockState getCopiedState(
             BlockAndTintGetter level,
