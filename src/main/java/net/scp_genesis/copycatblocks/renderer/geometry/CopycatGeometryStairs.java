@@ -40,6 +40,13 @@ public final class CopycatGeometryStairs
         this.models = models;
     }
 
+    private static final CopycatStairsModelHelper.StairModelKey DEFAULT_MODEL_KEY =
+            new CopycatStairsModelHelper.StairModelKey(
+                    Direction.EAST,
+                    Half.BOTTOM,
+                    StairsShape.STRAIGHT
+            );
+
     /**
      * Returns the BakedModel corresponding to the current
      * Stair BlockState.
@@ -48,9 +55,7 @@ public final class CopycatGeometryStairs
             @Nullable BlockState state
     ) {
         if (state == null) {
-            return models.values()
-                    .iterator()
-                    .next();
+            return getModel();
         }
 
         Direction facing =
@@ -89,9 +94,15 @@ public final class CopycatGeometryStairs
 
     @Override
     public @NotNull BakedModel getModel() {
-        return models.values()
-                .iterator()
-                .next();
+        BakedModel model = models.get(DEFAULT_MODEL_KEY);
+
+        if (model == null) {
+            throw new IllegalStateException(
+                    "Missing default Copycat Stairs model"
+            );
+        }
+
+        return model;
     }
 
     @Override

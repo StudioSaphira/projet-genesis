@@ -3,8 +3,10 @@ package net.scp_genesis.copycatblocks.block.vanilla;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -23,6 +25,88 @@ public class CopycatStairsBlock extends AbstractCopycatBlock {
 
     public static final MapCodec<CopycatStairsBlock> CODEC =
             Block.simpleCodec(CopycatStairsBlock::new);
+
+    @Override
+    public boolean isWrenchable() {
+        return true;
+    }
+
+    @Override
+    public InteractionResult onWrench(
+            @NotNull Level level,
+            @NotNull BlockPos pos,
+            @NotNull BlockState state
+    ) {
+        Direction currentFacing =
+                state.getValue(
+                        BlockStateProperties.HORIZONTAL_FACING
+                );
+
+        Half currentHalf =
+                state.getValue(
+                        BlockStateProperties.HALF
+                );
+
+        Direction newFacing =
+                currentFacing.getClockWise();
+
+        Half newHalf = currentHalf;
+
+        /*
+         * Cyclical Rotation :
+         *
+         * BOTTOM NORTH
+         * -> BOTTOM EAST
+         * -> BOTTOM SOUTH
+         * -> BOTTOM WEST
+         * -> TOP NORTH
+         * -> TOP EAST
+         * -> TOP SOUTH
+         * -> TOP WEST
+         * -> BOTTOM NORTH
+         */
+        if (currentHalf == Half.BOTTOM
+                && currentFacing == Direction.WEST) {
+
+            newFacing = Direction.NORTH;
+            newHalf = Half.TOP;
+
+        } else if (currentHalf == Half.TOP
+                && currentFacing == Direction.WEST) {
+
+            newFacing = Direction.NORTH;
+            newHalf = Half.BOTTOM;
+        }
+
+        BlockState rotatedState =
+                state
+                        .setValue(
+                                BlockStateProperties.HORIZONTAL_FACING,
+                                newFacing
+                        )
+                        .setValue(
+                                BlockStateProperties.HALF,
+                                newHalf
+                        );
+
+        BlockState finalState =
+                rotatedState.setValue(
+                        BlockStateProperties.STAIRS_SHAPE,
+                        getStairsShape(
+                                rotatedState,
+                                level,
+                                pos
+                        )
+                );
+
+        level.setBlock(
+                pos,
+                finalState,
+                Block.UPDATE_ALL
+        );
+
+        return InteractionResult.SUCCESS;
+    }
 
     private static StairsShape getStairsShape(
             BlockState state,
