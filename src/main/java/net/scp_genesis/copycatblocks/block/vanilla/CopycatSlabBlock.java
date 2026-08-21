@@ -21,6 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.scp_genesis.copycatblocks.api.CopycatBlocksAPI;
 import net.scp_genesis.copycatblocks.block.AbstractCopycatBlock;
 
 import net.scp_genesis.copycatblocks.blockentity.CopycatBlockEntity;
@@ -228,6 +229,12 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
             @NotNull ItemStack copycatItem,
             @NotNull ItemStack copiedBlockItem
     ) {
+        CopycatBlocksAPI.clear(
+                level,
+                pos,
+                removedPart
+        );
+
         CopycatPart remainingPart =
                 removedPart == CopycatPart.BOTTOM
                         ? CopycatPart.TOP
@@ -247,11 +254,7 @@ public class CopycatSlabBlock extends AbstractCopycatBlock {
                 Block.UPDATE_ALL
         );
 
-        /*
-         * The removed part's items are returned only in Survival.
-         */
         if (player != null && !player.isCreative()) {
-
             CopycatItemHelper.giveOrDrop(
                     player,
                     copycatItem

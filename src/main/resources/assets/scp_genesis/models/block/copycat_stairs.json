@@ -1,6 +1,10 @@
 {
   "loader": "scp_genesis:copycat",
-  "base_model": "minecraft:block/stairs",
+  "base_model": {
+    "straight": "minecraft:block/stairs",
+    "inner": "minecraft:block/inner_stairs",
+    "outer": "minecraft:block/outer_stairs"
+  },
   "textures": {
     "all": "scp_genesis:block/copycat_block"
   },

@@ -79,6 +79,41 @@ public final class CopycatModelLoader
             JsonObject baseModels =
                     baseModelElement.getAsJsonObject();
 
+            /*
+             * Stair Copycat Model.
+             */
+            if (baseModels.has("straight")
+                    && baseModels.has("inner")
+                    && baseModels.has("outer")) {
+
+                Map<String, ResourceLocation> models =
+                        new HashMap<>();
+
+                String[] requiredModels = {
+                        "straight",
+                        "inner",
+                        "outer"
+                };
+
+                for (String key : requiredModels) {
+
+                    models.put(
+                            key,
+                            ResourceLocation.parse(
+                                    baseModels.get(key).getAsString()
+                            )
+                    );
+                }
+
+                return new CopycatUnbakedGeometry(
+                        CopycatUnbakedGeometry.GeometryType.STAIRS,
+                        models
+                );
+            }
+
+            /*
+             * Slab Copycat Model.
+             */
             String[] requiredModels = {
                     "bottom",
                     "top",
@@ -107,7 +142,10 @@ public final class CopycatModelLoader
                 );
             }
 
-            return new CopycatUnbakedGeometry(models);
+            return new CopycatUnbakedGeometry(
+                    CopycatUnbakedGeometry.GeometryType.SLAB,
+                    models
+            );
         }
 
         throw new JsonParseException(

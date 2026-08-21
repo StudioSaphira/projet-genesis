@@ -58,6 +58,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
      * <p>Override this method in blocks that can change their
      * orientation or geometry.</p>
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isWrenchable() {
         return false;
     }
@@ -229,19 +230,11 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                 );
 
         /*
-         * Remove the copied state first.
-         */
-        CopycatBlocksAPI.clear(
-                level,
-                pos,
-                part
-        );
-
-        /*
          * Multipart Copycat.
          *
-         * The targeted part is removed while the remaining
-         * part stays in place.
+         * The specialized Copycat Block is responsible for
+         * removing the targeted physical part and clearing
+         * its corresponding copied state.
          */
         if (isMultipartState(state)) {
             return onRemovePart(
@@ -256,10 +249,16 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         }
 
         /*
-         * No remaining part.
+         * Single-part Copycat.
          *
-         * Remove the entire Copycat.
+         * Remove the copied state and then remove the block.
          */
+        CopycatBlocksAPI.clear(
+                level,
+                pos,
+                part
+        );
+
         level.removeBlock(
                 pos,
                 false
@@ -269,7 +268,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
          * Creative players receive nothing.
          */
         if (player != null && !player.isCreative()) {
-
             CopycatItemHelper.giveOrDrop(
                     player,
                     copycatItem
@@ -283,7 +281,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
 
         return InteractionResult.SUCCESS;
     }
-
     /**
      * Copies the given BlockState into this Copycat Block.
      *
@@ -327,6 +324,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return CopycatPart.MAIN;
     }
 
+    @SuppressWarnings("IfCanBeSwitch")
     @Override
     public @NotNull ItemInteractionResult useItemOn(
             ItemStack stack,
