@@ -13,8 +13,7 @@ import net.scp_genesis.copycatblocks.block.vanilla.*;
 
 public final class ModBlocks {
 
-	private ModBlocks() {
-	}
+	private ModBlocks() {}
 
 	public static final DeferredRegister.Blocks REGISTRY = DeferredRegister.createBlocks(ModConstants.MOD_ID);
 	public static final DeferredBlock<Block>
@@ -26,11 +25,11 @@ public final class ModBlocks {
 			WALL_BASE = REGISTRY.register("wall_base", WallBaseBlock::new),
 			GREEN_TILED_FLOOR = REGISTRY.register("green_tiled_floor", GreenTiledFloorBlock::new),
 			COPYCAT_CUBE = REGISTRY.register("copycat_cube", () -> new CopycatCubeBlock(
-							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion())),
+							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion())),
+			COPYCAT_STAIRS = REGISTRY.register("copycat_stairs", () -> new CopycatStairsBlock(
+							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion())),
 			COPYCAT_SLAB = REGISTRY.register("copycat_slab", () -> new CopycatSlabBlock(
-							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion()));
-			// COPYCAT_STAIRS = REGISTRY.register("copycat_stairs", () -> new CopycatStairsBlock(
-			//		BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops().noOcclusion()));
+							BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
 	// Start of user code block custom blocks
 	// End of user code block custom blocks
 }

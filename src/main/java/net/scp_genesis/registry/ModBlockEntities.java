@@ -10,20 +10,19 @@ import net.scp_genesis.copycatblocks.util.CopycatConstants;
 
 public final class ModBlockEntities {
 
-    private ModBlockEntities() {
-
-    }
+    private ModBlockEntities() {}
 
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ModConstants.MOD_ID);
 
+    @SuppressWarnings("DataFlowIssue")
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CopycatBlockEntity>> COPYCAT_BLOCK_ENTITY =
             REGISTRY.register(CopycatConstants.BLOCK_ENTITY_ID,
                     () -> BlockEntityType.Builder.of(
                             CopycatBlockEntity::new,
                             ModBlocks.COPYCAT_CUBE.get(),
-                            ModBlocks.COPYCAT_SLAB.get()
-                            // ModBlocks.COPYCAT_STAIRS.get()
+                            ModBlocks.COPYCAT_SLAB.get(),
+                            ModBlocks.COPYCAT_STAIRS.get()
                             // ModBlocks.COPYCAT_SLOPE.get()
-                    ).build(null)); // Unused
+                    ).build(null));
 }

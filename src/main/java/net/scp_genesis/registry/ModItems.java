@@ -129,7 +129,7 @@ public class ModItems {
 	public static final DeferredItem<Item> WALL_BASE = block(ModBlocks.WALL_BASE);
 	public static final DeferredItem<Item> GREEN_TILED_FLOOR = block(ModBlocks.GREEN_TILED_FLOOR);
 	public static final DeferredItem<Item> COPYCAT_CUBE = block(ModBlocks.COPYCAT_CUBE);
-	// public static final DeferredItem<Item> COPYCAT_STAIRS = block(ModBlocks.COPYCAT_STAIRS);
+	public static final DeferredItem<Item> COPYCAT_STAIRS = block(ModBlocks.COPYCAT_STAIRS);
 	public static final DeferredItem<Item> COPYCAT_SLAB = block(ModBlocks.COPYCAT_SLAB);
 	public static final DeferredItem<Item> COPYCAT_WRENCH = REGISTRY.register("copycat_wrench", CopycatWrenchItem::new);
 	public static final DeferredItem<Item> COPYCAT_SCRAPER = REGISTRY.register("copycat_scraper", CopycatScraperItem::new);
