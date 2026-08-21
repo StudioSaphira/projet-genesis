@@ -59,10 +59,7 @@ public final class CopycatModelLoader
         var baseModelElement = json.get("base_model");
 
         /*
-         * Simple Copycat model.
-         *
-         * Example:
-         * "base_model": "minecraft:block/cube_all"
+         * Simple Copycat Model
          */
         if (baseModelElement.isJsonPrimitive()) {
 
@@ -75,14 +72,7 @@ public final class CopycatModelLoader
         }
 
         /*
-         * Multipart Copycat model.
-         *
-         * Example:
-         * "base_model": {
-         *     "bottom": "...",
-         *     "top": "...",
-         *     "double": "..."
-         * }
+         * Multipart Copycat Model
          */
         if (baseModelElement.isJsonObject()) {
 

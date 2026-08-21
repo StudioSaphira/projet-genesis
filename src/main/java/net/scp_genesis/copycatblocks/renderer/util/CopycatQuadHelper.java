@@ -21,13 +21,9 @@ public final class CopycatQuadHelper {
     private CopycatQuadHelper() {
     }
 
-    /*
-     * ================================================================
-     * TINT
-     * ================================================================
-     */
-
     /**
+     * <h1>TINT</h1>
+     * ================================================================
      * Encodes the tint index of a Copycat part.
      */
     public static int encodeCopycatTintIndex(
@@ -45,14 +41,9 @@ public final class CopycatQuadHelper {
         };
     }
 
-
-    /*
-     * ================================================================
-     * QUAD REMAPPING
-     * ================================================================
-     */
-
     /**
+     * <h1>QUAD REMAPPING</h1>
+     * ================================================================
      * Remaps the UV coordinates of a Copycat quad from its original
      * sprite to the sprite of the copied block.
      *
@@ -178,14 +169,9 @@ public final class CopycatQuadHelper {
         );
     }
 
-
-    /*
-     * ================================================================
-     * RETEXTURING
-     * ================================================================
-     */
-
     /**
+     * <h1>RETEXTURING</h1>
+     * ================================================================
      * Retextures a Copycat geometry model using the corresponding
      * copied block model.
      */
