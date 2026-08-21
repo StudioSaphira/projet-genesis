@@ -19,26 +19,18 @@ import java.util.List;
 
 public final class CopycatBakedModel implements BakedModel {
 
-    /*
-     * ================================================================
-     * MODELS
-     * ================================================================
-     */
-
     /**
-     * Base geometry used by a simple Copycat Block such as the Cube.
+     * <h1>MODELS</h1>
+     * ================================================================
+     * <p>Base geometry used by a simple Copycat Block such as the Cube.</p>
      */
     private final CopycatGeometry geometry;
 
 
-    /*
-     * ================================================================
-     * CONSTRUCTORS
-     * ================================================================
-     */
-
     /**
-     * Constructor used by simple Copycat Blocks.
+     * <h1>CONSTRUCTORS</h1>
+     * ================================================================
+     * <p>Constructor used by simple Copycat Blocks.</p>
      */
     public CopycatBakedModel(
             @NotNull CopycatGeometry geometry
@@ -46,13 +38,9 @@ public final class CopycatBakedModel implements BakedModel {
         this.geometry = geometry;
     }
 
-    /*
-     * ================================================================
-     * QUADS
-     * ================================================================
-     */
-
     /**
+     * <h1>QUADS</h1>
+     * ================================================================
      * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
@@ -89,9 +77,8 @@ public final class CopycatBakedModel implements BakedModel {
         );
     }
 
-    /*
-     * ================================================================
-     * RENDER TYPES
+    /**
+     * <h1>RENDER TYPES</h1>
      * ================================================================
      */
 
@@ -108,10 +95,8 @@ public final class CopycatBakedModel implements BakedModel {
         );
     }
 
-
-    /*
-     * ================================================================
-     * COMMON MODEL PROPERTIES
+    /**
+     * <h1>COMMON MODEL PROPERTIES</h1>
      * ================================================================
      */
 
@@ -146,14 +131,9 @@ public final class CopycatBakedModel implements BakedModel {
         return false;
     }
 
-
-    /*
-     * ================================================================
-     * PARTICLE
-     * ================================================================
-     */
-
     /**
+     * <h1>PARTICLE</h1>
+     * ================================================================
      * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
@@ -171,14 +151,9 @@ public final class CopycatBakedModel implements BakedModel {
         return geometry.getParticleIcon(modelData);
     }
 
-
-    /*
-     * ================================================================
-     * TRANSFORMS
-     * ================================================================
-     */
-
     /**
+     * <h1>TRANSFORMS</h1>
+     * ================================================================
      * @deprecated Use the modern transform API.
      */
     @SuppressWarnings("deprecation")
