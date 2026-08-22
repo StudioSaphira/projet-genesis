@@ -1,4 +1,4 @@
-package net.scp_genesis.neoforge.client;
+package net.scp_genesis.common.copycatblocks.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColor;

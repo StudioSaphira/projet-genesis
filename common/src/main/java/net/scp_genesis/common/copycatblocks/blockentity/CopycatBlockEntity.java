@@ -27,7 +27,19 @@ import java.util.EnumMap;
  */
 public class CopycatBlockEntity extends BlockEntity {
 
-    public EnumMap<CopycatPart, BlockState> getCopiedStates() {
+    /**
+     * Copycat data.
+     */
+    private final CopycatData data = new CopycatData();
+
+    public CopycatBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.COPYCAT_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    /**
+     * Returns all copied BlockStates indexed by Copycat part.
+     */
+    public @NotNull EnumMap<CopycatPart, BlockState> getCopiedStates() {
         EnumMap<CopycatPart, BlockState> copiedStates =
                 new EnumMap<>(CopycatPart.class);
 
@@ -39,15 +51,6 @@ public class CopycatBlockEntity extends BlockEntity {
         }
 
         return copiedStates;
-    }
-
-    /**
-     * Copycat data.
-     */
-    private final CopycatData data = new CopycatData();
-
-    public CopycatBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.COPYCAT_BLOCK_ENTITY.get(), pos, state);
     }
 
     // ------------------------------------------------------------------------
@@ -129,7 +132,7 @@ public class CopycatBlockEntity extends BlockEntity {
     }
 
     // ------------------------------------------------------------------------
-    // Model Data
+    // Block Updates
     // ------------------------------------------------------------------------
 
     /**

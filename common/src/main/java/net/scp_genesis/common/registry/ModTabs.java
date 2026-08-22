@@ -154,7 +154,7 @@ public final class ModTabs {
 		BUILDING_BLOCKS =
 				registry.registerCreativeModeTab(
 						"building_blocks",
-						CUSTOM_ITEMS,
+						CUSTOM_ITEMS.getId(),
 						() -> CreativeModeTab.builder()
 								.title(
 										Component.translatable(
@@ -183,7 +183,7 @@ public final class ModTabs {
 		COPYCAT_BLOCKS =
 				registry.registerCreativeModeTab(
 						"copycat_blocks",
-						BUILDING_BLOCKS,
+						BUILDING_BLOCKS.getId(),
 						() -> CreativeModeTab.builder()
 								.title(
 										Component.translatable(

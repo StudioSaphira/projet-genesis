@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "scp_genesis",
+  "version": "${version}",
+  "name": "SCP: Genesis",
+  "description": "SCP: Genesis",
+  "authors": [
+    "Saphira"
+  ],
+  "environment": "*",
+
+  "entrypoints": {
+    "main": [
+      "net.scp_genesis.fabric.FabricGenesis"
+    ],
+    "client": [
+      "net.scp_genesis.fabric.FabricGenesisClient"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~1.21.1",
+    "fabric-api": "*"
+  }
+}

@@ -1,5 +1,6 @@
 package net.scp_genesis.common.platform;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -36,7 +37,7 @@ public interface PlatformRegistry {
 
     PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
-            PlatformRegistryObject<CreativeModeTab> before,
+            ResourceLocation before,
             Supplier<CreativeModeTab.Builder> builder
     );
 

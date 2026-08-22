@@ -4,8 +4,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.api.distmarker.Dist;
 
-import net.scp_genesis.neoforge.client.ModBlockColors;
-import net.scp_genesis.neoforge.client.ModModelLoading;
+import net.scp_genesis.neoforge.client.NeoForgeBlockColors;
+import net.scp_genesis.neoforge.client.NeoForgeModelLoading;
 
 @Mod(
         value = "scp_genesis",
@@ -17,11 +17,11 @@ public final class NeoForgeGenesisClient {
             IEventBus modEventBus
     ) {
         modEventBus.addListener(
-                ModBlockColors::register
+                NeoForgeBlockColors::register
         );
 
         modEventBus.addListener(
-                ModModelLoading::registerGeometryLoaders
+                NeoForgeModelLoading::registerGeometryLoaders
         );
     }
 }

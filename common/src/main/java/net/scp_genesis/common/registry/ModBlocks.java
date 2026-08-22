@@ -30,82 +30,38 @@ public final class ModBlocks {
 	public static void register(
 			PlatformRegistry registry
 	) {
-		CLEAN_WHITE_WALL =
-				registry.registerBlock(
-						"clean_white_wall",
-						CleanWhiteWallBlock::new
-				);
+		CLEAN_WHITE_WALL = registry.registerBlock("clean_white_wall", CleanWhiteWallBlock::new);
 
-		BROKEN_WHITE_WALL_ONE =
-				registry.registerBlock(
-						"broken_white_wall_one",
-						BrokenWhiteWallOneBlock::new
-				);
+		BROKEN_WHITE_WALL_ONE = registry.registerBlock("broken_white_wall_one", BrokenWhiteWallOneBlock::new);
 
-		BROKEN_WHITE_WALL_TWO =
-				registry.registerBlock(
-						"broken_white_wall_two",
-						BrokenWhiteWallTwoBlock::new
-				);
+		BROKEN_WHITE_WALL_TWO = registry.registerBlock("broken_white_wall_two", BrokenWhiteWallTwoBlock::new);
 
-		DIRTY_BROKEN_WHITE_WALL_ONE =
-				registry.registerBlock(
-						"dirty_broken_white_wall_one",
-						DirtyBrokenWhiteWallOneBlock::new
-				);
+		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteWallOneBlock::new);
 
-		DIRTY_BROKEN_WHITE_WALL_TWO =
-				registry.registerBlock(
-						"dirty_broken_white_wall_two",
-						DirtyBrokenWhiteWallTwoBlock::new
-				);
+		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteWallTwoBlock::new);
 
-		WALL_BASE =
-				registry.registerBlock(
-						"wall_base",
-						WallBaseBlock::new
-				);
+		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
 
-		GREEN_TILED_FLOOR =
-				registry.registerBlock(
-						"green_tiled_floor",
-						GreenTiledFloorBlock::new
-				);
+		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
 
-		COPYCAT_CUBE =
-				registry.registerBlock(
-						"copycat_cube",
-						() -> new CopycatCubeBlock(
+		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
+								BlockBehaviour.Properties.of()
+										.strength(2.0F, 6.0F)
+										.sound(SoundType.METAL)
+										.requiresCorrectToolForDrops().noOcclusion()));
+
+		COPYCAT_STAIRS = registry.registerBlock("copycat_stairs", () -> new CopycatStairsBlock(
 								BlockBehaviour.Properties.of()
 										.strength(2.0F, 6.0F)
 										.sound(SoundType.METAL)
 										.requiresCorrectToolForDrops()
-										.noOcclusion()
-						)
-				);
+										.noOcclusion()));
 
-		COPYCAT_STAIRS =
-				registry.registerBlock(
-						"copycat_stairs",
-						() -> new CopycatStairsBlock(
+		COPYCAT_SLAB = registry.registerBlock("copycat_slab", () -> new CopycatSlabBlock(
 								BlockBehaviour.Properties.of()
 										.strength(2.0F, 6.0F)
 										.sound(SoundType.METAL)
 										.requiresCorrectToolForDrops()
-										.noOcclusion()
-						)
-				);
-
-		COPYCAT_SLAB =
-				registry.registerBlock(
-						"copycat_slab",
-						() -> new CopycatSlabBlock(
-								BlockBehaviour.Properties.of()
-										.strength(2.0F, 6.0F)
-										.sound(SoundType.METAL)
-										.requiresCorrectToolForDrops()
-										.noOcclusion()
-						)
-				);
+										.noOcclusion()));
 	}
 }

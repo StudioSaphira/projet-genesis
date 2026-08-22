@@ -3,10 +3,11 @@ package net.scp_genesis.neoforge.client;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 import net.scp_genesis.common.registry.ModBlocks;
+import net.scp_genesis.common.copycatblocks.client.CopycatBlockColor;
 
-public final class ModBlockColors {
+public final class NeoForgeBlockColors {
 
-    private ModBlockColors() {}
+    private NeoForgeBlockColors() {}
 
     public static void register(RegisterColorHandlersEvent.Block event) {
 

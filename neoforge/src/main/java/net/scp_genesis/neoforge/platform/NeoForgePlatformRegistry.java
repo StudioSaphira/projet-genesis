@@ -1,6 +1,7 @@
 package net.scp_genesis.neoforge.platform;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -134,13 +135,13 @@ public final class NeoForgePlatformRegistry
     @Override
     public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
-            PlatformRegistryObject<CreativeModeTab> before,
+            ResourceLocation before,
             Supplier<CreativeModeTab.Builder> builder
     ) {
         var holder = creativeModeTabs.register(
                 id,
                 () -> builder.get()
-                        .withTabsBefore(before.getId())
+                        .withTabsBefore(before)
                         .build()
         );
 
