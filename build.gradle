@@ -8,11 +8,6 @@ base.archivesName = project.mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-sourceSets {
-    neoforge
-    fabric
-}
-
 neoForge {
     version = project.neoforge_version
 
@@ -30,12 +25,9 @@ neoForge {
         }
     }
 
-    addModdingDependenciesTo sourceSets.neoforge
-
     mods {
         scp_genesis {
             sourceSet sourceSets.main
-            sourceSet sourceSets.neoforge
         }
     }
 }
