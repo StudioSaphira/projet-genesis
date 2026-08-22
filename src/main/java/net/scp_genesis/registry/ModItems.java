@@ -1,147 +1,201 @@
 package net.scp_genesis.registry;
 
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredHolder;
-
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BlockItem;
 
-import net.scp_genesis.scps.item.cards.keycards.mtf.epsilon11.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.antheia5.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.alpha1.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.gamma8.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.omega1.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.umbra6.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.zeta19.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.resh1.*;
-import net.scp_genesis.scps.item.cards.keycards.mtf.nu7.*;
-import net.scp_genesis.scps.item.cards.keycards.logistics.*;
-import net.scp_genesis.scps.item.cards.keycards.internal.*;
-import net.scp_genesis.scps.item.cards.keycards.ethics.*;
+import net.scp_genesis.copycatblocks.item.*;
+import net.scp_genesis.platform.PlatformRegistry;
+import net.scp_genesis.platform.PlatformRegistryObject;
+import net.scp_genesis.scps.item.cards.id.*;
+import net.scp_genesis.scps.item.cards.keycards.*;
 import net.scp_genesis.scps.item.cards.keycards.admin.*;
-import net.scp_genesis.scps.item.cards.keycards.raisa.*;
+import net.scp_genesis.scps.item.cards.keycards.ethics.*;
+import net.scp_genesis.scps.item.cards.keycards.internal.*;
 import net.scp_genesis.scps.item.cards.keycards.iia.*;
+import net.scp_genesis.scps.item.cards.keycards.logistics.*;
 import net.scp_genesis.scps.item.cards.keycards.mjd.*;
 import net.scp_genesis.scps.item.cards.keycards.mtf.*;
-import net.scp_genesis.scps.item.cards.keycards.*;
-import net.scp_genesis.scps.item.cards.id.*;
-import net.scp_genesis.copycatblocks.item.*;
-import net.scp_genesis.constants.ModConstants;
+import net.scp_genesis.scps.item.cards.keycards.mtf.alpha1.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv3Item;
+import net.scp_genesis.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv4Item;
+import net.scp_genesis.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv5Item;
+import net.scp_genesis.scps.item.cards.keycards.mtf.epsilon11.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.gamma8.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.nu7.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.omega1.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.resh1.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.umbra6.*;
+import net.scp_genesis.scps.item.cards.keycards.mtf.zeta19.*;
+import net.scp_genesis.scps.item.cards.keycards.raisa.*;
 
-public class ModItems {
-	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(ModConstants.MOD_ID);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_6 = REGISTRY.register("ethics_committee_keycard_lv_6", EthicsCommitteeKeycardLv6Item::new);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_5 = REGISTRY.register("ethics_committee_keycard_lv_5", EthicsCommitteeKeycardLv5Item::new);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_4 = REGISTRY.register("ethics_committee_keycard_lv_4", EthicsCommitteeKeycardLv4Item::new);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_3 = REGISTRY.register("ethics_committee_keycard_lv_3", EthicsCommitteeKeycardLv3Item::new);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_2 = REGISTRY.register("ethics_committee_keycard_lv_2", EthicsCommitteeKeycardLv2Item::new);
-	public static final DeferredItem<Item> ETHICS_COMMITTEE_KEYCARD_LV_1 = REGISTRY.register("ethics_committee_keycard_lv_1", EthicsCommitteeKeycardLv1Item::new);
-	public static final DeferredItem<Item> RAISA_KEYCARD_LV_6 = REGISTRY.register("raisa_keycard_lv_6", RAISAKeycardLv6Item::new);
-	public static final DeferredItem<Item> RAISA_KEYCARD_LV_5 = REGISTRY.register("raisa_keycard_lv_5", RAISAKeycardLv5Item::new);
-	public static final DeferredItem<Item> RAISA_KEYCARD_LV_4 = REGISTRY.register("raisa_keycard_lv_4", RAISAKeycardLv4Item::new);
-	public static final DeferredItem<Item> RAISA_KEYCARD_LV_3 = REGISTRY.register("raisa_keycard_lv_3", RAISAKeycardLv3Item::new);
-	public static final DeferredItem<Item> RAISA_KEYCARD_LV_2 = REGISTRY.register("raisa_keycard_lv_2", RAISAKeycardLv2Item::new);
-	public static final DeferredItem<Item> LOGISTICS_KEYCARD_LV_0 = REGISTRY.register("logistics_keycard_lv_0", LogisticsKeycardLv0Item::new);
-	public static final DeferredItem<Item> LOGISTICS_KEYCARD_LV_1 = REGISTRY.register("logistics_keycard_lv_1", LogisticsKeycardLv1Item::new);
-	public static final DeferredItem<Item> LOGISTICS_KEYCARD_LV_2 = REGISTRY.register("logistics_keycard_lv_2", LogisticsKeycardLv2Item::new);
-	public static final DeferredItem<Item> LOGISTICS_KEYCARD_LV_3 = REGISTRY.register("logistics_keycard_lv_3", LogisticsKeycardLv3Item::new);
-	public static final DeferredItem<Item> EXTERNAL_KEYCARD_LV_0 = REGISTRY.register("external_keycard_lv_0", ExternalKeycardLv0Item::new);
-	public static final DeferredItem<Item> O5_KEYCARD = REGISTRY.register("o5_keycard", O5KeycardItem::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_1 = REGISTRY.register("admin_keycards_lv_1", AdminKeycardsLv1Item::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_2 = REGISTRY.register("admin_keycards_lv_2", AdminKeycardsLv2Item::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_3 = REGISTRY.register("admin_keycards_lv_3", AdminKeycardsLv3Item::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_4 = REGISTRY.register("admin_keycards_lv_4", AdminKeycardsLv4Item::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_5 = REGISTRY.register("admin_keycards_lv_5", AdminKeycardsLv5Item::new);
-	public static final DeferredItem<Item> ADMIN_KEYCARDS_LV_6 = REGISTRY.register("admin_keycards_lv_6", AdminKeycardsLv6Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_1 = REGISTRY.register("internal_keycard_lv_1", InternalKeycardLv1Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_2 = REGISTRY.register("internal_keycard_lv_2", InternalKeycardLv2Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_3 = REGISTRY.register("internal_keycard_lv_3", InternalKeycardLv3Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_4 = REGISTRY.register("internal_keycard_lv_4", InternalKeycardLv4Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_5 = REGISTRY.register("internal_keycard_lv_5", InternalKeycardLv5Item::new);
-	public static final DeferredItem<Item> INTERNAL_KEYCARD_LV_6 = REGISTRY.register("internal_keycard_lv_6", InternalKeycardLv6Item::new);
-	public static final DeferredItem<Item> D_CLASS_KEYCARD_LV_0 = REGISTRY.register("d_class_keycard_lv_0", DClassKeycardLv0Item::new);
-	public static final DeferredItem<Item> MJD_KEYCARD_LV_1 = REGISTRY.register("mjd_keycard_lv_1", MJDKeycardLv1Item::new);
-	public static final DeferredItem<Item> MJD_KEYCARD_LV_2 = REGISTRY.register("mjd_keycard_lv_2", MJDKeycardLv2Item::new);
-	public static final DeferredItem<Item> MJD_KEYCARD_LV_3 = REGISTRY.register("mjd_keycard_lv_3", MJDKeycardLv3Item::new);
-	public static final DeferredItem<Item> MTF_RANK_1_LV_2 = REGISTRY.register("mtf_rank_1_lv_2", MTFRank1Lv2Item::new);
-	public static final DeferredItem<Item> MTF_RANK_2_LV_2 = REGISTRY.register("mtf_rank_2_lv_2", MTFRank2Lv2Item::new);
-	public static final DeferredItem<Item> MTF_RANK_3_LV_1 = REGISTRY.register("mtf_rank_3_lv_1", MTFRank3Lv1Item::new);
-	public static final DeferredItem<Item> ID_CARD = REGISTRY.register("id_card", IDCardItem::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_1 = REGISTRY.register("iia_keycard_lv_1", IIAKeycardLv1Item::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_2 = REGISTRY.register("iia_keycard_lv_2", IIAKeycardLv2Item::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_3 = REGISTRY.register("iia_keycard_lv_3", IIAKeycardLv3Item::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_4 = REGISTRY.register("iia_keycard_lv_4", IIAKeycardLv4Item::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_5 = REGISTRY.register("iia_keycard_lv_5", IIAKeycardLv5Item::new);
-	public static final DeferredItem<Item> IIA_KEYCARD_LV_6 = REGISTRY.register("iia_keycard_lv_6", IIAKeycardLv6Item::new);
-	public static final DeferredItem<Item> MTF_ANTHEIA_5_KEYCARD_LV_5 = REGISTRY.register("mtf_antheia_5_keycard_lv_5", MTFAntheia5KeycardLv5Item::new);
-	public static final DeferredItem<Item> MTF_ANTHEIA_5_KEYCARD_LV_4 = REGISTRY.register("mtf_antheia_5_keycard_lv_4", MTFAntheia5KeycardLv4Item::new);
-	public static final DeferredItem<Item> MTF_ANTHEIA_5_KEYCARD_LV_3 = REGISTRY.register("mtf_antheia_5_keycard_lv_3", MTFAntheia5KeycardLv3Item::new);
-	public static final DeferredItem<Item> MTF_UMBRA_6_LV_3 = REGISTRY.register("mtf_umbra_6_lv_3", MTFUmbra6Lv3Item::new);
-	public static final DeferredItem<Item> MTF_UMBRA_6_LV_2 = REGISTRY.register("mtf_umbra_6_lv_2", MTFUmbra6Lv2Item::new);
-	public static final DeferredItem<Item> MTF_UMBRA_6_LV_1 = REGISTRY.register("mtf_umbra_6_lv_1", MTFUmbra6Lv1Item::new);
-	public static final DeferredItem<Item> ALPHA_1_KEYCARD_LV_4 = REGISTRY.register("alpha_1_keycard_lv_4", Alpha1KeycardLv4Item::new);
-	public static final DeferredItem<Item> ALPHA_1_KEYCARD_LV_5 = REGISTRY.register("alpha_1_keycard_lv_5", Alpha1KeycardLv5Item::new);
-	public static final DeferredItem<Item> ALPHA_1_KEYCARD_LV_6 = REGISTRY.register("alpha_1_keycard_lv_6", Alpha1KeycardLv6Item::new);
-	public static final DeferredItem<Item> EPSILON_11_KEYCARD_LV_2 = REGISTRY.register("epsilon_11_keycard_lv_2", Epsilon11KeycardLv2Item::new);
-	public static final DeferredItem<Item> EPSILON_11_KEYCARD_LV_3 = REGISTRY.register("epsilon_11_keycard_lv_3", Epsilon11KeycardLv3Item::new);
-	public static final DeferredItem<Item> EPSILON_11_KEYCARD_LV_4 = REGISTRY.register("epsilon_11_keycard_lv_4", Epsilon11KeycardLv4Item::new);
-	public static final DeferredItem<Item> EPSILON_11_KEYCARD_LV_5 = REGISTRY.register("epsilon_11_keycard_lv_5", Epsilon11KeycardLv5Item::new);
-	public static final DeferredItem<Item> EPSILON_11_KEYCARD_LV_6 = REGISTRY.register("epsilon_11_keycard_lv_6", Epsilon11KeycardLv6Item::new);
-	public static final DeferredItem<Item> GAMMA_8_KEYCARD_LV_3 = REGISTRY.register("gamma_8_keycard_lv_3", Gamma8KeycardLv3Item::new);
-	public static final DeferredItem<Item> GAMMA_8_KEYCARD_LV_4 = REGISTRY.register("gamma_8_keycard_lv_4", Gamma8KeycardLv4Item::new);
-	public static final DeferredItem<Item> GAMMA_8_KEYCARD_LV_5 = REGISTRY.register("gamma_8_keycard_lv_5", Gamma8KeycardLv5Item::new);
-	public static final DeferredItem<Item> GAMMA_8_KEYCARD_LV_6 = REGISTRY.register("gamma_8_keycard_lv_6", Gamma8KeycardLv6Item::new);
-	public static final DeferredItem<Item> NU_7_KEYCARD_LV_2 = REGISTRY.register("nu_7_keycard_lv_2", Nu7KeycardLv2Item::new);
-	public static final DeferredItem<Item> NU_7_KEYCARD_LV_3 = REGISTRY.register("nu_7_keycard_lv_3", Nu7KeycardLv3Item::new);
-	public static final DeferredItem<Item> NU_7_KEYCARD_LV_4 = REGISTRY.register("nu_7_keycard_lv_4", Nu7KeycardLv4Item::new);
-	public static final DeferredItem<Item> NU_7_KEYCARD_LV_5 = REGISTRY.register("nu_7_keycard_lv_5", Nu7KeycardLv5Item::new);
-	public static final DeferredItem<Item> NU_7_KEYCARD_LV_6 = REGISTRY.register("nu_7_keycard_lv_6", Nu7KeycardLv6Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_1 = REGISTRY.register("omega_1_keycard_lv_1", Omega1KeycardLv1Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_2 = REGISTRY.register("omega_1_keycard_lv_2", Omega1KeycardLv2Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_3 = REGISTRY.register("omega_1_keycard_lv_3", Omega1KeycardLv3Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_4 = REGISTRY.register("omega_1_keycard_lv_4", Omega1KeycardLv4Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_5 = REGISTRY.register("omega_1_keycard_lv_5", Omega1KeycardLv5Item::new);
-	public static final DeferredItem<Item> OMEGA_1_KEYCARD_LV_6 = REGISTRY.register("omega_1_keycard_lv_6", Omega1KeycardLv6Item::new);
-	public static final DeferredItem<Item> RESH_1_KEYCARD_LV_4 = REGISTRY.register("resh_1_keycard_lv_4", Resh1KeycardLv4Item::new);
-	public static final DeferredItem<Item> RESH_1_KEYCARD_LV_5 = REGISTRY.register("resh_1_keycard_lv_5", Resh1KeycardLv5Item::new);
-	public static final DeferredItem<Item> RESH_1_KEYCARD_LV_6 = REGISTRY.register("resh_1_keycard_lv_6", Resh1KeycardLv6Item::new);
-	public static final DeferredItem<Item> ZETA_19_KEYCARD_LV_2 = REGISTRY.register("zeta_19_keycard_lv_2", Zeta19KeycardLv2Item::new);
-	public static final DeferredItem<Item> ZETA_19_KEYCARD_LV_3 = REGISTRY.register("zeta_19_keycard_lv_3", Zeta19KeycardLv3Item::new);
-	public static final DeferredItem<Item> ZETA_19_KEYCARD_LV_4 = REGISTRY.register("zeta_19_keycard_lv_4", Zeta19KeycardLv4Item::new);
-	public static final DeferredItem<Item> ZETA_19_KEYCARD_LV_5 = REGISTRY.register("zeta_19_keycard_lv_5", Zeta19KeycardLv5Item::new);
-	public static final DeferredItem<Item> MTF_RANK_1_LV_6 = REGISTRY.register("mtf_rank_1_lv_6", MTFRank1Lv6Item::new);
-	public static final DeferredItem<Item> MTF_RANK_1_LV_3 = REGISTRY.register("mtf_rank_1_lv_3", MTFRank1Lv3Item::new);
-	public static final DeferredItem<Item> MTF_RANK_1_LV_4 = REGISTRY.register("mtf_rank_1_lv_4", MTFRank1Lv4Item::new);
-	public static final DeferredItem<Item> MTF_RANK_1_LV_5 = REGISTRY.register("mtf_rank_1_lv_5", MTFRank1Lv5Item::new);
-	public static final DeferredItem<Item> MTF_RANK_2_LV_3 = REGISTRY.register("mtf_rank_2_lv_3", MTFRank2Lv3Item::new);
-	public static final DeferredItem<Item> MTF_RANK_2_LV_4 = REGISTRY.register("mtf_rank_2_lv_4", MTFRank2Lv4Item::new);
-	public static final DeferredItem<Item> MTF_RANK_2_LV_5 = REGISTRY.register("mtf_rank_2_lv_5", MTFRank2Lv5Item::new);
-	public static final DeferredItem<Item> MTF_RANK_3_LV_2 = REGISTRY.register("mtf_rank_3_lv_2", MTFRank3Lv2Item::new);
-	public static final DeferredItem<Item> MTF_RANK_3_LV_3 = REGISTRY.register("mtf_rank_3_lv_3", MTFRank3Lv3Item::new);
-	public static final DeferredItem<Item> MTF_RANK_3_LV_4 = REGISTRY.register("mtf_rank_3_lv_4", MTFRank3Lv4Item::new);
-	public static final DeferredItem<Item> CLEAN_WHITE_WALL = block(ModBlocks.CLEAN_WHITE_WALL);
-	public static final DeferredItem<Item> BROKEN_WHITE_WALL_ONE = block(ModBlocks.BROKEN_WHITE_WALL_ONE);
-	public static final DeferredItem<Item> BROKEN_WHITE_WALL_TWO = block(ModBlocks.BROKEN_WHITE_WALL_TWO);
-	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_ONE = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
-	public static final DeferredItem<Item> DIRTY_BROKEN_WHITE_WALL_TWO = block(ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
-	public static final DeferredItem<Item> WALL_BASE = block(ModBlocks.WALL_BASE);
-	public static final DeferredItem<Item> GREEN_TILED_FLOOR = block(ModBlocks.GREEN_TILED_FLOOR);
-	public static final DeferredItem<Item> COPYCAT_CUBE = block(ModBlocks.COPYCAT_CUBE);
-	public static final DeferredItem<Item> COPYCAT_STAIRS = block(ModBlocks.COPYCAT_STAIRS);
-	public static final DeferredItem<Item> COPYCAT_SLAB = block(ModBlocks.COPYCAT_SLAB);
-	public static final DeferredItem<Item> COPYCAT_WRENCH = REGISTRY.register("copycat_wrench", CopycatWrenchItem::new);
-	public static final DeferredItem<Item> COPYCAT_SCRAPER = REGISTRY.register("copycat_scraper", CopycatScraperItem::new);
-	public static final DeferredItem<Item> COPYCAT_REMOVER = REGISTRY.register("copycat_remover", CopycatRemoverItem::new);
+public final class ModItems {
 
-	// Start of user code block custom items
-	// End of user code block custom items
-	private static DeferredItem<Item> block(DeferredHolder<Block, Block> block) {
-		return block(block, new Item.Properties());
-	}
+	private ModItems() {}
 
-	private static DeferredItem<Item> block(DeferredHolder<Block, Block> block, Item.Properties properties) {
-		return REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), properties));
+	public static PlatformRegistryObject<Item> ID_CARD;
+	public static PlatformRegistryObject<Item> KEYCARD_ADMIN_LV6, KEYCARD_ADMIN_LV5, KEYCARD_ADMIN_LV4, KEYCARD_ADMIN_LV3, KEYCARD_ADMIN_LV2, KEYCARD_ADMIN_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_D_CLASS_LV0;
+	public static PlatformRegistryObject<Item> KEYCARD_EC_LV6, KEYCARD_EC_LV5, KEYCARD_EC_LV4, KEYCARD_EC_LV3, KEYCARD_EC_LV2, KEYCARD_EC_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_EXTERNAL_LV0;
+	public static PlatformRegistryObject<Item> KEYCARD_IIA_LV6, KEYCARD_IIA_LV5, KEYCARD_IIA_LV4, KEYCARD_IIA_LV3, KEYCARD_IIA_LV2, KEYCARD_IIA_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_INTERNAL_LV6, KEYCARD_INTERNAL_LV5, KEYCARD_INTERNAL_LV4, KEYCARD_INTERNAL_LV3, KEYCARD_INTERNAL_LV2, KEYCARD_INTERNAL_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_LOGISTICS_LV3, KEYCARD_LOGISTICS_LV2, KEYCARD_LOGISTICS_LV1, KEYCARD_LOGISTICS_LV0;
+	public static PlatformRegistryObject<Item> KEYCARD_MJD_LV3, KEYCARD_MJD_LV2, KEYCARD_MJD_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_ALPHA1_LV6, KEYCARD_MTF_ALPHA1_LV5, KEYCARD_MTF_ALPHA1_LV4;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_ANTHEIA5_LV5, KEYCARD_MTF_ANTHEIA5_LV4, KEYCARD_MTF_ANTHEIA5_LV3;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_EPSILON11_LV6, KEYCARD_MTF_EPSILON11_LV5, KEYCARD_MTF_EPSILON11_LV4, KEYCARD_MTF_EPSILON11_LV3, KEYCARD_MTF_EPSILON11_LV2;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_GAMMA8_LV6, KEYCARD_MTF_GAMMA8_LV5, KEYCARD_MTF_GAMMA8_LV4, KEYCARD_MTF_GAMMA8_LV3;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_NU7_LV6, KEYCARD_MTF_NU7_LV5, KEYCARD_MTF_NU7_LV4, KEYCARD_MTF_NU7_LV3, KEYCARD_MTF_NU7_LV2;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_OMEGA1_LV6, KEYCARD_MTF_OMEGA1_LV5, KEYCARD_MTF_OMEGA1_LV4, KEYCARD_MTF_OMEGA1_LV3, KEYCARD_MTF_OMEGA1_LV2, KEYCARD_MTF_OMEGA1_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_GENERIC_RANK1_LV6, KEYCARD_MTF_GENERIC_RANK1_LV5, KEYCARD_MTF_GENERIC_RANK1_LV4, KEYCARD_MTF_GENERIC_RANK1_LV3, KEYCARD_MTF_GENERIC_RANK1_LV2;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_GENERIC_RANK2_LV5, KEYCARD_MTF_GENERIC_RANK2_LV4, KEYCARD_MTF_GENERIC_RANK2_LV3, KEYCARD_MTF_GENERIC_RANK2_LV2;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_GENERIC_RANK3_LV4, KEYCARD_MTF_GENERIC_RANK3_LV3, KEYCARD_MTF_GENERIC_RANK3_LV2, KEYCARD_MTF_GENERIC_RANK3_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_RESH1_LV6, KEYCARD_MTF_RESH1_LV5, KEYCARD_MTF_RESH1_LV4;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_UMBRA6_LV3, KEYCARD_MTF_UMBRA6_LV2, KEYCARD_MTF_UMBRA6_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_MTF_ZETA19_LV5, KEYCARD_MTF_ZETA19_LV4, KEYCARD_MTF_ZETA19_LV3, KEYCARD_MTF_ZETA19_LV2;
+	public static PlatformRegistryObject<Item> KEYCARD_O5;
+	public static PlatformRegistryObject<Item> KEYCARD_RAISA_LV6, KEYCARD_RAISA_LV5, KEYCARD_RAISA_LV4, KEYCARD_RAISA_LV3, KEYCARD_RAISA_LV2;
+
+	public static PlatformRegistryObject<Item> COPYCAT_WRENCH, COPYCAT_SCRAPER, COPYCAT_REMOVER;
+
+	public static PlatformRegistryObject<Item> CLEAN_WHITE_WALL;
+	public static PlatformRegistryObject<Item> BROKEN_WHITE_WALL_ONE;
+	public static PlatformRegistryObject<Item> BROKEN_WHITE_WALL_TWO;
+	public static PlatformRegistryObject<Item> DIRTY_BROKEN_WHITE_WALL_ONE;
+	public static PlatformRegistryObject<Item> DIRTY_BROKEN_WHITE_WALL_TWO;
+	public static PlatformRegistryObject<Item> WALL_BASE;
+	public static PlatformRegistryObject<Item> GREEN_TILED_FLOOR;
+
+	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
+	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
+	public static PlatformRegistryObject<Item> COPYCAT_SLAB;
+
+	public static void register(PlatformRegistry registry) {
+		COPYCAT_WRENCH = registry.registerItem("copycat_wrench", CopycatWrenchItem::new);
+		COPYCAT_SCRAPER = registry.registerItem("copycat_scraper", CopycatScraperItem::new);
+		COPYCAT_REMOVER = registry.registerItem("copycat_remover", CopycatRemoverItem::new);
+
+		ID_CARD = registry.registerItem("id_card", IDCardItem::new);
+
+		KEYCARD_ADMIN_LV6 = registry.registerItem("keycard_admin_lv6", AdminKeycardsLv6Item::new);
+		KEYCARD_ADMIN_LV5 = registry.registerItem("keycard_admin_lv5", AdminKeycardsLv5Item::new);
+		KEYCARD_ADMIN_LV4 = registry.registerItem("keycard_admin_lv4", AdminKeycardsLv4Item::new);
+		KEYCARD_ADMIN_LV3 = registry.registerItem("keycard_admin_lv3", AdminKeycardsLv3Item::new);
+		KEYCARD_ADMIN_LV2 = registry.registerItem("keycard_admin_lv2", AdminKeycardsLv2Item::new);
+		KEYCARD_ADMIN_LV1 = registry.registerItem("keycard_admin_lv1", AdminKeycardsLv1Item::new);
+
+		KEYCARD_D_CLASS_LV0 = registry.registerItem("keycard_dclass_lv0", DClassKeycardLv0Item::new);
+
+		KEYCARD_EC_LV6 = registry.registerItem("keycard_ec_lv6", EthicsCommitteeKeycardLv6Item::new);
+		KEYCARD_EC_LV5 = registry.registerItem("keycard_ec_lv5", EthicsCommitteeKeycardLv5Item::new);
+		KEYCARD_EC_LV4 = registry.registerItem("keycard_ec_lv4", EthicsCommitteeKeycardLv4Item::new);
+		KEYCARD_EC_LV3 = registry.registerItem("keycard_ec_lv3", EthicsCommitteeKeycardLv3Item::new);
+		KEYCARD_EC_LV2 = registry.registerItem("keycard_ec_lv2", EthicsCommitteeKeycardLv2Item::new);
+		KEYCARD_EC_LV1 = registry.registerItem("keycard_ec_lv1", EthicsCommitteeKeycardLv1Item::new);
+
+		KEYCARD_EXTERNAL_LV0 = registry.registerItem("keycard_external_lv0", ExternalKeycardLv0Item::new);
+
+		KEYCARD_IIA_LV6 = registry.registerItem("keycard_iia_lv6", IIAKeycardLv6Item::new);
+		KEYCARD_IIA_LV5 = registry.registerItem("keycard_iia_lv5", IIAKeycardLv5Item::new);
+		KEYCARD_IIA_LV4 = registry.registerItem("keycard_iia_lv4", IIAKeycardLv4Item::new);
+		KEYCARD_IIA_LV3 = registry.registerItem("keycard_iia_lv3", IIAKeycardLv3Item::new);
+		KEYCARD_IIA_LV2 = registry.registerItem("keycard_iia_lv2", IIAKeycardLv2Item::new);
+		KEYCARD_IIA_LV1 = registry.registerItem("keycard_iia_lv1", IIAKeycardLv1Item::new);
+
+		KEYCARD_INTERNAL_LV6 = registry.registerItem("keycard_internal_lv6", InternalKeycardLv6Item::new);
+		KEYCARD_INTERNAL_LV5 = registry.registerItem("keycard_internal_lv5", InternalKeycardLv5Item::new);
+		KEYCARD_INTERNAL_LV4 = registry.registerItem("keycard_internal_lv4", InternalKeycardLv4Item::new);
+		KEYCARD_INTERNAL_LV3 = registry.registerItem("keycard_internal_lv3", InternalKeycardLv3Item::new);
+		KEYCARD_INTERNAL_LV2 = registry.registerItem("keycard_internal_lv2", InternalKeycardLv2Item::new);
+		KEYCARD_INTERNAL_LV1 = registry.registerItem("keycard_internal_lv1", InternalKeycardLv1Item::new);
+
+		KEYCARD_LOGISTICS_LV3 = registry.registerItem("keycard_logistics_lv3", LogisticsKeycardLv3Item::new);
+		KEYCARD_LOGISTICS_LV2 = registry.registerItem("keycard_logistics_lv2", LogisticsKeycardLv2Item::new);
+		KEYCARD_LOGISTICS_LV1 = registry.registerItem("keycard_logistics_lv1", LogisticsKeycardLv1Item::new);
+		KEYCARD_LOGISTICS_LV0 = registry.registerItem("keycard_logistics_lv0", LogisticsKeycardLv0Item::new);
+
+		KEYCARD_MJD_LV3 = registry.registerItem("keycard_mjd_lv3", MJDKeycardLv3Item::new);
+		KEYCARD_MJD_LV2 = registry.registerItem("keycard_mjd_lv2", MJDKeycardLv2Item::new);
+		KEYCARD_MJD_LV1	= registry.registerItem("keycard_mjd_lv1", MJDKeycardLv1Item::new);
+
+		KEYCARD_MTF_ALPHA1_LV6 = registry.registerItem("keycard_mtf_alpha1_lv6", MTFAlpha1KeycardLv6Item::new);
+		KEYCARD_MTF_ALPHA1_LV5 = registry.registerItem("keycard_mtf_alpha1_lv5", MTFAlpha1KeycardLv5Item::new);
+		KEYCARD_MTF_ALPHA1_LV4 = registry.registerItem("keycard_mtf_alpha1_lv4", MTFAlpha1KeycardLv4Item::new);
+
+		KEYCARD_MTF_ANTHEIA5_LV5 = registry.registerItem("keycard_mtf_antheia5_lv5", MTFAntheia5KeycardLv5Item::new);
+		KEYCARD_MTF_ANTHEIA5_LV4 = registry.registerItem("keycard_mtf_antheia5_lv4", MTFAntheia5KeycardLv4Item::new);
+		KEYCARD_MTF_ANTHEIA5_LV3 = registry.registerItem("keycard_mtf_antheia5_lv3", MTFAntheia5KeycardLv3Item::new);
+
+		KEYCARD_MTF_EPSILON11_LV6 = registry.registerItem("keycard_mtf_epsilon11_lv6", MTFEpsilon11KeycardLv6Item::new);
+		KEYCARD_MTF_EPSILON11_LV5 = registry.registerItem("keycard_mtf_epsilon11_lv5", MTFEpsilon11KeycardLv5Item::new);
+		KEYCARD_MTF_EPSILON11_LV4 = registry.registerItem("keycard_mtf_epsilon11_lv4", MTFEpsilon11KeycardLv4Item::new);
+		KEYCARD_MTF_EPSILON11_LV3 = registry.registerItem("keycard_mtf_epsilon11_lv3", MTFEpsilon11KeycardLv3Item::new);
+		KEYCARD_MTF_EPSILON11_LV2 = registry.registerItem("keycard_mtf_epsilon11_lv2", MTFEpsilon11KeycardLv2Item::new);
+
+		KEYCARD_MTF_GAMMA8_LV6 = registry.registerItem("keycard_mtf_gamma8_lv6", MTFGamma8KeycardLv6Item::new);
+		KEYCARD_MTF_GAMMA8_LV5 = registry.registerItem("keycard_mtf_gamma8_lv5", MTFGamma8KeycardLv5Item::new);
+		KEYCARD_MTF_GAMMA8_LV4 = registry.registerItem("keycard_mtf_gamma8_lv4", MTFGamma8KeycardLv4Item::new);
+		KEYCARD_MTF_GAMMA8_LV3 = registry.registerItem("keycard_mtf_gamma8_lv3", MTFGamma8KeycardLv3Item::new);
+
+		KEYCARD_MTF_NU7_LV6 = registry.registerItem("keycard_mtf_nu7_lv6", MTFNu7KeycardLv6Item::new);
+		KEYCARD_MTF_NU7_LV5 = registry.registerItem("keycard_mtf_nu7_lv5", MTFNu7KeycardLv5Item::new);
+		KEYCARD_MTF_NU7_LV4 = registry.registerItem("keycard_mtf_nu7_lv4", MTFNu7KeycardLv4Item::new);
+		KEYCARD_MTF_NU7_LV3 = registry.registerItem("keycard_mtf_nu7_lv3", MTFNu7KeycardLv3Item::new);
+		KEYCARD_MTF_NU7_LV2 = registry.registerItem("keycard_mtf_nu7_lv2", MTFNu7KeycardLv2Item::new);
+
+		KEYCARD_MTF_OMEGA1_LV6 = registry.registerItem("keycard_mtf_omega1_lv6", MTFOmega1KeycardLv6Item::new);
+		KEYCARD_MTF_OMEGA1_LV5 = registry.registerItem("keycard_mtf_omega1_lv5", MTFOmega1KeycardLv5Item::new);
+		KEYCARD_MTF_OMEGA1_LV4 = registry.registerItem("keycard_mtf_omega1_lv4", MTFOmega1KeycardLv4Item::new);
+		KEYCARD_MTF_OMEGA1_LV3 = registry.registerItem("keycard_mtf_omega1_lv3", MTFOmega1KeycardLv3Item::new);
+		KEYCARD_MTF_OMEGA1_LV2 = registry.registerItem("keycard_mtf_omega1_lv2", MTFOmega1KeycardLv2Item::new);
+		KEYCARD_MTF_OMEGA1_LV1 = registry.registerItem("keycard_mtf_omega1_lv1", MTFOmega1KeycardLv1Item::new);
+
+		KEYCARD_MTF_GENERIC_RANK1_LV6 = registry.registerItem("keycard_mtf_generic_rank1_lv6", MTFGenericRank1KeycardLv6Item::new);
+		KEYCARD_MTF_GENERIC_RANK1_LV5 = registry.registerItem("keycard_mtf_generic_rank1_lv5", MTFGenericRank1KeycardLv5Item::new);
+		KEYCARD_MTF_GENERIC_RANK1_LV4 = registry.registerItem("keycard_mtf_generic_rank1_lv4", MTFGenericRank1KeycardLv4Item::new);
+		KEYCARD_MTF_GENERIC_RANK1_LV3 = registry.registerItem("keycard_mtf_generic_rank1_lv3", MTFGenericRank1KeycardLv3Item::new);
+		KEYCARD_MTF_GENERIC_RANK1_LV2 = registry.registerItem("keycard_mtf_generic_rank1_lv2", MTFGenericRank1KeycardLv2Item::new);
+
+		KEYCARD_MTF_GENERIC_RANK2_LV5 = registry.registerItem("keycard_mtf_generic_rank2_lv5", MTFGenericRank2KeycardLv5Item::new);
+		KEYCARD_MTF_GENERIC_RANK2_LV4 = registry.registerItem("keycard_mtf_generic_rank2_lv4", MTFGenericRank2KeycardLv4Item::new);
+		KEYCARD_MTF_GENERIC_RANK2_LV3 = registry.registerItem("keycard_mtf_generic_rank2_lv3", MTFGenericRank2KeycardLv3Item::new);
+		KEYCARD_MTF_GENERIC_RANK2_LV2 = registry.registerItem("keycard_mtf_generic_rank2_lv2", MTFGenericRank2KeycardLv2Item::new);
+
+		KEYCARD_MTF_GENERIC_RANK3_LV4 = registry.registerItem("keycard_mtf_generic_rank3_lv4", MTFGenericRank3KeycardLv4Item::new);
+		KEYCARD_MTF_GENERIC_RANK3_LV3 = registry.registerItem("keycard_mtf_generic_rank3_lv3", MTFGenericRank3KeycardLv3Item::new);
+		KEYCARD_MTF_GENERIC_RANK3_LV2 = registry.registerItem("keycard_mtf_generic_rank3_lv2", MTFGenericRank3KeycardLv2Item::new);
+		KEYCARD_MTF_GENERIC_RANK3_LV1 = registry.registerItem("keycard_mtf_generic_rank3_lv1", MTFGenericRank3KeycardLv1Item::new);
+
+		KEYCARD_MTF_RESH1_LV6 = registry.registerItem("keycard_mtf_resh1_lv6", MTFResh1KeycardLv6Item::new);
+		KEYCARD_MTF_RESH1_LV5 = registry.registerItem("keycard_mtf_resh1_lv5", MTFResh1KeycardLv5Item::new);
+		KEYCARD_MTF_RESH1_LV4 = registry.registerItem("keycard_mtf_resh1_lv4", MTFResh1KeycardLv4Item::new);
+
+		KEYCARD_MTF_UMBRA6_LV3 = registry.registerItem("keycard_mtf_umbra6_lv3", MTFUmbra6KeycardLv3Item::new);
+		KEYCARD_MTF_UMBRA6_LV2 = registry.registerItem("keycard_mtf_umbra6_lv2", MTFUmbra6KeycardLv2Item::new);
+		KEYCARD_MTF_UMBRA6_LV1 = registry.registerItem("keycard_mtf_umbra6_lv1", MTFUmbra6KeycardLv1Item::new);
+
+		KEYCARD_MTF_ZETA19_LV5 = registry.registerItem("keycard_mtf_zeta19_lv5", MTFZeta19KeycardLv5Item::new);
+		KEYCARD_MTF_ZETA19_LV4 = registry.registerItem("keycard_mtf_zeta19_lv4", MTFZeta19KeycardLv4Item::new);
+		KEYCARD_MTF_ZETA19_LV3 = registry.registerItem("keycard_mtf_zeta19_lv3", MTFZeta19KeycardLv3Item::new);
+		KEYCARD_MTF_ZETA19_LV2 = registry.registerItem("keycard_mtf_zeta19_lv2", MTFZeta19KeycardLv2Item::new);
+
+		KEYCARD_O5 = registry.registerItem("keycard_o5",  O5KeycardItem::new);
+
+		KEYCARD_RAISA_LV6 = registry.registerItem("keycard_raisa_lv6", RAISAKeycardLv6Item::new);
+		KEYCARD_RAISA_LV5 = registry.registerItem("keycard_raisa_lv5", RAISAKeycardLv5Item::new);
+		KEYCARD_RAISA_LV4 = registry.registerItem("keycard_raisa_lv4", RAISAKeycardLv4Item::new);
+		KEYCARD_RAISA_LV3 = registry.registerItem("keycard_raisa_lv3", RAISAKeycardLv3Item::new);
+		KEYCARD_RAISA_LV2 = registry.registerItem("keycard_raisa_lv2", RAISAKeycardLv2Item::new);
+
+		CLEAN_WHITE_WALL = registry.registerBlockItem("clean_white_wall", ModBlocks.CLEAN_WHITE_WALL);
+		BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("broken_white_wall_one", ModBlocks.BROKEN_WHITE_WALL_ONE);
+		BROKEN_WHITE_WALL_TWO = registry.registerBlockItem("broken_white_wall_two", ModBlocks.BROKEN_WHITE_WALL_TWO);
+		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("dirty_broken_white_wall_one", ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
+		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlockItem("dirty_broken_white_wall_two", ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
+		WALL_BASE = registry.registerBlockItem("wall_base", ModBlocks.WALL_BASE);
+		GREEN_TILED_FLOOR = registry.registerBlockItem("green_tiled_floor", ModBlocks.GREEN_TILED_FLOOR);
+
+		COPYCAT_CUBE = registry.registerBlockItem("copycat_cube", ModBlocks.COPYCAT_CUBE);
+		COPYCAT_STAIRS = registry.registerBlockItem("copycat_stairs", ModBlocks.COPYCAT_STAIRS);
+		COPYCAT_SLAB = registry.registerBlockItem("copycat_slab", ModBlocks.COPYCAT_SLAB);
 	}
 }
