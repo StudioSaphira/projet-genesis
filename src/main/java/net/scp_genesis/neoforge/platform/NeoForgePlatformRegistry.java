@@ -9,13 +9,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import net.scp_genesis.main.constants.ModConstants;
-import net.scp_genesis.main.platform.PlatformRegistry;
-import net.scp_genesis.main.platform.PlatformRegistryObject;
-import net.scp_genesis.main.registry.ModBlockEntities;
-import net.scp_genesis.main.registry.ModBlocks;
-import net.scp_genesis.main.registry.ModItems;
-import net.scp_genesis.main.registry.ModTabs;
+import net.scp_genesis.common.constants.ModConstants;
+import net.scp_genesis.common.platform.PlatformRegistry;
+import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.scp_genesis.common.registry.ModBlockEntities;
+import net.scp_genesis.common.registry.ModBlocks;
+import net.scp_genesis.common.registry.ModItems;
+import net.scp_genesis.common.registry.ModTabs;
 
 import java.util.function.Supplier;
 

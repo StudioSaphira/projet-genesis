@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.141'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(
+                rootProject.java_version as int
+        )
+    }
+}
+
+neoForge {
+    version = rootProject.neoforge_version
+
+    mods {
+        scp_genesis {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}

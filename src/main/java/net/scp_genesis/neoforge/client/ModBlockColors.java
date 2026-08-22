@@ -2,7 +2,7 @@ package net.scp_genesis.neoforge.client;
 
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
-import net.scp_genesis.main.registry.ModBlocks;
+import net.scp_genesis.common.registry.ModBlocks;
 
 public final class ModBlockColors {
 

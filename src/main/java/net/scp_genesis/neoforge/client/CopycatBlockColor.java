@@ -7,8 +7,8 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.scp_genesis.main.copycatblocks.api.CopycatBlocksAPI;
-import net.scp_genesis.main.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.api.CopycatBlocksAPI;
+import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

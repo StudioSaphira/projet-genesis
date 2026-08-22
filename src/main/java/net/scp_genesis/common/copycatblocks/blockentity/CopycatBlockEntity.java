@@ -1,0 +1,317 @@
+package net.scp_genesis.common.copycatblocks.blockentity;
+
+import com.mojang.serialization.DataResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.scp_genesis.common.copycatblocks.data.CopycatData;
+import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.renderer.model.CopycatModelProperties;
+import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
+import net.scp_genesis.common.registry.ModBlockEntities;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.EnumMap;
+
+/**
+ * BlockEntity used by every Copycat Block.
+ *
+ * <p>This BlockEntity stores and synchronizes the copied data.
+ * Rendering is handled entirely by the renderer.</p>
+ */
+public class CopycatBlockEntity extends BlockEntity {
+
+    /**
+     * Copycat data.
+     */
+    private final CopycatData data = new CopycatData();
+
+    public CopycatBlockEntity(BlockPos pos, BlockState state) {
+        super(ModBlockEntities.COPYCAT_BLOCK_ENTITY.get(), pos, state);
+    }
+
+    // ------------------------------------------------------------------------
+    // Main Copycat state
+    // ------------------------------------------------------------------------
+
+    /**
+     * Returns the main copied BlockState.
+     */
+    public @NotNull BlockState getCopiedState() {
+        return data.getCopiedState();
+    }
+
+    /**
+     * Sets the main copied BlockState.
+     */
+    public void setCopiedState(@NotNull BlockState state) {
+        data.setCopiedState(state);
+        updateBlock();
+    }
+
+    /**
+     * Returns whether the main Copycat currently contains a copied block.
+     */
+    public boolean hasCopiedState() {
+        return data.hasCopiedState();
+    }
+
+    /**
+     * Clears the main copied BlockState.
+     */
+    public void clearCopiedState() {
+        data.clear(CopycatPart.MAIN);
+        updateBlock();
+    }
+
+    // ------------------------------------------------------------------------
+    // Copycat Parts
+    // ------------------------------------------------------------------------
+
+    /**
+     * Returns the copied BlockState for the specified part.
+     */
+    public @NotNull BlockState getCopiedState(
+            @NotNull CopycatPart part
+    ) {
+        return data.getCopiedState(part);
+    }
+
+    /**
+     * Sets the copied BlockState for the specified part.
+     */
+    public void setCopiedState(
+            @NotNull CopycatPart part,
+            @NotNull BlockState state
+    ) {
+        data.setCopiedState(part, state);
+        updateBlock();
+    }
+
+    /**
+     * Returns whether the specified part contains a copied BlockState.
+     */
+    public boolean hasCopiedState(
+            @NotNull CopycatPart part
+    ) {
+        return data.hasCopiedState(part);
+    }
+
+    /**
+     * Clears the specified part.
+     */
+    public void clearCopiedState(
+            @NotNull CopycatPart part
+    ) {
+        data.clear(part);
+        updateBlock();
+    }
+
+    // ------------------------------------------------------------------------
+    // Model Data
+    // ------------------------------------------------------------------------
+
+    /**
+     * Provides model data used by the Copycat renderer.
+     */
+    @Override
+    public @NotNull ModelData getModelData() {
+
+        EnumMap<CopycatPart, BlockState> copiedStates =
+                new EnumMap<>(CopycatPart.class);
+
+        for (CopycatPart part : CopycatPart.values()) {
+            copiedStates.put(
+                    part,
+                    getCopiedState(part)
+            );
+        }
+
+        return ModelData.builder()
+                .with(
+                        CopycatModelProperties.COPIED_STATES,
+                        copiedStates
+                )
+                .build();
+    }
+
+    /**
+     * Marks this BlockEntity as changed and synchronizes it with the client.
+     */
+    private void updateBlock() {
+        setChanged();
+
+        requestModelDataUpdate();
+
+        if (level != null) {
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    3
+            );
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    // Saving / Loading
+    // ------------------------------------------------------------------------
+
+    @Override
+    protected void saveAdditional(
+            @NotNull CompoundTag tag,
+            HolderLookup.@NotNull Provider provider
+    ) {
+        super.saveAdditional(tag, provider);
+
+        writeCopycatData(tag, provider);
+    }
+
+    @Override
+    protected void loadAdditional(
+            @NotNull CompoundTag tag,
+            HolderLookup.@NotNull Provider provider
+    ) {
+        super.loadAdditional(tag, provider);
+
+        readCopycatData(tag, provider);
+    }
+
+    /**
+     * Serializes all Copycat parts into NBT.
+     */
+    private void writeCopycatData(
+            CompoundTag tag,
+            HolderLookup.Provider provider
+    ) {
+        RegistryOps<Tag> ops =
+                provider.createSerializationContext(NbtOps.INSTANCE);
+
+        CompoundTag partsTag = new CompoundTag();
+
+        for (CopycatPart part : CopycatPart.values()) {
+
+            BlockState state = data.getCopiedState(part);
+
+            DataResult<Tag> result =
+                    BlockState.CODEC.encodeStart(
+                            ops,
+                            state
+                    );
+
+            result.result().ifPresent(
+                    stateTag ->
+                            partsTag.put(
+                                    part.name(),
+                                    stateTag
+                            )
+            );
+        }
+
+        tag.put(
+                CopycatConstants.COPIED_STATES_TAG,
+                partsTag
+        );
+    }
+
+    /**
+     * Deserializes all Copycat parts from NBT.
+     */
+    private void readCopycatData(
+            CompoundTag tag,
+            HolderLookup.Provider provider
+    ) {
+        data.clear();
+
+        if (!tag.contains(CopycatConstants.COPIED_STATES_TAG)) {
+            return;
+        }
+
+        RegistryOps<Tag> ops =
+                provider.createSerializationContext(NbtOps.INSTANCE);
+
+        CompoundTag partsTag =
+                tag.getCompound(
+                        CopycatConstants.COPIED_STATES_TAG
+                );
+
+        for (CopycatPart part : CopycatPart.values()) {
+
+            if (!partsTag.contains(part.name())) {
+                continue;
+            }
+
+            DataResult<BlockState> result =
+                    BlockState.CODEC.parse(
+                            ops,
+                            partsTag.get(part.name())
+                    );
+
+            result.result().ifPresent(
+                    state ->
+                            data.setCopiedState(
+                                    part,
+                                    state
+                            )
+            );
+        }
+    }
+
+    // ------------------------------------------------------------------------
+    // Networking
+    // ------------------------------------------------------------------------
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(
+            HolderLookup.@NotNull Provider provider
+    ) {
+        CompoundTag tag = super.getUpdateTag(provider);
+
+        writeCopycatData(tag, provider);
+
+        return tag;
+    }
+
+    @Override
+    public void handleUpdateTag(
+            @NotNull CompoundTag tag,
+            HolderLookup.@NotNull Provider provider
+    ) {
+        readCopycatData(tag, provider);
+    }
+
+    @Override
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void onDataPacket(
+            @NotNull Connection connection,
+            ClientboundBlockEntityDataPacket packet,
+            HolderLookup.@NotNull Provider provider
+    ) {
+        CompoundTag tag = packet.getTag();
+
+        handleUpdateTag(tag, provider);
+
+        requestModelDataUpdate();
+
+        if (level != null) {
+            level.sendBlockUpdated(
+                    worldPosition,
+                    getBlockState(),
+                    getBlockState(),
+                    3
+            );
+        }
+    }
+}

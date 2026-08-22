@@ -1,7 +1,7 @@
 package net.scp_genesis.neoforge.platform;
 
 import net.minecraft.resources.ResourceLocation;
-import net.scp_genesis.main.platform.PlatformRegistryObject;
+import net.scp_genesis.common.platform.PlatformRegistryObject;
 
 import java.util.function.Supplier;
 
