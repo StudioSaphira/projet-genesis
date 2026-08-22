@@ -114,6 +114,7 @@ public class ModTabs {
 				tabData.accept(ModItems.WALL_BASE.get());
 				tabData.accept(ModItems.GREEN_TILED_FLOOR.get());
 			}).withSearchBar().withTabsBefore(CUSTOM_ITEMS.getId()).build());
+	@SuppressWarnings("unused")
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> COPYCAT_BLOCKS = REGISTRY.register("copycat_blocks",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.scp_genesis.copycat_blocks")).icon(() -> new ItemStack(ModBlocks.COPYCAT_CUBE.get())).displayItems((parameters, tabData) -> {
 				tabData.accept(ModItems.COPYCAT_WRENCH.get());
