@@ -74,6 +74,7 @@ public final class FabricCopycatUnbakedModel
         this.baseModels = baseModels;
     }
 
+
     @Override
     public BakedModel bake(
             ModelBaker baker,
@@ -98,8 +99,23 @@ public final class FabricCopycatUnbakedModel
                         )
                 );
 
+        @SuppressWarnings("deprecation")
+        TextureAtlasSprite copycatAltSprite =
+                spriteGetter.apply(
+                        new Material(
+                                net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS,
+                                ResourceLocation.fromNamespaceAndPath(
+                                        "scp_genesis",
+                                        "block/copycat_block_alt"
+                                )
+                        )
+                );
+
         Function<Material, TextureAtlasSprite> copycatSpriteGetter =
                 material -> copycatSprite;
+
+        Function<Material, TextureAtlasSprite> copycatAltSpriteGetter =
+                material -> copycatAltSprite;
 
         /*
          * ============================================================
@@ -109,6 +125,7 @@ public final class FabricCopycatUnbakedModel
 
         if (geometryType == GeometryType.CUBE) {
 
+            @SuppressWarnings("DataFlowIssue")
             BakedModel bakedBaseModel =
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
@@ -158,9 +175,7 @@ public final class FabricCopycatUnbakedModel
             BakedModel doubleSecondaryModel =
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
-                            Objects.requireNonNull(baseModels).get(
-                                    "double_secondary"
-                            ),
+                            Objects.requireNonNull(baseModels).get("double_secondary"),
                             modelState
                     );
 

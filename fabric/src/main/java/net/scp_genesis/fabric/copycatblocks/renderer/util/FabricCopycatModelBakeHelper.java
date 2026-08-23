@@ -4,23 +4,18 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public final class FabricCopycatModelBakeHelper {
 
     private FabricCopycatModelBakeHelper() {
     }
 
-    public static BakedModel bakeModel(
-            ModelBaker baker,
-            ResourceLocation modelLocation,
-            ModelState modelState
+    public static @NotNull BakedModel bakeModel(
+            @NotNull ModelBaker baker,
+            @NotNull ResourceLocation modelLocation,
+            @NotNull ModelState modelState
     ) {
-        if (modelLocation == null) {
-            throw new IllegalStateException(
-                    "Missing Copycat base model"
-            );
-        }
-
         BakedModel model = baker.bake(
                 modelLocation,
                 modelState
