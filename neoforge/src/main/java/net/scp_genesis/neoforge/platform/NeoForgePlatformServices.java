@@ -1,7 +1,6 @@
 package net.scp_genesis.neoforge.platform;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.client.model.data.ModelData;
 import net.neoforged.neoforge.common.extensions.IBlockEntityExtension;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.platform.PlatformModelData;
@@ -10,7 +9,7 @@ import net.scp_genesis.common.platform.PlatformServicesImpl;
 public final class NeoForgePlatformServices
         implements PlatformServicesImpl {
 
-    private static final PlatformModelData<ModelData> MODEL_DATA =
+    private static final NeoForgePlatformModelData MODEL_DATA =
             new NeoForgePlatformModelData();
 
     @Override
@@ -28,7 +27,7 @@ public final class NeoForgePlatformServices
     }
 
     @Override
-    public ModelData getModelData(
+    public PlatformModelData.ModelData getModelData(
             BlockEntity blockEntity
     ) {
         if (blockEntity instanceof CopycatBlockEntity copycat) {
@@ -37,6 +36,6 @@ public final class NeoForgePlatformServices
             );
         }
 
-        return ModelData.EMPTY;
+        return null;
     }
 }
