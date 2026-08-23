@@ -9,10 +9,10 @@ import net.scp_genesis.neoforge.copycatblocks.renderer.model.CopycatModelPropert
 import java.util.EnumMap;
 
 /**
- * NeoForge implementation of the Copycat model data platform abstraction.
+ * NeoForge implementation of the platform model data abstraction.
  */
 public final class NeoForgePlatformModelData
-        implements PlatformModelData {
+        implements PlatformModelData<ModelData> {
 
     @Override
     public ModelData create(

@@ -6,22 +6,22 @@ import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import java.util.EnumMap;
 
 /**
- * Platform abstraction for Copycat model data.
+ * Platform abstraction for Minecraft model data.
  *
- * <p>This interface allows the common Copycat system to provide
- * platform-specific model data without depending on a specific
- * mod loader.</p>
+ * <p>The actual model data implementation is provided by the
+ * active mod loader.</p>
+ *
+ * @param <T> platform-specific model data type
  */
-public interface PlatformModelData {
+public interface PlatformModelData<T> {
 
     /**
-     * Creates platform-specific model data containing the copied
-     * BlockStates of a Copycat Block.
+     * Creates platform-specific model data from Copycat states.
      *
-     * @param copiedStates copied states indexed by Copycat part
+     * @param copiedStates copied BlockStates indexed by Copycat part
      * @return platform-specific model data
      */
-    Object create(
+    T create(
             EnumMap<CopycatPart, BlockState> copiedStates
     );
 }
