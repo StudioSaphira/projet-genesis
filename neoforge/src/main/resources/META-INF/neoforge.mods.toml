@@ -12,6 +12,9 @@ credits="Developed by Studio Saphira for the SCP: Genesis project"
 authors="HeroFR, Studio Saphira"
 description="SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics."
 
+[[mixins]]
+config = "scp_genesis.mixins.json"
+
 [[dependencies.scp_genesis]]
     modId="neoforge"
     type="required"
