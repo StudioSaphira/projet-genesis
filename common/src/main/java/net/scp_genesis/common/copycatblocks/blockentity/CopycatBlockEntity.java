@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.data.CopycatData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
+import net.scp_genesis.common.platform.PlatformServices;
 import net.scp_genesis.common.registry.ModBlockEntities;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,6 +51,17 @@ public class CopycatBlockEntity extends BlockEntity {
         }
 
         return copiedStates;
+    }
+
+    /**
+     * Creates the platform-specific model data used to render this Copycat.
+     *
+     * @return platform-specific model data containing all copied states
+     */
+    public Object getPlatformModelData() {
+        return PlatformServices.modelData().create(
+                getCopiedStates()
+        );
     }
 
     // ------------------------------------------------------------------------
@@ -147,6 +159,8 @@ public class CopycatBlockEntity extends BlockEntity {
                     getBlockState(),
                     3
             );
+
+            PlatformServices.requestModelDataUpdate(this);
         }
     }
 
