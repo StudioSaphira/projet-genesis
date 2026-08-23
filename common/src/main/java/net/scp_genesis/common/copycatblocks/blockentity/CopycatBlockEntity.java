@@ -36,12 +36,6 @@ public class CopycatBlockEntity extends BlockEntity {
         super(ModBlockEntities.COPYCAT_BLOCK_ENTITY.get(), pos, state);
     }
 
-    public Object getPlatformModelData() {
-        return PlatformServices.modelData().create(
-                getCopiedStates()
-        );
-    }
-
     /**
      * Returns all copied BlockStates indexed by Copycat part.
      */

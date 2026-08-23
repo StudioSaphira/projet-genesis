@@ -37,14 +37,17 @@ public final class PlatformServices {
         return INSTANCE.modelData();
     }
 
-    public static Object getModelData(BlockEntity blockEntity) {
-        return INSTANCE.getModelData(blockEntity);
-    }
-
     /**
      * Requests a model data update for the specified BlockEntity.
      */
     public static void requestModelDataUpdate(BlockEntity blockEntity) {
         INSTANCE.requestModelDataUpdate(blockEntity);
+    }
+
+    /**
+     * Returns the model data associated with the specified BlockEntity.
+     */
+    public static PlatformModelData.ModelData getModelData(BlockEntity blockEntity) {
+        return INSTANCE.getModelData(blockEntity);
     }
 }

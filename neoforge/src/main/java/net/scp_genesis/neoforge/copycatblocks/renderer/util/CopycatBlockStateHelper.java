@@ -3,7 +3,7 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.util;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.renderer.model.CopycatModelProperties;
+import net.scp_genesis.neoforge.platform.NeoForgePlatformModelData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +23,7 @@ public final class CopycatBlockStateHelper {
     ) {
         EnumMap<CopycatPart, BlockState> copiedStates =
                 modelData.get(
-                        CopycatModelProperties.COPIED_STATES
+                        NeoForgePlatformModelData.COPIED_STATES
                 );
 
         if (copiedStates == null) {

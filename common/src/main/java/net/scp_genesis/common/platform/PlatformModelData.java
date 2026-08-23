@@ -15,12 +15,9 @@ import java.util.EnumMap;
  */
 public interface PlatformModelData<T> {
 
-    /**
-     * Creates platform-specific model data from Copycat states.
-     *
-     * @param copiedStates copied BlockStates indexed by Copycat part
-     * @return platform-specific model data
-     */
+    interface ModelData {
+    }
+
     T create(
             EnumMap<CopycatPart, BlockState> copiedStates
     );
