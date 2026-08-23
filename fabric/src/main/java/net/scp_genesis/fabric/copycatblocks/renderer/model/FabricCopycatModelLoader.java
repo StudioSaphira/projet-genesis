@@ -1,11 +1,13 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.model;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+
 import net.scp_genesis.common.constants.ModConstants;
 import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
 
@@ -17,16 +19,17 @@ import java.util.concurrent.Executor;
 
 public final class FabricCopycatModelLoader {
 
-    private static final Gson GSON = new Gson();
-
     private FabricCopycatModelLoader() {
     }
 
     /**
-     * Loads all Copycat model definitions from the ResourceManager.
+     * Loads all Copycat model definitions from resources.
+     *
+     * <p>The returned map contains the parsed JSON for every model
+     * using the Copycat model loader.</p>
      */
     public static CompletableFuture<
-            Map<ResourceLocation, FabricCopycatUnbakedModel>
+            Map<ResourceLocation, JsonObject>
             > load(
             ResourceManager resourceManager,
             Executor executor
@@ -37,129 +40,24 @@ public final class FabricCopycatModelLoader {
         );
     }
 
-    private static Map<
-            ResourceLocation,
-            FabricCopycatUnbakedModel
-            > loadModels(
-            ResourceManager resourceManager
-    ) {
-        Map<
-                ResourceLocation,
-                FabricCopycatUnbakedModel
-                > models = new HashMap<>();
-
-        /*
-         * We currently know the Copycat models explicitly.
-         *
-         * This can later be replaced by a resource scan if we
-         * want arbitrary Copycat model definitions.
-         */
-        loadModel(
-                resourceManager,
-                ResourceLocation.fromNamespaceAndPath(
-                        ModConstants.MOD_ID,
-                        "models/block/copycat_cube.json"
-                ),
-                models
-        );
-
-        loadModel(
-                resourceManager,
-                ResourceLocation.fromNamespaceAndPath(
-                        ModConstants.MOD_ID,
-                        "models/block/copycat_slab.json"
-                ),
-                models
-        );
-
-        loadModel(
-                resourceManager,
-                ResourceLocation.fromNamespaceAndPath(
-                        ModConstants.MOD_ID,
-                        "models/block/copycat_stairs.json"
-                ),
-                models
-        );
-
-        return models;
-    }
-
-    private static void loadModel(
-            ResourceManager resourceManager,
-            ResourceLocation resourceLocation,
-            Map<ResourceLocation, FabricCopycatUnbakedModel> models
-    ) {
-        try {
-            Resource resource =
-                    resourceManager.getResource(resourceLocation)
-                            .orElseThrow(
-                                    () -> new IllegalStateException(
-                                            "Missing Copycat model: "
-                                                    + resourceLocation
-                                    )
-                            );
-
-            try (Reader reader = resource.openAsReader()) {
-
-                JsonObject json =
-                        GSON.fromJson(
-                                reader,
-                                JsonObject.class
-                        );
-
-                FabricCopycatUnbakedModel model =
-                        parseModel(json);
-
-                /*
-                 * Convert:
-                 *
-                 * assets/scp_genesis/models/block/foo.json
-                 *
-                 * into:
-                 *
-                 * scp_genesis:block/foo
-                 */
-                ResourceLocation modelId =
-                        ResourceLocation.fromNamespaceAndPath(
-                                resourceLocation.getNamespace(),
-                                resourceLocation.getPath()
-                                        .substring(
-                                                "models/".length(),
-                                                resourceLocation.getPath().length()
-                                                        - ".json".length()
-                                        )
-                        );
-
-                models.put(
-                        modelId,
-                        model
-                );
-            }
-
-        } catch (Exception exception) {
-            throw new IllegalStateException(
-                    "Failed to load Copycat model: "
-                            + resourceLocation,
-                    exception
-            );
-        }
-    }
-
-    private static FabricCopycatUnbakedModel parseModel(
+    public static FabricCopycatUnbakedModel createModel(
             JsonObject json
     ) {
         if (!json.has("base_model")) {
-            throw new JsonParseException(
+            throw new IllegalArgumentException(
                     "Copycat model is missing required property: \"base_model\""
             );
         }
 
-        var baseModelElement =
+        JsonElement baseModelElement =
                 json.get("base_model");
 
         /*
-         * Simple Copycat model.
+         * ============================================================
+         * SIMPLE MODEL / CUBE
+         * ============================================================
          */
+
         if (baseModelElement.isJsonPrimitive()) {
 
             ResourceLocation baseModel =
@@ -173,16 +71,22 @@ public final class FabricCopycatModelLoader {
         }
 
         /*
-         * Multipart Copycat model.
+         * ============================================================
+         * MULTIPART MODEL
+         * ============================================================
          */
+
         if (baseModelElement.isJsonObject()) {
 
             JsonObject baseModels =
                     baseModelElement.getAsJsonObject();
 
             /*
-             * Stairs.
+             * --------------------------------------------------------
+             * STAIRS
+             * --------------------------------------------------------
              */
+
             if (baseModels.has("straight")
                     && baseModels.has("inner")
                     && baseModels.has("outer")) {
@@ -190,11 +94,14 @@ public final class FabricCopycatModelLoader {
                 Map<String, ResourceLocation> models =
                         new HashMap<>();
 
-                for (String key : new String[]{
+                String[] requiredModels = {
                         "straight",
                         "inner",
                         "outer"
-                }) {
+                };
+
+                for (String key : requiredModels) {
+
                     models.put(
                             key,
                             ResourceLocation.parse(
@@ -212,20 +119,25 @@ public final class FabricCopycatModelLoader {
             }
 
             /*
-             * Slab.
+             * --------------------------------------------------------
+             * SLAB
+             * --------------------------------------------------------
              */
-            Map<String, ResourceLocation> models =
-                    new HashMap<>();
 
-            for (String key : new String[]{
+            String[] requiredModels = {
                     "bottom",
                     "top",
                     "double",
                     "double_secondary"
-            }) {
+            };
+
+            Map<String, ResourceLocation> models =
+                    new HashMap<>();
+
+            for (String key : requiredModels) {
 
                 if (!baseModels.has(key)) {
-                    throw new JsonParseException(
+                    throw new IllegalArgumentException(
                             "Copycat model is missing required base model: \""
                                     + key
                                     + "\""
@@ -248,8 +160,122 @@ public final class FabricCopycatModelLoader {
             );
         }
 
-        throw new JsonParseException(
+        throw new IllegalArgumentException(
                 "Invalid \"base_model\" in Copycat model"
         );
+    }
+
+    private static Map<ResourceLocation, JsonObject> loadModels(
+            ResourceManager resourceManager
+    ) {
+        Map<ResourceLocation, JsonObject> models =
+                new HashMap<>();
+
+        Map<ResourceLocation, Resource> resources =
+                resourceManager.listResources(
+                        "models",
+                        id ->
+                                id.getNamespace().equals(
+                                        ModConstants.MOD_ID
+                                )
+                                        && id.getPath().startsWith(
+                                        "block/copycat_"
+                                )
+                                        && id.getPath().endsWith(
+                                        ".json"
+                                )
+                );
+
+        for (Map.Entry<ResourceLocation, Resource> entry
+                : resources.entrySet()) {
+
+            ResourceLocation resourceLocation =
+                    entry.getKey();
+
+            Resource resource =
+                    entry.getValue();
+
+            try (Reader reader =
+                         resource.openAsReader()) {
+
+                JsonElement element =
+                        JsonParser.parseReader(reader);
+
+                if (!element.isJsonObject()) {
+                    continue;
+                }
+
+                JsonObject json =
+                        element.getAsJsonObject();
+
+                if (!json.has("loader")) {
+                    continue;
+                }
+
+                String loader =
+                        json.get("loader").getAsString();
+
+                String expectedLoader =
+                        ResourceLocation.fromNamespaceAndPath(
+                                ModConstants.MOD_ID,
+                                CopycatConstants.MODEL_LOADER_ID
+                        ).toString();
+
+                if (!expectedLoader.equals(loader)) {
+                    continue;
+                }
+
+                /*
+                 * ResourceLocation of:
+                 *
+                 * assets/scp_genesis/models/block/foo.json
+                 *
+                 * becomes:
+                 *
+                 * scp_genesis:block/foo
+                 */
+                String path =
+                        resourceLocation.getPath();
+
+                if (path.startsWith("models/")) {
+                    path = path.substring(
+                            "models/".length()
+                    );
+                }
+
+                if (path.endsWith(".json")) {
+                    path = path.substring(
+                            0,
+                            path.length() - ".json".length()
+                    );
+                }
+
+                ResourceLocation modelId =
+                        ResourceLocation.fromNamespaceAndPath(
+                                resourceLocation.getNamespace(),
+                                path
+                        );
+
+                models.put(
+                        modelId,
+                        json
+                );
+
+                ModConstants.LOGGER.info(
+                        "[COPYCAT] Loaded model definition: {}",
+                        modelId
+                );
+
+            } catch (Exception exception) {
+
+                ModConstants.LOGGER.error(
+                        "[COPYCAT] Failed to load model definition: {}",
+                        resourceLocation,
+                        exception
+                );
+            }
+        }
+
+        return models;
     }
 }

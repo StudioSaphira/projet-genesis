@@ -1,10 +1,13 @@
 package net.scp_genesis.fabric.client;
 
+import com.google.gson.JsonObject;
+
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
-import net.minecraft.client.resources.model.UnbakedModel;
+
 import net.minecraft.resources.ResourceLocation;
+
 import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatModelLoader;
 import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatUnbakedModel;
 
@@ -24,39 +27,37 @@ public final class FabricModelLoading {
     }
 
     private static void initialize(
-            Map<ResourceLocation, FabricCopycatUnbakedModel> models,
+            Map<ResourceLocation, JsonObject> models,
             ModelLoadingPlugin.Context context
     ) {
-        context.modifyModelOnLoad().register(
-                ModelModifier.OVERRIDE_PHASE,
-                (model, modifierContext) ->
-                        replaceModel(
-                                model,
-                                modifierContext,
+        context.resolveModel().register(
+                resolverContext ->
+                        resolveModel(
+                                resolverContext,
                                 models
                         )
         );
     }
 
-    private static UnbakedModel replaceModel(
-            UnbakedModel model,
-            ModelModifier.OnLoad.Context context,
-            Map<ResourceLocation, FabricCopycatUnbakedModel> models
+    private static net.minecraft.client.resources.model.UnbakedModel resolveModel(
+            ModelResolver.Context context,
+            Map<ResourceLocation, JsonObject> models
     ) {
-        ResourceLocation resourceId =
-                context.resourceId();
+        ResourceLocation id =
+                context.id();
 
-        if (resourceId == null) {
-            return model;
+        JsonObject json =
+                models.get(id);
+
+        /*
+         * Not a Copycat model.
+         */
+        if (json == null) {
+            return null;
         }
 
-        FabricCopycatUnbakedModel copycatModel =
-                models.get(resourceId);
-
-        if (copycatModel == null) {
-            return model;
-        }
-
-        return copycatModel;
+        return FabricCopycatModelLoader.createModel(
+                json
+        );
     }
 }

@@ -4,7 +4,9 @@ import net.fabricmc.api.ClientModInitializer;
 
 import net.scp_genesis.fabric.client.FabricBlockColors;
 import net.scp_genesis.fabric.client.FabricModelLoading;
+import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatModelLoadingPlugin;
 
+@SuppressWarnings("unused")
 public final class FabricGenesisClient
         implements ClientModInitializer {
 
@@ -13,5 +15,6 @@ public final class FabricGenesisClient
 
         FabricBlockColors.register();
         FabricModelLoading.register();
+        FabricCopycatModelLoadingPlugin.register();
     }
 }

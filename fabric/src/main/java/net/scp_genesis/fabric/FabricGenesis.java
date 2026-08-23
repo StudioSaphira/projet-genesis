@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.scp_genesis.fabric.platform.FabricPlatformRegistry;
 
+@SuppressWarnings("unused")
 public final class FabricGenesis
         implements ModInitializer {
 

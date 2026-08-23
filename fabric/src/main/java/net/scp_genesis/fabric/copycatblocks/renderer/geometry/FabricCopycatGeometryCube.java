@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -60,14 +61,13 @@ public final class FabricCopycatGeometryCube
          * render the original base model.
          */
         if (copiedState == null || copiedState.isAir()) {
-            ((net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel) baseModel)
-                    .emitBlockQuads(
-                            blockView,
-                            state,
-                            pos,
-                            randomSupplier,
-                            context
-                    );
+            baseModel.emitBlockQuads(
+                    blockView,
+                    state,
+                    pos,
+                    randomSupplier,
+                    context
+            );
 
             return;
         }

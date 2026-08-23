@@ -1,10 +1,10 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.util;
 
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -14,9 +14,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.fabric.copycatblocks.provider.FabricCopycatModelProvider;
+import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -27,8 +27,6 @@ public final class FabricCopycatQuadHelper {
     }
 
     /**
-     * <h1>TINT</h1>
-     * ================================================================
      * Encodes the tint index of a Copycat part.
      */
     public static int encodeCopycatTintIndex(
@@ -47,198 +45,117 @@ public final class FabricCopycatQuadHelper {
     }
 
     /**
-     * <h1>QUAD REMAPPING</h1>
-     * ================================================================
-     * Copies a vanilla quad into a Fabric QuadEmitter and remaps
-     * its UV coordinates from the source sprite to the copied sprite.
+     * Emits a vanilla BakedQuad through the Fabric Renderer API.
      */
-    public static void remapQuad(
+    public static void emitQuad(
             @NotNull QuadEmitter emitter,
-            @NotNull BakedQuad sourceQuad,
-            @NotNull TextureAtlasSprite sourceSprite,
-            @NotNull BakedQuad copiedQuad,
-            @NotNull CopycatPart part
+            @NotNull BakedQuad quad,
+            @NotNull RenderMaterial material
     ) {
-        TextureAtlasSprite targetSprite =
-                copiedQuad.getSprite();
-
-        int[] vertices =
-                sourceQuad.getVertices();
-
-        final int vertexSize = 8;
-
-        float sourceSpriteMinU = sourceSprite.getU0();
-        float sourceSpriteMaxU = sourceSprite.getU1();
-        float sourceSpriteMinV = sourceSprite.getV0();
-        float sourceSpriteMaxV = sourceSprite.getV1();
-
-        float targetSpriteMinU = targetSprite.getU0();
-        float targetSpriteMaxU = targetSprite.getU1();
-        float targetSpriteMinV = targetSprite.getV0();
-        float targetSpriteMaxV = targetSprite.getV1();
-
-        float sourceSpriteUSize =
-                sourceSpriteMaxU - sourceSpriteMinU;
-
-        float sourceSpriteVSize =
-                sourceSpriteMaxV - sourceSpriteMinV;
-
-        float targetSpriteUSize =
-                targetSpriteMaxU - targetSpriteMinU;
-
-        float targetSpriteVSize =
-                targetSpriteMaxV - targetSpriteMinV;
-
-        if (sourceSpriteUSize == 0.0F
-                || sourceSpriteVSize == 0.0F
-                || targetSpriteUSize == 0.0F
-                || targetSpriteVSize == 0.0F) {
-            return;
-        }
-
         emitter.fromVanilla(
-                sourceQuad.getVertices(),
-                0
+                quad,
+                material,
+                quad.getDirection()
         );
 
-        for (int vertex = 0; vertex < 4; vertex++) {
-
-            int offset = vertex * vertexSize;
-
-            float u =
-                    Float.intBitsToFloat(
-                            vertices[offset + 4]
-                    );
-
-            float v =
-                    Float.intBitsToFloat(
-                            vertices[offset + 5]
-                    );
-
-            float normalizedU =
-                    (u - sourceSpriteMinU)
-                            / sourceSpriteUSize;
-
-            float normalizedV =
-                    (v - sourceSpriteMinV)
-                            / sourceSpriteVSize;
-
-            float newU =
-                    targetSpriteMinU
-                            + normalizedU
-                            * targetSpriteUSize;
-
-            float newV =
-                    targetSpriteMinV
-                            + normalizedV
-                            * targetSpriteVSize;
-
-            emitter.uv(
-                    vertex,
-                    newU,
-                    newV
-            );
-        }
-
-        int tintIndex =
-                copiedQuad.getTintIndex();
-
-        if (tintIndex >= 0) {
-            tintIndex =
-                    encodeCopycatTintIndex(
-                            tintIndex,
-                            part
-                    );
-        }
-
-        emitter.colorIndex(tintIndex);
+        emitter.emit();
     }
 
     /**
-     * <h1>RETEXTURING</h1>
-     * ================================================================
-     * Retextures a Copycat geometry model using the corresponding
-     * copied block model.
+     * Emits a copied quad while replacing its texture with the
+     * texture of the geometry quad.
+     */
+    public static void emitRetexturedQuad(
+            @NotNull QuadEmitter emitter,
+            @NotNull BakedQuad geometryQuad,
+            @NotNull BakedQuad copiedQuad,
+            @NotNull CopycatPart part
+    ) {
+        emitter.fromVanilla(
+                geometryQuad,
+                FabricCopycatRenderer.getStandardMaterial(),
+                geometryQuad.getDirection()
+        );
+
+        emitter.spriteBake(
+                copiedQuad.getSprite(),
+                0
+        );
+
+        emitter.colorIndex(
+                encodeCopycatTintIndex(
+                        copiedQuad.getTintIndex(),
+                        part
+                )
+        );
+
+        emitter.emit();
+    }
+
+    /**
+     * Emits a retextured Copycat model through the Fabric Renderer API.
      */
     public static void retextureModel(
             @NotNull BakedModel geometryModel,
             @NotNull BlockAndTintGetter blockView,
-            @Nullable BlockState copycatState,
-            @NotNull BlockState copiedState,
+            @NotNull BlockState copycatState,
             @NotNull BlockPos pos,
+            @NotNull BlockState copiedState,
             @NotNull Supplier<RandomSource> randomSupplier,
             @NotNull RenderContext context,
             @NotNull CopycatPart part
     ) {
         BakedModel copiedModel =
-                FabricCopycatModelProvider.getModel(
-                        copiedState
+                FabricCopycatModelProvider.getModel(copiedState);
+
+        QuadEmitter emitter =
+                context.getEmitter();
+
+        RandomSource random =
+                randomSupplier.get();
+
+        List<BakedQuad> geometryQuads =
+                geometryModel.getQuads(
+                        copycatState,
+                        null,
+                        random
                 );
 
-        for (Direction direction :
-                Direction.values()) {
+        if (geometryQuads.isEmpty()) {
+            return;
+        }
 
-            if (!direction.getAxis().isHorizontal()
-                    && direction != Direction.UP
-                    && direction != Direction.DOWN) {
-                continue;
-            }
+        for (BakedQuad geometryQuad : geometryQuads) {
 
-            RandomSource random =
-                    randomSupplier.get();
+            Direction direction =
+                    geometryQuad.getDirection();
 
-            List<BakedQuad> geometryQuads =
-                    geometryModel.getQuads(
-                            copycatState,
+            List<BakedQuad> copiedQuads =
+                    FabricCopycatModelHelper.findMatchingCopiedQuads(
+                            copiedModel,
+                            copiedState,
                             direction,
+                            geometryQuad,
                             random
                     );
 
-            if (geometryQuads.isEmpty()) {
+            if (copiedQuads.isEmpty()) {
+                emitQuad(
+                        emitter,
+                        geometryQuad,
+                        FabricCopycatRenderer.getStandardMaterial()
+                );
+
                 continue;
             }
 
-            for (BakedQuad geometryQuad :
-                    geometryQuads) {
-
-                List<BakedQuad> copiedQuads =
-                        FabricCopycatModelHelper
-                                .findMatchingCopiedQuads(
-                                        copiedModel,
-                                        copiedState,
-                                        direction,
-                                        geometryQuad,
-                                        random
-                                );
-
-                if (copiedQuads.isEmpty()) {
-
-                    context.getEmitter()
-                            .fromVanilla(
-                                    geometryQuad.getVertices(),
-                                    0
-                            )
-                            .emit();
-
-                    continue;
-                }
-
-                for (BakedQuad copiedQuad :
-                        copiedQuads) {
-
-                    QuadEmitter emitter =
-                            context.getEmitter();
-
-                    remapQuad(
-                            emitter,
-                            geometryQuad,
-                            geometryQuad.getSprite(),
-                            copiedQuad,
-                            part
-                    );
-
-                    emitter.emit();
-                }
+            for (BakedQuad copiedQuad : copiedQuads) {
+                emitRetexturedQuad(
+                        emitter,
+                        geometryQuad,
+                        copiedQuad,
+                        part
+                );
             }
         }
     }
