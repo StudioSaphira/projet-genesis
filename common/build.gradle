@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'fabric-loom' version '1.17.19'
 }
 
 java {
@@ -11,19 +11,16 @@ java {
     }
 }
 
-neoForge {
-    version = rootProject.neoforge_version
+repositories {
+    mavenCentral()
 
-    mods {
-        scp_genesis {
-            sourceSet sourceSets.main
-        }
+    maven {
+        url = 'https://maven.fabricmc.net/'
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+
+    mappings loom.officialMojangMappings()
 }

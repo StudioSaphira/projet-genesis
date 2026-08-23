@@ -16,9 +16,44 @@ subprojects {
     }
 }
 
-tasks.register('buildAll') {
+tasks.register('buildJar', Jar) {
+
+    archiveFileName =
+            "${project.mod_id}-${project.mod_version}-${project.version_type}${project.version_id}-${project.minecraft_version}.jar"
+
     dependsOn(
-            ':fabric:build',
-            ':neoforge:build'
+            ':common:classes',
+            ':common:processResources',
+            ':fabric:classes',
+            ':fabric:processResources',
+            ':neoforge:classes',
+            ':neoforge:processResources'
     )
+
+    from(project(':common').sourceSets.main.output)
+    from(project(':fabric').sourceSets.main.output)
+    from(project(':neoforge').sourceSets.main.output)
+
+    from(rootProject.projectDir) {
+        include 'README.md'
+        include 'CHANGELOG.md'
+        include 'LICENSE.md'
+        include 'NOTICE.md'
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    doLast {
+        println ""
+        println "========================================"
+        println " SCP GENESIS - JAR FINAL"
+        println "========================================"
+        println "Fichier : ${archiveFile.get().asFile.absolutePath}"
+        println "Taille  : ${archiveFile.get().asFile.length()} octets"
+        println "========================================"
+    }
+}
+
+tasks.register('buildAll') {
+    dependsOn 'buildJar'
 }

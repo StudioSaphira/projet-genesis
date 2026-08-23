@@ -22,7 +22,7 @@ public final class ModTabs {
 		CUSTOM_ITEMS =
 				registry.registerCreativeModeTab(
 						"custom_items",
-						() -> CreativeModeTab.builder()
+						() -> registry.createCreativeModeTabBuilder()
 								.title(
 										Component.translatable(
 												"item_group.scp_genesis.custom_items"
@@ -155,7 +155,7 @@ public final class ModTabs {
 				registry.registerCreativeModeTab(
 						"building_blocks",
 						CUSTOM_ITEMS.getId(),
-						() -> CreativeModeTab.builder()
+						() -> registry.createCreativeModeTabBuilder()
 								.title(
 										Component.translatable(
 												"item_group.scp_genesis.building_blocks"
@@ -184,7 +184,7 @@ public final class ModTabs {
 				registry.registerCreativeModeTab(
 						"copycat_blocks",
 						BUILDING_BLOCKS.getId(),
-						() -> CreativeModeTab.builder()
+						() -> registry.createCreativeModeTabBuilder()
 								.title(
 										Component.translatable(
 												"item_group.scp_genesis.copycat_blocks"

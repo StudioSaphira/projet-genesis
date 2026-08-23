@@ -11,6 +11,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import net.scp_genesis.common.constants.ModConstants;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
+import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 import net.scp_genesis.common.registry.ModBlockEntities;
@@ -103,6 +105,27 @@ public final class NeoForgePlatformRegistry
         );
     }
 
+    @SuppressWarnings("DataFlowIssue")
+    @Override
+    public PlatformRegistryObject<BlockEntityType<CopycatBlockEntity>>
+    registerCopycatBlockEntity(String id) {
+
+        var holder = blockEntities.register(
+                id,
+                () -> BlockEntityType.Builder.of(
+                        CopycatBlockEntity::new,
+                        ModBlocks.COPYCAT_CUBE.get(),
+                        ModBlocks.COPYCAT_SLAB.get(),
+                        ModBlocks.COPYCAT_STAIRS.get()
+                ).build(null)
+        );
+
+        return new NeoForgePlatformRegistryObject<>(
+                holder,
+                holder::getId
+        );
+    }
+
     @Override
     public <T extends BlockEntityType<?>> PlatformRegistryObject<T> registerBlockEntity(
             String id,
@@ -117,9 +140,14 @@ public final class NeoForgePlatformRegistry
     }
 
     @Override
+    public PlatformCreativeModeTabBuilder createCreativeModeTabBuilder() {
+        return new NeoForgeCreativeModeTabBuilder();
+    }
+
+    @Override
     public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     ) {
         var holder = creativeModeTabs.register(
                 id,
@@ -136,13 +164,17 @@ public final class NeoForgePlatformRegistry
     public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
             ResourceLocation before,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     ) {
         var holder = creativeModeTabs.register(
                 id,
-                () -> builder.get()
-                        .withTabsBefore(before)
-                        .build()
+                () -> {
+                    PlatformCreativeModeTabBuilder tabBuilder = builder.get();
+
+                    tabBuilder.withTabsBefore(before);
+
+                    return tabBuilder.build();
+                }
         );
 
         return new NeoForgePlatformRegistryObject<>(

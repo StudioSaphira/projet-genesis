@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import net.scp_genesis.common.constants.ModConstants;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
+import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 import net.scp_genesis.common.registry.ModBlockEntities;
@@ -102,6 +104,32 @@ public final class FabricPlatformRegistry
     // ------------------------------------------------------------------------
 
     @Override
+    public PlatformRegistryObject<BlockEntityType<CopycatBlockEntity>>
+    registerCopycatBlockEntity(String id) {
+
+        ResourceLocation location = id(id);
+
+        BlockEntityType<CopycatBlockEntity> type =
+                BlockEntityType.Builder.of(
+                        CopycatBlockEntity::new,
+                        ModBlocks.COPYCAT_CUBE.get(),
+                        ModBlocks.COPYCAT_SLAB.get(),
+                        ModBlocks.COPYCAT_STAIRS.get()
+                ).build(null);
+
+        Registry.register(
+                BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                location,
+                type
+        );
+
+        return new FabricPlatformRegistryObject<>(
+                type,
+                location
+        );
+    }
+
+    @Override
     public <T extends BlockEntityType<?>> PlatformRegistryObject<T> registerBlockEntity(
             String id,
             Supplier<T> supplier
@@ -125,9 +153,14 @@ public final class FabricPlatformRegistry
     // ------------------------------------------------------------------------
 
     @Override
+    public PlatformCreativeModeTabBuilder createCreativeModeTabBuilder() {
+        return new FabricCreativeModeTabBuilder();
+    }
+
+    @Override
     public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     ) {
         ResourceLocation location = id(id);
 
@@ -143,12 +176,11 @@ public final class FabricPlatformRegistry
         );
     }
 
-    //TODO Add Order for the Tabs in Creative
     @Override
     public PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
             ResourceLocation before,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     ) {
         ResourceLocation location = id(id);
 

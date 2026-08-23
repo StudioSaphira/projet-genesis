@@ -5,6 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -25,20 +26,25 @@ public interface PlatformRegistry {
             PlatformRegistryObject<? extends Block> block
     );
 
+    PlatformRegistryObject<BlockEntityType<CopycatBlockEntity>>
+    registerCopycatBlockEntity(String id);
+
     <T extends BlockEntityType<?>> PlatformRegistryObject<T> registerBlockEntity(
             String id,
             Supplier<T> supplier
     );
 
+    PlatformCreativeModeTabBuilder createCreativeModeTabBuilder();
+
     PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     );
 
     PlatformRegistryObject<CreativeModeTab> registerCreativeModeTab(
             String id,
             ResourceLocation before,
-            Supplier<CreativeModeTab.Builder> builder
+            Supplier<PlatformCreativeModeTabBuilder> builder
     );
 
     void register();

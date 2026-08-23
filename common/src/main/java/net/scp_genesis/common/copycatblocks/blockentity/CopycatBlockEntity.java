@@ -6,7 +6,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -172,7 +171,7 @@ public class CopycatBlockEntity extends BlockEntity {
     ) {
         super.loadAdditional(tag, provider);
 
-        readCopycatData(tag, provider);
+        readUpdateTag(tag, provider);
     }
 
     /**
@@ -215,7 +214,7 @@ public class CopycatBlockEntity extends BlockEntity {
     /**
      * Deserializes all Copycat parts from NBT.
      */
-    private void readCopycatData(
+    public void readUpdateTag(
             CompoundTag tag,
             HolderLookup.Provider provider
     ) {
@@ -271,35 +270,7 @@ public class CopycatBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void handleUpdateTag(
-            @NotNull CompoundTag tag,
-            HolderLookup.@NotNull Provider provider
-    ) {
-        readCopycatData(tag, provider);
-    }
-
-    @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(
-            @NotNull Connection connection,
-            ClientboundBlockEntityDataPacket packet,
-            HolderLookup.@NotNull Provider provider
-    ) {
-        CompoundTag tag = packet.getTag();
-
-        handleUpdateTag(tag, provider);
-
-        if (level != null) {
-            level.sendBlockUpdated(
-                    worldPosition,
-                    getBlockState(),
-                    getBlockState(),
-                    3
-            );
-        }
     }
 }

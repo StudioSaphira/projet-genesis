@@ -14,20 +14,12 @@ public final class ModBlockEntities {
     public static PlatformRegistryObject<BlockEntityType<CopycatBlockEntity>>
             COPYCAT_BLOCK_ENTITY;
 
-    @SuppressWarnings("DataFlowIssue")
     public static void register(
             PlatformRegistry registry
     ) {
         COPYCAT_BLOCK_ENTITY =
-                registry.registerBlockEntity(
-                        CopycatConstants.BLOCK_ENTITY_ID,
-                        () -> BlockEntityType.Builder.of(
-                                CopycatBlockEntity::new,
-                                ModBlocks.COPYCAT_CUBE.get(),
-                                ModBlocks.COPYCAT_SLAB.get(),
-                                ModBlocks.COPYCAT_STAIRS.get()
-                                // ModBlocks.COPYCAT_SLOPE.get()
-                        ).build(null)
+                registry.registerCopycatBlockEntity(
+                        CopycatConstants.BLOCK_ENTITY_ID
                 );
     }
 }

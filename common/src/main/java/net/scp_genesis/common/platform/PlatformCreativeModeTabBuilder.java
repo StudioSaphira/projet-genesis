@@ -1,0 +1,31 @@
+package net.scp_genesis.common.platform;
+
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.function.Supplier;
+
+public interface PlatformCreativeModeTabBuilder {
+
+    PlatformCreativeModeTabBuilder title(
+            Component title
+    );
+
+    PlatformCreativeModeTabBuilder icon(
+            Supplier<ItemStack> icon
+    );
+
+    PlatformCreativeModeTabBuilder displayItems(
+            CreativeModeTab.DisplayItemsGenerator generator
+    );
+
+    PlatformCreativeModeTabBuilder withSearchBar();
+
+    PlatformCreativeModeTabBuilder withTabsBefore(
+            ResourceLocation before
+    );
+
+    CreativeModeTab build();
+}

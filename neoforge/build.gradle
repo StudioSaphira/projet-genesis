@@ -31,8 +31,13 @@ neoForge {
     mods {
         scp_genesis {
             sourceSet sourceSets.main
+            sourceSet project(':common').sourceSets.main
         }
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {

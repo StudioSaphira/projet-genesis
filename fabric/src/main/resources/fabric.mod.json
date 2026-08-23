@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "scp_genesis",
-  "version": "${version}",
+  "version": "0.1.4",
   "name": "SCP: Genesis",
   "description": "SCP: Genesis",
   "authors": [
