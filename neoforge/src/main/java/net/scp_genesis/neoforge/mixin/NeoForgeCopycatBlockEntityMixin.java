@@ -12,7 +12,7 @@ import java.util.EnumMap;
 
 @SuppressWarnings("unused")
 @Mixin(CopycatBlockEntity.class)
-public abstract class CopycatBlockEntityMixin {
+public abstract class NeoForgeCopycatBlockEntityMixin {
 
     @Shadow
     public abstract EnumMap<CopycatPart, BlockState> getCopiedStates();

@@ -9,9 +9,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumMap;
 
-public final class CopycatBlockStateHelper {
+public final class NeoForgeCopycatBlockStateHelper {
 
-    private CopycatBlockStateHelper() {
+    private NeoForgeCopycatBlockStateHelper() {
     }
 
     /**

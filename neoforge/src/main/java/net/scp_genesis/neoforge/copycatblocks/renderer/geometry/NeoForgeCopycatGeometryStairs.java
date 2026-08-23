@@ -13,35 +13,35 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.CopycatModelProvider;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatBlockStateHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatQuadHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatStairsModelHelper;
+import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 
-public final class CopycatGeometryStairs
-        implements CopycatGeometry {
+public final class NeoForgeCopycatGeometryStairs
+        implements NeoForgeCopycatGeometry {
 
     private final Map<
-            CopycatStairsModelHelper.StairModelKey,
+            NeoForgeCopycatStairsModelHelper.StairModelKey,
             BakedModel
             > models;
 
-    public CopycatGeometryStairs(
+    public NeoForgeCopycatGeometryStairs(
             @NotNull Map<
-                    CopycatStairsModelHelper.StairModelKey,
+                    NeoForgeCopycatStairsModelHelper.StairModelKey,
                     BakedModel
                     > models
     ) {
         this.models = models;
     }
 
-    private static final CopycatStairsModelHelper.StairModelKey DEFAULT_MODEL_KEY =
-            new CopycatStairsModelHelper.StairModelKey(
+    private static final NeoForgeCopycatStairsModelHelper.StairModelKey DEFAULT_MODEL_KEY =
+            new NeoForgeCopycatStairsModelHelper.StairModelKey(
                     Direction.EAST,
                     Half.BOTTOM,
                     StairsShape.STRAIGHT
@@ -73,8 +73,8 @@ public final class CopycatGeometryStairs
                         BlockStateProperties.STAIRS_SHAPE
                 );
 
-        CopycatStairsModelHelper.StairModelKey key =
-                new CopycatStairsModelHelper.StairModelKey(
+        NeoForgeCopycatStairsModelHelper.StairModelKey key =
+                new NeoForgeCopycatStairsModelHelper.StairModelKey(
                         facing,
                         half,
                         shape
@@ -117,7 +117,7 @@ public final class CopycatGeometryStairs
                 getModel(state);
 
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -132,7 +132,7 @@ public final class CopycatGeometryStairs
             );
         }
 
-        return CopycatQuadHelper.retextureModel(
+        return NeoForgeCopycatQuadHelper.retextureModel(
                 geometryModel,
                 state,
                 copiedState,
@@ -151,7 +151,7 @@ public final class CopycatGeometryStairs
             @NotNull ModelData modelData
     ) {
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -162,7 +162,7 @@ public final class CopycatGeometryStairs
             );
         }
 
-        return CopycatModelProvider
+        return NeoForgeCopycatModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -176,7 +176,7 @@ public final class CopycatGeometryStairs
             @NotNull ModelData modelData
     ) {
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -186,7 +186,7 @@ public final class CopycatGeometryStairs
                     .getParticleIcon(modelData);
         }
 
-        return CopycatModelProvider
+        return NeoForgeCopycatModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(modelData);
     }

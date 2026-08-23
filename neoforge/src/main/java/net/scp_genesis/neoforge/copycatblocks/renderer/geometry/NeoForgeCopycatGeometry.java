@@ -20,7 +20,7 @@ import java.util.List;
  * <p>A Copycat geometry is responsible for generating the physical
  * geometry of a Copycat Block independently of its appearance.</p>
  */
-public interface CopycatGeometry {
+public interface NeoForgeCopycatGeometry {
 
     /**
      * Generates the quads used to render this geometry.

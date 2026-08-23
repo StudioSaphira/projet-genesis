@@ -14,12 +14,12 @@ import org.jetbrains.annotations.Nullable;
  * <p>This class acts as a bridge between the Copycat system and the
  * vanilla model renderer. It does not perform any custom rendering.</p>
  */
-public final class CopycatModelProvider {
+public final class NeoForgeCopycatModelProvider {
 
     /**
      * Prevent instantiation.
      */
-    private CopycatModelProvider() {
+    private NeoForgeCopycatModelProvider() {
     }
 
     /**

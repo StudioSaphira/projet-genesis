@@ -3,7 +3,7 @@
   "package": "net.scp_genesis.neoforge.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "CopycatBlockEntityMixin"
+    "NeoForgeCopycatBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

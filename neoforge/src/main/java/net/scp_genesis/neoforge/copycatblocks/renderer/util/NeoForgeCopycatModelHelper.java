@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public final class CopycatModelHelper {
+public final class NeoForgeCopycatModelHelper {
 
-    private CopycatModelHelper() {
+    private NeoForgeCopycatModelHelper() {
     }
 
     /**

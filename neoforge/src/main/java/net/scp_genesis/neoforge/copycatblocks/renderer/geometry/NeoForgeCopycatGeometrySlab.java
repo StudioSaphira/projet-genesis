@@ -12,24 +12,24 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.CopycatModelProvider;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatBlockStateHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatQuadHelper;
+import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CopycatGeometrySlab
-        implements CopycatGeometry {
+public final class NeoForgeCopycatGeometrySlab
+        implements NeoForgeCopycatGeometry {
 
     private final BakedModel bottomModel;
     private final BakedModel topModel;
     private final BakedModel doubleSecondaryModel;
     private final BakedModel doubleModel;
 
-    public CopycatGeometrySlab(
+    public NeoForgeCopycatGeometrySlab(
             @NotNull BakedModel bottomModel,
             @NotNull BakedModel topModel,
             @NotNull BakedModel doubleSecondaryModel,
@@ -85,7 +85,7 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.BOTTOM) {
 
             BlockState copiedState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.BOTTOM
                     );
@@ -100,7 +100,7 @@ public final class CopycatGeometrySlab
                 );
             }
 
-            return CopycatQuadHelper.retextureModel(
+            return NeoForgeCopycatQuadHelper.retextureModel(
                     bottomModel,
                     state,
                     copiedState,
@@ -121,7 +121,7 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.TOP) {
 
             BlockState copiedState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.TOP
                     );
@@ -136,7 +136,7 @@ public final class CopycatGeometrySlab
                 );
             }
 
-            return CopycatQuadHelper.retextureModel(
+            return NeoForgeCopycatQuadHelper.retextureModel(
                     topModel,
                     state,
                     copiedState,
@@ -162,13 +162,13 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.DOUBLE) {
 
             BlockState bottomState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.BOTTOM
                     );
 
             BlockState topState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.TOP
                     );
@@ -193,7 +193,7 @@ public final class CopycatGeometrySlab
             if (hasBottom) {
 
                 result.addAll(
-                        CopycatQuadHelper.retextureModel(
+                        NeoForgeCopycatQuadHelper.retextureModel(
                                 bottomModel,
                                 state,
                                 bottomState,
@@ -227,7 +227,7 @@ public final class CopycatGeometrySlab
             if (hasTop) {
 
                 result.addAll(
-                        CopycatQuadHelper.retextureModel(
+                        NeoForgeCopycatQuadHelper.retextureModel(
                                 doubleSecondaryModel,
                                 state,
                                 topState,
@@ -284,7 +284,7 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.BOTTOM) {
 
             BlockState copiedState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.BOTTOM
                     );
@@ -296,7 +296,7 @@ public final class CopycatGeometrySlab
             }
 
             BakedModel copiedModel =
-                    CopycatModelProvider.getModel(
+                    NeoForgeCopycatModelProvider.getModel(
                             copiedState
                     );
 
@@ -316,7 +316,7 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.TOP) {
 
             BlockState copiedState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.TOP
                     );
@@ -328,7 +328,7 @@ public final class CopycatGeometrySlab
             }
 
             BakedModel copiedModel =
-                    CopycatModelProvider.getModel(
+                    NeoForgeCopycatModelProvider.getModel(
                             copiedState
                     );
 
@@ -350,13 +350,13 @@ public final class CopycatGeometrySlab
         if (slabType == SlabType.DOUBLE) {
 
             BlockState bottomState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.BOTTOM
                     );
 
             BlockState topState =
-                    CopycatBlockStateHelper.getCopiedState(
+                    NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
                             CopycatPart.TOP
                     );
@@ -385,12 +385,12 @@ public final class CopycatGeometrySlab
              */
 
             BakedModel bottomCopiedModel =
-                    CopycatModelProvider.getModel(
+                    NeoForgeCopycatModelProvider.getModel(
                             bottomState
                     );
 
             BakedModel topCopiedModel =
-                    CopycatModelProvider.getModel(
+                    NeoForgeCopycatModelProvider.getModel(
                             topState
                     );
 
@@ -431,25 +431,25 @@ public final class CopycatGeometrySlab
          */
 
         BlockState bottomState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.BOTTOM
                 );
 
         if (bottomState != null && !bottomState.isAir()) {
-            return CopycatModelProvider
+            return NeoForgeCopycatModelProvider
                     .getModel(bottomState)
                     .getParticleIcon(modelData);
         }
 
         BlockState topState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.TOP
                 );
 
         if (topState != null && !topState.isAir()) {
-            return CopycatModelProvider
+            return NeoForgeCopycatModelProvider
                     .getModel(topState)
                     .getParticleIcon(modelData);
         }

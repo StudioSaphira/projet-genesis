@@ -11,9 +11,9 @@ import net.neoforged.neoforge.client.model.SimpleModelState;
 import java.util.Map;
 import java.util.function.Function;
 
-public final class CopycatStairsModelHelper {
+public final class NeoForgeCopycatStairsModelHelper {
 
-    private CopycatStairsModelHelper() {
+    private NeoForgeCopycatStairsModelHelper() {
     }
 
     public static Map<StairModelKey, BakedModel> bakeStairsModels(
@@ -47,7 +47,7 @@ public final class CopycatStairsModelHelper {
                                     true
                             );
 
-                    BakedModel model = CopycatModelBakeHelper.bakeModel(
+                    BakedModel model = NeoForgeCopycatModelBakeHelper.bakeModel(
                             baker,
                             baseModels.get(modelKey),
                             modelState,

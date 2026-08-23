@@ -16,10 +16,10 @@ import java.util.Map;
  * Geometry loader used by Copycat models.
  *
  * <p>This loader reads the Copycat model JSON and creates the corresponding
- * {@link CopycatUnbakedGeometry} instance used during model baking.</p>
+ * {@link NeoForgeCopycatUnbakedGeometry} instance used during model baking.</p>
  */
-public final class CopycatModelLoader
-    implements IGeometryLoader<CopycatUnbakedGeometry> {
+public final class NeoForgeCopycatModelLoader
+    implements IGeometryLoader<NeoForgeCopycatUnbakedGeometry> {
 
     /**
      * Loader identifier.
@@ -33,17 +33,17 @@ public final class CopycatModelLoader
     /**
      * Singleton instance.
      */
-    public static final CopycatModelLoader INSTANCE =
-            new CopycatModelLoader();
+    public static final NeoForgeCopycatModelLoader INSTANCE =
+            new NeoForgeCopycatModelLoader();
 
     /**
      * Prevent external instantiation.
      */
-    private CopycatModelLoader() {
+    private NeoForgeCopycatModelLoader() {
     }
 
     @Override
-    public @NotNull CopycatUnbakedGeometry read(
+    public @NotNull NeoForgeCopycatUnbakedGeometry read(
             @NotNull JsonObject json,
             @NotNull JsonDeserializationContext context
     ) throws JsonParseException {
@@ -68,7 +68,7 @@ public final class CopycatModelLoader
                             baseModelElement.getAsString()
                     );
 
-            return new CopycatUnbakedGeometry(baseModel);
+            return new NeoForgeCopycatUnbakedGeometry(baseModel);
         }
 
         /*
@@ -105,8 +105,8 @@ public final class CopycatModelLoader
                     );
                 }
 
-                return new CopycatUnbakedGeometry(
-                        CopycatUnbakedGeometry.GeometryType.STAIRS,
+                return new NeoForgeCopycatUnbakedGeometry(
+                        NeoForgeCopycatUnbakedGeometry.GeometryType.STAIRS,
                         models
                 );
             }
@@ -142,8 +142,8 @@ public final class CopycatModelLoader
                 );
             }
 
-            return new CopycatUnbakedGeometry(
-                    CopycatUnbakedGeometry.GeometryType.SLAB,
+            return new NeoForgeCopycatUnbakedGeometry(
+                    NeoForgeCopycatUnbakedGeometry.GeometryType.SLAB,
                     models
             );
         }

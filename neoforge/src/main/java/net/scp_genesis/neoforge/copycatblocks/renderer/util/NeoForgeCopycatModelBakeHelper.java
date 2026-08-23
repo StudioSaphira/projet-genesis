@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Function;
 
-public final class CopycatModelBakeHelper {
+public final class NeoForgeCopycatModelBakeHelper {
 
     public static BakedModel bakeModel(
             ModelBaker baker,

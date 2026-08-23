@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.CopycatModelProvider;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatBlockStateHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.CopycatQuadHelper;
+import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,12 +24,12 @@ import java.util.List;
  * <p>The Cube geometry represents a standard full-block shape.
  * Its appearance is handled separately by the Copycat rendering system.</p>
  */
-public final class CopycatGeometryCube
-        implements CopycatGeometry {
+public final class NeoForgeCopycatGeometryCube
+        implements NeoForgeCopycatGeometry {
 
     private final BakedModel baseModel;
 
-    public CopycatGeometryCube(
+    public NeoForgeCopycatGeometryCube(
             @NotNull BakedModel baseModel
     ) {
         this.baseModel = baseModel;
@@ -49,7 +49,7 @@ public final class CopycatGeometryCube
             @Nullable RenderType renderType
     ) {
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -64,7 +64,7 @@ public final class CopycatGeometryCube
             );
         }
 
-        return CopycatQuadHelper.retextureModel(
+        return NeoForgeCopycatQuadHelper.retextureModel(
                 baseModel,
                 state,
                 copiedState,
@@ -83,7 +83,7 @@ public final class CopycatGeometryCube
             @NotNull ModelData modelData
     ) {
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -94,7 +94,7 @@ public final class CopycatGeometryCube
             );
         }
 
-        return CopycatModelProvider
+        return NeoForgeCopycatModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -108,7 +108,7 @@ public final class CopycatGeometryCube
             @NotNull ModelData modelData
     ) {
         BlockState copiedState =
-                CopycatBlockStateHelper.getCopiedState(
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,
                         CopycatPart.MAIN
                 );
@@ -117,7 +117,7 @@ public final class CopycatGeometryCube
             return baseModel.getParticleIcon(modelData);
         }
 
-        return CopycatModelProvider
+        return NeoForgeCopycatModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(modelData);
     }

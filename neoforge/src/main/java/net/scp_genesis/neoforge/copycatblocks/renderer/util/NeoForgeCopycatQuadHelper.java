@@ -9,16 +9,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.CopycatModelProvider;
+import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CopycatQuadHelper {
+public final class NeoForgeCopycatQuadHelper {
 
-    private CopycatQuadHelper() {
+    private NeoForgeCopycatQuadHelper() {
     }
 
     /**
@@ -186,7 +186,7 @@ public final class CopycatQuadHelper {
             @NotNull CopycatPart part
     ) {
         BakedModel copiedModel =
-                CopycatModelProvider.getModel(copiedState);
+                NeoForgeCopycatModelProvider.getModel(copiedState);
 
         List<BakedQuad> geometryQuads =
                 geometryModel.getQuads(
@@ -212,7 +212,7 @@ public final class CopycatQuadHelper {
                             : geometryQuad.getDirection();
 
             List<BakedQuad> copiedQuads =
-                    CopycatModelHelper.findMatchingCopiedQuads(
+                    NeoForgeCopycatModelHelper.findMatchingCopiedQuads(
                             copiedModel,
                             copiedState,
                             direction,

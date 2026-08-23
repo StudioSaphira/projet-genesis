@@ -11,20 +11,20 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.CopycatGeometry;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public final class CopycatBakedModel implements BakedModel {
+public final class NeoForgeCopycatBakedModel implements BakedModel {
 
     /**
      * <h1>MODELS</h1>
      * ================================================================
      * <p>Base geometry used by a simple Copycat Block such as the Cube.</p>
      */
-    private final CopycatGeometry geometry;
+    private final NeoForgeCopycatGeometry geometry;
 
 
     /**
@@ -32,8 +32,8 @@ public final class CopycatBakedModel implements BakedModel {
      * ================================================================
      * <p>Constructor used by simple Copycat Blocks.</p>
      */
-    public CopycatBakedModel(
-            @NotNull CopycatGeometry geometry
+    public NeoForgeCopycatBakedModel(
+            @NotNull NeoForgeCopycatGeometry geometry
     ) {
         this.geometry = geometry;
     }
