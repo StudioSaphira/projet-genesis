@@ -1,5 +1,7 @@
 package net.scp_genesis.common.platform;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+
 /**
  * Provides access to platform-specific implementations.
  *
@@ -35,12 +37,14 @@ public final class PlatformServices {
         return INSTANCE.modelData();
     }
 
+    public static Object getModelData(BlockEntity blockEntity) {
+        return INSTANCE.getModelData(blockEntity);
+    }
+
     /**
      * Requests a model data update for the specified BlockEntity.
      */
-    public static void requestModelDataUpdate(
-            net.minecraft.world.level.block.entity.BlockEntity blockEntity
-    ) {
+    public static void requestModelDataUpdate(BlockEntity blockEntity) {
         INSTANCE.requestModelDataUpdate(blockEntity);
     }
 }

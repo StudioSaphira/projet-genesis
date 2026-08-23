@@ -2,12 +2,11 @@ package net.scp_genesis.neoforge.platform;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.common.extensions.IBlockEntityExtension;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.platform.PlatformModelData;
 import net.scp_genesis.common.platform.PlatformServicesImpl;
 
-/**
- * NeoForge implementation of the platform services.
- */
 public final class NeoForgePlatformServices
         implements PlatformServicesImpl {
 
@@ -23,9 +22,21 @@ public final class NeoForgePlatformServices
     public void requestModelDataUpdate(
             BlockEntity blockEntity
     ) {
-        /*
-         * NeoForge-specific model data update.
-         */
-        blockEntity.requestModelDataUpdate();
+        if (blockEntity instanceof IBlockEntityExtension extension) {
+            extension.requestModelDataUpdate();
+        }
+    }
+
+    @Override
+    public ModelData getModelData(
+            BlockEntity blockEntity
+    ) {
+        if (blockEntity instanceof CopycatBlockEntity copycat) {
+            return MODEL_DATA.create(
+                    copycat.getCopiedStates()
+            );
+        }
+
+        return ModelData.EMPTY;
     }
 }

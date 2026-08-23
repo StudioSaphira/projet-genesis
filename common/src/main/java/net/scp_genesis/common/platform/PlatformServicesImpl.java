@@ -1,5 +1,7 @@
 package net.scp_genesis.common.platform;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+
 /**
  * Provides platform-specific services used by the common code.
  */
@@ -16,7 +18,7 @@ public interface PlatformServicesImpl {
      * <p>The actual implementation is responsible for performing
      * the update using the active mod loader.</p>
      */
-    void requestModelDataUpdate(
-            net.minecraft.world.level.block.entity.BlockEntity blockEntity
-    );
+    void requestModelDataUpdate(BlockEntity blockEntity);
+
+    Object getModelData(BlockEntity blockEntity);
 }
