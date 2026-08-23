@@ -1,9 +1,14 @@
 package net.scp_genesis.fabric.client;
 
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelModifier;
+import net.fabricmc.fabric.api.client.model.loading.v1.PreparableModelLoadingPlugin;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatModelLoader;
+import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatUnbakedModel;
+
+import java.util.Map;
 
 public final class FabricModelLoading {
 
@@ -11,30 +16,47 @@ public final class FabricModelLoading {
     }
 
     public static void register() {
-        ModelLoadingPlugin.register(
-                FabricModelLoading::registerModelResolver
+
+        PreparableModelLoadingPlugin.register(
+                FabricCopycatModelLoader::load,
+                FabricModelLoading::initialize
         );
     }
 
-    private static void registerModelResolver(
+    private static void initialize(
+            Map<ResourceLocation, FabricCopycatUnbakedModel> models,
             ModelLoadingPlugin.Context context
     ) {
-        context.resolveModel().register(
-                FabricModelLoading::resolveModel
+        context.modifyModelOnLoad().register(
+                ModelModifier.OVERRIDE_PHASE,
+                (model, modifierContext) ->
+                        replaceModel(
+                                model,
+                                modifierContext,
+                                models
+                        )
         );
     }
 
-    private static UnbakedModel resolveModel(
-            ModelResolver.Context context
+    private static UnbakedModel replaceModel(
+            UnbakedModel model,
+            ModelModifier.OnLoad.Context context,
+            Map<ResourceLocation, FabricCopycatUnbakedModel> models
     ) {
-        ResourceLocation id = context.id();
+        ResourceLocation resourceId =
+                context.resourceId();
 
-        /*
-         * For now, we only identify Copycat Models.
-         *
-         * The real resolution will be added with
-         * FabricCopycatUnbakedModel.
-         */
-        return null;
+        if (resourceId == null) {
+            return model;
+        }
+
+        FabricCopycatUnbakedModel copycatModel =
+                models.get(resourceId);
+
+        if (copycatModel == null) {
+            return model;
+        }
+
+        return copycatModel;
     }
 }
