@@ -1,13 +1,9 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.util;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.resources.Identifier;
-
-import java.util.function.Function;
+import net.minecraft.resources.ResourceLocation;
 
 public final class FabricCopycatModelBakeHelper {
 
@@ -16,9 +12,8 @@ public final class FabricCopycatModelBakeHelper {
 
     public static BakedModel bakeModel(
             ModelBaker baker,
-            Identifier modelLocation,
-            ModelState modelState,
-            Function<Material, TextureAtlasSprite> spriteGetter
+            ResourceLocation modelLocation,
+            ModelState modelState
     ) {
         if (modelLocation == null) {
             throw new IllegalStateException(
@@ -28,8 +23,7 @@ public final class FabricCopycatModelBakeHelper {
 
         BakedModel model = baker.bake(
                 modelLocation,
-                modelState,
-                spriteGetter
+                modelState
         );
 
         if (model == null) {

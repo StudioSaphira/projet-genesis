@@ -45,7 +45,7 @@ public final class FabricCopycatStairsModelHelper {
                             );
 
                     ModelState modelState =
-                            new net.minecraft.client.resources.model.SimpleModelState(
+                            new FabricCopycatModelState(
                                     rotation.getRotation(),
                                     true
                             );
@@ -54,8 +54,7 @@ public final class FabricCopycatStairsModelHelper {
                             FabricCopycatModelBakeHelper.bakeModel(
                                     baker,
                                     baseModels.get(modelKey),
-                                    modelState,
-                                    spriteGetter
+                                    modelState
                             );
 
                     models.put(

@@ -3,10 +3,7 @@ package net.scp_genesis.fabric.client;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelResolver;
 import net.minecraft.client.resources.model.UnbakedModel;
-import net.minecraft.util.Identifier;
-import net.scp_genesis.common.constants.ModConstants;
-import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
-import net.scp_genesis.fabric.copycatblocks.renderer.model.FabricCopycatUnbakedModel;
+import net.minecraft.resources.ResourceLocation;
 
 public final class FabricModelLoading {
 
@@ -30,13 +27,12 @@ public final class FabricModelLoading {
     private static UnbakedModel resolveModel(
             ModelResolver.Context context
     ) {
-        Identifier id = context.id();
+        ResourceLocation id = context.id();
 
         /*
-         * Pour l'instant, nous ne faisons qu'identifier
-         * les modèles Copycat.
+         * For now, we only identify Copycat Models.
          *
-         * La résolution réelle sera ajoutée avec
+         * The real resolution will be added with
          * FabricCopycatUnbakedModel.
          */
         return null;
