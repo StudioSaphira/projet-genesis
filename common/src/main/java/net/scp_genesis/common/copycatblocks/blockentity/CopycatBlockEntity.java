@@ -53,17 +53,6 @@ public class CopycatBlockEntity extends BlockEntity {
         return copiedStates;
     }
 
-    /**
-     * Creates the platform-specific model data used to render this Copycat.
-     *
-     * @return platform-specific model data containing all copied states
-     */
-    public Object getPlatformModelData() {
-        return PlatformServices.modelData().create(
-                getCopiedStates()
-        );
-    }
-
     // ------------------------------------------------------------------------
     // Main Copycat state
     // ------------------------------------------------------------------------
@@ -159,9 +148,9 @@ public class CopycatBlockEntity extends BlockEntity {
                     getBlockState(),
                     3
             );
-
-            PlatformServices.requestModelDataUpdate(this);
         }
+
+        PlatformServices.requestModelDataUpdate(this);
     }
 
     // ------------------------------------------------------------------------
