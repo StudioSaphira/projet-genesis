@@ -31,10 +31,12 @@ public final class NeoForgePlatformModelData
         return new Data(modelData);
     }
 
-    /**
-     * Platform-independent handle containing the
-     * NeoForge ModelData implementation.
-     */
+    public static Data empty() {
+        return new Data(
+                net.neoforged.neoforge.client.model.data.ModelData.EMPTY
+        );
+    }
+
     public static final class Data
             implements PlatformModelData.ModelData {
 

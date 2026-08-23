@@ -9,7 +9,8 @@ import net.scp_genesis.common.platform.PlatformServicesImpl;
 public final class NeoForgePlatformServices
         implements PlatformServicesImpl {
 
-    private static final NeoForgePlatformModelData MODEL_DATA =
+    private static final PlatformModelData<NeoForgePlatformModelData.Data>
+            MODEL_DATA =
             new NeoForgePlatformModelData();
 
     @Override
@@ -36,6 +37,6 @@ public final class NeoForgePlatformServices
             );
         }
 
-        return null;
+        return NeoForgePlatformModelData.empty();
     }
 }
