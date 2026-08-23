@@ -13,7 +13,7 @@ authors="HeroFR, Studio Saphira"
 description="SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics."
 
 [[mixins]]
-config = "scp_genesis.mixins.json"
+config = "scp_genesis.neoforge.mixins.json"
 
 [[dependencies.scp_genesis]]
     modId="neoforge"
