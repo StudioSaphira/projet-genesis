@@ -28,20 +28,9 @@ public final class FabricCopycatModelHelper {
             @Nullable Direction direction,
             @NotNull RandomSource random
     ) {
-        List<BakedQuad> quads =
-                copiedModel.getQuads(
-                        copiedState,
-                        direction,
-                        random
-                );
-
-        if (!quads.isEmpty()) {
-            return quads;
-        }
-
         return copiedModel.getQuads(
                 copiedState,
-                null,
+                direction,
                 random
         );
     }
@@ -62,11 +51,18 @@ public final class FabricCopycatModelHelper {
                         ? geometryDirection
                         : geometryQuad.getDirection();
 
-        return getCopiedQuads(
-                copiedModel,
-                copiedState,
-                direction,
-                random
-        );
+        List<BakedQuad> quads =
+                getCopiedQuads(
+                        copiedModel,
+                        copiedState,
+                        direction,
+                        random
+                );
+
+        if (quads.isEmpty()) {
+            return List.of();
+        }
+
+        return List.of(quads.getFirst());
     }
 }

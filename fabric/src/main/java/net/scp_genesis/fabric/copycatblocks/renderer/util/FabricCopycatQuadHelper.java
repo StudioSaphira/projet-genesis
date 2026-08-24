@@ -44,6 +44,39 @@ public final class FabricCopycatQuadHelper {
         };
     }
 
+    private static final int VANILLA_VERTEX_STRIDE = 8;
+
+    private static final int UV_OFFSET = 4;
+
+    private static float getU(
+            @NotNull BakedQuad quad,
+            int vertexIndex
+    ) {
+        int[] vertices = quad.getVertices();
+
+        return Float.intBitsToFloat(
+                vertices[
+                        vertexIndex * VANILLA_VERTEX_STRIDE
+                                + UV_OFFSET
+                        ]
+        );
+    }
+
+    private static float getV(
+            @NotNull BakedQuad quad,
+            int vertexIndex
+    ) {
+        int[] vertices = quad.getVertices();
+
+        return Float.intBitsToFloat(
+                vertices[
+                        vertexIndex * VANILLA_VERTEX_STRIDE
+                                + UV_OFFSET
+                                + 1
+                        ]
+        );
+    }
+
     /**
      * Emits a vanilla BakedQuad through the Fabric Renderer API.
      */
@@ -71,16 +104,60 @@ public final class FabricCopycatQuadHelper {
             @NotNull BakedQuad copiedQuad,
             @NotNull CopycatPart part
     ) {
+        /*
+         * ============================================================
+         * GEOMETRY
+         * ============================================================
+         *
+         * The geometry comes from the Copycat model.
+         */
         emitter.fromVanilla(
                 geometryQuad,
                 FabricCopycatRenderer.getStandardMaterial(),
                 geometryQuad.getDirection()
         );
 
-        emitter.spriteBake(
-                copiedQuad.getSprite(),
-                0
+        /*
+         * ============================================================
+         * TEXTURE / UV
+         * ============================================================
+         *
+         * Do NOT use spriteBake() here.
+         *
+         * The BakedQuad already contains the final atlas UV
+         * coordinates of the copied block.
+         *
+         * We therefore copy those UV coordinates directly.
+         */
+        emitter.uv(
+                0,
+                getU(copiedQuad, 0),
+                getV(copiedQuad, 0)
         );
+
+        emitter.uv(
+                1,
+                getU(copiedQuad, 1),
+                getV(copiedQuad, 1)
+        );
+
+        emitter.uv(
+                2,
+                getU(copiedQuad, 2),
+                getV(copiedQuad, 2)
+        );
+
+        emitter.uv(
+                3,
+                getU(copiedQuad, 3),
+                getV(copiedQuad, 3)
+        );
+
+        /*
+         * ============================================================
+         * TINT
+         * ============================================================
+         */
 
         emitter.colorIndex(
                 encodeCopycatTintIndex(
