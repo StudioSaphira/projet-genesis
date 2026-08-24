@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import net.scp_genesis.common.block.*;
+import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatCubeBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatSlabBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatStairsBlock;
@@ -26,6 +27,7 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
 	public static PlatformRegistryObject<Block> COPYCAT_SLAB;
+	public static PlatformRegistryObject<Block> COPYCAT_SLOPE;
 
 	public static void register(
 			PlatformRegistry registry
@@ -63,5 +65,12 @@ public final class ModBlocks {
 										.sound(SoundType.METAL)
 										.requiresCorrectToolForDrops()
 										.noOcclusion()));
+
+		COPYCAT_SLOPE = registry.registerBlock("copycat_slope", () -> new CopycatSlopeBlock(
+				BlockBehaviour.Properties.of()
+						.strength(2.0F, 6.0F)
+						.sound(SoundType.METAL)
+						.requiresCorrectToolForDrops()
+						.noOcclusion()));
 	}
 }

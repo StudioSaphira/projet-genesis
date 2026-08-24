@@ -15,7 +15,8 @@ public final class NeoForgeBlockColors {
                 new CopycatBlockColor(),
                 ModBlocks.COPYCAT_CUBE.get(),
                 ModBlocks.COPYCAT_STAIRS.get(),
-                ModBlocks.COPYCAT_SLAB.get()
+                ModBlocks.COPYCAT_SLAB.get(),
+                ModBlocks.COPYCAT_SLOPE.get()
         );
     }
 }

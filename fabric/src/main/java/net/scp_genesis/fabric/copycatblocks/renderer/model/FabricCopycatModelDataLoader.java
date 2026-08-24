@@ -42,6 +42,12 @@ public final class FabricCopycatModelDataLoader {
         );
     }
 
+    private static final ResourceLocation SLOPE_MODEL =
+            ResourceLocation.fromNamespaceAndPath(
+                    ModConstants.MOD_ID,
+                    "custom/copycat_slope"
+            );
+
     private static Map<
             ResourceLocation,
             FabricCopycatModelDefinition
@@ -149,6 +155,14 @@ public final class FabricCopycatModelDataLoader {
                     ResourceLocation.parse(
                             baseModelElement.getAsString()
                     );
+
+            if (baseModel.equals(SLOPE_MODEL)) {
+                return new FabricCopycatModelDefinition(
+                        FabricCopycatUnbakedModel.GeometryType.SLOPE,
+                        baseModel,
+                        null
+                );
+            }
 
             return FabricCopycatModelDefinition.cube(
                     baseModel

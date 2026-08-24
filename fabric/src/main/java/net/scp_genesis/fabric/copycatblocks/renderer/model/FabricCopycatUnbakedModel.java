@@ -7,10 +7,7 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometry;
-import net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryCube;
-import net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometrySlab;
-import net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryStairs;
+import net.scp_genesis.fabric.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +24,8 @@ public final class FabricCopycatUnbakedModel
     public enum GeometryType {
         CUBE,
         SLAB,
-        STAIRS
+        STAIRS,
+        SLOPE
     }
 
     private final ResourceLocation baseModel;
@@ -224,6 +222,32 @@ public final class FabricCopycatUnbakedModel
             FabricCopycatGeometry geometry =
                     new FabricCopycatGeometryStairs(
                             stairsModels
+                    );
+
+            return new FabricCopycatBakedModel(
+                    geometry
+            );
+        }
+
+        /*
+         * ============================================================
+         * SLOPE
+         * ============================================================
+         */
+
+        if (geometryType == GeometryType.SLOPE) {
+
+            BakedModel slopeModel =
+                    FabricCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            baseModel,
+                            modelState,
+                            copycatSpriteGetter
+                    );
+
+            FabricCopycatGeometry geometry =
+                    new FabricCopycatGeometrySlope(
+                            slopeModel
                     );
 
             return new FabricCopycatBakedModel(

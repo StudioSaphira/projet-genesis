@@ -6,10 +6,7 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometry;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryCube;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlab;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryStairs;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +21,8 @@ public final class NeoForgeCopycatUnbakedGeometry
     public enum GeometryType {
         CUBE,
         SLAB,
-        STAIRS
+        STAIRS,
+        SLOPE
     }
     private final ResourceLocation baseModel;
     private final Map<String, ResourceLocation> baseModels;
@@ -165,6 +163,26 @@ public final class NeoForgeCopycatUnbakedGeometry
             NeoForgeCopycatGeometry geometry =
                     new NeoForgeCopycatGeometryStairs(
                             stairsModels
+                    );
+
+            return new NeoForgeCopycatBakedModel(
+                    geometry
+            );
+        }
+
+        if (geometryType == GeometryType.SLOPE) {
+
+            BakedModel slopeModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            baseModel,
+                            modelState,
+                            spriteGetter
+                    );
+
+            NeoForgeCopycatGeometry geometry =
+                    new NeoForgeCopycatGeometrySlope(
+                            slopeModel
                     );
 
             return new NeoForgeCopycatBakedModel(

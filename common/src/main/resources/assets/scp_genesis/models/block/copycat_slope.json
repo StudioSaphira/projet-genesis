@@ -1,0 +1,8 @@
+{
+  "loader": "scp_genesis:copycat",
+  "base_model": "scp_genesis:custom/copycat_slope",
+  "textures": {
+    "all": "scp_genesis:block/copycat_block"
+  },
+  "render_type": "cutout"
+}
