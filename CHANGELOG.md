@@ -6,7 +6,7 @@
 - Added Copycat Slab
 - Added Copycat Stairs
 - The mod is now working on multi-loaders, working on both NeoForge and Fabric
-- [EXPERIMENTAL][BONUS] Added Copycat Slope
+- [EXPERIMENTAL][BONUS] Added Copycat Slope [NOT PROPERLY WORKING]
 
 ## Changes
 
