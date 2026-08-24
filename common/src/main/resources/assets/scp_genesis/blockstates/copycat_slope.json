@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north,half=bottom": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=east,half=bottom": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=south,half=bottom": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=west,half=bottom": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=north,half=top": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=east,half=top": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=south,half=top": {
+      "model": "scp_genesis:block/copycat_slope"
+    },
+    "facing=west,half=top": {
+      "model": "scp_genesis:block/copycat_slope"
+    }
+  }
+}

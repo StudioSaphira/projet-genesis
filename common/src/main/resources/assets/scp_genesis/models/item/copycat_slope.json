@@ -1,10 +1,5 @@
 {
-  "parent": "scp_genesis:custom/copycat_slope",
-  "textures": {
-    "bottom": "scp_genesis:block/copycat_block",
-    "top": "scp_genesis:block/copycat_block",
-    "side": "scp_genesis:block/copycat_block"
-  },
+  "parent": "scp_genesis:block/copycat_slope",
   "display": {
     "thirdperson": {
       "rotation": [
