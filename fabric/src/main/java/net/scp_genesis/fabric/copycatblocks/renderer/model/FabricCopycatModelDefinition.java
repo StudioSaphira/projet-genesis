@@ -30,4 +30,12 @@ public record FabricCopycatModelDefinition(
                 baseModels
         );
     }
+
+    public static FabricCopycatModelDefinition slope() {
+        return new FabricCopycatModelDefinition(
+                FabricCopycatUnbakedModel.GeometryType.SLOPE,
+                null,
+                null
+        );
+    }
 }

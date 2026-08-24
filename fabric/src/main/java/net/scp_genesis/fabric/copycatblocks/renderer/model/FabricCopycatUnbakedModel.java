@@ -237,18 +237,8 @@ public final class FabricCopycatUnbakedModel
 
         if (geometryType == GeometryType.SLOPE) {
 
-            BakedModel slopeModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
-                            baker,
-                            baseModel,
-                            modelState,
-                            copycatSpriteGetter
-                    );
-
             FabricCopycatGeometry geometry =
-                    new FabricCopycatGeometrySlope(
-                            slopeModel
-                    );
+                    new FabricCopycatGeometrySlope();
 
             return new FabricCopycatBakedModel(
                     geometry

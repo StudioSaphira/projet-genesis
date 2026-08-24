@@ -3,6 +3,7 @@ package net.scp_genesis.common.copycatblocks.block.custom;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -47,6 +48,25 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                 FACING,
                 HALF
         );
+    }
+
+    @Override
+    public BlockState getStateForPlacement(
+            BlockPlaceContext context
+    ) {
+        Direction facing =
+                context.getHorizontalDirection();
+
+        Half half =
+                context.getClickLocation().y
+                        - context.getClickedPos().getY()
+                        >= 0.5D
+                        ? Half.TOP
+                        : Half.BOTTOM;
+
+        return defaultBlockState()
+                .setValue(FACING, facing)
+                .setValue(HALF, half);
     }
 
     @Override
