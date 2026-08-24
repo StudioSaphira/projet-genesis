@@ -33,6 +33,8 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     public static final EnumProperty<Half> HALF =
             BlockStateProperties.HALF;
 
+
+
     public CopycatSlopeBlock(
             BlockBehaviour.Properties properties
     ) {
