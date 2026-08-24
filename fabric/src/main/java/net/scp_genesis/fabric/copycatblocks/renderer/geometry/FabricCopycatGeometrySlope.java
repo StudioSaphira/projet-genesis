@@ -1,6 +1,7 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.geometry;
 
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 
@@ -18,8 +19,8 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatSlopeGeometry;
+
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +28,9 @@ import java.util.function.Supplier;
 
 public final class FabricCopycatGeometrySlope
         implements FabricCopycatGeometry {
+
+    private static final TextureAtlasSprite EMPTY_PARTICLE =
+            null;
 
     @Override
     public @NotNull BakedModel getModel() {
@@ -37,11 +41,11 @@ public final class FabricCopycatGeometrySlope
 
     @Override
     public void emitBlockQuads(
-            @NotNull BlockAndTintGetter blockView,
-            @NotNull BlockState state,
-            @NotNull BlockPos pos,
-            @NotNull Supplier<RandomSource> randomSupplier,
-            @NotNull RenderContext context
+            BlockAndTintGetter blockView,
+            BlockState state,
+            BlockPos pos,
+            Supplier<RandomSource> randomSupplier,
+            RenderContext context
     ) {
         Direction facing =
                 state.getValue(
@@ -53,138 +57,134 @@ public final class FabricCopycatGeometrySlope
                         BlockStateProperties.HALF
                 );
 
-        CopycatSlopeGeometry.Face[] faces =
-                CopycatSlopeGeometry.getFaces(
-                        facing,
-                        half
-                );
-
-        BlockState copiedState = null;
+        CopycatBlockEntity copycat =
+                null;
 
         BlockEntity blockEntity =
                 blockView.getBlockEntity(pos);
 
-        if (blockEntity instanceof CopycatBlockEntity copycat) {
-            copiedState =
-                    copycat.getCopiedStates()
-                            .get(CopycatPart.MAIN);
+        if (blockEntity instanceof CopycatBlockEntity copycatBlockEntity) {
+            copycat = copycatBlockEntity;
         }
 
-        /*
-         * Empty Copycat:
-         * render the raw Slope geometry.
-         */
-        if (copiedState == null || copiedState.isAir()) {
+        BlockState copiedState =
+                copycat != null
+                        ? copycat.getCopiedStates()
+                        .get(CopycatPart.MAIN)
+                        : null;
 
+        /*
+         * ============================================================
+         * EMPTY SLOPE
+         * ============================================================
+         *
+         * The Slope has no vanilla base model.
+         * Its geometry is generated directly from CopycatSlopeGeometry.
+         */
+
+        if (copiedState == null || copiedState.isAir()) {
             emitGeometry(
-                    faces,
-                    context
+                    facing,
+                    half,
+                    context,
+                    FabricCopycatRenderer.getCutoutMaterial(),
+                    null
             );
 
             return;
         }
 
         /*
-         * Non-empty Copycat:
-         * the geometry remains the Slope geometry,
-         * only its appearance is copied.
+         * ============================================================
+         * CAMOUFLAGED SLOPE
+         * ============================================================
+         *
+         * The geometry remains the Slope geometry.
+         * Only the texture is taken from the copied block.
          */
+
         emitGeometry(
-                faces,
-                context
+                facing,
+                half,
+                context,
+                FabricCopycatRenderer.getCutoutMaterial(),
+                copiedState
         );
     }
 
     private static void emitGeometry(
-            @NotNull CopycatSlopeGeometry.Face[] faces,
-            @NotNull RenderContext context
+            @NotNull Direction facing,
+            @NotNull Half half,
+            @NotNull RenderContext context,
+            @NotNull RenderMaterial material,
+            BlockState copiedState
     ) {
+        CopycatSlopeGeometry.Face[] faces =
+                CopycatSlopeGeometry.getFaces(
+                        facing,
+                        half
+                );
+
         QuadEmitter emitter =
                 context.getEmitter();
-
-        RenderMaterial material =
-                FabricCopycatRenderer.getCutoutMaterial();
 
         for (CopycatSlopeGeometry.Face face : faces) {
 
             CopycatSlopeGeometry.Vertex[] vertices =
                     face.vertices();
 
-            /*
-             * A face must contain either 3 or 4 vertices.
-             */
-            if (vertices.length == 3) {
-
-                emitter.pos(
-                        0,
-                        vertices[0].x(),
-                        vertices[0].y(),
-                        vertices[0].z()
-                );
-
-                emitter.pos(
-                        1,
-                        vertices[1].x(),
-                        vertices[1].y(),
-                        vertices[1].z()
-                );
-
-                emitter.pos(
-                        2,
-                        vertices[2].x(),
-                        vertices[2].y(),
-                        vertices[2].z()
-                );
-
-                /*
-                 * Duplicate the third vertex to form
-                 * a degenerate quad.
-                 */
-                emitter.pos(
-                        3,
-                        vertices[2].x(),
-                        vertices[2].y(),
-                        vertices[2].z()
-                );
-
-            } else if (vertices.length == 4) {
-
-                for (int i = 0; i < 4; i++) {
-
-                    CopycatSlopeGeometry.Vertex vertex =
-                            vertices[i];
-
-                    emitter.pos(
-                            i,
-                            vertex.x(),
-                            vertex.y(),
-                            vertex.z()
-                    );
-                }
-
-            } else {
-                throw new IllegalStateException(
-                        "Invalid Copycat Slope face vertex count: "
-                                + vertices.length
+            if (vertices.length == 4) {
+                emitQuad(
+                        emitter,
+                        vertices,
+                        face.direction(),
+                        material
                 );
             }
-
-            emitter.nominalFace(
-                    face.direction()
-            );
-
-            emitter.material(
-                    material
-            );
-
-            emitter.emit();
         }
+    }
+
+    private static void emitQuad(
+            @NotNull QuadEmitter emitter,
+            @NotNull CopycatSlopeGeometry.Vertex[] vertices,
+            @NotNull Direction direction,
+            @NotNull RenderMaterial material
+    ) {
+        emitter.pos(
+                MutableQuadView.BAKE_LOCK_UV,
+                vertices[0].x(),
+                vertices[0].y(),
+                vertices[0].z()
+        );
+
+        emitter.pos(
+                MutableQuadView.BAKE_LOCK_UV,
+                vertices[1].x(),
+                vertices[1].y(),
+                vertices[1].z()
+        );
+
+        emitter.pos(
+                MutableQuadView.BAKE_LOCK_UV,
+                vertices[2].x(),
+                vertices[2].y(),
+                vertices[2].z()
+        );
+
+        emitter.pos(
+                MutableQuadView.BAKE_LOCK_UV,
+                vertices[3].x(),
+                vertices[3].y(),
+                vertices[3].z()
+        );
+
+        emitter.nominalFace(direction);
+
+        emitter.emit();
     }
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
-        throw new UnsupportedOperationException(
-                "Copycat Slope has no vanilla particle model"
-        );
+        return EMPTY_PARTICLE;
     }
 }
