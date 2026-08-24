@@ -56,45 +56,37 @@ public final class FabricCopycatBakedModel
             Direction side,
             RandomSource random
     ) {
-        System.out.println(
-                "[COPYCAT ITEM DEBUG] getQuads"
-                        + " | state=" + state
-                        + " | side=" + side
+        BakedModel model = geometry.getModel();
+
+        if (model == null) {
+            return List.of();
+        }
+
+        return model.getQuads(
+                state,
+                side,
+                random
         );
-
-        List<BakedQuad> quads =
-                geometry.getModel().getQuads(
-                        state,
-                        side,
-                        random
-                );
-
-        System.out.println(
-                "[COPYCAT ITEM DEBUG] quads="
-                        + quads.size()
-        );
-
-        return quads;
     }
 
     @Override
     public boolean useAmbientOcclusion() {
-        return geometry.getModel().useAmbientOcclusion();
+        return true;
     }
 
     @Override
     public boolean isGui3d() {
-        return geometry.getModel().isGui3d();
+        return true;
     }
 
     @Override
     public boolean usesBlockLight() {
-        return geometry.getModel().usesBlockLight();
+        return true;
     }
 
     @Override
     public boolean isCustomRenderer() {
-        return geometry.getModel().isCustomRenderer();
+        return false;
     }
 
     @Override
@@ -104,11 +96,11 @@ public final class FabricCopycatBakedModel
 
     @Override
     public @NotNull ItemTransforms getTransforms() {
-        return geometry.getModel().getTransforms();
+        return ItemTransforms.NO_TRANSFORMS;
     }
 
     @Override
     public @NotNull ItemOverrides getOverrides() {
-        return geometry.getModel().getOverrides();
+        return ItemOverrides.EMPTY;
     }
 }

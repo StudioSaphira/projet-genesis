@@ -7,6 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -18,9 +20,6 @@ import java.util.function.Supplier;
  */
 public interface FabricCopycatGeometry {
 
-    /**
-     * Emits the quads used to render this geometry.
-     */
     void emitBlockQuads(
             BlockAndTintGetter blockView,
             BlockState state,
@@ -31,11 +30,15 @@ public interface FabricCopycatGeometry {
 
     /**
      * Returns the original baked model used by this geometry.
+     *
+     * <p>Geometries that generate their shape directly may return
+     * {@code null}.</p>
      */
-    BakedModel getModel();
+    @Nullable
+    default BakedModel getModel() {
+        return null;
+    }
 
-    /**
-     * Returns the particle texture used by this geometry.
-     */
+    @NotNull
     TextureAtlasSprite getParticleIcon();
 }

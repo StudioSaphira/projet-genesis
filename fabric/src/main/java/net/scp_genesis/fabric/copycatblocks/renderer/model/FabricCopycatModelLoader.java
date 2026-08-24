@@ -70,7 +70,7 @@ public final class FabricCopycatModelLoader {
                                         ModConstants.MOD_ID
                                 )
                                         && id.getPath().startsWith(
-                                        "block/copycat_"
+                                        "models/block/copycat_"
                                 )
                                         && id.getPath().endsWith(
                                         ".json"
