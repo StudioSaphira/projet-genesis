@@ -33,7 +33,7 @@ public final class FabricCopycatModelLoader {
     private static final ResourceLocation COPYCAT_SLOPE_LOADER =
             ResourceLocation.fromNamespaceAndPath(
                     ModConstants.MOD_ID,
-                    "copycat_slope"
+                    CopycatConstants.MODEL_SLOPE_ID
             );
 
     private FabricCopycatModelLoader() {

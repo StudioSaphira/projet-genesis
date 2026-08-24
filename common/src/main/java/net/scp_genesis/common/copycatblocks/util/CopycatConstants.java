@@ -29,6 +29,8 @@ public final class CopycatConstants {
      */
     public static final String MODEL_LOADER_ID = "copycat";
 
+    public static final String MODEL_SLOPE_ID = "copycat_slope";
+
     public static final String BLOCK_ENTITY_ID = "copycat";
 
 }
