@@ -224,6 +224,108 @@ public final class FabricCopycatQuadHelper {
         }
     }
 
+    private static void setSlopeFaceUv(
+            @NotNull QuadEmitter emitter,
+            @NotNull CopycatSlopeGeometry.Face face
+    ) {
+        CopycatSlopeGeometry.Vertex[] vertices =
+                face.vertices();
+
+        for (int i = 0; i < vertices.length; i++) {
+
+            CopycatSlopeGeometry.Vertex vertex =
+                    vertices[i];
+
+            float u;
+            float v;
+
+            switch (face.direction()) {
+
+                case NORTH, SOUTH -> {
+                    u = vertex.x();
+                    v = vertex.y();
+                }
+
+                case EAST, WEST -> {
+                    u = vertex.z();
+                    v = vertex.y();
+                }
+
+                case DOWN -> {
+                    u = vertex.x();
+                    v = vertex.z();
+                }
+
+                case UP -> {
+                    u = vertex.x();
+                    v = (vertex.y() + vertex.z()) * 0.5F;
+                }
+
+                default -> {
+                    u = 0.0F;
+                    v = 0.0F;
+                }
+            }
+
+            emitter.uv(
+                    i,
+                    u,
+                    v
+            );
+        }
+
+        /*
+         * Fabric requires four vertices.
+         */
+        if (vertices.length == 3) {
+
+            CopycatSlopeGeometry.Vertex vertex =
+                    vertices[2];
+
+            float u;
+            float v;
+
+            switch (face.direction()) {
+
+                case NORTH, SOUTH -> {
+                    u = vertex.x();
+                    v = vertex.y();
+                }
+
+                case EAST, WEST -> {
+                    u = vertex.z();
+                    v = vertex.y();
+                }
+
+                case DOWN -> {
+                    u = vertex.x();
+                    v = vertex.z();
+                }
+
+                case UP -> {
+                    u = vertex.x();
+                    v = (vertex.y() + vertex.z()) * 0.5F;
+                }
+
+                default -> {
+                    u = 0.0F;
+                    v = 0.0F;
+                }
+            }
+
+            emitter.uv(
+                    3,
+                    u,
+                    v
+            );
+        }
+
+        emitter.spriteBake(
+                null,
+                MutableQuadView.BAKE_LOCK_UV
+        );
+    }
+
     /**
      * Emits a Copycat Slope face using the texture of the copied block.
      *
@@ -247,81 +349,34 @@ public final class FabricCopycatQuadHelper {
         );
 
         /*
-         * Replace the copied model geometry with the Slope geometry.
-         *
-         * fromVanilla() has already copied:
-         * - sprite
-         * - UV
-         * - tint index
-         * - other quad data
-         *
-         * We only replace the vertex positions.
+         * Replace the geometry.
          */
-
-        if (vertices.length == 4) {
-
+        for (int i = 0; i < vertices.length; i++) {
             setVertex(
                     emitter,
-                    0,
-                    vertices[0]
-            );
-
-            setVertex(
-                    emitter,
-                    1,
-                    vertices[1]
-            );
-
-            setVertex(
-                    emitter,
-                    2,
-                    vertices[2]
-            );
-
-            setVertex(
-                    emitter,
-                    3,
-                    vertices[3]
-            );
-
-        } else if (vertices.length == 3) {
-
-            setVertex(
-                    emitter,
-                    0,
-                    vertices[0]
-            );
-
-            setVertex(
-                    emitter,
-                    1,
-                    vertices[1]
-            );
-
-            setVertex(
-                    emitter,
-                    2,
-                    vertices[2]
-            );
-
-            /*
-             * Fabric Renderer requires four vertices.
-             *
-             * Duplicate the third vertex to represent
-             * the original triangle.
-             */
-            setVertex(
-                    emitter,
-                    3,
-                    vertices[2]
-            );
-
-        } else {
-            throw new IllegalStateException(
-                    "Invalid Copycat Slope face vertex count: "
-                            + vertices.length
+                    i,
+                    vertices[i]
             );
         }
+
+        /*
+         * Triangles require a duplicated fourth vertex.
+         */
+        if (vertices.length == 3) {
+            setVertex(
+                    emitter,
+                    3,
+                    vertices[2]
+            );
+        }
+
+        /*
+         * Rebuild UVs according to the actual Slope face.
+         */
+        setSlopeFaceUv(
+                emitter,
+                face
+        );
 
         emitter.nominalFace(
                 face.direction()

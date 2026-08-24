@@ -57,7 +57,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         );
     }
 
-    private static final int SHAPE_RESOLUTION = 16;
+    private static final int SHAPE_RESOLUTION = 32;
 
     private static final VoxelShape[] BOTTOM_SHAPES =
             createBottomShapes();
