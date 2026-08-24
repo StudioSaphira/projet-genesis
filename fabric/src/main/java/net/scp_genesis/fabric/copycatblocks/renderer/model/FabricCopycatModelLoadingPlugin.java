@@ -71,8 +71,8 @@ public final class FabricCopycatModelLoadingPlugin
             return model;
         }
 
-        ModConstants.LOGGER.debug(
-                "[COPYCAT] Replacing model before bake: {}",
+        ModConstants.LOGGER.info(
+                "[COPYCAT DEBUG] Replacing model before bake: {}",
                 resourceId
         );
 

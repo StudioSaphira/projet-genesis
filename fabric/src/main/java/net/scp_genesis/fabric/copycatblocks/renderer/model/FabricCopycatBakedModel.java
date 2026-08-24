@@ -56,18 +56,25 @@ public final class FabricCopycatBakedModel
             Direction side,
             RandomSource random
     ) {
-        /*
-         * Vanilla getQuads() does not have access to the world,
-         * BlockPos or CopycatBlockEntity data.
-         *
-         * The actual Copycat rendering therefore happens through
-         * FabricBakedModel.emitBlockQuads().
-         */
-        return geometry.getModel().getQuads(
-                state,
-                side,
-                random
+        System.out.println(
+                "[COPYCAT ITEM DEBUG] getQuads"
+                        + " | state=" + state
+                        + " | side=" + side
         );
+
+        List<BakedQuad> quads =
+                geometry.getModel().getQuads(
+                        state,
+                        side,
+                        random
+                );
+
+        System.out.println(
+                "[COPYCAT ITEM DEBUG] quads="
+                        + quads.size()
+        );
+
+        return quads;
     }
 
     @Override

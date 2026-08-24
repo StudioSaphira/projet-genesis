@@ -2,6 +2,7 @@ package net.scp_genesis.fabric.copycatblocks.renderer;
 
 import net.fabricmc.fabric.api.renderer.v1.Renderer;
 import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.BlendMode;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
 
 public final class FabricCopycatRenderer {
@@ -28,10 +29,11 @@ public final class FabricCopycatRenderer {
     /**
      * Returns the standard Fabric render material.
      */
-    public static RenderMaterial getStandardMaterial() {
+    public static RenderMaterial getCutoutMaterial() {
         return getRenderer()
                 .materialFinder()
                 .clear()
+                .blendMode(BlendMode.CUTOUT)
                 .find();
     }
 }

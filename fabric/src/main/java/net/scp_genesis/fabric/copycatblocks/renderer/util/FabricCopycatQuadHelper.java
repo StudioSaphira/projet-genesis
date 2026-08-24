@@ -1,6 +1,7 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.util;
 
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 
@@ -44,39 +45,6 @@ public final class FabricCopycatQuadHelper {
         };
     }
 
-    private static final int VANILLA_VERTEX_STRIDE = 8;
-
-    private static final int UV_OFFSET = 4;
-
-    private static float getU(
-            @NotNull BakedQuad quad,
-            int vertexIndex
-    ) {
-        int[] vertices = quad.getVertices();
-
-        return Float.intBitsToFloat(
-                vertices[
-                        vertexIndex * VANILLA_VERTEX_STRIDE
-                                + UV_OFFSET
-                        ]
-        );
-    }
-
-    private static float getV(
-            @NotNull BakedQuad quad,
-            int vertexIndex
-    ) {
-        int[] vertices = quad.getVertices();
-
-        return Float.intBitsToFloat(
-                vertices[
-                        vertexIndex * VANILLA_VERTEX_STRIDE
-                                + UV_OFFSET
-                                + 1
-                        ]
-        );
-    }
-
     /**
      * Emits a vanilla BakedQuad through the Fabric Renderer API.
      */
@@ -88,15 +56,21 @@ public final class FabricCopycatQuadHelper {
         emitter.fromVanilla(
                 quad,
                 material,
-                quad.getDirection()
+                null
         );
 
         emitter.emit();
     }
 
     /**
-     * Emits a copied quad while replacing its texture with the
-     * texture of the geometry quad.
+     * Emits a geometry quad retextured using the sprite of a copied quad.
+     *
+     * <p>This is the Fabric equivalent of NeoForge's
+     * {@code remapQuad()}.</p>
+     *
+     * <p>The geometry itself always comes from {@code geometryQuad}.
+     * Only its UV coordinates are remapped from the geometry sprite
+     * to the copied sprite.</p>
      */
     public static void emitRetexturedQuad(
             @NotNull QuadEmitter emitter,
@@ -104,60 +78,16 @@ public final class FabricCopycatQuadHelper {
             @NotNull BakedQuad copiedQuad,
             @NotNull CopycatPart part
     ) {
-        /*
-         * ============================================================
-         * GEOMETRY
-         * ============================================================
-         *
-         * The geometry comes from the Copycat model.
-         */
         emitter.fromVanilla(
                 geometryQuad,
-                FabricCopycatRenderer.getStandardMaterial(),
+                FabricCopycatRenderer.getCutoutMaterial(),
                 geometryQuad.getDirection()
         );
 
-        /*
-         * ============================================================
-         * TEXTURE / UV
-         * ============================================================
-         *
-         * Do NOT use spriteBake() here.
-         *
-         * The BakedQuad already contains the final atlas UV
-         * coordinates of the copied block.
-         *
-         * We therefore copy those UV coordinates directly.
-         */
-        emitter.uv(
-                0,
-                getU(copiedQuad, 0),
-                getV(copiedQuad, 0)
+        emitter.spriteBake(
+                copiedQuad.getSprite(),
+                MutableQuadView.BAKE_LOCK_UV
         );
-
-        emitter.uv(
-                1,
-                getU(copiedQuad, 1),
-                getV(copiedQuad, 1)
-        );
-
-        emitter.uv(
-                2,
-                getU(copiedQuad, 2),
-                getV(copiedQuad, 2)
-        );
-
-        emitter.uv(
-                3,
-                getU(copiedQuad, 3),
-                getV(copiedQuad, 3)
-        );
-
-        /*
-         * ============================================================
-         * TINT
-         * ============================================================
-         */
 
         emitter.colorIndex(
                 encodeCopycatTintIndex(
@@ -169,14 +99,39 @@ public final class FabricCopycatQuadHelper {
         emitter.emit();
     }
 
+    private static List<BakedQuad> getAllGeometryQuads(
+            @NotNull BakedModel model,
+            @NotNull BlockState state,
+            @NotNull RandomSource random
+    ) {
+
+        List<BakedQuad> result = new java.util.ArrayList<>(model.getQuads(
+                state,
+                null,
+                random
+        ));
+
+        for (Direction direction : Direction.values()) {
+            result.addAll(
+                    model.getQuads(
+                            state,
+                            direction,
+                            random
+                    )
+            );
+        }
+
+        return result;
+    }
+
     /**
-     * Emits a retextured Copycat model through the Fabric Renderer API.
+     * Emits a retextured Copycat model through Fabric Renderer.
      */
     public static void retextureModel(
             @NotNull BakedModel geometryModel,
-            @NotNull BlockAndTintGetter blockView,
+            @SuppressWarnings("unused") @NotNull BlockAndTintGetter blockView,
             @NotNull BlockState copycatState,
-            @NotNull BlockPos pos,
+            @SuppressWarnings("unused") @NotNull BlockPos pos,
             @NotNull BlockState copiedState,
             @NotNull Supplier<RandomSource> randomSupplier,
             @NotNull RenderContext context,
@@ -192,9 +147,9 @@ public final class FabricCopycatQuadHelper {
                 randomSupplier.get();
 
         List<BakedQuad> geometryQuads =
-                geometryModel.getQuads(
+                getAllGeometryQuads(
+                        geometryModel,
                         copycatState,
-                        null,
                         random
                 );
 
@@ -220,7 +175,7 @@ public final class FabricCopycatQuadHelper {
                 emitQuad(
                         emitter,
                         geometryQuad,
-                        FabricCopycatRenderer.getStandardMaterial()
+                        FabricCopycatRenderer.getCutoutMaterial()
                 );
 
                 continue;
