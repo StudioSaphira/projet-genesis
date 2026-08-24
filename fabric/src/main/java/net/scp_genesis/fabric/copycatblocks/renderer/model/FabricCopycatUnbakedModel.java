@@ -136,7 +136,8 @@ public final class FabricCopycatUnbakedModel
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
                             baseModel,
-                            modelState
+                            modelState,
+                            copycatSpriteGetter
                     );
 
             FabricCopycatGeometry geometry =
@@ -161,28 +162,32 @@ public final class FabricCopycatUnbakedModel
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("bottom"),
-                            modelState
+                            modelState,
+                            copycatSpriteGetter
                     );
 
             BakedModel topModel =
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("top"),
-                            modelState
+                            modelState,
+                            copycatSpriteGetter
                     );
 
             BakedModel doubleModel =
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("double"),
-                            modelState
+                            modelState,
+                            copycatSpriteGetter
                     );
 
             BakedModel doubleSecondaryModel =
                     FabricCopycatModelBakeHelper.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("double_secondary"),
-                            modelState
+                            modelState,
+                            copycatAltSpriteGetter
                     );
 
             FabricCopycatGeometry geometry =

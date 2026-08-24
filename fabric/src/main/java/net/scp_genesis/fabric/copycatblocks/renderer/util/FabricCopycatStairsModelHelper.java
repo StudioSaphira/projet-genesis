@@ -54,7 +54,8 @@ public final class FabricCopycatStairsModelHelper {
                             FabricCopycatModelBakeHelper.bakeModel(
                                     baker,
                                     baseModels.get(modelKey),
-                                    modelState
+                                    modelState,
+                                    spriteGetter
                             );
 
                     models.put(
