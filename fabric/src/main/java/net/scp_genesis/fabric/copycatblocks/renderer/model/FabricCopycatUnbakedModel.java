@@ -59,7 +59,13 @@ public final class FabricCopycatUnbakedModel
 
     @Override
     public @NotNull Collection<ResourceLocation> getDependencies() {
-        return Collections.emptyList();
+        if (geometryType == GeometryType.CUBE) {
+            return Collections.singleton(baseModel);
+        }
+
+        return baseModels != null
+                ? baseModels.values()
+                : Collections.emptyList();
     }
 
     /**

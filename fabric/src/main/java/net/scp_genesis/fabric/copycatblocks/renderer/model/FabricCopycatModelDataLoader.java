@@ -110,9 +110,6 @@ public final class FabricCopycatModelDataLoader {
                 definitions.size()
         );
 
-        FabricCopycatModelDataLoader.definitions =
-                Map.copyOf(definitions);
-
         return definitions;
     }
 
@@ -126,18 +123,6 @@ public final class FabricCopycatModelDataLoader {
         return COPYCAT_LOADER.toString().equals(
                 json.get(LOADER_PROPERTY).getAsString()
         );
-    }
-
-    private static volatile Map<
-            ResourceLocation,
-            FabricCopycatModelDefinition
-            > definitions = Map.of();
-
-    public static Map<
-            ResourceLocation,
-            FabricCopycatModelDefinition
-            > getDefinitions() {
-        return definitions;
     }
 
     private static FabricCopycatModelDefinition parseDefinition(
