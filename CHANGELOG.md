@@ -1,77 +1,28 @@
-# Pre-Alpha-Release 18 - 0.1.3.5
-
-***This is a preparation for the next Alpha Release, the 0.1.4.***
+# Alpha-Release 18 - 0.1.4
 
 ## Additions
 
-- Copycat Wrench [I DON'T KNOW IF IT'S WORKING YET]
 - Copycat Remover [WORKING]
+- Added Copycat Slab
+- Added Copycat Stairs
+- The mod is now working on multi-loaders, working on both NeoForge and Fabric
+- [EXPERIMENTAL][BONUS] Added Copycat Slope
 
 ## Changes
 
-- Changed some classes and .json files for optimizations purposes and in preparation for t
-
-## Next Update
-
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
-
-------------------------------------------------------------------
-
-# Pre-Alpha-Release 18 - 0.1.3.4 - HOTFIX-4
-
-***This is a hotfix about last alpha version.***
+- Former Copycat Remover (Added during 0.1.3) has been renamed to Copycat Scraper
 
 ## Fixes
 
 - Fixed issue about Copycat Blocks
     - Being able to use any blocks on the basic Copycat Cube Block
-
-## Next Update
-
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
-
-------------------------------------------------------------------
-
-# Pre-Alpha-Release 18 - 0.1.3.3 - HOTFIX-3
-
-***This is a hotfix about last alpha version.***
-
-## Fixes
-
-- Fixed issue about Copycat Blocks
+    - Incorrect Texture for Default Copycat Block
     - Incorrect Texture for Grass Block
-
-## Next Update
-
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
-
-------------------------------------------------------------------
-
-# Pre-Alpha-Release 18 - 0.1.3.2 - HOTFIX-2
-
-***This is a hotfix about last alpha version.***
-
-## Fixes
-
-- Fixed issue about Copycat Blocks
-  - Incorrect Texture for Default Copycat Block
-  - Incorrect Texture for Grass Block [PARTIALLY]
-
-## Next Update
-
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
-
-------------------------------------------------------------------
-
-# Pre-Alpha-Release 18 - 0.1.3.1 - HOTFIX-1
-
-***This is a hotfix about last version.***
-
-## Fixes
-
-- Fixed issue about Copycat Blocks
-  - Can't put blocks using Copycat Block as support
-  - Copycat Block were not saving the copied block
+    - Fixed issue about Copycat Blocks
+    - Can't put blocks using Copycat Block as support
+    - Copycat Block were not saving the copied block
+- Fixed Copycat Wrench [NOW WORKING]
+- Fixed Copycat Scraper [NOW WORKING]
 
 ## Next Update
 
