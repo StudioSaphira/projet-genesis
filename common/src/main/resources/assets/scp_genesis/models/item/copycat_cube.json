@@ -1,5 +1,6 @@
 {
-  "parent": "scp_genesis:block/copycat_cube",
+  "parent": "minecraft:block/cube_all",
+  "textures": {"all": "scp_genesis:block/copycat_block"},
   "display": {
     "thirdperson": {
       "rotation": [

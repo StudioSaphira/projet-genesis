@@ -124,6 +124,35 @@ public final class FabricCopycatQuadHelper {
         return result;
     }
 
+    public static void emitBaseModel(
+            @NotNull BakedModel model,
+            @NotNull BlockState state,
+            @NotNull Supplier<RandomSource> randomSupplier,
+            @NotNull RenderContext context
+    ) {
+        RandomSource random = randomSupplier.get();
+
+        QuadEmitter emitter = context.getEmitter();
+
+        RenderMaterial material =
+                FabricCopycatRenderer.getCutoutMaterial();
+
+        List<BakedQuad> quads =
+                getAllGeometryQuads(
+                        model,
+                        state,
+                        random
+                );
+
+        for (BakedQuad quad : quads) {
+            emitQuad(
+                    emitter,
+                    quad,
+                    material
+            );
+        }
+    }
+
     /**
      * Emits a retextured Copycat model through Fabric Renderer.
      */

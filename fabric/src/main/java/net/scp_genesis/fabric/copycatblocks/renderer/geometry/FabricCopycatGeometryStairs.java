@@ -133,10 +133,9 @@ public final class FabricCopycatGeometryStairs
          * render the original stair model.
          */
         if (copiedState == null || copiedState.isAir()) {
-            geometryModel.emitBlockQuads(
-                    blockView,
+            FabricCopycatQuadHelper.emitBaseModel(
+                    geometryModel,
                     state,
-                    pos,
                     randomSupplier,
                     context
             );

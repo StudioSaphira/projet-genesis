@@ -61,10 +61,9 @@ public final class FabricCopycatGeometryCube
          * render the original base model.
          */
         if (copiedState == null || copiedState.isAir()) {
-            baseModel.emitBlockQuads(
-                    blockView,
+            FabricCopycatQuadHelper.emitBaseModel(
+                    baseModel,
                     state,
-                    pos,
                     randomSupplier,
                     context
             );

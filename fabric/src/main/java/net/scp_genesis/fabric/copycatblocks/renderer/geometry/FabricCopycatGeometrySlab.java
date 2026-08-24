@@ -66,11 +66,9 @@ public final class FabricCopycatGeometrySlab
          */
 
         if (copycat == null) {
-            emitBaseModel(
+            FabricCopycatQuadHelper.emitBaseModel(
                     bottomModel,
-                    blockView,
                     state,
-                    pos,
                     randomSupplier,
                     context
             );
@@ -97,11 +95,9 @@ public final class FabricCopycatGeometrySlab
 
             if (copiedState == null || copiedState.isAir()) {
 
-                emitBaseModel(
+                FabricCopycatQuadHelper.emitBaseModel(
                         bottomModel,
-                        blockView,
                         state,
-                        pos,
                         randomSupplier,
                         context
                 );
@@ -137,11 +133,9 @@ public final class FabricCopycatGeometrySlab
 
             if (copiedState == null || copiedState.isAir()) {
 
-                emitBaseModel(
+                FabricCopycatQuadHelper.emitBaseModel(
                         topModel,
-                        blockView,
                         state,
-                        pos,
                         randomSupplier,
                         context
                 );
@@ -213,11 +207,9 @@ public final class FabricCopycatGeometrySlab
 
             } else {
 
-                emitBaseModel(
+                FabricCopycatQuadHelper.emitBaseModel(
                         bottomModel,
-                        blockView,
                         state,
-                        pos,
                         randomSupplier,
                         context
                 );
@@ -244,11 +236,9 @@ public final class FabricCopycatGeometrySlab
 
             } else {
 
-                emitBaseModel(
+                FabricCopycatQuadHelper.emitBaseModel(
                         doubleSecondaryModel,
-                        blockView,
                         state,
-                        pos,
                         randomSupplier,
                         context
                 );
@@ -263,28 +253,9 @@ public final class FabricCopycatGeometrySlab
          * ============================================================
          */
 
-        emitBaseModel(
+        FabricCopycatQuadHelper.emitBaseModel(
                 bottomModel,
-                blockView,
                 state,
-                pos,
-                randomSupplier,
-                context
-        );
-    }
-
-    private static void emitBaseModel(
-            @NotNull BakedModel model,
-            @NotNull BlockAndTintGetter blockView,
-            @NotNull BlockState state,
-            @NotNull BlockPos pos,
-            @NotNull Supplier<RandomSource> randomSupplier,
-            @NotNull RenderContext context
-    ) {
-        model.emitBlockQuads(
-                blockView,
-                state,
-                pos,
                 randomSupplier,
                 context
         );
