@@ -1,4 +1,4 @@
-package net.scp_genesis.fabric.copycatblocks.renderer.util;
+package net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -9,6 +9,8 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelState;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -16,7 +16,7 @@ import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatStairsModelHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

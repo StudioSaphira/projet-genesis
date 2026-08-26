@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatStairsModelHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

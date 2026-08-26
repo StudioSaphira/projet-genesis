@@ -8,7 +8,7 @@ import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatStairsModelHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;

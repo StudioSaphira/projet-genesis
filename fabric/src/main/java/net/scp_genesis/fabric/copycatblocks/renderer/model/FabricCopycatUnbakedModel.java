@@ -9,7 +9,7 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.scp_genesis.fabric.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatStairsModelHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsModelHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
