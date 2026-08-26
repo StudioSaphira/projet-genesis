@@ -67,24 +67,22 @@ public final class FabricCopycatGeometrySlab
         SlabType slabType =
                 CopycatGeometrySlab.getSlabType(state);
 
-        /*
-         * ============================================================
-         * SINGLE SLAB
-         * ============================================================
-         */
-
-        if (!CopycatGeometrySlab.isDouble(slabType)) {
-
-            CopycatPart part =
-                    CopycatGeometrySlab.getPart(slabType);
+        for (CopycatPart part :
+                CopycatGeometrySlab.getParts(slabType)) {
 
             BlockState copiedState =
                     copycat.getCopiedStates().get(part);
 
             BakedModel model =
-                    slabType == SlabType.BOTTOM
-                            ? bottomModel
-                            : topModel;
+                    switch (part) {
+                        case BOTTOM -> bottomModel;
+                        case TOP -> slabType == SlabType.TOP
+                                ? topModel
+                                : doubleSecondaryModel;
+                        default -> throw new IllegalArgumentException(
+                                "Unsupported slab part: " + part
+                        );
+                    };
 
             if (copiedState == null || copiedState.isAir()) {
                 FabricCopycatQuadHelper.emitBaseModel(
@@ -94,7 +92,7 @@ public final class FabricCopycatGeometrySlab
                         context
                 );
 
-                return;
+                continue;
             }
 
             FabricCopycatQuadHelper.retextureModel(
@@ -106,73 +104,6 @@ public final class FabricCopycatGeometrySlab
                     randomSupplier,
                     context,
                     part
-            );
-
-            return;
-        }
-
-        /*
-         * ============================================================
-         * DOUBLE
-         * ============================================================
-         *
-         * BOTTOM -> bottomModel
-         * TOP    -> doubleSecondaryModel
-         */
-
-        BlockState bottomState =
-                copycat.getCopiedStates()
-                        .get(CopycatPart.BOTTOM);
-
-        BlockState topState =
-                copycat.getCopiedStates()
-                        .get(CopycatPart.TOP);
-
-        boolean hasBottom =
-                bottomState != null
-                        && !bottomState.isAir();
-
-        boolean hasTop =
-                topState != null
-                        && !topState.isAir();
-
-        if (hasBottom) {
-            FabricCopycatQuadHelper.retextureModel(
-                    bottomModel,
-                    blockView,
-                    state,
-                    pos,
-                    bottomState,
-                    randomSupplier,
-                    context,
-                    CopycatPart.BOTTOM
-            );
-        } else {
-            FabricCopycatQuadHelper.emitBaseModel(
-                    bottomModel,
-                    state,
-                    randomSupplier,
-                    context
-            );
-        }
-
-        if (hasTop) {
-            FabricCopycatQuadHelper.retextureModel(
-                    doubleSecondaryModel,
-                    blockView,
-                    state,
-                    pos,
-                    topState,
-                    randomSupplier,
-                    context,
-                    CopycatPart.TOP
-            );
-        } else {
-            FabricCopycatQuadHelper.emitBaseModel(
-                    doubleSecondaryModel,
-                    state,
-                    randomSupplier,
-                    context
             );
         }
     }

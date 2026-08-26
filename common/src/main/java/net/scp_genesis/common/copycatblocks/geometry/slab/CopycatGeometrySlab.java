@@ -14,8 +14,7 @@ import java.util.List;
  */
 public final class CopycatGeometrySlab {
 
-    private CopycatGeometrySlab() {
-    }
+    private CopycatGeometrySlab() {}
 
     /**
      * Returns the Minecraft SlabType of the given block state.
@@ -23,12 +22,8 @@ public final class CopycatGeometrySlab {
      * @param state the slab block state
      * @return the slab type
      */
-    public static SlabType getSlabType(
-            BlockState state
-    ) {
-        return state.getValue(
-                BlockStateProperties.SLAB_TYPE
-        );
+    public static SlabType getSlabType(BlockState state) {
+        return state.getValue(BlockStateProperties.SLAB_TYPE);
     }
 
     /**
