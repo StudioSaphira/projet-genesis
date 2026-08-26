@@ -18,8 +18,7 @@ import java.util.Map;
  * <p>This loader reads the Copycat model JSON and creates the corresponding
  * {@link NeoForgeCopycatUnbakedGeometry} instance used during model baking.</p>
  */
-public final class NeoForgeCopycatModelLoader
-    implements IGeometryLoader<NeoForgeCopycatUnbakedGeometry> {
+public final class NeoForgeCopycatModelLoader implements IGeometryLoader<NeoForgeCopycatUnbakedGeometry> {
 
     /**
      * Loader identifier.
@@ -28,6 +27,12 @@ public final class NeoForgeCopycatModelLoader
             ResourceLocation.fromNamespaceAndPath(
                     ModConstants.MOD_ID,
                     CopycatConstants.MODEL_LOADER_ID
+            );
+
+    public static final ResourceLocation ID_SLOPE =
+            ResourceLocation.fromNamespaceAndPath(
+                    ModConstants.MOD_ID,
+                    CopycatConstants.MODEL_SLOPE_ID
             );
 
     /**

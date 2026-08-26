@@ -34,9 +34,7 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
      */
     public NeoForgeCopycatBakedModel(
             @NotNull NeoForgeCopycatGeometry geometry
-    ) {
-        this.geometry = geometry;
-    }
+    ) {this.geometry = geometry;}
 
     /**
      * <h1>QUADS</h1>

@@ -19,8 +19,7 @@ public final class NeoForgeCopycatModelProvider {
     /**
      * Prevent instantiation.
      */
-    private NeoForgeCopycatModelProvider() {
-    }
+    private NeoForgeCopycatModelProvider() {}
 
     /**
      * Returns the vanilla BakedModel corresponding to the supplied BlockState.

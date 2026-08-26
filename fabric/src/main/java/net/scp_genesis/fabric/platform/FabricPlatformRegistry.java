@@ -21,8 +21,7 @@ import net.scp_genesis.common.registry.ModTabs;
 
 import java.util.function.Supplier;
 
-public final class FabricPlatformRegistry
-        implements PlatformRegistry {
+public final class FabricPlatformRegistry implements PlatformRegistry {
 
     private ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(

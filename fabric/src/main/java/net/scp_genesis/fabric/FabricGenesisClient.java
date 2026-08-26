@@ -6,8 +6,7 @@ import net.scp_genesis.fabric.client.FabricBlockColors;
 import net.scp_genesis.fabric.client.FabricModelLoading;
 
 @SuppressWarnings("unused")
-public final class FabricGenesisClient
-        implements ClientModInitializer {
+public final class FabricGenesisClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {

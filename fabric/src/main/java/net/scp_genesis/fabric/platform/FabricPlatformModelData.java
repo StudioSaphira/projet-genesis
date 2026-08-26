@@ -6,8 +6,7 @@ import net.scp_genesis.common.platform.PlatformModelData;
 
 import java.util.EnumMap;
 
-public final class FabricPlatformModelData
-        implements PlatformModelData<FabricPlatformModelData.Data> {
+public final class FabricPlatformModelData implements PlatformModelData<FabricPlatformModelData.Data> {
 
     @Override
     public Data create(

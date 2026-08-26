@@ -11,8 +11,7 @@ import java.util.EnumMap;
 
 public final class NeoForgeCopycatBlockStateHelper {
 
-    private NeoForgeCopycatBlockStateHelper() {
-    }
+    private NeoForgeCopycatBlockStateHelper() {}
 
     /**
      * Returns the copied BlockState associated with a Copycat part.

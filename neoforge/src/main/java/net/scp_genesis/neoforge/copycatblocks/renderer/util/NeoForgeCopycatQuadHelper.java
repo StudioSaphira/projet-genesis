@@ -18,8 +18,7 @@ import java.util.List;
 
 public final class NeoForgeCopycatQuadHelper {
 
-    private NeoForgeCopycatQuadHelper() {
-    }
+    private NeoForgeCopycatQuadHelper() {}
 
     /**
      * <h1>TINT</h1>

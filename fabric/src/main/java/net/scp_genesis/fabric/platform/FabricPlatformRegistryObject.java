@@ -3,8 +3,7 @@ package net.scp_genesis.fabric.platform;
 import net.minecraft.resources.ResourceLocation;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 
-public final class FabricPlatformRegistryObject<T>
-        implements PlatformRegistryObject<T> {
+public final class FabricPlatformRegistryObject<T> implements PlatformRegistryObject<T> {
 
     private final T value;
     private final ResourceLocation id;

@@ -8,9 +8,7 @@ import net.scp_genesis.neoforge.platform.NeoForgePlatformRegistry;
 @Mod("scp_genesis")
 public final class NeoForgeGenesis {
 
-    public NeoForgeGenesis(
-            IEventBus modEventBus
-    ) {
+    public NeoForgeGenesis(IEventBus modEventBus) {
         NeoForgePlatformRegistry registry =
                 new NeoForgePlatformRegistry(
                         modEventBus

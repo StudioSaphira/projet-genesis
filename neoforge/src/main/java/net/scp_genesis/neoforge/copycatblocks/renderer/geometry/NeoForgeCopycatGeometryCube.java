@@ -24,16 +24,13 @@ import java.util.List;
  * <p>The Cube geometry represents a standard full-block shape.
  * Its appearance is handled separately by the Copycat rendering system.</p>
  */
-public final class NeoForgeCopycatGeometryCube
-        implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometryCube implements NeoForgeCopycatGeometry {
 
     private final BakedModel baseModel;
 
     public NeoForgeCopycatGeometryCube(
             @NotNull BakedModel baseModel
-    ) {
-        this.baseModel = baseModel;
-    }
+    ) {this.baseModel = baseModel;}
 
     @Override
     public @NotNull BakedModel getModel() {

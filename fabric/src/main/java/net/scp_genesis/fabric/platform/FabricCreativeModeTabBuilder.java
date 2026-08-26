@@ -9,8 +9,7 @@ import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 
 import java.util.function.Supplier;
 
-public final class FabricCreativeModeTabBuilder
-        implements PlatformCreativeModeTabBuilder {
+public final class FabricCreativeModeTabBuilder implements PlatformCreativeModeTabBuilder {
 
     private final CreativeModeTab.Builder builder;
 

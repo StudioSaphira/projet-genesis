@@ -24,16 +24,13 @@ import java.util.List;
  * <p>The Slope geometry represents a triangular ramp.
  * Its appearance is handled separately by the Copycat rendering system.</p>
  */
-public final class NeoForgeCopycatGeometrySlope
-        implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
     private final BakedModel baseModel;
 
     public NeoForgeCopycatGeometrySlope(
             @NotNull BakedModel baseModel
-    ) {
-        this.baseModel = baseModel;
-    }
+    ) {this.baseModel = baseModel;}
 
     @Override
     public @NotNull BakedModel getModel() {

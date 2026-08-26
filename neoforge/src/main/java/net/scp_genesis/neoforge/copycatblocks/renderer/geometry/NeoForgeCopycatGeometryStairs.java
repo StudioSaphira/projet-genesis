@@ -23,8 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Map;
 
-public final class NeoForgeCopycatGeometryStairs
-        implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeometry {
 
     private final Map<
             NeoForgeCopycatStairsHelper.StairModelKey,
@@ -36,9 +35,7 @@ public final class NeoForgeCopycatGeometryStairs
                     NeoForgeCopycatStairsHelper.StairModelKey,
                     BakedModel
                     > models
-    ) {
-        this.models = models;
-    }
+    ) {this.models = models;}
 
     private static final NeoForgeCopycatStairsHelper.StairModelKey DEFAULT_MODEL_KEY =
             new NeoForgeCopycatStairsHelper.StairModelKey(

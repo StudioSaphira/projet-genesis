@@ -22,9 +22,7 @@ public abstract class NeoForgeCopycatBlockEntityMixin {
      */
     public ModelData getModelData() {
         return new NeoForgePlatformModelData()
-                .create(
-                        getCopiedStates()
-                )
+                .create(getCopiedStates())
                 .get();
     }
 }

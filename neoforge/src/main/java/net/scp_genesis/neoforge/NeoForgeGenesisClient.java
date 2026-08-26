@@ -13,15 +13,8 @@ import net.scp_genesis.neoforge.client.NeoForgeModelLoading;
 )
 public final class NeoForgeGenesisClient {
 
-    public NeoForgeGenesisClient(
-            IEventBus modEventBus
-    ) {
-        modEventBus.addListener(
-                NeoForgeBlockColors::register
-        );
-
-        modEventBus.addListener(
-                NeoForgeModelLoading::registerGeometryLoaders
-        );
+    public NeoForgeGenesisClient(IEventBus modEventBus) {
+        modEventBus.addListener(NeoForgeBlockColors::register);
+        modEventBus.addListener(NeoForgeModelLoading::registerGeometryLoaders);
     }
 }

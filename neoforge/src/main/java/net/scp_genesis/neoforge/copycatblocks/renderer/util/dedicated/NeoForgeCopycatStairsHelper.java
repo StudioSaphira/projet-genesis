@@ -14,8 +14,7 @@ import java.util.function.Function;
 
 public final class NeoForgeCopycatStairsHelper {
 
-    private NeoForgeCopycatStairsHelper() {
-    }
+    private NeoForgeCopycatStairsHelper() {}
 
     public static Map<StairModelKey, BakedModel> bakeStairsModels(
             ModelBaker baker,

@@ -5,8 +5,7 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.platform.PlatformModelData;
 import net.scp_genesis.common.platform.PlatformServicesImpl;
 
-public final class FabricPlatformServices
-        implements PlatformServicesImpl {
+public final class FabricPlatformServices implements PlatformServicesImpl {
 
     private static final PlatformModelData<FabricPlatformModelData.Data>
             MODEL_DATA =
