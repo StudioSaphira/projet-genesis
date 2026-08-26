@@ -4,8 +4,8 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 
-public class DirtyBrokenWhiteWallOneBlock extends Block {
-	public DirtyBrokenWhiteWallOneBlock() {
+public class DirtyBrokenWhiteTiledTwoBlock extends Block {
+	public DirtyBrokenWhiteTiledTwoBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f).instrument(NoteBlockInstrument.BASEDRUM));
 	}
 }
