@@ -7,18 +7,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatGeometry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
 /**
- * Defines the geometry of a Copycat Block.
- *
- * <p>A Copycat geometry is responsible for generating the physical
- * geometry of a Copycat Block independently of its appearance.</p>
+ * Fabric-specific rendering contract for a Copycat geometry.
  */
-public interface FabricCopycatGeometry {
+public interface FabricCopycatGeometry extends CopycatGeometry {
 
     void emitBlockQuads(
             BlockAndTintGetter blockView,

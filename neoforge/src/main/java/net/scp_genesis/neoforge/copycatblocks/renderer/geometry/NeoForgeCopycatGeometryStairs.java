@@ -7,47 +7,40 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatGeometryStairs;
+import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Map;
 
-public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometryStairs
+        implements NeoForgeCopycatGeometry {
 
-    private final Map<
-            NeoForgeCopycatStairsHelper.StairModelKey,
-            BakedModel
-            > models;
-
-    public NeoForgeCopycatGeometryStairs(
-            @NotNull Map<
-                    NeoForgeCopycatStairsHelper.StairModelKey,
-                    BakedModel
-                    > models
-    ) {this.models = models;}
-
-    private static final NeoForgeCopycatStairsHelper.StairModelKey DEFAULT_MODEL_KEY =
-            new NeoForgeCopycatStairsHelper.StairModelKey(
+    private static final CopycatStairsModelKey DEFAULT_MODEL_KEY =
+            new CopycatStairsModelKey(
                     Direction.EAST,
                     Half.BOTTOM,
                     StairsShape.STRAIGHT
             );
 
-    /**
-     * Returns the BakedModel corresponding to the current
-     * Stair BlockState.
-     */
+    private final Map<CopycatStairsModelKey, BakedModel> models;
+
+    public NeoForgeCopycatGeometryStairs(
+            @NotNull Map<CopycatStairsModelKey, BakedModel> models
+    ) {
+        this.models = models;
+    }
+
     private BakedModel getModel(
             @Nullable BlockState state
     ) {
@@ -55,34 +48,14 @@ public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeome
             return getModel();
         }
 
-        Direction facing =
-                state.getValue(
-                        BlockStateProperties.HORIZONTAL_FACING
-                );
-
-        Half half =
-                state.getValue(
-                        BlockStateProperties.HALF
-                );
-
-        StairsShape shape =
-                state.getValue(
-                        BlockStateProperties.STAIRS_SHAPE
-                );
-
-        NeoForgeCopycatStairsHelper.StairModelKey key =
-                new NeoForgeCopycatStairsHelper.StairModelKey(
-                        facing,
-                        half,
-                        shape
-                );
+        CopycatStairsModelKey key =
+                CopycatGeometryStairs.getModelKey(state);
 
         BakedModel model = models.get(key);
 
         if (model == null) {
             throw new IllegalStateException(
-                    "Missing Copycat Stairs model for: "
-                            + key
+                    "Missing Copycat Stairs model for: " + key
             );
         }
 
@@ -91,7 +64,8 @@ public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeome
 
     @Override
     public @NotNull BakedModel getModel() {
-        BakedModel model = models.get(DEFAULT_MODEL_KEY);
+        BakedModel model =
+                models.get(DEFAULT_MODEL_KEY);
 
         if (model == null) {
             throw new IllegalStateException(

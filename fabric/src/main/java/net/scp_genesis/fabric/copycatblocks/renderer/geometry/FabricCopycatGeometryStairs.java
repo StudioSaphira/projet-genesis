@@ -1,49 +1,41 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.geometry;
 
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.Half;
-import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatGeometryStairs;
+import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry {
+public final class FabricCopycatGeometryStairs
+        implements FabricCopycatGeometry {
 
-    private final Map<
-            FabricCopycatStairsHelper.StairModelKey,
-            BakedModel
-            > models;
+    private static final CopycatStairsModelKey DEFAULT_MODEL_KEY =
+            new CopycatStairsModelKey(
+                    net.minecraft.core.Direction.EAST,
+                    net.minecraft.world.level.block.state.properties.Half.BOTTOM,
+                    net.minecraft.world.level.block.state.properties.StairsShape.STRAIGHT
+            );
+
+    private final Map<CopycatStairsModelKey, BakedModel> models;
 
     public FabricCopycatGeometryStairs(
-            @NotNull Map<
-                    FabricCopycatStairsHelper.StairModelKey,
-                    BakedModel
-                    > models
+            @NotNull Map<CopycatStairsModelKey, BakedModel> models
     ) {
         this.models = models;
     }
-
-    private static final FabricCopycatStairsHelper.StairModelKey DEFAULT_MODEL_KEY =
-            new FabricCopycatStairsHelper.StairModelKey(
-                    Direction.EAST,
-                    Half.BOTTOM,
-                    StairsShape.STRAIGHT
-            );
 
     /**
      * Returns the BakedModel corresponding to the current
@@ -56,35 +48,14 @@ public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry 
             return getModel();
         }
 
-        Direction facing =
-                state.getValue(
-                        BlockStateProperties.HORIZONTAL_FACING
-                );
+        CopycatStairsModelKey key =
+                CopycatGeometryStairs.getModelKey(state);
 
-        Half half =
-                state.getValue(
-                        BlockStateProperties.HALF
-                );
-
-        StairsShape shape =
-                state.getValue(
-                        BlockStateProperties.STAIRS_SHAPE
-                );
-
-        FabricCopycatStairsHelper.StairModelKey key =
-                new FabricCopycatStairsHelper.StairModelKey(
-                        facing,
-                        half,
-                        shape
-                );
-
-        BakedModel model =
-                models.get(key);
+        BakedModel model = models.get(key);
 
         if (model == null) {
             throw new IllegalStateException(
-                    "Missing Copycat Stairs model for: "
-                            + key
+                    "Missing Copycat Stairs model for: " + key
             );
         }
 
@@ -93,8 +64,7 @@ public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry 
 
     @Override
     public @NotNull BakedModel getModel() {
-        BakedModel model =
-                models.get(DEFAULT_MODEL_KEY);
+        BakedModel model = models.get(DEFAULT_MODEL_KEY);
 
         if (model == null) {
             throw new IllegalStateException(
@@ -113,8 +83,7 @@ public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry 
             Supplier<RandomSource> randomSupplier,
             RenderContext context
     ) {
-        BakedModel geometryModel =
-                getModel(state);
+        BakedModel geometryModel = getModel(state);
 
         BlockState copiedState = null;
 
@@ -127,10 +96,6 @@ public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry 
                             .get(CopycatPart.MAIN);
         }
 
-        /*
-         * No copied state:
-         * render the original stair model.
-         */
         if (copiedState == null || copiedState.isAir()) {
             FabricCopycatQuadHelper.emitBaseModel(
                     geometryModel,
@@ -142,10 +107,6 @@ public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry 
             return;
         }
 
-        /*
-         * Retexture the stair geometry using
-         * the copied block model.
-         */
         FabricCopycatQuadHelper.retextureModel(
                 geometryModel,
                 blockView,

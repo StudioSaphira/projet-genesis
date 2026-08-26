@@ -2,11 +2,19 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.model;
 
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.*;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBaker;
+import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.*;
+import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometry;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryCube;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlab;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlope;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryStairs;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +32,7 @@ public final class NeoForgeCopycatUnbakedGeometry
         STAIRS,
         SLOPE
     }
+
     private final ResourceLocation baseModel;
     private final Map<String, ResourceLocation> baseModels;
     private final GeometryType geometryType;
@@ -77,18 +86,20 @@ public final class NeoForgeCopycatUnbakedGeometry
                 material -> copycatAltSprite;
 
         /*
-         * Simple Copycat model.
-         *
-         * Used by Copycat Cube and other single-part blocks.
+         * ============================================================
+         * CUBE
+         * ============================================================
          */
+
         if (geometryType == GeometryType.CUBE) {
 
-            BakedModel bakedBaseModel = NeoForgeCopycatModelBakeHelper.bakeModel(
-                    baker,
-                    baseModel,
-                    modelState,
-                    copycatSpriteGetter
-            );
+            BakedModel bakedBaseModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            baseModel,
+                            modelState,
+                            copycatSpriteGetter
+                    );
 
             NeoForgeCopycatGeometry geometry =
                     new NeoForgeCopycatGeometryCube(
@@ -101,42 +112,48 @@ public final class NeoForgeCopycatUnbakedGeometry
         }
 
         /*
-         * Multipart Copycat model.
-         *
-         * Used by Copycat Slab and future multipart blocks.
+         * ============================================================
+         * SLAB
+         * ============================================================
          */
+
         if (geometryType == GeometryType.SLAB) {
 
-            BakedModel bottomModel = NeoForgeCopycatModelBakeHelper.bakeModel(
-                    baker,
-                    Objects.requireNonNull(baseModels).get("bottom"),
-                    modelState,
-                    copycatSpriteGetter
-            );
+            BakedModel bottomModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            Objects.requireNonNull(baseModels).get("bottom"),
+                            modelState,
+                            copycatSpriteGetter
+                    );
 
-            BakedModel topModel = NeoForgeCopycatModelBakeHelper.bakeModel(
-                    baker,
-                    Objects.requireNonNull(baseModels).get("top"),
-                    modelState,
-                    copycatSpriteGetter
-            );
+            BakedModel topModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            Objects.requireNonNull(baseModels).get("top"),
+                            modelState,
+                            copycatSpriteGetter
+                    );
 
-            BakedModel doubleModel = NeoForgeCopycatModelBakeHelper.bakeModel(
-                    baker,
-                    Objects.requireNonNull(baseModels).get("double"),
-                    modelState,
-                    copycatSpriteGetter
-            );
+            BakedModel doubleModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            Objects.requireNonNull(baseModels).get("double"),
+                            modelState,
+                            copycatSpriteGetter
+                    );
 
             ResourceLocation doubleSecondaryLocation =
-                    Objects.requireNonNull(baseModels).get("double_secondary");
+                    Objects.requireNonNull(baseModels)
+                            .get("double_secondary");
 
-            BakedModel doubleSecondaryModel = NeoForgeCopycatModelBakeHelper.bakeModel(
-                    baker,
-                    doubleSecondaryLocation,
-                    modelState,
-                    copycatAltSpriteGetter
-            );
+            BakedModel doubleSecondaryModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            doubleSecondaryLocation,
+                            modelState,
+                            copycatAltSpriteGetter
+                    );
 
             NeoForgeCopycatGeometry geometry =
                     new NeoForgeCopycatGeometrySlab(
@@ -151,9 +168,15 @@ public final class NeoForgeCopycatUnbakedGeometry
             );
         }
 
+        /*
+         * ============================================================
+         * STAIRS
+         * ============================================================
+         */
+
         if (geometryType == GeometryType.STAIRS) {
 
-            Map<NeoForgeCopycatStairsHelper.StairModelKey, BakedModel> stairsModels =
+            Map<CopycatStairsModelKey, BakedModel> stairsModels =
                     NeoForgeCopycatStairsHelper.bakeStairsModels(
                             baker,
                             Objects.requireNonNull(baseModels),
@@ -169,6 +192,12 @@ public final class NeoForgeCopycatUnbakedGeometry
                     geometry
             );
         }
+
+        /*
+         * ============================================================
+         * SLOPE
+         * ============================================================
+         */
 
         if (geometryType == GeometryType.SLOPE) {
 
