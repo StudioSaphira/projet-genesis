@@ -1,3 +1,19 @@
+# Pre-Alpha-Release 19 - 0.1.4.1
+
+## Additions
+
+- Added Dirty White Tiled Block [WAS REMOVED BY MISTAKE DURING ALPHA-RELEASE 17]
+
+## Fixes
+
+- Fixed Copycat Slope
+
+## Next Update
+
+_The next update will add the first furnitures in the mod !_
+
+------------------------------------------------------------------
+
 # Alpha-Release 18 - 0.1.4
 
 ## Additions
@@ -6,7 +22,7 @@
 - Added Copycat Slab
 - Added Copycat Stairs
 - The mod is now working on multi-loaders, working on both NeoForge and Fabric
-- [EXPERIMENTAL][BONUS] Added Copycat Slope [NOT PROPERLY WORKING]
+- [EXPERIMENTAL] Added Copycat Slope [NOT PROPERLY WORKING]
 
 ## Changes
 
@@ -26,7 +42,7 @@
 
 ## Next Update
 
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
+_The next update will fix the Copycat Slope !_
 
 ------------------------------------------------------------------
 
