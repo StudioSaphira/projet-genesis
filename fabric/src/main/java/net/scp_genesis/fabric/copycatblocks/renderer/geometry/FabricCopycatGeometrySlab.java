@@ -68,7 +68,7 @@ public final class FabricCopycatGeometrySlab
                 CopycatGeometrySlab.getSlabType(state);
 
         for (CopycatPart part :
-                CopycatGeometrySlab.getParts(slabType)) {
+                CopycatGeometrySlab.getParts(state)) {
 
             BlockState copiedState =
                     copycat.getCopiedStates().get(part);

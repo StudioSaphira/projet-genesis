@@ -112,7 +112,7 @@ public final class NeoForgeCopycatGeometrySlab
          */
 
         for (CopycatPart part :
-                CopycatGeometrySlab.getParts(slabType)) {
+                CopycatGeometrySlab.getParts(state)) {
 
             BakedModel model =
                     getModel(

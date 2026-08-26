@@ -40,28 +40,7 @@ public final class CopycatGeometrySlab {
         };
     }
 
-    /**
-     * Returns the Copycat part associated with a single slab half.
-     *
-     * @param slabType the slab type
-     * @return the corresponding Copycat part
-     * @throws IllegalArgumentException if the slab is double
-     */
-    public static CopycatPart getPart(SlabType slabType) {
-        return switch (slabType) {
-            case BOTTOM -> CopycatPart.BOTTOM;
-            case TOP -> CopycatPart.TOP;
-            case DOUBLE -> throw new IllegalArgumentException("A double slab has two Copycat parts");
-        };
-    }
-
-    /**
-     * Returns whether the slab contains two logical Copycat parts.
-     *
-     * @param slabType the slab type
-     */
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isDouble(SlabType slabType) {
-        return slabType == SlabType.DOUBLE;
+    public static List<CopycatPart> getParts(BlockState state) {
+        return getParts(getSlabType(state));
     }
 }
