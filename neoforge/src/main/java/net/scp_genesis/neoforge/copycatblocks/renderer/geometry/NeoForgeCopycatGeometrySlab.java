@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.properties.SlabType;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
@@ -295,7 +295,7 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
             }
 
             BakedModel copiedModel =
-                    NeoForgeCopycatModelProvider.getModel(
+                    CopycatModelProvider.getModel(
                             copiedState
                     );
 
@@ -327,7 +327,7 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
             }
 
             BakedModel copiedModel =
-                    NeoForgeCopycatModelProvider.getModel(
+                    CopycatModelProvider.getModel(
                             copiedState
                     );
 
@@ -384,12 +384,12 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
              */
 
             BakedModel bottomCopiedModel =
-                    NeoForgeCopycatModelProvider.getModel(
+                    CopycatModelProvider.getModel(
                             bottomState
                     );
 
             BakedModel topCopiedModel =
-                    NeoForgeCopycatModelProvider.getModel(
+                    CopycatModelProvider.getModel(
                             topState
                     );
 
@@ -436,7 +436,7 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
                 );
 
         if (bottomState != null && !bottomState.isAir()) {
-            return NeoForgeCopycatModelProvider
+            return CopycatModelProvider
                     .getModel(bottomState)
                     .getParticleIcon(modelData);
         }
@@ -448,7 +448,7 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
                 );
 
         if (topState != null && !topState.isAir()) {
-            return NeoForgeCopycatModelProvider
+            return CopycatModelProvider
                     .getModel(topState)
                     .getParticleIcon(modelData);
         }

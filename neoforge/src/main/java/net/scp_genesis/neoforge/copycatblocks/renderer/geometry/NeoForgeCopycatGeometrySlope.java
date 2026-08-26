@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
@@ -105,7 +105,7 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
         /*
          * A copied block can have its own render type.
          */
-        return NeoForgeCopycatModelProvider
+        return CopycatModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -138,7 +138,7 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
          * Copied Slope:
          * use the copied block's particle texture.
          */
-        return NeoForgeCopycatModelProvider
+        return CopycatModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(
                         modelData

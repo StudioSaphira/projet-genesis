@@ -14,7 +14,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.fabric.copycatblocks.provider.FabricCopycatModelProvider;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
 
 import org.jetbrains.annotations.NotNull;
@@ -167,7 +167,7 @@ public final class FabricCopycatQuadHelper {
             @NotNull CopycatPart part
     ) {
         BakedModel copiedModel =
-                FabricCopycatModelProvider.getModel(copiedState);
+                CopycatModelProvider.getModel(copiedState);
 
         QuadEmitter emitter =
                 context.getEmitter();

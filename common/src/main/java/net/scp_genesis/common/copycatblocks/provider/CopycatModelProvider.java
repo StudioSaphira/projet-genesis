@@ -1,4 +1,4 @@
-package net.scp_genesis.neoforge.copycatblocks.provider;
+package net.scp_genesis.common.copycatblocks.provider;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -14,12 +14,12 @@ import org.jetbrains.annotations.Nullable;
  * <p>This class acts as a bridge between the Copycat system and the
  * vanilla model renderer. It does not perform any custom rendering.</p>
  */
-public final class NeoForgeCopycatModelProvider {
+public final class CopycatModelProvider {
 
     /**
      * Prevent instantiation.
      */
-    private NeoForgeCopycatModelProvider() {}
+    private CopycatModelProvider() {}
 
     /**
      * Returns the vanilla BakedModel corresponding to the supplied BlockState.

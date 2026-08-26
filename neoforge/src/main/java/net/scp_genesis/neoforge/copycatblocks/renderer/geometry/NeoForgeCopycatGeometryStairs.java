@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
@@ -159,7 +159,7 @@ public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeome
             );
         }
 
-        return NeoForgeCopycatModelProvider
+        return CopycatModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -183,7 +183,7 @@ public final class NeoForgeCopycatGeometryStairs implements NeoForgeCopycatGeome
                     .getParticleIcon(modelData);
         }
 
-        return NeoForgeCopycatModelProvider
+        return CopycatModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(modelData);
     }

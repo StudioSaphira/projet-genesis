@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatSlopeGeometry;
-import net.scp_genesis.fabric.copycatblocks.provider.FabricCopycatModelProvider;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
 
@@ -40,7 +40,7 @@ public final class FabricCopycatSlopeHelper {
             @NotNull CopycatPart part
     ) {
         BakedModel copiedModel =
-                FabricCopycatModelProvider.getModel(
+                CopycatModelProvider.getModel(
                         copiedState
                 );
 
