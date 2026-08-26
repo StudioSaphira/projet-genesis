@@ -19,6 +19,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
+/**
+ * Fabric rendering implementation for Copycat Slopes.
+ *
+ * <p>The actual Slope geometry is defined in the common module.
+ * Fabric is responsible only for emitting that geometry through
+ * the Fabric Renderer API.</p>
+ */
 @SuppressWarnings("ClassCanBeRecord")
 public final class FabricCopycatGeometrySlope
         implements FabricCopycatGeometry {
@@ -39,6 +46,12 @@ public final class FabricCopycatGeometrySlope
             Supplier<RandomSource> randomSupplier,
             RenderContext context
     ) {
+        /*
+         * ============================================================
+         * SLOPE ORIENTATION
+         * ============================================================
+         */
+
         Direction facing =
                 state.getValue(
                         BlockStateProperties.HORIZONTAL_FACING
@@ -49,11 +62,11 @@ public final class FabricCopycatGeometrySlope
                         BlockStateProperties.HALF
                 );
 
-        CopycatSlopeFace[] faces =
-                CopycatGeometrySlope.getFaces(
-                        facing,
-                        half
-                );
+        /*
+         * ============================================================
+         * COPYCAT BLOCK ENTITY
+         * ============================================================
+         */
 
         BlockEntity blockEntity =
                 blockView.getBlockEntity(pos);
@@ -66,7 +79,29 @@ public final class FabricCopycatGeometrySlope
                             .get(CopycatPart.MAIN);
         }
 
+        /*
+         * ============================================================
+         * SLOPE GEOMETRY
+         * ============================================================
+         *
+         * The geometry itself is entirely defined by the common
+         * CopycatGeometrySlope implementation.
+         */
+
+        CopycatSlopeFace[] faces =
+                CopycatGeometrySlope.getFaces(
+                        facing,
+                        half
+                );
+
+        /*
+         * ============================================================
+         * EMPTY SLOPE
+         * ============================================================
+         */
+
         if (copiedState == null || copiedState.isAir()) {
+
             FabricCopycatSlopeHelper.emitEmpty(
                     faces,
                     particleIcon,
@@ -75,6 +110,12 @@ public final class FabricCopycatGeometrySlope
 
             return;
         }
+
+        /*
+         * ============================================================
+         * RETEXTURED SLOPE
+         * ============================================================
+         */
 
         FabricCopycatSlopeHelper.retexture(
                 faces,

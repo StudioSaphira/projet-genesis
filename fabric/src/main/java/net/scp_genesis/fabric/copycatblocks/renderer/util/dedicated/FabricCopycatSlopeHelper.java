@@ -12,6 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeFace;
+import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeOcclusion;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeVertex;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
@@ -27,6 +28,10 @@ public final class FabricCopycatSlopeHelper {
     private FabricCopycatSlopeHelper() {
     }
 
+    /**
+     * Emits a complete Copycat Slope using the appearance
+     * of the copied block.
+     */
     public static void retexture(
             @NotNull CopycatSlopeFace[] faces,
             @NotNull BlockState copiedState,
@@ -35,7 +40,9 @@ public final class FabricCopycatSlopeHelper {
             @NotNull CopycatPart part
     ) {
         BakedModel copiedModel =
-                CopycatModelProvider.getModel(copiedState);
+                CopycatModelProvider.getModel(
+                        copiedState
+                );
 
         QuadEmitter emitter =
                 context.getEmitter();
@@ -66,7 +73,11 @@ public final class FabricCopycatSlopeHelper {
         }
     }
 
-    private static @Nullable BakedQuad findCopiedQuad(
+    /**
+     * Finds a representative quad from the copied block model
+     * for the requested Slope face.
+     */
+    public static @Nullable BakedQuad findCopiedQuad(
             @NotNull BakedModel copiedModel,
             @NotNull BlockState copiedState,
             @NotNull Direction direction,
@@ -83,6 +94,11 @@ public final class FabricCopycatSlopeHelper {
             return quads.getFirst();
         }
 
+        /*
+         * Some models do not expose a quad on every direction.
+         *
+         * Fall back to general quads.
+         */
         List<BakedQuad> generalQuads =
                 copiedModel.getQuads(
                         copiedState,
@@ -97,7 +113,10 @@ public final class FabricCopycatSlopeHelper {
         return null;
     }
 
-    private static void emitRetexturedFace(
+    /**
+     * Emits one Slope face using the appearance of a copied quad.
+     */
+    public static void emitRetexturedFace(
             @NotNull QuadEmitter emitter,
             @NotNull CopycatSlopeFace face,
             @NotNull BakedQuad copiedQuad,
@@ -112,6 +131,10 @@ public final class FabricCopycatSlopeHelper {
                 face.direction()
         );
 
+        /*
+         * Replace the copied model geometry with the actual
+         * Copycat Slope geometry.
+         */
         for (int i = 0; i < vertices.length; i++) {
             setVertex(
                     emitter,
@@ -120,7 +143,12 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
-        if (vertices.length == 3) {
+        /*
+         * Fabric requires four vertices.
+         *
+         * A triangular Slope face is represented by a degenerate quad.
+         */
+        if (CopycatSlopeOcclusion.isTriangle(face)) {
             setVertex(
                     emitter,
                     3,
@@ -128,14 +156,29 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
+        /*
+         * Rebuild UV coordinates according to the Slope geometry.
+         */
         setSlopeFaceUv(
                 emitter,
                 face
         );
 
-        emitter.nominalFace(
-                face.direction()
-        );
+        /*
+         * Only complete faces can participate in normal
+         * block-face culling.
+         *
+         * Triangular faces must remain non-cullable.
+         */
+        if (CopycatSlopeOcclusion.supportsFaceCulling(face)) {
+            emitter.nominalFace(
+                    face.direction()
+            );
+        } else {
+            emitter.nominalFace(
+                    null
+            );
+        }
 
         emitter.colorIndex(
                 FabricCopycatQuadHelper.encodeCopycatTintIndex(
@@ -147,6 +190,9 @@ public final class FabricCopycatSlopeHelper {
         emitter.emit();
     }
 
+    /**
+     * Generates UV coordinates from the actual Slope geometry.
+     */
     private static void setSlopeFaceUv(
             @NotNull QuadEmitter emitter,
             @NotNull CopycatSlopeFace face
@@ -163,7 +209,10 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
-        if (vertices.length == 3) {
+        /*
+         * Duplicate the third UV for triangular faces.
+         */
+        if (CopycatSlopeOcclusion.isTriangle(face)) {
             setSlopeVertexUv(
                     emitter,
                     3,
@@ -188,6 +237,7 @@ public final class FabricCopycatSlopeHelper {
         float v;
 
         switch (direction) {
+
             case NORTH, SOUTH -> {
                 u = vertex.x();
                 v = vertex.y();
@@ -214,9 +264,16 @@ public final class FabricCopycatSlopeHelper {
             }
         }
 
-        emitter.uv(index, u, v);
+        emitter.uv(
+                index,
+                u,
+                v
+        );
     }
 
+    /**
+     * Emits an empty Copycat Slope using its default texture.
+     */
     public static void emitEmpty(
             @NotNull CopycatSlopeFace[] faces,
             @NotNull TextureAtlasSprite sprite,
@@ -233,7 +290,8 @@ public final class FabricCopycatSlopeHelper {
             CopycatSlopeVertex[] vertices =
                     face.vertices();
 
-            if (vertices.length == 4) {
+            if (CopycatSlopeOcclusion.isQuad(face)) {
+
                 emitQuad(
                         emitter,
                         vertices,
@@ -241,7 +299,9 @@ public final class FabricCopycatSlopeHelper {
                         sprite,
                         material
                 );
-            } else if (vertices.length == 3) {
+
+            } else if (CopycatSlopeOcclusion.isTriangle(face)) {
+
                 emitTriangle(
                         emitter,
                         vertices,
@@ -268,7 +328,9 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
-        setFullFaceUv(emitter);
+        setFullFaceUv(
+                emitter
+        );
 
         emitter.spriteBake(
                 sprite,
@@ -287,15 +349,53 @@ public final class FabricCopycatSlopeHelper {
             @NotNull TextureAtlasSprite sprite,
             @NotNull RenderMaterial material
     ) {
-        setVertex(emitter, 0, vertices[0]);
-        setVertex(emitter, 1, vertices[1]);
-        setVertex(emitter, 2, vertices[2]);
-        setVertex(emitter, 3, vertices[2]);
+        setVertex(
+                emitter,
+                0,
+                vertices[0]
+        );
 
-        emitter.uv(0, 0.0F, 0.0F);
-        emitter.uv(1, 1.0F, 0.0F);
-        emitter.uv(2, 1.0F, 1.0F);
-        emitter.uv(3, 1.0F, 1.0F);
+        setVertex(
+                emitter,
+                1,
+                vertices[1]
+        );
+
+        setVertex(
+                emitter,
+                2,
+                vertices[2]
+        );
+
+        setVertex(
+                emitter,
+                3,
+                vertices[2]
+        );
+
+        emitter.uv(
+                0,
+                0.0F,
+                0.0F
+        );
+
+        emitter.uv(
+                1,
+                1.0F,
+                0.0F
+        );
+
+        emitter.uv(
+                2,
+                1.0F,
+                1.0F
+        );
+
+        emitter.uv(
+                3,
+                1.0F,
+                1.0F
+        );
 
         emitter.spriteBake(
                 sprite,
@@ -310,10 +410,29 @@ public final class FabricCopycatSlopeHelper {
     private static void setFullFaceUv(
             @NotNull QuadEmitter emitter
     ) {
-        emitter.uv(0, 0.0F, 0.0F);
-        emitter.uv(1, 1.0F, 0.0F);
-        emitter.uv(2, 1.0F, 1.0F);
-        emitter.uv(3, 0.0F, 1.0F);
+        emitter.uv(
+                0,
+                0.0F,
+                0.0F
+        );
+
+        emitter.uv(
+                1,
+                1.0F,
+                0.0F
+        );
+
+        emitter.uv(
+                2,
+                1.0F,
+                1.0F
+        );
+
+        emitter.uv(
+                3,
+                0.0F,
+                1.0F
+        );
     }
 
     private static void setVertex(
