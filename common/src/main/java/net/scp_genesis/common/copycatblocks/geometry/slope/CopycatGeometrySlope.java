@@ -31,83 +31,57 @@ public final class CopycatGeometrySlope {
     private CopycatGeometrySlope() {
     }
 
-    /**
-     * A vertex expressed in block-local coordinates.
-     */
-    public record Vertex(
-            float x,
-            float y,
-            float z
-    ) {
-    }
+    private static final CopycatSlopeVertex NORTH_WEST =
+            new CopycatSlopeVertex(
+                    0.0F,
+                    0.0F,
+                    0.0F
+            );
 
-    /**
-     * A face of the slope geometry.
-     */
-    public record Face(
-            @NotNull Direction direction,
-            @NotNull Vertex[] vertices
-    ) {
-    }
+    private static final CopycatSlopeVertex NORTH_EAST =
+            new CopycatSlopeVertex(
+                    1.0F,
+                    0.0F,
+                    0.0F
+            );
 
-    /*
-     * ============================================================
-     * CANONICAL GEOMETRY
-     * ============================================================
-     *
-     * NORTH = low
-     * SOUTH = high
-     *
-     *              SOUTH
-     *          ┌──────────┐
-     *          │          │
-     *          │          │
-     *          └──────────┘
-     *         ╱
-     *        ╱
-     *       ╱
-     *      ╱
-     * NORTH
-     *
-     * The slope rises from NORTH -> SOUTH.
-     */
+    private static final CopycatSlopeVertex SOUTH_BOTTOM_WEST =
+            new CopycatSlopeVertex(
+                    0.0F,
+                    0.0F,
+                    1.0F
+            );
 
-    private static final Vertex NORTH_WEST =
-            new Vertex(0.0F, 0.0F, 0.0F);
+    private static final CopycatSlopeVertex SOUTH_BOTTOM_EAST =
+            new CopycatSlopeVertex(
+                    1.0F,
+                    0.0F,
+                    1.0F
+            );
 
-    private static final Vertex NORTH_EAST =
-            new Vertex(1.0F, 0.0F, 0.0F);
+    private static final CopycatSlopeVertex SOUTH_TOP_WEST =
+            new CopycatSlopeVertex(
+                    0.0F,
+                    1.0F,
+                    1.0F
+            );
 
-    private static final Vertex SOUTH_BOTTOM_WEST =
-            new Vertex(0.0F, 0.0F, 1.0F);
-
-    private static final Vertex SOUTH_BOTTOM_EAST =
-            new Vertex(1.0F, 0.0F, 1.0F);
-
-    private static final Vertex SOUTH_TOP_WEST =
-            new Vertex(0.0F, 1.0F, 1.0F);
-
-    private static final Vertex SOUTH_TOP_EAST =
-            new Vertex(1.0F, 1.0F, 1.0F);
+    private static final CopycatSlopeVertex SOUTH_TOP_EAST =
+            new CopycatSlopeVertex(
+                    1.0F,
+                    1.0F,
+                    1.0F
+            );
 
     /**
      * Returns the canonical NORTH/BOTTOM geometry.
      */
-    public static Face[] getDefaultFaces() {
+    public static CopycatSlopeFace[] getDefaultFaces() {
+        return new CopycatSlopeFace[] {
 
-        return new Face[] {
-
-                /*
-                 * ====================================================
-                 * DOWN
-                 * ====================================================
-                 *
-                 * Full square.
-                 */
-
-                new Face(
+                new CopycatSlopeFace(
                         Direction.DOWN,
-                        new Vertex[] {
+                        new CopycatSlopeVertex[] {
                                 NORTH_WEST,
                                 SOUTH_BOTTOM_WEST,
                                 SOUTH_BOTTOM_EAST,
@@ -115,17 +89,9 @@ public final class CopycatGeometrySlope {
                         }
                 ),
 
-                /*
-                 * ====================================================
-                 * UP
-                 * ====================================================
-                 *
-                 * Inclined surface.
-                 */
-
-                new Face(
+                new CopycatSlopeFace(
                         Direction.UP,
-                        new Vertex[] {
+                        new CopycatSlopeVertex[] {
                                 NORTH_WEST,
                                 NORTH_EAST,
                                 SOUTH_TOP_EAST,
@@ -133,17 +99,9 @@ public final class CopycatGeometrySlope {
                         }
                 ),
 
-                /*
-                 * ====================================================
-                 * SOUTH
-                 * ====================================================
-                 *
-                 * Full square.
-                 */
-
-                new Face(
+                new CopycatSlopeFace(
                         Direction.SOUTH,
-                        new Vertex[] {
+                        new CopycatSlopeVertex[] {
                                 SOUTH_BOTTOM_WEST,
                                 SOUTH_TOP_WEST,
                                 SOUTH_TOP_EAST,
@@ -151,34 +109,18 @@ public final class CopycatGeometrySlope {
                         }
                 ),
 
-                /*
-                 * ====================================================
-                 * WEST
-                 * ====================================================
-                 *
-                 * Right triangle.
-                 */
-
-                new Face(
+                new CopycatSlopeFace(
                         Direction.WEST,
-                        new Vertex[] {
+                        new CopycatSlopeVertex[] {
                                 NORTH_WEST,
                                 SOUTH_BOTTOM_WEST,
                                 SOUTH_TOP_WEST
                         }
                 ),
 
-                /*
-                 * ====================================================
-                 * EAST
-                 * ====================================================
-                 *
-                 * Right triangle.
-                 */
-
-                new Face(
+                new CopycatSlopeFace(
                         Direction.EAST,
-                        new Vertex[] {
+                        new CopycatSlopeVertex[] {
                                 NORTH_EAST,
                                 SOUTH_TOP_EAST,
                                 SOUTH_BOTTOM_EAST
@@ -192,23 +134,25 @@ public final class CopycatGeometrySlope {
      *
      * @param facing horizontal orientation of the slope
      * @param half vertical orientation of the slope
+     * @return the transformed slope faces
      */
-    public static Face[] getFaces(
+    public static CopycatSlopeFace[] getFaces(
             @NotNull Direction facing,
             @NotNull Half half
     ) {
-        Face[] source = getDefaultFaces();
+        CopycatSlopeFace[] source =
+                getDefaultFaces();
 
-        Face[] result =
-                new Face[source.length];
+        CopycatSlopeFace[] result =
+                new CopycatSlopeFace[source.length];
 
         for (int i = 0; i < source.length; i++) {
 
-            Face sourceFace =
+            CopycatSlopeFace sourceFace =
                     source[i];
 
-            Vertex[] vertices =
-                    new Vertex[
+            CopycatSlopeVertex[] vertices =
+                    new CopycatSlopeVertex[
                             sourceFace.vertices().length
                             ];
 
@@ -230,7 +174,7 @@ public final class CopycatGeometrySlope {
                     );
 
             result[i] =
-                    new Face(
+                    new CopycatSlopeFace(
                             direction,
                             vertices
                     );
@@ -239,11 +183,8 @@ public final class CopycatGeometrySlope {
         return result;
     }
 
-    /**
-     * Rotates and vertically mirrors a vertex.
-     */
-    private static Vertex transform(
-            @NotNull Vertex vertex,
+    private static CopycatSlopeVertex transform(
+            @NotNull CopycatSlopeVertex vertex,
             @NotNull Direction facing,
             @NotNull Half half
     ) {
@@ -251,31 +192,12 @@ public final class CopycatGeometrySlope {
         float y = vertex.y();
         float z = vertex.z();
 
-        /*
-         * ------------------------------------------------------------
-         * VERTICAL MIRROR
-         * ------------------------------------------------------------
-         */
-
         if (half == Half.TOP) {
             y = 1.0F - y;
         }
 
-        /*
-         * ------------------------------------------------------------
-         * HORIZONTAL ROTATION
-         * ------------------------------------------------------------
-         *
-         * Canonical direction:
-         *
-         *     NORTH -> SOUTH
-         */
-
-        float localX =
-                x - 0.5F;
-
-        float localZ =
-                z - 0.5F;
+        float localX = x - 0.5F;
+        float localZ = z - 0.5F;
 
         float rotatedX =
                 switch (facing) {
@@ -284,7 +206,8 @@ public final class CopycatGeometrySlope {
                     case SOUTH -> -localX;
                     case WEST -> localZ;
                     case UP, DOWN -> throw new IllegalArgumentException(
-                            "Copycat Slope facing must be horizontal: " + facing
+                            "Copycat Slope facing must be horizontal: "
+                                    + facing
                     );
                 };
 
@@ -295,31 +218,24 @@ public final class CopycatGeometrySlope {
                     case SOUTH -> -localZ;
                     case WEST -> -localX;
                     case UP, DOWN -> throw new IllegalArgumentException(
-                            "Copycat Slope facing must be horizontal: " + facing
+                            "Copycat Slope facing must be horizontal: "
+                                    + facing
                     );
                 };
 
-        return new Vertex(
+        return new CopycatSlopeVertex(
                 rotatedX + 0.5F,
                 y,
                 rotatedZ + 0.5F
         );
     }
 
-    /**
-     * Rotates the direction of a face.
-     */
     private static Direction transformDirection(
             @NotNull Direction direction,
             @NotNull Direction facing,
             @NotNull Half half
     ) {
-        Direction result =
-                direction;
-
-        /*
-         * Horizontal rotation.
-         */
+        Direction result = direction;
 
         if (direction.getAxis().isHorizontal()) {
 
@@ -330,19 +246,15 @@ public final class CopycatGeometrySlope {
                         case SOUTH -> 2;
                         case WEST -> 3;
                         case UP, DOWN -> throw new IllegalArgumentException(
-                                "Copycat Slope facing must be horizontal: " + facing
+                                "Copycat Slope facing must be horizontal: "
+                                        + facing
                         );
                     };
 
             for (int i = 0; i < rotations; i++) {
-                result =
-                        result.getClockWise();
+                result = result.getClockWise();
             }
         }
-
-        /*
-         * Vertical inversion.
-         */
 
         if (half == Half.TOP) {
 
