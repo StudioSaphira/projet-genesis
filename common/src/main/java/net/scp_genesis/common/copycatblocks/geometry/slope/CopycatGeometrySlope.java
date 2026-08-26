@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.geometry;
+package net.scp_genesis.common.copycatblocks.geometry.slope;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.Half;
@@ -26,9 +26,9 @@ import org.jetbrains.annotations.NotNull;
  *     <li>one east right triangle</li>
  * </ul>
  */
-public final class CopycatSlopeGeometry {
+public final class CopycatGeometrySlope {
 
-    private CopycatSlopeGeometry() {
+    private CopycatGeometrySlope() {
     }
 
     /**

@@ -7,11 +7,11 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.geometry.slab.CopycatGeometrySlab;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
@@ -21,7 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometrySlab
+        implements NeoForgeCopycatGeometry {
 
     private final BakedModel bottomModel;
     private final BakedModel topModel;
@@ -53,13 +54,6 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
-
-        /*
-         * ============================================================
-         * NO STATE
-         * ============================================================
-         */
-
         if (state == null) {
             return bottomModel.getQuads(
                     null,
@@ -71,26 +65,32 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
         }
 
         SlabType slabType =
-                state.getValue(
-                        BlockStateProperties.SLAB_TYPE
-                );
+                CopycatGeometrySlab.getSlabType(state);
 
         /*
          * ============================================================
-         * BOTTOM
+         * SINGLE SLAB
          * ============================================================
          */
 
-        if (slabType == SlabType.BOTTOM) {
+        if (!CopycatGeometrySlab.isDouble(slabType)) {
+
+            CopycatPart part =
+                    CopycatGeometrySlab.getPart(slabType);
+
+            BakedModel model =
+                    slabType == SlabType.BOTTOM
+                            ? bottomModel
+                            : topModel;
 
             BlockState copiedState =
                     NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
-                            CopycatPart.BOTTOM
+                            part
                     );
 
             if (copiedState == null || copiedState.isAir()) {
-                return bottomModel.getQuads(
+                return model.getQuads(
                         state,
                         side,
                         random,
@@ -100,50 +100,14 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
             }
 
             return NeoForgeCopycatQuadHelper.retextureModel(
-                    bottomModel,
+                    model,
                     state,
                     copiedState,
                     side,
                     random,
                     renderType,
                     modelData,
-                    CopycatPart.BOTTOM
-            );
-        }
-
-        /*
-         * ============================================================
-         * TOP
-         * ============================================================
-         */
-
-        if (slabType == SlabType.TOP) {
-
-            BlockState copiedState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
-                            modelData,
-                            CopycatPart.TOP
-                    );
-
-            if (copiedState == null || copiedState.isAir()) {
-                return topModel.getQuads(
-                        state,
-                        side,
-                        random,
-                        modelData,
-                        renderType
-                );
-            }
-
-            return NeoForgeCopycatQuadHelper.retextureModel(
-                    topModel,
-                    state,
-                    copiedState,
-                    side,
-                    random,
-                    renderType,
-                    modelData,
-                    CopycatPart.TOP
+                    part
             );
         }
 
@@ -151,110 +115,90 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
          * ============================================================
          * DOUBLE
          * ============================================================
-         *
-         * A DOUBLE slab is composed of two logical Copycat parts:
-         *
-         *     BOTTOM -> bottomModel
-         *     TOP    -> doubleSecondaryModel
          */
 
-        if (slabType == SlabType.DOUBLE) {
+        BlockState bottomState =
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        CopycatPart.BOTTOM
+                );
 
-            BlockState bottomState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
+        BlockState topState =
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        CopycatPart.TOP
+                );
+
+        boolean hasBottom =
+                bottomState != null
+                        && !bottomState.isAir();
+
+        boolean hasTop =
+                topState != null
+                        && !topState.isAir();
+
+        List<BakedQuad> result =
+                new ArrayList<>();
+
+        /*
+         * BOTTOM
+         */
+
+        if (hasBottom) {
+            result.addAll(
+                    NeoForgeCopycatQuadHelper.retextureModel(
+                            bottomModel,
+                            state,
+                            bottomState,
+                            side,
+                            random,
+                            renderType,
                             modelData,
                             CopycatPart.BOTTOM
-                    );
-
-            BlockState topState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
+                    )
+            );
+        } else {
+            result.addAll(
+                    bottomModel.getQuads(
+                            state,
+                            side,
+                            random,
                             modelData,
-                            CopycatPart.TOP
-                    );
-
-            boolean hasBottom =
-                    bottomState != null
-                            && !bottomState.isAir();
-
-            boolean hasTop =
-                    topState != null
-                            && !topState.isAir();
-
-            List<BakedQuad> result =
-                    new ArrayList<>();
-
-            /*
-             * --------------------------------------------------------
-             * BOTTOM HALF
-             * --------------------------------------------------------
-             */
-
-            if (hasBottom) {
-
-                result.addAll(
-                        NeoForgeCopycatQuadHelper.retextureModel(
-                                bottomModel,
-                                state,
-                                bottomState,
-                                side,
-                                random,
-                                renderType,
-                                modelData,
-                                CopycatPart.BOTTOM
-                        )
-                );
-
-            } else {
-
-                result.addAll(
-                        bottomModel.getQuads(
-                                state,
-                                side,
-                                random,
-                                modelData,
-                                renderType
-                        )
-                );
-            }
-
-            /*
-             * --------------------------------------------------------
-             * TOP HALF
-             * --------------------------------------------------------
-             */
-
-            if (hasTop) {
-
-                result.addAll(
-                        NeoForgeCopycatQuadHelper.retextureModel(
-                                doubleSecondaryModel,
-                                state,
-                                topState,
-                                side,
-                                random,
-                                renderType,
-                                modelData,
-                                CopycatPart.TOP
-                        )
-                );
-
-            } else {
-
-                result.addAll(
-                        doubleSecondaryModel.getQuads(
-                                state,
-                                side,
-                                random,
-                                modelData,
-                                renderType
-                        )
-                );
-            }
-
-            return result;
+                            renderType
+                    )
+            );
         }
 
-        return List.of();
+        /*
+         * TOP
+         */
+
+        if (hasTop) {
+            result.addAll(
+                    NeoForgeCopycatQuadHelper.retextureModel(
+                            doubleSecondaryModel,
+                            state,
+                            topState,
+                            side,
+                            random,
+                            renderType,
+                            modelData,
+                            CopycatPart.TOP
+                    )
+            );
+        } else {
+            result.addAll(
+                    doubleSecondaryModel.getQuads(
+                            state,
+                            side,
+                            random,
+                            modelData,
+                            renderType
+                    )
+            );
+        }
+
+        return result;
     }
 
     @Override
@@ -270,54 +214,23 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
         }
 
         SlabType slabType =
-                state.getValue(
-                        BlockStateProperties.SLAB_TYPE
-                );
+                CopycatGeometrySlab.getSlabType(state);
 
         /*
          * ============================================================
-         * BOTTOM
+         * SINGLE SLAB
          * ============================================================
          */
 
-        if (slabType == SlabType.BOTTOM) {
+        if (!CopycatGeometrySlab.isDouble(slabType)) {
+
+            CopycatPart part =
+                    CopycatGeometrySlab.getPart(slabType);
 
             BlockState copiedState =
                     NeoForgeCopycatBlockStateHelper.getCopiedState(
                             modelData,
-                            CopycatPart.BOTTOM
-                    );
-
-            if (copiedState == null || copiedState.isAir()) {
-                return ChunkRenderTypeSet.of(
-                        RenderType.cutout()
-                );
-            }
-
-            BakedModel copiedModel =
-                    CopycatModelProvider.getModel(
-                            copiedState
-                    );
-
-            return copiedModel.getRenderTypes(
-                    copiedState,
-                    random,
-                    modelData
-            );
-        }
-
-        /*
-         * ============================================================
-         * TOP
-         * ============================================================
-         */
-
-        if (slabType == SlabType.TOP) {
-
-            BlockState copiedState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
-                            modelData,
-                            CopycatPart.TOP
+                            part
                     );
 
             if (copiedState == null || copiedState.isAir()) {
@@ -342,79 +255,61 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
          * ============================================================
          * DOUBLE
          * ============================================================
-         *
-         * A DOUBLE slab can contain two different copied blocks.
          */
 
-        if (slabType == SlabType.DOUBLE) {
-
-            BlockState bottomState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
-                            modelData,
-                            CopycatPart.BOTTOM
-                    );
-
-            BlockState topState =
-                    NeoForgeCopycatBlockStateHelper.getCopiedState(
-                            modelData,
-                            CopycatPart.TOP
-                    );
-
-            boolean hasBottom =
-                    bottomState != null
-                            && !bottomState.isAir();
-
-            boolean hasTop =
-                    topState != null
-                            && !topState.isAir();
-
-            /*
-             * No copied block, or only one copied block.
-             *
-             * The Copycat geometry itself uses cutout.
-             */
-            if (!hasBottom || !hasTop) {
-                return ChunkRenderTypeSet.of(
-                        RenderType.cutout()
+        BlockState bottomState =
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        CopycatPart.BOTTOM
                 );
-            }
 
-            /*
-             * BOTTOM + TOP
-             */
+        BlockState topState =
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        CopycatPart.TOP
+                );
 
-            BakedModel bottomCopiedModel =
-                    CopycatModelProvider.getModel(
-                            bottomState
-                    );
+        boolean hasBottom =
+                bottomState != null
+                        && !bottomState.isAir();
 
-            BakedModel topCopiedModel =
-                    CopycatModelProvider.getModel(
-                            topState
-                    );
+        boolean hasTop =
+                topState != null
+                        && !topState.isAir();
 
-            ChunkRenderTypeSet bottomRenderTypes =
-                    bottomCopiedModel.getRenderTypes(
-                            bottomState,
-                            random,
-                            modelData
-                    );
-
-            ChunkRenderTypeSet topRenderTypes =
-                    topCopiedModel.getRenderTypes(
-                            topState,
-                            random,
-                            modelData
-                    );
-
-            return ChunkRenderTypeSet.union(
-                    bottomRenderTypes,
-                    topRenderTypes
+        if (!hasBottom || !hasTop) {
+            return ChunkRenderTypeSet.of(
+                    RenderType.cutout()
             );
         }
 
-        return ChunkRenderTypeSet.of(
-                RenderType.cutout()
+        BakedModel bottomCopiedModel =
+                CopycatModelProvider.getModel(
+                        bottomState
+                );
+
+        BakedModel topCopiedModel =
+                CopycatModelProvider.getModel(
+                        topState
+                );
+
+        ChunkRenderTypeSet bottomRenderTypes =
+                bottomCopiedModel.getRenderTypes(
+                        bottomState,
+                        random,
+                        modelData
+                );
+
+        ChunkRenderTypeSet topRenderTypes =
+                topCopiedModel.getRenderTypes(
+                        topState,
+                        random,
+                        modelData
+                );
+
+        return ChunkRenderTypeSet.union(
+                bottomRenderTypes,
+                topRenderTypes
         );
     }
 
@@ -422,13 +317,6 @@ public final class NeoForgeCopycatGeometrySlab implements NeoForgeCopycatGeometr
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        /*
-         * A Slab has no single MAIN part.
-         *
-         * The particle texture therefore depends on the
-         * copied state associated with the slab part.
-         */
-
         BlockState bottomState =
                 NeoForgeCopycatBlockStateHelper.getCopiedState(
                         modelData,

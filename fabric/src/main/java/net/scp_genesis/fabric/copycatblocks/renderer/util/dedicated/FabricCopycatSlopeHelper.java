@@ -13,7 +13,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatSlopeGeometry;
+import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
@@ -33,7 +33,7 @@ public final class FabricCopycatSlopeHelper {
      * of the copied block.
      */
     public static void retexture(
-            @NotNull CopycatSlopeGeometry.Face[] faces,
+            @NotNull CopycatGeometrySlope.Face[] faces,
             @NotNull BlockState copiedState,
             @NotNull Supplier<RandomSource> randomSupplier,
             @NotNull RenderContext context,
@@ -50,7 +50,7 @@ public final class FabricCopycatSlopeHelper {
         RandomSource random =
                 randomSupplier.get();
 
-        for (CopycatSlopeGeometry.Face face : faces) {
+        for (CopycatGeometrySlope.Face face : faces) {
 
             BakedQuad copiedQuad =
                     findCopiedQuad(
@@ -122,11 +122,11 @@ public final class FabricCopycatSlopeHelper {
      */
     public static void emitRetexturedFace(
             @NotNull QuadEmitter emitter,
-            @NotNull CopycatSlopeGeometry.Face face,
+            @NotNull CopycatGeometrySlope.Face face,
             @NotNull BakedQuad copiedQuad,
             @NotNull CopycatPart part
     ) {
-        CopycatSlopeGeometry.Vertex[] vertices =
+        CopycatGeometrySlope.Vertex[] vertices =
                 face.vertices();
 
         emitter.fromVanilla(
@@ -190,9 +190,9 @@ public final class FabricCopycatSlopeHelper {
      */
     private static void setSlopeFaceUv(
             @NotNull QuadEmitter emitter,
-            @NotNull CopycatSlopeGeometry.Face face
+            @NotNull CopycatGeometrySlope.Face face
     ) {
-        CopycatSlopeGeometry.Vertex[] vertices =
+        CopycatGeometrySlope.Vertex[] vertices =
                 face.vertices();
 
         for (int i = 0; i < vertices.length; i++) {
@@ -232,7 +232,7 @@ public final class FabricCopycatSlopeHelper {
     private static void setSlopeVertexUv(
             @NotNull QuadEmitter emitter,
             int index,
-            @NotNull CopycatSlopeGeometry.Vertex vertex,
+            @NotNull CopycatGeometrySlope.Vertex vertex,
             @NotNull Direction direction
     ) {
         float u;
@@ -277,7 +277,7 @@ public final class FabricCopycatSlopeHelper {
      * Emits an empty Slope using the default Copycat texture.
      */
     public static void emitEmpty(
-            @NotNull CopycatSlopeGeometry.Face[] faces,
+            @NotNull CopycatGeometrySlope.Face[] faces,
             @NotNull TextureAtlasSprite sprite,
             @NotNull RenderContext context
     ) {
@@ -285,9 +285,9 @@ public final class FabricCopycatSlopeHelper {
 
         RenderMaterial material = FabricCopycatRenderer.getCutoutMaterial();
 
-        for (CopycatSlopeGeometry.Face face : faces) {
+        for (CopycatGeometrySlope.Face face : faces) {
 
-            CopycatSlopeGeometry.Vertex[] vertices =
+            CopycatGeometrySlope.Vertex[] vertices =
                     face.vertices();
 
             if (vertices.length == 4) {
@@ -315,7 +315,7 @@ public final class FabricCopycatSlopeHelper {
 
     private static void emitQuad(
             @NotNull QuadEmitter emitter,
-            @NotNull CopycatSlopeGeometry.Vertex[] vertices,
+            @NotNull CopycatGeometrySlope.Vertex[] vertices,
             @NotNull Direction direction,
             @NotNull TextureAtlasSprite sprite,
             @NotNull RenderMaterial material
@@ -339,7 +339,7 @@ public final class FabricCopycatSlopeHelper {
 
     private static void emitTriangle(
             @NotNull QuadEmitter emitter,
-            @NotNull CopycatSlopeGeometry.Vertex[] vertices,
+            @NotNull CopycatGeometrySlope.Vertex[] vertices,
             @NotNull Direction direction,
             @NotNull TextureAtlasSprite sprite,
             @NotNull RenderMaterial material
@@ -376,7 +376,7 @@ public final class FabricCopycatSlopeHelper {
     private static void setVertex(
             @NotNull QuadEmitter emitter,
             int index,
-            @NotNull CopycatSlopeGeometry.Vertex vertex
+            @NotNull CopycatGeometrySlope.Vertex vertex
     ) {
         emitter.pos(
                 index,
