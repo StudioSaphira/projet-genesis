@@ -22,8 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class FabricCopycatGeometryStairs
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry {
 
     private final Map<
             FabricCopycatStairsHelper.StairModelKey,

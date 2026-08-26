@@ -17,8 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public final class FabricCopycatGeometrySlab
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometrySlab implements FabricCopycatGeometry {
 
     private final BakedModel bottomModel;
     private final BakedModel topModel;

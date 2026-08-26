@@ -16,8 +16,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public final class FabricCopycatModelProvider {
 
-    private FabricCopycatModelProvider() {
-    }
+    private FabricCopycatModelProvider() {}
 
     /**
      * Returns the vanilla BakedModel corresponding to the supplied BlockState.
@@ -28,8 +27,7 @@ public final class FabricCopycatModelProvider {
     public static @NotNull BakedModel getModel(
             @Nullable BlockState state
     ) {
-        BlockRenderDispatcher dispatcher =
-                Minecraft.getInstance().getBlockRenderer();
+        BlockRenderDispatcher dispatcher = Minecraft.getInstance().getBlockRenderer();
 
         if (state == null || state.isAir()) {
             return dispatcher.getBlockModel(

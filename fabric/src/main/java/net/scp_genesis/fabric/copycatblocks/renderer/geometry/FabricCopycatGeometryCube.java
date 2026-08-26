@@ -21,8 +21,7 @@ import java.util.function.Supplier;
  * <p>The Cube geometry represents a standard full-block shape.
  * Its appearance is handled separately by the Copycat rendering system.</p>
  */
-public final class FabricCopycatGeometryCube
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometryCube implements FabricCopycatGeometry {
 
     private final BakedModel baseModel;
 

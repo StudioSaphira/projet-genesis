@@ -10,8 +10,7 @@ import java.util.EnumMap;
 
 public final class FabricCopycatBlockStateHelper {
 
-    private FabricCopycatBlockStateHelper() {
-    }
+    private FabricCopycatBlockStateHelper() {}
 
     /**
      * Returns the copied BlockState associated with a Copycat part.
@@ -20,12 +19,9 @@ public final class FabricCopycatBlockStateHelper {
             @NotNull FabricPlatformModelData.Data modelData,
             @NotNull CopycatPart part
     ) {
-        EnumMap<CopycatPart, BlockState> copiedStates =
-                modelData.getCopiedStates();
+        EnumMap<CopycatPart, BlockState> copiedStates = modelData.getCopiedStates();
 
-        if (copiedStates == null) {
-            return null;
-        }
+        if (copiedStates == null) {return null;}
 
         return copiedStates.get(part);
     }

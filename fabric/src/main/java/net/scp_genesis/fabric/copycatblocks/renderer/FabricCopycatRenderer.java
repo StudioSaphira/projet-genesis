@@ -18,9 +18,7 @@ public final class FabricCopycatRenderer {
                 RendererAccess.INSTANCE.getRenderer();
 
         if (renderer == null) {
-            throw new IllegalStateException(
-                    "Fabric Renderer is not available"
-            );
+            throw new IllegalStateException("Fabric Renderer is not available");
         }
 
         return renderer;

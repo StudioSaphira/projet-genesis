@@ -16,14 +16,13 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatSlopeGeometry;
 
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 @SuppressWarnings("ClassCanBeRecord")
-public final class FabricCopycatGeometrySlope
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
     @Override
     public void emitBlockQuads(
@@ -76,7 +75,7 @@ public final class FabricCopycatGeometrySlope
 
         if (copiedState == null || copiedState.isAir()) {
 
-            FabricCopycatQuadHelper.emitEmptySlope(
+            FabricCopycatSlopeHelper.emitEmpty(
                     faces,
                     particleIcon,
                     context
@@ -85,7 +84,7 @@ public final class FabricCopycatGeometrySlope
             return;
         }
 
-        FabricCopycatQuadHelper.retextureSlope(
+        FabricCopycatSlopeHelper.retexture(
                 faces,
                 copiedState,
                 randomSupplier,
@@ -96,11 +95,7 @@ public final class FabricCopycatGeometrySlope
 
     private final TextureAtlasSprite particleIcon;
 
-    public FabricCopycatGeometrySlope(
-            @NotNull TextureAtlasSprite particleIcon
-    ) {
-        this.particleIcon = particleIcon;
-    }
+    public FabricCopycatGeometrySlope(@NotNull TextureAtlasSprite particleIcon) {this.particleIcon = particleIcon;}
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
