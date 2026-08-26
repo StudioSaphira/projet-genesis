@@ -78,6 +78,7 @@ public final class ModItems {
 	public static PlatformRegistryObject<Item> COPYCAT_WRENCH, COPYCAT_SCRAPER, COPYCAT_REMOVER;
 
 	public static PlatformRegistryObject<Item> CLEAN_WHITE_WALL;
+	public static PlatformRegistryObject<Item> DIRTY_WHITE_WALL;
 	public static PlatformRegistryObject<Item> BROKEN_WHITE_WALL_ONE;
 	public static PlatformRegistryObject<Item> BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Item> DIRTY_BROKEN_WHITE_WALL_ONE;
@@ -208,6 +209,7 @@ public final class ModItems {
 		KEYCARD_RAISA_LV2 = registry.registerItem("keycard_raisa_lv2", RAISAKeycardLv2Item::new);
 
 		CLEAN_WHITE_WALL = registry.registerBlockItem("clean_white_wall", ModBlocks.CLEAN_WHITE_WALL);
+		DIRTY_WHITE_WALL = registry.registerBlockItem("dirty_white_wall", ModBlocks.DIRTY_WHITE_WALL);
 		BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("broken_white_wall_one", ModBlocks.BROKEN_WHITE_WALL_ONE);
 		BROKEN_WHITE_WALL_TWO = registry.registerBlockItem("broken_white_wall_two", ModBlocks.BROKEN_WHITE_WALL_TWO);
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("dirty_broken_white_wall_one", ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);

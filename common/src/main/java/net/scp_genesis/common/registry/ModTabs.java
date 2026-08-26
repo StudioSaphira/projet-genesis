@@ -169,6 +169,7 @@ public final class ModTabs {
 								.displayItems(
 										(parameters, tabData) -> {
 											tabData.accept(ModItems.CLEAN_WHITE_WALL.get());
+											tabData.accept(ModItems.DIRTY_WHITE_WALL.get());
 											tabData.accept(ModItems.BROKEN_WHITE_WALL_ONE.get());
 											tabData.accept(ModItems.BROKEN_WHITE_WALL_TWO.get());
 											tabData.accept(ModItems.DIRTY_BROKEN_WHITE_WALL_ONE.get());

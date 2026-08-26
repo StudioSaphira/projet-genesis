@@ -17,6 +17,7 @@ public final class ModBlocks {
 	private ModBlocks() {}
 
 	public static PlatformRegistryObject<Block> CLEAN_WHITE_WALL;
+	public static PlatformRegistryObject<Block> DIRTY_WHITE_WALL;
 	public static PlatformRegistryObject<Block> BROKEN_WHITE_WALL_ONE;
 	public static PlatformRegistryObject<Block> BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Block> DIRTY_BROKEN_WHITE_WALL_ONE;
@@ -32,15 +33,17 @@ public final class ModBlocks {
 	public static void register(
 			PlatformRegistry registry
 	) {
-		CLEAN_WHITE_WALL = registry.registerBlock("clean_white_wall", CleanWhiteWallBlock::new);
+		CLEAN_WHITE_WALL = registry.registerBlock("clean_white_wall", CleanWhiteTiledBlock::new);
 
-		BROKEN_WHITE_WALL_ONE = registry.registerBlock("broken_white_wall_one", BrokenWhiteWallOneBlock::new);
+		DIRTY_WHITE_WALL = registry.registerBlock("dirty_white_wall", DirtyWhiteTiledBlock::new);
 
-		BROKEN_WHITE_WALL_TWO = registry.registerBlock("broken_white_wall_two", BrokenWhiteWallTwoBlock::new);
+		BROKEN_WHITE_WALL_ONE = registry.registerBlock("broken_white_wall_one", BrokenWhiteTiledOneBlock::new);
 
-		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteWallOneBlock::new);
+		BROKEN_WHITE_WALL_TWO = registry.registerBlock("broken_white_wall_two", BrokenWhiteTiledTwoBlock::new);
 
-		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteWallTwoBlock::new);
+		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteTiledOneBlock::new);
+
+		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteTiledTwoBlock::new);
 
 		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
 
