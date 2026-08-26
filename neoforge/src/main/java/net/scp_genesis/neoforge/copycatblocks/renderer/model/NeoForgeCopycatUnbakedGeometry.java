@@ -8,7 +8,7 @@ import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsModelHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -153,8 +153,8 @@ public final class NeoForgeCopycatUnbakedGeometry
 
         if (geometryType == GeometryType.STAIRS) {
 
-            Map<NeoForgeCopycatStairsModelHelper.StairModelKey, BakedModel> stairsModels =
-                    NeoForgeCopycatStairsModelHelper.bakeStairsModels(
+            Map<NeoForgeCopycatStairsHelper.StairModelKey, BakedModel> stairsModels =
+                    NeoForgeCopycatStairsHelper.bakeStairsModels(
                             baker,
                             Objects.requireNonNull(baseModels),
                             copycatSpriteGetter

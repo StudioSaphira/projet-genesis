@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsModelHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,21 +26,21 @@ public final class FabricCopycatGeometryStairs
         implements FabricCopycatGeometry {
 
     private final Map<
-            FabricCopycatStairsModelHelper.StairModelKey,
+            FabricCopycatStairsHelper.StairModelKey,
             BakedModel
             > models;
 
     public FabricCopycatGeometryStairs(
             @NotNull Map<
-                    FabricCopycatStairsModelHelper.StairModelKey,
+                    FabricCopycatStairsHelper.StairModelKey,
                     BakedModel
                     > models
     ) {
         this.models = models;
     }
 
-    private static final FabricCopycatStairsModelHelper.StairModelKey DEFAULT_MODEL_KEY =
-            new FabricCopycatStairsModelHelper.StairModelKey(
+    private static final FabricCopycatStairsHelper.StairModelKey DEFAULT_MODEL_KEY =
+            new FabricCopycatStairsHelper.StairModelKey(
                     Direction.EAST,
                     Half.BOTTOM,
                     StairsShape.STRAIGHT
@@ -72,8 +72,8 @@ public final class FabricCopycatGeometryStairs
                         BlockStateProperties.STAIRS_SHAPE
                 );
 
-        FabricCopycatStairsModelHelper.StairModelKey key =
-                new FabricCopycatStairsModelHelper.StairModelKey(
+        FabricCopycatStairsHelper.StairModelKey key =
+                new FabricCopycatStairsHelper.StairModelKey(
                         facing,
                         half,
                         shape

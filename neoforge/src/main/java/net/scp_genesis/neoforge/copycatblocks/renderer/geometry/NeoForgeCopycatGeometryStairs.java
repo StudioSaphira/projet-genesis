@@ -16,7 +16,7 @@ import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.neoforge.copycatblocks.provider.NeoForgeCopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsModelHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,21 +27,21 @@ public final class NeoForgeCopycatGeometryStairs
         implements NeoForgeCopycatGeometry {
 
     private final Map<
-            NeoForgeCopycatStairsModelHelper.StairModelKey,
+            NeoForgeCopycatStairsHelper.StairModelKey,
             BakedModel
             > models;
 
     public NeoForgeCopycatGeometryStairs(
             @NotNull Map<
-                    NeoForgeCopycatStairsModelHelper.StairModelKey,
+                    NeoForgeCopycatStairsHelper.StairModelKey,
                     BakedModel
                     > models
     ) {
         this.models = models;
     }
 
-    private static final NeoForgeCopycatStairsModelHelper.StairModelKey DEFAULT_MODEL_KEY =
-            new NeoForgeCopycatStairsModelHelper.StairModelKey(
+    private static final NeoForgeCopycatStairsHelper.StairModelKey DEFAULT_MODEL_KEY =
+            new NeoForgeCopycatStairsHelper.StairModelKey(
                     Direction.EAST,
                     Half.BOTTOM,
                     StairsShape.STRAIGHT
@@ -73,8 +73,8 @@ public final class NeoForgeCopycatGeometryStairs
                         BlockStateProperties.STAIRS_SHAPE
                 );
 
-        NeoForgeCopycatStairsModelHelper.StairModelKey key =
-                new NeoForgeCopycatStairsModelHelper.StairModelKey(
+        NeoForgeCopycatStairsHelper.StairModelKey key =
+                new NeoForgeCopycatStairsHelper.StairModelKey(
                         facing,
                         half,
                         shape

@@ -1,33 +1,29 @@
-package net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated;
+package net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.BlockModelRotation;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBaker;
-import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelState;
+import net.neoforged.neoforge.client.model.SimpleModelState;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public final class FabricCopycatStairsModelHelper {
+public final class NeoForgeCopycatStairsHelper {
 
-    private FabricCopycatStairsModelHelper() {
+    private NeoForgeCopycatStairsHelper() {
     }
 
     public static Map<StairModelKey, BakedModel> bakeStairsModels(
             ModelBaker baker,
-            Map<String, net.minecraft.resources.ResourceLocation> baseModels,
+            Map<String, ResourceLocation> baseModels,
             Function<Material, TextureAtlasSprite> spriteGetter
     ) {
         Map<StairModelKey, BakedModel> models =
-                new HashMap<>();
+                new java.util.HashMap<>();
 
         for (Direction facing : Direction.Plane.HORIZONTAL) {
             for (Half half : Half.values()) {
@@ -47,18 +43,17 @@ public final class FabricCopycatStairsModelHelper {
                             );
 
                     ModelState modelState =
-                            new FabricCopycatModelState(
+                            new SimpleModelState(
                                     rotation.getRotation(),
                                     true
                             );
 
-                    BakedModel model =
-                            FabricCopycatModelBakeHelper.bakeModel(
-                                    baker,
-                                    baseModels.get(modelKey),
-                                    modelState,
-                                    spriteGetter
-                            );
+                    BakedModel model = NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            baseModels.get(modelKey),
+                            modelState,
+                            spriteGetter
+                    );
 
                     models.put(
                             new StairModelKey(
@@ -162,6 +157,7 @@ public final class FabricCopycatStairsModelHelper {
             };
         };
     }
+
 
     public record StairModelKey(
             Direction facing,

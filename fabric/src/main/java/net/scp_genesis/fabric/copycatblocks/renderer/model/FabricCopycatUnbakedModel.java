@@ -9,7 +9,7 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.scp_genesis.fabric.copycatblocks.renderer.geometry.*;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsModelHelper;
+import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -210,10 +210,10 @@ public final class FabricCopycatUnbakedModel
         if (geometryType == GeometryType.STAIRS) {
 
             Map<
-                    FabricCopycatStairsModelHelper.StairModelKey,
+                    FabricCopycatStairsHelper.StairModelKey,
                     BakedModel
                     > stairsModels =
-                    FabricCopycatStairsModelHelper.bakeStairsModels(
+                    FabricCopycatStairsHelper.bakeStairsModels(
                             baker,
                             Objects.requireNonNull(baseModels),
                             copycatSpriteGetter
