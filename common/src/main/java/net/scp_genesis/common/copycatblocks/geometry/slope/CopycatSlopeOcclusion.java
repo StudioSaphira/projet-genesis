@@ -77,19 +77,6 @@ public final class CopycatSlopeOcclusion {
     }
 
     /**
-     * Returns whether the face is a complete UP boundary.
-     *
-     * <p>The Copycat Slope's UP face is inclined and therefore cannot
-     * be treated as a vanilla full face.</p>
-     */
-    @SuppressWarnings("unused")
-    private static boolean isFullUpFace(
-            @NotNull CopycatSlopeVertex[] vertices
-    ) {
-        return false;
-    }
-
-    /**
      * Returns whether the face is a complete NORTH boundary.
      */
     private static boolean isFullNorthFace(

@@ -105,25 +105,25 @@ public final class CopycatGeometrySlope {
          */
 
         CopycatSlopeVertex topNorthWest =
-                CopycatSlopeMath.diagonalPoint(
+                CopycatSlopeMath.cutVerticalEdge(
                         0.0F,
                         0.0F
                 );
 
         CopycatSlopeVertex topNorthEast =
-                CopycatSlopeMath.diagonalPoint(
+                CopycatSlopeMath.cutVerticalEdge(
                         1.0F,
                         0.0F
                 );
 
         CopycatSlopeVertex diagonalSouthWest =
-                CopycatSlopeMath.diagonalPoint(
+                CopycatSlopeMath.cutVerticalEdge(
                         0.0F,
                         1.0F
                 );
 
         CopycatSlopeVertex diagonalSouthEast =
-                CopycatSlopeMath.diagonalPoint(
+                CopycatSlopeMath.cutVerticalEdge(
                         1.0F,
                         1.0F
                 );
