@@ -226,7 +226,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             BlockPlaceContext context
     ) {
         Direction facing =
-                context.getHorizontalDirection().getOpposite();
+                context.getHorizontalDirection();
 
         Half half =
                 context.getClickLocation().y

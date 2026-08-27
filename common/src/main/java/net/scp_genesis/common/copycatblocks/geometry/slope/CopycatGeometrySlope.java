@@ -37,45 +37,45 @@ public final class CopycatGeometrySlope {
      * ================================================================
      */
 
-    private static final CopycatSlopeVertex NORTH_WEST =
+    private static final CopycatSlopeVertex NORTH_BOTTOM_WEST =
             new CopycatSlopeVertex(
                     0.0F,
                     0.0F,
                     0.0F
             );
 
-    private static final CopycatSlopeVertex NORTH_EAST =
+    private static final CopycatSlopeVertex NORTH_TOP_WEST =
+            new CopycatSlopeVertex(
+                    0.0F,
+                    1.0F,
+                    0.0F
+            );
+
+    private static final CopycatSlopeVertex NORTH_BOTTOM_EAST =
             new CopycatSlopeVertex(
                     1.0F,
                     0.0F,
                     0.0F
             );
 
-    private static final CopycatSlopeVertex SOUTH_BOTTOM_WEST =
+    private static final CopycatSlopeVertex NORTH_TOP_EAST =
             new CopycatSlopeVertex(
-                    0.0F,
+                    1.0F,
+                    1.0F,
+                    0.0F
+            );
+
+    private static final CopycatSlopeVertex SOUTH_EAST =
+            new CopycatSlopeVertex(
+                    1.0F,
                     0.0F,
                     1.0F
             );
 
-    private static final CopycatSlopeVertex SOUTH_BOTTOM_EAST =
-            new CopycatSlopeVertex(
-                    1.0F,
-                    0.0F,
-                    1.0F
-            );
-
-    private static final CopycatSlopeVertex SOUTH_TOP_WEST =
+    private static final CopycatSlopeVertex SOUTH_WEST =
             new CopycatSlopeVertex(
                     0.0F,
-                    1.0F,
-                    1.0F
-            );
-
-    private static final CopycatSlopeVertex SOUTH_TOP_EAST =
-            new CopycatSlopeVertex(
-                    1.0F,
-                    1.0F,
+                    0.0F,
                     1.0F
             );
 
@@ -103,10 +103,10 @@ public final class CopycatGeometrySlope {
                 new CopycatSlopeFace(
                         Direction.DOWN,
                         new CopycatSlopeVertex[] {
-                                NORTH_WEST,
-                                NORTH_EAST,
-                                SOUTH_BOTTOM_EAST,
-                                SOUTH_BOTTOM_WEST
+                                NORTH_BOTTOM_WEST,
+                                NORTH_BOTTOM_EAST,
+                                SOUTH_EAST,
+                                SOUTH_WEST
                         }
                 ),
 
@@ -123,10 +123,10 @@ public final class CopycatGeometrySlope {
                 new CopycatSlopeFace(
                         Direction.UP,
                         new CopycatSlopeVertex[] {
-                                NORTH_WEST,
-                                SOUTH_BOTTOM_WEST,
-                                SOUTH_TOP_EAST,
-                                NORTH_EAST
+                                NORTH_TOP_WEST,
+                                NORTH_TOP_EAST,
+                                SOUTH_EAST,
+                                SOUTH_WEST
                         }
                 ),
 
@@ -137,12 +137,12 @@ public final class CopycatGeometrySlope {
                  */
 
                 new CopycatSlopeFace(
-                        Direction.SOUTH,
+                        Direction.NORTH,
                         new CopycatSlopeVertex[] {
-                                SOUTH_BOTTOM_WEST,
-                                SOUTH_BOTTOM_EAST,
-                                SOUTH_TOP_EAST,
-                                SOUTH_TOP_WEST
+                                NORTH_BOTTOM_WEST,
+                                NORTH_BOTTOM_EAST,
+                                NORTH_TOP_EAST,
+                                NORTH_TOP_WEST
                         }
                 ),
 
@@ -155,9 +155,9 @@ public final class CopycatGeometrySlope {
                 new CopycatSlopeFace(
                         Direction.WEST,
                         new CopycatSlopeVertex[] {
-                                NORTH_WEST,
-                                SOUTH_TOP_WEST,
-                                SOUTH_BOTTOM_WEST
+                                NORTH_TOP_WEST,
+                                SOUTH_WEST,
+                                NORTH_BOTTOM_WEST
                         }
                 ),
 
@@ -170,9 +170,9 @@ public final class CopycatGeometrySlope {
                 new CopycatSlopeFace(
                         Direction.EAST,
                         new CopycatSlopeVertex[] {
-                                NORTH_EAST,
-                                SOUTH_BOTTOM_EAST,
-                                SOUTH_TOP_EAST
+                                NORTH_TOP_EAST,
+                                SOUTH_EAST,
+                                NORTH_BOTTOM_EAST
                         }
                 )
         };
