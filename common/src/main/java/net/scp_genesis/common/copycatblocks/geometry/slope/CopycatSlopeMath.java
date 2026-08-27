@@ -15,7 +15,35 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class CopycatSlopeMath {
 
-    private CopycatSlopeMath() {
+    private CopycatSlopeMath() {}
+
+    public static @NotNull CopycatSlopeVertex lerp(
+            @NotNull CopycatSlopeVertex a,
+            @NotNull CopycatSlopeVertex b,
+            float t
+    ) {
+        return new CopycatSlopeVertex(
+                a.x() + (b.x() - a.x()) * t,
+                a.y() + (b.y() - a.y()) * t,
+                a.z() + (b.z() - a.z()) * t
+        );
+    }
+
+    public static float diagonalHeight(
+            float z
+    ) {
+        return 1.0F - z;
+    }
+
+    public static @NotNull CopycatSlopeVertex diagonalPoint(
+            float x,
+            float z
+    ) {
+        return new CopycatSlopeVertex(
+                x,
+                diagonalHeight(z),
+                z
+        );
     }
 
     /**
