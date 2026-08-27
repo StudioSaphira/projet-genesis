@@ -16,12 +16,12 @@ import org.jetbrains.annotations.NotNull;
  *     <li>SOUTH = high side of the slope</li>
  * </ul>
  *
- * <p>The geometry is a right triangular prism composed of:
+ * <p>The canonical geometry is a right triangular prism composed of:
  *
  * <ul>
  *     <li>one bottom square</li>
  *     <li>one inclined upper face</li>
- *     <li>one south square</li>
+ *     <li>one south vertical square</li>
  *     <li>one west right triangle</li>
  *     <li>one east right triangle</li>
  * </ul>
@@ -30,6 +30,12 @@ public final class CopycatGeometrySlope {
 
     private CopycatGeometrySlope() {
     }
+
+    /*
+     * ================================================================
+     * CANONICAL VERTICES
+     * ================================================================
+     */
 
     private static final CopycatSlopeVertex NORTH_WEST =
             new CopycatSlopeVertex(
@@ -73,61 +79,110 @@ public final class CopycatGeometrySlope {
                     1.0F
             );
 
+    /*
+     * ================================================================
+     * DEFAULT GEOMETRY
+     * ================================================================
+     */
+
     /**
      * Returns the canonical NORTH/BOTTOM geometry.
+     *
+     * <p>The vertex winding is defined so that the face orientation
+     * remains consistent with the corresponding nominal direction.</p>
      */
     public static CopycatSlopeFace[] getDefaultFaces() {
         return new CopycatSlopeFace[] {
+
+                /*
+                 * ----------------------------------------------------
+                 * DOWN
+                 * ----------------------------------------------------
+                 */
 
                 new CopycatSlopeFace(
                         Direction.DOWN,
                         new CopycatSlopeVertex[] {
                                 NORTH_WEST,
-                                SOUTH_BOTTOM_WEST,
+                                NORTH_EAST,
                                 SOUTH_BOTTOM_EAST,
-                                NORTH_EAST
+                                SOUTH_BOTTOM_WEST
                         }
                 ),
+
+                /*
+                 * ----------------------------------------------------
+                 * INCLINED FACE
+                 * ----------------------------------------------------
+                 *
+                 * Nominally represented by Direction.UP.
+                 *
+                 * This is NOT a geometrically horizontal UP face.
+                 */
 
                 new CopycatSlopeFace(
                         Direction.UP,
                         new CopycatSlopeVertex[] {
                                 NORTH_WEST,
-                                NORTH_EAST,
+                                SOUTH_BOTTOM_WEST,
                                 SOUTH_TOP_EAST,
-                                SOUTH_TOP_WEST
+                                NORTH_EAST
                         }
                 ),
+
+                /*
+                 * ----------------------------------------------------
+                 * SOUTH
+                 * ----------------------------------------------------
+                 */
 
                 new CopycatSlopeFace(
                         Direction.SOUTH,
                         new CopycatSlopeVertex[] {
                                 SOUTH_BOTTOM_WEST,
-                                SOUTH_TOP_WEST,
+                                SOUTH_BOTTOM_EAST,
                                 SOUTH_TOP_EAST,
-                                SOUTH_BOTTOM_EAST
+                                SOUTH_TOP_WEST
                         }
                 ),
+
+                /*
+                 * ----------------------------------------------------
+                 * WEST TRIANGLE
+                 * ----------------------------------------------------
+                 */
 
                 new CopycatSlopeFace(
                         Direction.WEST,
                         new CopycatSlopeVertex[] {
                                 NORTH_WEST,
-                                SOUTH_BOTTOM_WEST,
-                                SOUTH_TOP_WEST
+                                SOUTH_TOP_WEST,
+                                SOUTH_BOTTOM_WEST
                         }
                 ),
+
+                /*
+                 * ----------------------------------------------------
+                 * EAST TRIANGLE
+                 * ----------------------------------------------------
+                 */
 
                 new CopycatSlopeFace(
                         Direction.EAST,
                         new CopycatSlopeVertex[] {
                                 NORTH_EAST,
-                                SOUTH_TOP_EAST,
-                                SOUTH_BOTTOM_EAST
+                                SOUTH_BOTTOM_EAST,
+                                SOUTH_TOP_EAST
                         }
                 )
         };
     }
+
+    /*
+     * ================================================================
+     * ORIENTATION
+     * ================================================================
+     */
 
     /**
      * Returns the geometry for the requested orientation.
@@ -146,6 +201,9 @@ public final class CopycatGeometrySlope {
         CopycatSlopeFace[] result =
                 new CopycatSlopeFace[source.length];
 
+        int rotations =
+                getRotationCount(facing);
+
         for (int i = 0; i < source.length; i++) {
 
             CopycatSlopeFace sourceFace =
@@ -159,17 +217,25 @@ public final class CopycatGeometrySlope {
             for (int j = 0; j < vertices.length; j++) {
 
                 vertices[j] =
-                        transform(
+                        transformVertex(
                                 sourceFace.vertices()[j],
-                                facing,
+                                rotations,
                                 half
                         );
+            }
+
+            /*
+             * The vertical reflection used for HALF.TOP reverses
+             * the winding of every face.
+             */
+            if (half == Half.TOP) {
+                reverseWinding(vertices);
             }
 
             Direction direction =
                     transformDirection(
                             sourceFace.direction(),
-                            facing,
+                            rotations,
                             half
                     );
 
@@ -183,45 +249,73 @@ public final class CopycatGeometrySlope {
         return result;
     }
 
-    private static CopycatSlopeVertex transform(
+    /**
+     * Returns the number of clockwise 90° rotations required to
+     * transform the canonical NORTH orientation into the requested
+     * horizontal facing.
+     */
+    private static int getRotationCount(
+            @NotNull Direction facing
+    ) {
+        return switch (facing) {
+            case NORTH -> 0;
+            case EAST -> 1;
+            case SOUTH -> 2;
+            case WEST -> 3;
+
+            case UP, DOWN ->
+                    throw new IllegalArgumentException(
+                            "Copycat Slope facing must be horizontal: "
+                                    + facing
+                    );
+        };
+    }
+
+    /**
+     * Transforms a canonical vertex according to FACING and HALF.
+     */
+    private static CopycatSlopeVertex transformVertex(
             @NotNull CopycatSlopeVertex vertex,
-            @NotNull Direction facing,
+            int rotations,
             @NotNull Half half
     ) {
         float x = vertex.x();
         float y = vertex.y();
         float z = vertex.z();
 
+        /*
+         * HALF.TOP is the vertical mirror of HALF.BOTTOM.
+         */
         if (half == Half.TOP) {
             y = 1.0F - y;
         }
 
-        float localX = x - 0.5F;
-        float localZ = z - 0.5F;
+        /*
+         * Rotate around the center of the block.
+         */
+        float localX =
+                x - 0.5F;
+
+        float localZ =
+                z - 0.5F;
 
         float rotatedX =
-                switch (facing) {
-                    case NORTH -> localX;
-                    case EAST -> -localZ;
-                    case SOUTH -> -localX;
-                    case WEST -> localZ;
-                    case UP, DOWN -> throw new IllegalArgumentException(
-                            "Copycat Slope facing must be horizontal: "
-                                    + facing
-                    );
-                };
+                localX;
 
         float rotatedZ =
-                switch (facing) {
-                    case NORTH -> localZ;
-                    case EAST -> localX;
-                    case SOUTH -> -localZ;
-                    case WEST -> -localX;
-                    case UP, DOWN -> throw new IllegalArgumentException(
-                            "Copycat Slope facing must be horizontal: "
-                                    + facing
-                    );
-                };
+                localZ;
+
+        for (int i = 0; i < rotations; i++) {
+
+            float previousX =
+                    rotatedX;
+
+            rotatedX =
+                    -rotatedZ;
+
+            rotatedZ =
+                    previousX;
+        }
 
         return new CopycatSlopeVertex(
                 rotatedX + 0.5F,
@@ -230,32 +324,33 @@ public final class CopycatGeometrySlope {
         );
     }
 
+    /**
+     * Transforms a face direction according to FACING and HALF.
+     */
     private static Direction transformDirection(
             @NotNull Direction direction,
-            @NotNull Direction facing,
+            int rotations,
             @NotNull Half half
     ) {
-        Direction result = direction;
+        Direction result =
+                direction;
 
-        if (direction.getAxis().isHorizontal()) {
+        /*
+         * Rotate horizontal directions.
+         */
+        for (int i = 0; i < rotations; i++) {
 
-            int rotations =
-                    switch (facing) {
-                        case NORTH -> 0;
-                        case EAST -> 1;
-                        case SOUTH -> 2;
-                        case WEST -> 3;
-                        case UP, DOWN -> throw new IllegalArgumentException(
-                                "Copycat Slope facing must be horizontal: "
-                                        + facing
-                        );
-                    };
-
-            for (int i = 0; i < rotations; i++) {
-                result = result.getClockWise();
+            if (result.getAxis().isHorizontal()) {
+                result =
+                        result.getClockWise();
             }
         }
 
+        /*
+         * A vertical reflection swaps UP and DOWN.
+         *
+         * Horizontal directions remain unchanged by the reflection.
+         */
         if (half == Half.TOP) {
 
             if (result == Direction.UP) {
@@ -267,5 +362,32 @@ public final class CopycatGeometrySlope {
         }
 
         return result;
+    }
+
+    /**
+     * Reverses the winding of a face.
+     *
+     * <p>Mirroring a geometry along the Y axis reverses its orientation.
+     * Reversing the vertex order restores the expected winding.</p>
+     */
+    private static void reverseWinding(
+            @NotNull CopycatSlopeVertex[] vertices
+    ) {
+        for (
+                int first = 0,
+                last = vertices.length - 1;
+                first < last;
+                first++,
+                        last--
+        ) {
+            CopycatSlopeVertex temporary =
+                    vertices[first];
+
+            vertices[first] =
+                    vertices[last];
+
+            vertices[last] =
+                    temporary;
+        }
     }
 }

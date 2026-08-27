@@ -115,6 +115,10 @@ public final class FabricCopycatSlopeHelper {
 
     /**
      * Emits one Slope face using the appearance of a copied quad.
+     *
+     * <p>The copied quad provides the texture, UV information and
+     * tint index. The actual vertex positions come from the common
+     * Copycat Slope geometry.</p>
      */
     public static void emitRetexturedFace(
             @NotNull QuadEmitter emitter,
@@ -125,6 +129,10 @@ public final class FabricCopycatSlopeHelper {
         CopycatSlopeVertex[] vertices =
                 face.vertices();
 
+        /*
+         * Use the copied quad as the source of the texture/material
+         * information.
+         */
         emitter.fromVanilla(
                 copiedQuad,
                 FabricCopycatRenderer.getCutoutMaterial(),
@@ -157,11 +165,17 @@ public final class FabricCopycatSlopeHelper {
         }
 
         /*
-         * Rebuild UV coordinates according to the Slope geometry.
+         * Rebuild UV coordinates according to the actual
+         * Slope geometry.
+         *
+         * IMPORTANT:
+         * spriteBake() requires a real TextureAtlasSprite.
+         * We therefore reuse the sprite from the copied quad.
          */
         setSlopeFaceUv(
                 emitter,
-                face
+                face,
+                copiedQuad.getSprite()
         );
 
         /*
@@ -192,15 +206,19 @@ public final class FabricCopycatSlopeHelper {
 
     /**
      * Generates UV coordinates from the actual Slope geometry.
+     *
+     * @param sprite sprite used by the copied block quad
      */
     private static void setSlopeFaceUv(
             @NotNull QuadEmitter emitter,
-            @NotNull CopycatSlopeFace face
+            @NotNull CopycatSlopeFace face,
+            @NotNull TextureAtlasSprite sprite
     ) {
         CopycatSlopeVertex[] vertices =
                 face.vertices();
 
         for (int i = 0; i < vertices.length; i++) {
+
             setSlopeVertexUv(
                     emitter,
                     i,
@@ -221,8 +239,13 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
+        /*
+         * Bake the UVs against the actual copied sprite.
+         *
+         * Passing null here causes Indigo to crash.
+         */
         emitter.spriteBake(
-                null,
+                sprite,
                 MutableQuadView.BAKE_LOCK_UV
         );
     }
