@@ -60,50 +60,18 @@ public final class CopycatGeometrySlope {
 
         /*
          * ============================================================
-         * DIAGONAL PLANE
+         * VERTICES
          * ============================================================
          *
-         * X = 0
-         */
-
-        CopycatSlopeVertex northWest =
-                CopycatSlopeMath.diagonalPoint(
-                        0.0F,
-                        0.0F
-                );
-
-        CopycatSlopeVertex northEast =
-                CopycatSlopeMath.diagonalPoint(
-                        1.0F,
-                        0.0F
-                );
-
-        /*
-         * ============================================================
-         * DIAGONAL PLANE
-         * ============================================================
+         * Canonical orientation:
          *
-         * X = 1
-         */
-
-        CopycatSlopeVertex southWest =
-                CopycatSlopeMath.diagonalPoint(
-                        0.0F,
-                        1.0F
-                );
-
-        CopycatSlopeVertex southEast =
-                CopycatSlopeMath.diagonalPoint(
-                        1.0F,
-                        1.0F
-                );
-
-        /*
-         * ============================================================
-         * BOTTOM
-         * ============================================================
+         * NORTH (Z = 0) = HIGH
+         * SOUTH (Z = 1) = LOW
          *
-         * The bottom of the slope remains a complete square.
+         * Diagonal:
+         *
+         * NORTH -> Y = 1
+         * SOUTH -> Y = 0
          */
 
         CopycatSlopeVertex bottomNorthWest =
@@ -134,7 +102,25 @@ public final class CopycatGeometrySlope {
                         1.0F
                 );
 
+        CopycatSlopeVertex topNorthWest =
+                new CopycatSlopeVertex(
+                        0.0F,
+                        1.0F,
+                        0.0F
+                );
 
+        CopycatSlopeVertex topNorthEast =
+                new CopycatSlopeVertex(
+                        1.0F,
+                        1.0F,
+                        0.0F
+                );
+
+        /*
+         * ============================================================
+         * FACES
+         * ============================================================
+         */
 
         return new CopycatSlopeFace[] {
 
@@ -142,6 +128,10 @@ public final class CopycatGeometrySlope {
                  * ----------------------------------------------------
                  * DOWN
                  * ----------------------------------------------------
+                 *
+                 * Complete bottom face.
+                 *
+                 * Normal = DOWN
                  */
 
                 new CopycatSlopeFace(
@@ -156,38 +146,43 @@ public final class CopycatGeometrySlope {
 
                 /*
                  * ----------------------------------------------------
-                 * INCLINED FACE
-                 * ----------------------------------------------------
-                 *
-                 * The upper surface is the diagonal plane.
-                 */
-
-                new CopycatSlopeFace(
-                        Direction.UP,
-                        new CopycatSlopeVertex[] {
-                                northWest,
-                                northEast,
-                                southEast,
-                                southWest
-                        }
-                ),
-
-                /*
-                 * ----------------------------------------------------
                  * NORTH
                  * ----------------------------------------------------
                  *
-                 * At Z = 0 the diagonal reaches Y = 1.
-                 * This is therefore a complete NORTH face.
+                 * Complete vertical face.
+                 *
+                 * Normal = NORTH
                  */
 
                 new CopycatSlopeFace(
                         Direction.NORTH,
                         new CopycatSlopeVertex[] {
                                 bottomNorthWest,
-                                bottomNorthEast,
-                                northEast,
-                                northWest
+                                topNorthWest,
+                                topNorthEast,
+                                bottomNorthEast
+                        }
+                ),
+
+                /*
+                 * ----------------------------------------------------
+                 * UP / SLOPE
+                 * ----------------------------------------------------
+                 *
+                 * Inclined face.
+                 *
+                 * Normal points upward and southward.
+                 *
+                 * This is NOT a horizontal UP face geometrically.
+                 */
+
+                new CopycatSlopeFace(
+                        Direction.UP,
+                        new CopycatSlopeVertex[] {
+                                topNorthWest,
+                                bottomSouthWest,
+                                bottomSouthEast,
+                                topNorthEast
                         }
                 ),
 
@@ -195,14 +190,16 @@ public final class CopycatGeometrySlope {
                  * ----------------------------------------------------
                  * WEST TRIANGLE
                  * ----------------------------------------------------
+                 *
+                 * Normal = WEST
                  */
 
                 new CopycatSlopeFace(
                         Direction.WEST,
                         new CopycatSlopeVertex[] {
-                                northWest,
-                                southWest,
-                                bottomNorthWest
+                                bottomNorthWest,
+                                bottomSouthWest,
+                                topNorthWest
                         }
                 ),
 
@@ -210,16 +207,18 @@ public final class CopycatGeometrySlope {
                  * ----------------------------------------------------
                  * EAST TRIANGLE
                  * ----------------------------------------------------
+                 *
+                 * Normal = EAST
                  */
 
                 new CopycatSlopeFace(
                         Direction.EAST,
                         new CopycatSlopeVertex[] {
-                                northEast,
                                 bottomNorthEast,
-                                southEast
+                                topNorthEast,
+                                bottomSouthEast
                         }
-                ),
+                )
         };
     }
 
