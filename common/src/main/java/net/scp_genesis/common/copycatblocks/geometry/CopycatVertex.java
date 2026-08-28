@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.geometry.slope;
+package net.scp_genesis.common.copycatblocks.geometry;
 
 /**
  * Represents a vertex of a Copycat Slope geometry.
@@ -7,7 +7,7 @@ package net.scp_genesis.common.copycatblocks.geometry.slope;
  * @param y the Y coordinate in block-local space
  * @param z the Z coordinate in block-local space
  */
-public record CopycatSlopeVertex(
+public record CopycatVertex(
         float x,
         float y,
         float z

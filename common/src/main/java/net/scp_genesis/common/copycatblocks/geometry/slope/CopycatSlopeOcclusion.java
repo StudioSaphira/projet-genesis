@@ -1,6 +1,8 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope;
 
 import net.minecraft.core.Direction;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatVertex;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -32,13 +34,13 @@ public final class CopycatSlopeOcclusion {
      * even though it is represented by four vertices.</p>
      */
     public static boolean isFullFace(
-            @NotNull CopycatSlopeFace face
+            @NotNull CopycatFace face
     ) {
         if (!isQuad(face)) {
             return false;
         }
 
-        CopycatSlopeVertex[] vertices =
+        CopycatVertex[] vertices =
                 face.vertices();
 
         return switch (face.direction()) {
@@ -67,7 +69,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the face is a complete DOWN boundary.
      */
     private static boolean isFullDownFace(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         if (!allHaveY(vertices, 0.0F)) {
             return false;
@@ -80,7 +82,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the face is a complete NORTH boundary.
      */
     private static boolean isFullNorthFace(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         if (!allHaveZ(vertices, 0.0F)) {
             return false;
@@ -93,7 +95,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the face is a complete SOUTH boundary.
      */
     private static boolean isFullSouthFace(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         if (!allHaveZ(vertices, 1.0F)) {
             return false;
@@ -106,7 +108,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the face is a complete WEST boundary.
      */
     private static boolean isFullWestFace(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         if (!allHaveX(vertices, 0.0F)) {
             return false;
@@ -119,7 +121,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the face is a complete EAST boundary.
      */
     private static boolean isFullEastFace(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         if (!allHaveX(vertices, 1.0F)) {
             return false;
@@ -138,7 +140,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the specified face is triangular.
      */
     public static boolean isTriangle(
-            @NotNull CopycatSlopeFace face
+            @NotNull CopycatFace face
     ) {
         return face.vertices().length == 3;
     }
@@ -147,7 +149,7 @@ public final class CopycatSlopeOcclusion {
      * Returns whether the specified face is a quad.
      */
     public static boolean isQuad(
-            @NotNull CopycatSlopeFace face
+            @NotNull CopycatFace face
     ) {
         return face.vertices().length == 4;
     }
@@ -159,7 +161,7 @@ public final class CopycatSlopeOcclusion {
      * <p>Only genuine complete block-boundary faces are eligible.</p>
      */
     public static boolean supportsFaceCulling(
-            @NotNull CopycatSlopeFace face
+            @NotNull CopycatFace face
     ) {
         return isFullFace(face);
     }
@@ -176,11 +178,11 @@ public final class CopycatSlopeOcclusion {
      *
      * @return the matching face, or {@code null} if none exists
      */
-    public static CopycatSlopeFace findFace(
-            @NotNull CopycatSlopeFace[] faces,
+    public static CopycatFace findFace(
+            @NotNull CopycatFace[] faces,
             @NotNull Direction direction
     ) {
-        for (CopycatSlopeFace face : faces) {
+        for (CopycatFace face : faces) {
 
             if (face.direction() == direction) {
                 return face;
@@ -198,10 +200,10 @@ public final class CopycatSlopeOcclusion {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean allHaveX(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float value
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (!equals(
                     vertex.x(),
@@ -216,10 +218,10 @@ public final class CopycatSlopeOcclusion {
 
     @SuppressWarnings("SameParameterValue")
     private static boolean allHaveY(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float value
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (!equals(
                     vertex.y(),
@@ -234,10 +236,10 @@ public final class CopycatSlopeOcclusion {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean allHaveZ(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float value
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (!equals(
                     vertex.z(),
@@ -260,7 +262,7 @@ public final class CopycatSlopeOcclusion {
      * Checks that a horizontal X/Z face contains all four block corners.
      */
     private static boolean coversFullXZBoundary(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         return containsXZ(vertices, 0.0F, 0.0F)
                 && containsXZ(vertices, 1.0F, 0.0F)
@@ -272,7 +274,7 @@ public final class CopycatSlopeOcclusion {
      * Checks that a vertical X/Y face contains all four block corners.
      */
     private static boolean coversFullXYBoundary(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         return containsXY(vertices, 0.0F, 0.0F)
                 && containsXY(vertices, 1.0F, 0.0F)
@@ -284,7 +286,7 @@ public final class CopycatSlopeOcclusion {
      * Checks that a vertical Y/Z face contains all four block corners.
      */
     private static boolean coversFullYZBoundary(
-            @NotNull CopycatSlopeVertex[] vertices
+            @NotNull CopycatVertex[] vertices
     ) {
         return containsYZ(vertices, 0.0F, 0.0F)
                 && containsYZ(vertices, 1.0F, 0.0F)
@@ -293,11 +295,11 @@ public final class CopycatSlopeOcclusion {
     }
 
     private static boolean containsXZ(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float x,
             float z
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (equals(vertex.x(), x)
                     && equals(vertex.z(), z)) {
@@ -309,11 +311,11 @@ public final class CopycatSlopeOcclusion {
     }
 
     private static boolean containsXY(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float x,
             float y
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (equals(vertex.x(), x)
                     && equals(vertex.y(), y)) {
@@ -325,11 +327,11 @@ public final class CopycatSlopeOcclusion {
     }
 
     private static boolean containsYZ(
-            @NotNull CopycatSlopeVertex[] vertices,
+            @NotNull CopycatVertex[] vertices,
             float y,
             float z
     ) {
-        for (CopycatSlopeVertex vertex : vertices) {
+        for (CopycatVertex vertex : vertices) {
 
             if (equals(vertex.y(), y)
                     && equals(vertex.z(), z)) {

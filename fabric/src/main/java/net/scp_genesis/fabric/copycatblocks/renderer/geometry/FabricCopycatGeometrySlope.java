@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
-import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -88,7 +88,7 @@ public final class FabricCopycatGeometrySlope
          * CopycatGeometrySlope implementation.
          */
 
-        CopycatSlopeFace[] faces =
+        CopycatFace[] faces =
                 CopycatGeometrySlope.getFaces(
                         facing,
                         half

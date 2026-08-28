@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.geometry.slope;
+package net.scp_genesis.common.copycatblocks.geometry;
 
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
  * @param direction the nominal direction of the face
  * @param vertices the vertices composing the face
  */
-public record CopycatSlopeFace(
+public record CopycatFace(
         @NotNull Direction direction,
-        @NotNull CopycatSlopeVertex[] vertices
+        @NotNull CopycatVertex[] vertices
 ) {
 }

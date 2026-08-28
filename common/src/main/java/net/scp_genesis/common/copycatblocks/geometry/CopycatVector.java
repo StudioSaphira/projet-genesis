@@ -1,15 +1,15 @@
-package net.scp_genesis.common.copycatblocks.geometry.slope;
+package net.scp_genesis.common.copycatblocks.geometry;
 
 /**
  * Represents a mathematical vector used by Copycat Slope geometry
  * calculations.
  *
- * <p>Unlike {@link CopycatSlopeVertex}, which represents a position
+ * <p>Unlike {@link CopycatVertex}, which represents a position
  * in block-local space, this class represents a direction or
  * displacement in three-dimensional space.</p>
  *
  * <p>Vector components use the same normalized coordinate system
- * as {@link CopycatSlopeVertex}:</p>
+ * as {@link CopycatVertex}:</p>
  *
  * <ul>
  *     <li>{@code x} — horizontal X component</li>
@@ -25,7 +25,7 @@ package net.scp_genesis.common.copycatblocks.geometry.slope;
  * @param y the Y component of the vector
  * @param z the Z component of the vector
  */
-public record CopycatSlopeVector(
+public record CopycatVector(
         float x,
         float y,
         float z

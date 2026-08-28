@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +20,7 @@ public final class NeoForgeCopycatSlopeHelper {
     }
 
     public static List<BakedQuad> retexture(
-            @NotNull CopycatSlopeFace[] faces,
+            @NotNull CopycatFace[] faces,
             @NotNull BlockState copiedState,
             @NotNull RandomSource random,
             @NotNull CopycatPart part
@@ -33,7 +33,7 @@ public final class NeoForgeCopycatSlopeHelper {
         List<BakedQuad> result =
                 new ArrayList<>();
 
-        for (@NotNull CopycatSlopeFace face : faces) {
+        for (@NotNull CopycatFace face : faces) {
 
             BakedQuad copiedQuad =
                     findCopiedQuad(
@@ -91,7 +91,7 @@ public final class NeoForgeCopycatSlopeHelper {
     }
 
     private static BakedQuad createRetexturedQuad(
-            @NotNull CopycatSlopeFace face,
+            @NotNull CopycatFace face,
             @NotNull BakedQuad copiedQuad,
             @NotNull CopycatPart part
     ) {
