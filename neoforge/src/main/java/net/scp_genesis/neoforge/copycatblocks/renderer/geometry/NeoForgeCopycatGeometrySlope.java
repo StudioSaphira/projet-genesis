@@ -7,20 +7,18 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
-import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,14 +53,12 @@ import java.util.List;
  * BakedQuad
  * </pre>
  */
-public final class NeoForgeCopycatGeometrySlope
-        implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
     /**
      * Creates a NeoForge Slope geometry.
      */
-    public NeoForgeCopycatGeometrySlope() {
-    }
+    private NeoForgeCopycatGeometrySlope() {}
 
     /*
      * ================================================================
@@ -94,23 +90,10 @@ public final class NeoForgeCopycatGeometrySlope
                         CopycatSlopeBlock.FACING
                 );
 
-        Half half =
+        net.minecraft.world.level.block.state.properties.Half half =
                 state.getValue(
                         CopycatSlopeBlock.HALF
                 );
-
-        /*
-         * ============================================================
-         * COPYCAT BLOCK ENTITY
-         * ============================================================
-         */
-
-        CopycatBlockEntity blockEntity =
-                getBlockEntity(modelData);
-
-        if (blockEntity == null) {
-            return Collections.emptyList();
-        }
 
         /*
          * ============================================================
@@ -128,9 +111,12 @@ public final class NeoForgeCopycatGeometrySlope
          */
 
         BlockState copiedState =
-                blockEntity.getCopiedState(part);
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        part
+                );
 
-        if (copiedState.isAir()) {
+        if (copiedState == null || copiedState.isAir()) {
             return Collections.emptyList();
         }
 
@@ -138,11 +124,6 @@ public final class NeoForgeCopycatGeometrySlope
          * ============================================================
          * COMMON GEOMETRY
          * ============================================================
-         *
-         * CopycatGeometrySlope is a utility class.
-         *
-         * Its geometry methods are static and therefore must be
-         * accessed through the class itself.
          */
 
         CopycatFace[] faces =
@@ -159,40 +140,31 @@ public final class NeoForgeCopycatGeometrySlope
 
         /*
          * ============================================================
-         * SIDE FILTER
+         * NEOFORGE QUADS
          * ============================================================
          */
 
-        List<BakedQuad> quads =
-                new ArrayList<>();
+        List<BakedQuad> result =
+                new java.util.ArrayList<>();
 
         for (int i = 0; i < faces.length; i++) {
 
             CopycatFace face =
                     faces[i];
 
+            /*
+             * Minecraft asks for one particular face when side != null.
+             */
             if (side != null
                     && face.direction() != side) {
                 continue;
             }
 
-            CopycatUV[] faceUV =
-                    uv[i];
-
-            /*
-             * --------------------------------------------------------
-             * COMMON → NEOFORGE
-             * --------------------------------------------------------
-             *
-             * The actual conversion from Common geometry to
-             * BakedQuad is handled by the dedicated helper.
-             */
-            quads.addAll(
+            result.addAll(
                     NeoForgeCopycatSlopeHelper.buildQuads(
                             face,
-                            faceUV,
+                            uv[i],
                             copiedState,
-                            blockEntity,
                             part,
                             random,
                             renderType
@@ -200,7 +172,7 @@ public final class NeoForgeCopycatGeometrySlope
             );
         }
 
-        return quads;
+        return result;
     }
 
     /*
@@ -264,28 +236,6 @@ public final class NeoForgeCopycatGeometrySlope
     ) {
         throw new UnsupportedOperationException(
                 "Copycat Slope particle sprite is resolved by the NeoForge texture system"
-        );
-    }
-
-    /*
-     * ================================================================
-     * MODEL DATA
-     * ================================================================
-     */
-
-    /**
-     * Retrieves the Copycat BlockEntity from NeoForge ModelData.
-     *
-     * <p>The actual ModelData lookup is delegated to the dedicated
-     * Slope helper so that NeoForge-specific ModelData handling does
-     * not leak into the Common geometry layer.</p>
-     */
-    @Nullable
-    private static CopycatBlockEntity getBlockEntity(
-            @NotNull ModelData modelData
-    ) {
-        return NeoForgeCopycatSlopeHelper.getBlockEntity(
-                modelData
         );
     }
 }
