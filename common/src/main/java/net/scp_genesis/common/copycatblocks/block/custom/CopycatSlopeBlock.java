@@ -33,8 +33,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     public static final EnumProperty<Half> HALF =
             BlockStateProperties.HALF;
 
-
-
     public CopycatSlopeBlock(
             BlockBehaviour.Properties properties
     ) {
@@ -57,7 +55,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         );
     }
 
-    private static final int SHAPE_RESOLUTION = 32;
+    private static final int SHAPE_RESOLUTION = 4;
 
     private static final VoxelShape[] BOTTOM_SHAPES =
             createBottomShapes();
