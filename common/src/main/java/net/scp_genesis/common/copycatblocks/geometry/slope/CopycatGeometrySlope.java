@@ -2,10 +2,7 @@ package net.scp_genesis.common.copycatblocks.geometry.slope;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.Half;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatGeometryMath;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatVertex;
+import net.scp_genesis.common.copycatblocks.geometry.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -285,6 +282,54 @@ public final class CopycatGeometrySlope {
         return result;
     }
 
+    private static @NotNull CopycatUV[] transformUV(
+            @NotNull CopycatUV[] uv,
+            @NotNull Direction direction,
+            @NotNull Direction facing,
+            @NotNull Half half
+    ) {
+        CopycatUV[] result =
+                new CopycatUV[uv.length];
+
+        int rotations =
+                getRotationCount(facing);
+
+        for (int i = 0; i < uv.length; i++) {
+
+            CopycatUV transformed =
+                    uv[i];
+
+            /*
+             * The rotation of the geometry must be reflected
+             * on the UVs when the face changes orientation.
+             */
+            if (direction.getAxis().isHorizontal()) {
+                transformed =
+                        CopycatUVMapping.rotate(
+                                transformed,
+                                rotations
+                        );
+            }
+
+            /*
+             * HALF.TOP inverts geometry vertically.
+             */
+            if (half == Half.TOP) {
+                transformed =
+                        CopycatUVMapping.flipV(
+                                transformed
+                        );
+            }
+
+            result[i] =
+                    CopycatUVMapping.clamp(
+                            transformed
+                    );
+        }
+
+        return result;
+    }
+
     /**
      * Returns the UV coordinates for the requested Slope orientation.
      *
@@ -314,9 +359,20 @@ public final class CopycatGeometrySlope {
 
         for (int i = 0; i < faces.length; i++) {
 
-            result[i] =
+            CopycatFace face =
+                    faces[i];
+
+            CopycatUV[] faceUV =
                     CopycatSlopeUV.calculate(
-                            faces[i]
+                            face
+                    );
+
+            result[i] =
+                    transformUV(
+                            faceUV,
+                            face.direction(),
+                            facing,
+                            half
                     );
         }
 
