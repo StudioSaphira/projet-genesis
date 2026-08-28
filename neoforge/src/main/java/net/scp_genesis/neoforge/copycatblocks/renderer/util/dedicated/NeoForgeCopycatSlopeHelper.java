@@ -1,5 +1,6 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -437,18 +438,30 @@ public final class NeoForgeCopycatSlopeHelper {
      * ================================================================
      */
 
+    @SuppressWarnings("deprecation")
+    private static @NotNull TextureAtlasSprite getMissingParticleSprite() {
+        return Minecraft
+                .getInstance()
+                .getBlockRenderer()
+                .getBlockModelShaper()
+                .getModelManager()
+                .getMissingModel()
+                .getParticleIcon();
+    }
+
     /**
      * Returns the particle sprite of the copied block.
      */
+    @SuppressWarnings("deprecation")
     public static @NotNull TextureAtlasSprite getParticleSprite(@NotNull ModelData modelData) {
         BlockState copiedState = getCopiedState(modelData);
 
-        if (copiedState == null || copiedState.isAir()) {
-            throw new IllegalStateException("Copycat Slope has no copied block state");
-        }
+        if (copiedState == null || copiedState.isAir()) {return getMissingParticleSprite();}
 
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getParticleIcon(modelData);
+        return Minecraft
+                .getInstance()
+                .getBlockRenderer()
+                .getBlockModelShaper()
+                .getParticleIcon(copiedState);
     }
 }

@@ -209,8 +209,8 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        throw new UnsupportedOperationException(
-                "Copycat Slope particle sprite is resolved by the NeoForge texture system"
+        return NeoForgeCopycatSlopeHelper.getParticleSprite(
+                modelData
         );
     }
 }
