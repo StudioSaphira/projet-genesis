@@ -210,9 +210,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             NeoForgeCopycatGeometry geometry =
-                    new NeoForgeCopycatGeometrySlope(
-                            slopeModel
-                    );
+                    new NeoForgeCopycatGeometrySlope();
 
             return new NeoForgeCopycatBakedModel(
                     geometry

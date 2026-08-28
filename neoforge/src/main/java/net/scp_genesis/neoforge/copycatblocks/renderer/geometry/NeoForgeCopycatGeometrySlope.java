@@ -7,35 +7,68 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
+import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Geometry implementation for Copycat Slopes.
+ * NeoForge renderer geometry for the Copycat Slope.
  *
- * <p>The Slope geometry represents a triangular ramp.
- * Its appearance is handled separately by the Copycat rendering system.</p>
+ * <p>This class connects the platform-independent Common Slope
+ * geometry to the NeoForge rendering pipeline.</p>
+ *
+ * <p>The actual Slope geometry is defined by
+ * {@link CopycatGeometrySlope}. This class does not recreate
+ * the geometry, calculate the diagonal, or perform the
+ * platform-independent transformations.</p>
+ *
+ * <p>The rendering pipeline is:</p>
+ *
+ * <pre>
+ * BlockState
+ *      ↓
+ * ModelData
+ *      ↓
+ * CopycatBlockEntity
+ *      ↓
+ * CopycatPart.MAIN
+ *      ↓
+ * CopycatGeometrySlope
+ *      ↓
+ * CopycatFace + CopycatUV
+ *      ↓
+ * NeoForgeCopycatSlopeHelper
+ *      ↓
+ * BakedQuad
+ * </pre>
  */
-public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
+public final class NeoForgeCopycatGeometrySlope
+        implements NeoForgeCopycatGeometry {
 
-    private final BakedModel baseModel;
-
-    public NeoForgeCopycatGeometrySlope(
-            @NotNull BakedModel baseModel
-    ) {this.baseModel = baseModel;}
-
-    @Override
-    public @NotNull BakedModel getModel() {
-        return baseModel;
+    /**
+     * Creates a NeoForge Slope geometry.
+     */
+    public NeoForgeCopycatGeometrySlope() {
     }
+
+    /*
+     * ================================================================
+     * QUADS
+     * ================================================================
+     */
 
     @Override
     public @NotNull List<BakedQuad> getQuads(
@@ -45,41 +78,160 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
-        BlockState copiedState =
-                NeoForgeCopycatBlockStateHelper.getCopiedState(
-                        modelData,
-                        CopycatPart.MAIN
-                );
-
-        /*
-         * No copied state:
-         * render the original Slope geometry.
-         */
-        if (copiedState == null || copiedState.isAir()) {
-            return baseModel.getQuads(
-                    state,
-                    side,
-                    random,
-                    modelData,
-                    renderType
-            );
+        if (!(state != null
+                && state.getBlock() instanceof CopycatSlopeBlock)) {
+            return Collections.emptyList();
         }
 
         /*
-         * Retexture the Slope geometry using
-         * the copied block appearance.
+         * ============================================================
+         * BLOCK STATE
+         * ============================================================
          */
-        return NeoForgeCopycatQuadHelper.retextureModel(
-                baseModel,
-                state,
-                copiedState,
-                side,
-                random,
-                renderType,
-                modelData,
-                CopycatPart.MAIN
+
+        Direction facing =
+                state.getValue(
+                        CopycatSlopeBlock.FACING
+                );
+
+        Half half =
+                state.getValue(
+                        CopycatSlopeBlock.HALF
+                );
+
+        /*
+         * ============================================================
+         * COPYCAT BLOCK ENTITY
+         * ============================================================
+         */
+
+        CopycatBlockEntity blockEntity =
+                getBlockEntity(modelData);
+
+        if (blockEntity == null) {
+            return Collections.emptyList();
+        }
+
+        /*
+         * ============================================================
+         * COPYCAT PART
+         * ============================================================
+         */
+
+        CopycatPart part =
+                CopycatPart.MAIN;
+
+        /*
+         * ============================================================
+         * COPIED STATE
+         * ============================================================
+         */
+
+        BlockState copiedState =
+                blockEntity.getCopiedState(part);
+
+        if (copiedState.isAir()) {
+            return Collections.emptyList();
+        }
+
+        /*
+         * ============================================================
+         * COMMON GEOMETRY
+         * ============================================================
+         *
+         * CopycatGeometrySlope is a utility class.
+         *
+         * Its geometry methods are static and therefore must be
+         * accessed through the class itself.
+         */
+
+        CopycatFace[] faces =
+                CopycatGeometrySlope.getFaces(
+                        facing,
+                        half
+                );
+
+        CopycatUV[][] uv =
+                CopycatGeometrySlope.getUV(
+                        facing,
+                        half
+                );
+
+        /*
+         * ============================================================
+         * SIDE FILTER
+         * ============================================================
+         */
+
+        List<BakedQuad> quads =
+                new ArrayList<>();
+
+        for (int i = 0; i < faces.length; i++) {
+
+            CopycatFace face =
+                    faces[i];
+
+            if (side != null
+                    && face.direction() != side) {
+                continue;
+            }
+
+            CopycatUV[] faceUV =
+                    uv[i];
+
+            /*
+             * --------------------------------------------------------
+             * COMMON → NEOFORGE
+             * --------------------------------------------------------
+             *
+             * The actual conversion from Common geometry to
+             * BakedQuad is handled by the dedicated helper.
+             */
+            quads.addAll(
+                    NeoForgeCopycatSlopeHelper.buildQuads(
+                            face,
+                            faceUV,
+                            copiedState,
+                            blockEntity,
+                            part,
+                            random,
+                            renderType
+                    )
+            );
+        }
+
+        return quads;
+    }
+
+    /*
+     * ================================================================
+     * MODEL
+     * ================================================================
+     */
+
+    /**
+     * Returns the reference model used by the NeoForge geometry
+     * contract.
+     *
+     * <p>The Slope does not currently use the obsolete baseModel
+     * system. Consequently, this method cannot yet provide a
+     * legitimate reference BakedModel.</p>
+     *
+     * <p>This contract will need to be revised as part of the
+     * NeoForge renderer integration.</p>
+     */
+    @Override
+    public @NotNull BakedModel getModel() {
+        throw new UnsupportedOperationException(
+                "Copycat Slope does not use a base BakedModel"
         );
     }
+
+    /*
+     * ================================================================
+     * RENDER TYPES
+     * ================================================================
+     */
 
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(
@@ -87,61 +239,53 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             @NotNull RandomSource random,
             @NotNull ModelData modelData
     ) {
-        BlockState copiedState =
-                NeoForgeCopycatBlockStateHelper.getCopiedState(
-                        modelData,
-                        CopycatPart.MAIN
-                );
-
-        /*
-         * Empty Slope uses its own cutout geometry.
-         */
-        if (copiedState == null || copiedState.isAir()) {
-            return ChunkRenderTypeSet.of(
-                    RenderType.cutout()
-            );
-        }
-
-        /*
-         * A copied block can have its own render type.
-         */
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getRenderTypes(
-                        copiedState,
-                        random,
-                        modelData
-                );
+        return ChunkRenderTypeSet.of(
+                RenderType.cutout()
+        );
     }
 
+    /*
+     * ================================================================
+     * PARTICLE
+     * ================================================================
+     */
+
+    /**
+     * Returns the particle sprite.
+     *
+     * <p>The copied block's actual sprite will be resolved by the
+     * NeoForge retexturing system. The final implementation will
+     * therefore be connected to the dedicated Copycat texture
+     * helper.</p>
+     */
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        BlockState copiedState =
-                NeoForgeCopycatBlockStateHelper.getCopiedState(
-                        modelData,
-                        CopycatPart.MAIN
-                );
+        throw new UnsupportedOperationException(
+                "Copycat Slope particle sprite is resolved by the NeoForge texture system"
+        );
+    }
 
-        /*
-         * Empty Slope:
-         * use the Slope's own particle texture.
-         */
-        if (copiedState == null || copiedState.isAir()) {
-            return baseModel.getParticleIcon(
-                    modelData
-            );
-        }
+    /*
+     * ================================================================
+     * MODEL DATA
+     * ================================================================
+     */
 
-        /*
-         * Copied Slope:
-         * use the copied block's particle texture.
-         */
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getParticleIcon(
-                        modelData
-                );
+    /**
+     * Retrieves the Copycat BlockEntity from NeoForge ModelData.
+     *
+     * <p>The actual ModelData lookup is delegated to the dedicated
+     * Slope helper so that NeoForge-specific ModelData handling does
+     * not leak into the Common geometry layer.</p>
+     */
+    @Nullable
+    private static CopycatBlockEntity getBlockEntity(
+            @NotNull ModelData modelData
+    ) {
+        return NeoForgeCopycatSlopeHelper.getBlockEntity(
+                modelData
+        );
     }
 }
