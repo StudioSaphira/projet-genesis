@@ -15,6 +15,7 @@ import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatVector;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -135,27 +136,13 @@ public final class NeoForgeCopycatSlopeHelper {
          * face.
          */
         List<BakedQuad> copiedQuads =
-                copiedModel.getQuads(
+                NeoForgeCopycatModelHelper.getCopiedQuads(
+                        copiedModel,
                         copiedState,
                         face.direction(),
                         random,
-                        ModelData.EMPTY,
                         renderType
                 );
-
-        /*
-         * Some models expose their geometry through general quads.
-         */
-        if (copiedQuads.isEmpty()) {
-            copiedQuads =
-                    copiedModel.getQuads(
-                            copiedState,
-                            null,
-                            random,
-                            ModelData.EMPTY,
-                            renderType
-                    );
-        }
 
         if (copiedQuads.isEmpty()) {return Collections.emptyList();}
 
