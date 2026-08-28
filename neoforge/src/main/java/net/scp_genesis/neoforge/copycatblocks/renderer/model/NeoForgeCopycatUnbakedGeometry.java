@@ -14,6 +14,7 @@ import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatG
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryCube;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlab;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryStairs;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlope;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
@@ -186,6 +187,22 @@ public final class NeoForgeCopycatUnbakedGeometry
                     new NeoForgeCopycatGeometryStairs(
                             stairsModels
                     );
+
+            return new NeoForgeCopycatBakedModel(
+                    geometry
+            );
+        }
+
+        /*
+         * ============================================================
+         * SLOPE
+         * ============================================================
+         */
+
+        if (geometryType == GeometryType.SLOPE) {
+
+            NeoForgeCopycatGeometry geometry =
+                    new NeoForgeCopycatGeometrySlope();
 
             return new NeoForgeCopycatBakedModel(
                     geometry

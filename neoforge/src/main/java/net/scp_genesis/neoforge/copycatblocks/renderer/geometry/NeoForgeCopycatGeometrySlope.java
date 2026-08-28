@@ -58,7 +58,7 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
     /**
      * Creates a NeoForge Slope geometry.
      */
-    private NeoForgeCopycatGeometrySlope() {}
+    public NeoForgeCopycatGeometrySlope() {}
 
     /*
      * ================================================================
