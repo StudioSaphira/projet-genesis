@@ -17,6 +17,11 @@ import java.util.List;
 
 /**
  * NeoForge-specific rendering contract for a Copycat geometry.
+ *
+ * <p>A geometry may optionally provide a reference BakedModel.
+ * Traditional Copycat geometries such as Cube, Slab and Stairs use
+ * this model for common BakedModel properties, while autonomous
+ * geometries such as Slope may not require one.</p>
  */
 public interface NeoForgeCopycatGeometry extends CopycatGeometry {
 
@@ -29,8 +34,18 @@ public interface NeoForgeCopycatGeometry extends CopycatGeometry {
             @Nullable RenderType renderType
     );
 
-    @NotNull
-    BakedModel getModel();
+    /**
+     * Returns the optional reference model used by this geometry.
+     *
+     * <p>Traditional Copycat geometries may return their baked
+     * reference model. Autonomous geometries may return {@code null}.</p>
+     *
+     * @return the reference model, or {@code null} when not applicable
+     */
+    @Nullable
+    default BakedModel getModel() {
+        return null;
+    }
 
     @NotNull
     ChunkRenderTypeSet getRenderTypes(

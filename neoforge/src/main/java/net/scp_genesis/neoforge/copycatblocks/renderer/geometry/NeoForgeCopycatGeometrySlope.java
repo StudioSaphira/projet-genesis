@@ -3,7 +3,6 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
@@ -173,30 +172,6 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
         }
 
         return result;
-    }
-
-    /*
-     * ================================================================
-     * MODEL
-     * ================================================================
-     */
-
-    /**
-     * Returns the reference model used by the NeoForge geometry
-     * contract.
-     *
-     * <p>The Slope does not currently use the obsolete baseModel
-     * system. Consequently, this method cannot yet provide a
-     * legitimate reference BakedModel.</p>
-     *
-     * <p>This contract will need to be revised as part of the
-     * NeoForge renderer integration.</p>
-     */
-    @Override
-    public @NotNull BakedModel getModel() {
-        throw new UnsupportedOperationException(
-                "Copycat Slope does not use a base BakedModel"
-        );
     }
 
     /*

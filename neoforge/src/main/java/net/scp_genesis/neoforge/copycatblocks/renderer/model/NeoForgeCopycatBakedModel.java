@@ -20,25 +20,25 @@ import java.util.List;
 public final class NeoForgeCopycatBakedModel implements BakedModel {
 
     /**
-     * <h1>MODELS</h1>
+     * <h1>GEOMETRY</h1>
      * ================================================================
-     * <p>Base geometry used by a simple Copycat Block such as the Cube.</p>
      */
     private final NeoForgeCopycatGeometry geometry;
 
-
     /**
-     * <h1>CONSTRUCTORS</h1>
+     * <h1>CONSTRUCTOR</h1>
      * ================================================================
-     * <p>Constructor used by simple Copycat Blocks.</p>
      */
     public NeoForgeCopycatBakedModel(
             @NotNull NeoForgeCopycatGeometry geometry
-    ) {this.geometry = geometry;}
+    ) {
+        this.geometry = geometry;
+    }
 
     /**
      * <h1>QUADS</h1>
      * ================================================================
+     *
      * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
@@ -56,7 +56,6 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
                 null
         );
     }
-
 
     @Override
     public @NotNull List<BakedQuad> getQuads(
@@ -79,7 +78,6 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
      * <h1>RENDER TYPES</h1>
      * ================================================================
      */
-
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(
             @Nullable BlockState state,
@@ -94,35 +92,55 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
     }
 
     /**
-     * <h1>COMMON MODEL PROPERTIES</h1>
+     * <h1>REFERENCE MODEL</h1>
      * ================================================================
+     *
+     * <p>Returns the optional reference model of the geometry.</p>
+     *
+     * <p>Traditional Copycat geometries such as Cube, Slab and
+     * Stairs provide one. Autonomous geometries such as Slope may
+     * return {@code null}.</p>
      */
-
+    @Nullable
     private BakedModel getReferenceModel() {
         return geometry.getModel();
     }
 
+    /**
+     * <h1>COMMON MODEL PROPERTIES</h1>
+     * ================================================================
+     *
+     * <p>When a geometry provides a reference model, its properties
+     * are delegated to that model. Otherwise, sensible defaults are
+     * used for autonomous geometries.</p>
+     */
 
     @Override
     public boolean useAmbientOcclusion() {
-        return getReferenceModel()
-                .useAmbientOcclusion();
-    }
+        BakedModel referenceModel =
+                getReferenceModel();
 
+        return referenceModel != null
+                && referenceModel.useAmbientOcclusion();
+    }
 
     @Override
     public boolean usesBlockLight() {
-        return getReferenceModel()
-                .usesBlockLight();
-    }
+        BakedModel referenceModel =
+                getReferenceModel();
 
+        return referenceModel == null
+                || referenceModel.usesBlockLight();
+    }
 
     @Override
     public boolean isGui3d() {
-        return getReferenceModel()
-                .isGui3d();
-    }
+        BakedModel referenceModel =
+                getReferenceModel();
 
+        return referenceModel == null
+                || referenceModel.isGui3d();
+    }
 
     @Override
     public boolean isCustomRenderer() {
@@ -132,39 +150,69 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
     /**
      * <h1>PARTICLE</h1>
      * ================================================================
+     *
      * @deprecated Use the ModelData-aware overload.
      */
     @Deprecated
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
-        return getReferenceModel()
-                .getParticleIcon();
-    }
+        BakedModel referenceModel =
+                getReferenceModel();
 
+        if (referenceModel == null) {
+            throw new IllegalStateException(
+                    "Copycat geometry does not provide a reference model"
+            );
+        }
+
+        return referenceModel.getParticleIcon();
+    }
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        return geometry.getParticleIcon(modelData);
+        return geometry.getParticleIcon(
+                modelData
+        );
     }
 
     /**
      * <h1>TRANSFORMS</h1>
      * ================================================================
+     *
+     * <p>Item transforms only apply to geometries which provide a
+     * reference baked model.</p>
+     *
      * @deprecated Use the modern transform API.
      */
     @SuppressWarnings("deprecation")
     @Deprecated
     @Override
     public @NotNull ItemTransforms getTransforms() {
-        return getReferenceModel()
-                .getTransforms();
+        BakedModel referenceModel =
+                getReferenceModel();
+
+        if (referenceModel == null) {
+            return ItemTransforms.NO_TRANSFORMS;
+        }
+
+        return referenceModel.getTransforms();
     }
 
-
+    /**
+     * <h1>OVERRIDES</h1>
+     * ================================================================
+     */
     @Override
     public @NotNull ItemOverrides getOverrides() {
-        return getReferenceModel().getOverrides();
+        BakedModel referenceModel =
+                getReferenceModel();
+
+        if (referenceModel == null) {
+            return ItemOverrides.EMPTY;
+        }
+
+        return referenceModel.getOverrides();
     }
 }
