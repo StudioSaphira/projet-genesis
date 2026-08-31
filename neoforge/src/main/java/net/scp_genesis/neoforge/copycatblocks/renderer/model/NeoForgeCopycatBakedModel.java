@@ -186,18 +186,11 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
      *
      * @deprecated Use the modern transform API.
      */
+    @Override
     @SuppressWarnings("deprecation")
     @Deprecated
-    @Override
     public @NotNull ItemTransforms getTransforms() {
-        BakedModel referenceModel =
-                getReferenceModel();
-
-        if (referenceModel == null) {
-            return ItemTransforms.NO_TRANSFORMS;
-        }
-
-        return referenceModel.getTransforms();
+        return geometry.getTransforms();
     }
 
     /**

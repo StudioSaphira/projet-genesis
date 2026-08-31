@@ -36,6 +36,8 @@ public final class NeoForgeCopycatUnbakedGeometry
     private final ResourceLocation baseModel;
     private final Map<String, ResourceLocation> baseModels;
     private final GeometryType geometryType;
+    private static final ResourceLocation SLOPE_REFERENCE_MODEL =
+            ResourceLocation.parse("minecraft:block/cube_all");
 
     /**
      * Constructor used by simple Copycat Blocks such as the Cube.
@@ -102,13 +104,9 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             NeoForgeCopycatGeometry geometry =
-                    new NeoForgeCopycatGeometryCube(
-                            bakedBaseModel
-                    );
+                    new NeoForgeCopycatGeometryCube(bakedBaseModel);
 
-            return new NeoForgeCopycatBakedModel(
-                    geometry
-            );
+            return new NeoForgeCopycatBakedModel(geometry);
         }
 
         /*
@@ -144,8 +142,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             ResourceLocation doubleSecondaryLocation =
-                    Objects.requireNonNull(baseModels)
-                            .get("double_secondary");
+                    Objects.requireNonNull(baseModels).get("double_secondary");
 
             BakedModel doubleSecondaryModel =
                     NeoForgeCopycatModelBakeHelper.bakeModel(
@@ -163,9 +160,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                             doubleModel
                     );
 
-            return new NeoForgeCopycatBakedModel(
-                    geometry
-            );
+            return new NeoForgeCopycatBakedModel(geometry);
         }
 
         /*
@@ -184,13 +179,9 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             NeoForgeCopycatGeometry geometry =
-                    new NeoForgeCopycatGeometryStairs(
-                            stairsModels
-                    );
+                    new NeoForgeCopycatGeometryStairs(stairsModels);
 
-            return new NeoForgeCopycatBakedModel(
-                    geometry
-            );
+            return new NeoForgeCopycatBakedModel(geometry);
         }
 
         /*
@@ -201,13 +192,30 @@ public final class NeoForgeCopycatUnbakedGeometry
 
         if (geometryType == GeometryType.SLOPE) {
 
+            BakedModel referenceModel =
+                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            SLOPE_REFERENCE_MODEL,
+                            modelState,
+                            copycatSpriteGetter
+                    );
+
             NeoForgeCopycatGeometry geometry =
-                    new NeoForgeCopycatGeometrySlope(copycatSprite);
+                    new NeoForgeCopycatGeometrySlope(
+                            referenceModel,
+                            copycatSprite
+                    );
 
             return new NeoForgeCopycatBakedModel(
                     geometry
             );
         }
+
+        /*
+         * ============================================================
+         * IllegalStateException
+         * ============================================================
+         */
 
         throw new IllegalStateException(
                 "Copycat model has no base model"

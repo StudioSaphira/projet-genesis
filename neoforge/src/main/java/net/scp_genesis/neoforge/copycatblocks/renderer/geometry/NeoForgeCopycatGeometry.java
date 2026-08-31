@@ -2,6 +2,7 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
@@ -58,4 +59,16 @@ public interface NeoForgeCopycatGeometry extends CopycatGeometry {
     TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     );
+
+    @SuppressWarnings("deprecation")
+    @NotNull
+    default ItemTransforms getTransforms() {
+        BakedModel model = getModel();
+
+        if (model != null) {
+            return model.getTransforms();
+        }
+
+        return ItemTransforms.NO_TRANSFORMS;
+    }
 }

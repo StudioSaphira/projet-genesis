@@ -2,10 +2,14 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemTransform;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
@@ -18,6 +22,7 @@ import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlock
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Collections;
 import java.util.List;
@@ -55,16 +60,20 @@ import java.util.List;
  */
 public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
+    private final BakedModel referenceModel;
     private final TextureAtlasSprite defaultSprite;
 
-    /**
-     * Creates a NeoForge Slope geometry.
-     *
-     * @param defaultSprite default texture used when no copied block
-     *                      state is available
-     */
-    public NeoForgeCopycatGeometrySlope(@NotNull TextureAtlasSprite defaultSprite) {
+    public NeoForgeCopycatGeometrySlope(
+            @NotNull BakedModel referenceModel,
+            @NotNull TextureAtlasSprite defaultSprite
+    ) {
+        this.referenceModel = referenceModel;
         this.defaultSprite = defaultSprite;
+    }
+
+    @Override
+    public @NotNull BakedModel getModel() {
+        return referenceModel;
     }
 
     /*
@@ -81,26 +90,36 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             @NotNull ModelData modelData,
             @Nullable RenderType renderType
     ) {
-        if (!(state != null
-                && state.getBlock() instanceof CopycatSlopeBlock)) {
-            return Collections.emptyList();
+        Direction facing;
+        Half half;
+
+        if (state != null) {
+
+            if (!(state.getBlock() instanceof CopycatSlopeBlock)) {
+                return Collections.emptyList();
+            }
+
+            facing =
+                    state.getValue(
+                            CopycatSlopeBlock.FACING
+                    );
+
+            half =
+                    state.getValue(
+                            CopycatSlopeBlock.HALF
+                    );
+
+        } else {
+
+            /*
+             * Item / inventory rendering.
+             *
+             * No BlockState is available here, so use the canonical
+             * Slope orientation.
+             */
+            facing = Direction.NORTH;
+            half = Half.BOTTOM;
         }
-
-        /*
-         * ============================================================
-         * BLOCK STATE
-         * ============================================================
-         */
-
-        Direction facing =
-                state.getValue(
-                        CopycatSlopeBlock.FACING
-                );
-
-        net.minecraft.world.level.block.state.properties.Half half =
-                state.getValue(
-                        CopycatSlopeBlock.HALF
-                );
 
         /*
          * ============================================================
@@ -193,6 +212,45 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
         }
 
         return result;
+    }
+
+    /*
+     * ================================================================
+     * Item Transforms
+     * ================================================================
+     */
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public @NotNull ItemTransforms getTransforms() {
+        ItemTransforms referenceTransforms =
+                referenceModel.getTransforms();
+
+        ItemTransform gui =
+                referenceTransforms.gui;
+
+        ItemTransform rotatedGui =
+                new ItemTransform(
+                        new Vector3f(
+                                gui.rotation.x(),
+                                gui.rotation.y() + 180.0F,
+                                gui.rotation.z()
+                        ),
+                        new Vector3f(gui.translation),
+                        new Vector3f(gui.scale),
+                        new Vector3f(gui.rightRotation)
+                );
+
+        return new ItemTransforms(
+                referenceTransforms.thirdPersonLeftHand,
+                referenceTransforms.thirdPersonRightHand,
+                referenceTransforms.firstPersonLeftHand,
+                referenceTransforms.firstPersonRightHand,
+                referenceTransforms.head,
+                rotatedGui,
+                referenceTransforms.ground,
+                referenceTransforms.fixed
+        );
     }
 
     /*
