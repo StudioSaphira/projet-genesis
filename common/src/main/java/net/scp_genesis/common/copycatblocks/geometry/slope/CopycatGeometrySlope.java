@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * <ul>
  *     <li>one bottom square</li>
- *     <li>one inclined upper face</li>
+ *     <li>one inclined south face</li>
  *     <li>one south vertical square</li>
  *     <li>one west right triangle</li>
  *     <li>one east right triangle</li>
@@ -165,12 +165,12 @@ public final class CopycatGeometrySlope {
 
                 /*
                  * ----------------------------------------------------
-                 * UP / SLOPE
+                 * SOUTH / SLOPE
                  * ----------------------------------------------------
                  */
 
                 new CopycatFace(
-                        Direction.UP,
+                        Direction.SOUTH,
                         new CopycatVertex[] {
                                 topNorthWest,
                                 diagonalSouthWest,
@@ -284,36 +284,16 @@ public final class CopycatGeometrySlope {
 
     private static @NotNull CopycatUV[] transformUV(
             @NotNull CopycatUV[] uv,
-            @NotNull Direction direction,
-            @NotNull Direction facing,
             @NotNull Half half
     ) {
         CopycatUV[] result =
                 new CopycatUV[uv.length];
-
-        int rotations =
-                getRotationCount(facing);
 
         for (int i = 0; i < uv.length; i++) {
 
             CopycatUV transformed =
                     uv[i];
 
-            /*
-             * The rotation of the geometry must be reflected
-             * on the UVs when the face changes orientation.
-             */
-            if (direction.getAxis().isHorizontal()) {
-                transformed =
-                        CopycatUVMapping.rotate(
-                                transformed,
-                                rotations
-                        );
-            }
-
-            /*
-             * HALF.TOP inverts geometry vertically.
-             */
             if (half == Half.TOP) {
                 transformed =
                         CopycatUVMapping.flipV(
@@ -370,8 +350,6 @@ public final class CopycatGeometrySlope {
             result[i] =
                     transformUV(
                             faceUV,
-                            face.direction(),
-                            facing,
                             half
                     );
         }
