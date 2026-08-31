@@ -50,24 +50,25 @@ public final class ModBlocks {
 		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
-								BlockBehaviour.Properties.of()
-										.strength(2.0F, 6.0F)
-										.sound(SoundType.METAL)
-										.requiresCorrectToolForDrops().noOcclusion()));
+				BlockBehaviour.Properties.of()
+						.strength(2.0F, 6.0F)
+						.sound(SoundType.METAL)
+						.requiresCorrectToolForDrops()
+						.noOcclusion()));
 
 		COPYCAT_STAIRS = registry.registerBlock("copycat_stairs", () -> new CopycatStairsBlock(
-								BlockBehaviour.Properties.of()
-										.strength(2.0F, 6.0F)
-										.sound(SoundType.METAL)
-										.requiresCorrectToolForDrops()
-										.noOcclusion()));
+				BlockBehaviour.Properties.of()
+						.strength(2.0F, 6.0F)
+						.sound(SoundType.METAL)
+						.requiresCorrectToolForDrops()
+						.noOcclusion()));
 
 		COPYCAT_SLAB = registry.registerBlock("copycat_slab", () -> new CopycatSlabBlock(
-								BlockBehaviour.Properties.of()
-										.strength(2.0F, 6.0F)
-										.sound(SoundType.METAL)
-										.requiresCorrectToolForDrops()
-										.noOcclusion()));
+				BlockBehaviour.Properties.of()
+						.strength(2.0F, 6.0F)
+						.sound(SoundType.METAL)
+						.requiresCorrectToolForDrops()
+						.noOcclusion()));
 
 		COPYCAT_SLOPE = registry.registerBlock("copycat_slope", () -> new CopycatSlopeBlock(
 				BlockBehaviour.Properties.of()
