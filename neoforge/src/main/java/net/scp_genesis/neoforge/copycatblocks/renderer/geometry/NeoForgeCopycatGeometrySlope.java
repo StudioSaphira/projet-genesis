@@ -13,6 +13,7 @@ import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
+import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
@@ -54,10 +55,17 @@ import java.util.List;
  */
 public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
+    private final TextureAtlasSprite defaultSprite;
+
     /**
      * Creates a NeoForge Slope geometry.
+     *
+     * @param defaultSprite default texture used when no copied block
+     *                      state is available
      */
-    public NeoForgeCopycatGeometrySlope() {}
+    public NeoForgeCopycatGeometrySlope(@NotNull TextureAtlasSprite defaultSprite) {
+        this.defaultSprite = defaultSprite;
+    }
 
     /*
      * ================================================================
@@ -115,9 +123,9 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
                         part
                 );
 
-        if (copiedState == null || copiedState.isAir()) {
-            return Collections.emptyList();
-        }
+        boolean hasCopiedState =
+                copiedState != null
+                        && !copiedState.isAir();
 
         /*
          * ============================================================
@@ -159,16 +167,29 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
                 continue;
             }
 
-            result.addAll(
-                    NeoForgeCopycatSlopeHelper.buildQuads(
-                            face,
-                            uv[i],
-                            copiedState,
-                            part,
-                            random,
-                            renderType
-                    )
-            );
+            if (hasCopiedState) {
+
+                result.addAll(
+                        NeoForgeCopycatSlopeHelper.buildQuads(
+                                face,
+                                uv[i],
+                                copiedState,
+                                part,
+                                random,
+                                renderType
+                        )
+                );
+
+            } else {
+
+                result.addAll(
+                        NeoForgeCopycatSlopeHelper.buildDefaultQuads(
+                                face,
+                                uv[i],
+                                defaultSprite
+                        )
+                );
+            }
         }
 
         return result;
@@ -197,20 +218,22 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
      * ================================================================
      */
 
-    /**
-     * Returns the particle sprite.
-     *
-     * <p>The copied block's actual sprite will be resolved by the
-     * NeoForge retexturing system. The final implementation will
-     * therefore be connected to the dedicated Copycat texture
-     * helper.</p>
-     */
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        return NeoForgeCopycatSlopeHelper.getParticleSprite(
-                modelData
-        );
+        BlockState copiedState =
+                NeoForgeCopycatBlockStateHelper.getCopiedState(
+                        modelData,
+                        CopycatPart.MAIN
+                );
+
+        if (copiedState == null || copiedState.isAir()) {
+            return defaultSprite;
+        }
+
+        return CopycatModelProvider
+                .getModel(copiedState)
+                .getParticleIcon(modelData);
     }
 }

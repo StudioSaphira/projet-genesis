@@ -174,6 +174,159 @@ public final class NeoForgeCopycatSlopeHelper {
         );
     }
 
+    /**
+     * Builds a Slope quad using the default Copycat texture.
+     *
+     * <p>This method is used when no copied BlockState is available,
+     * for example during the initial rendering of the Copycat Slope.</p>
+     *
+     * <p>Unlike {@link #buildQuads}, this method does not require a
+     * copied BakedModel. The Common geometry and the default texture
+     * are sufficient to construct the quad.</p>
+     */
+    public static @NotNull List<BakedQuad> buildDefaultQuads(
+            @NotNull CopycatFace face,
+            @NotNull CopycatUV[] uv,
+            @NotNull TextureAtlasSprite sprite
+    ) {
+        int vertexCount =
+                face.vertices().length;
+
+        if (vertexCount < 3) {
+            return Collections.emptyList();
+        }
+
+        if (uv.length != vertexCount) {
+            throw new IllegalArgumentException(
+                    "Copycat Slope face and UV vertex counts do not match"
+            );
+        }
+
+        int[] vertices =
+                new int[
+                        4 * VERTEX_SIZE
+                        ];
+
+        /*
+         * ============================================================
+         * NORMAL
+         * ============================================================
+         */
+
+        CopycatVector normal =
+                CopycatGeometryMath.normalize(
+                        CopycatGeometryMath.normal(
+                                face
+                        )
+                );
+
+        int packedNormal =
+                packNormal(normal);
+
+        /*
+         * ============================================================
+         * VERTICES
+         * ============================================================
+         */
+
+        for (int i = 0; i < 4; i++) {
+
+            int sourceIndex =
+                    Math.min(
+                            i,
+                            vertexCount - 1
+                    );
+
+            int offset =
+                    i * VERTEX_SIZE;
+
+            var vertex =
+                    face.vertices()[sourceIndex];
+
+            CopycatUV vertexUV =
+                    uv[sourceIndex];
+
+            /*
+             * --------------------------------------------------------
+             * POSITION
+             * --------------------------------------------------------
+             */
+
+            vertices[offset + POSITION_OFFSET] =
+                    Float.floatToRawIntBits(
+                            vertex.x()
+                    );
+
+            vertices[offset + POSITION_OFFSET + 1] =
+                    Float.floatToRawIntBits(
+                            vertex.y()
+                    );
+
+            vertices[offset + POSITION_OFFSET + 2] =
+                    Float.floatToRawIntBits(
+                            vertex.z()
+                    );
+
+            /*
+             * --------------------------------------------------------
+             * COLOR
+             * --------------------------------------------------------
+             */
+
+            vertices[offset + COLOR_OFFSET] =
+                    -1;
+
+            /*
+             * --------------------------------------------------------
+             * UV
+             * --------------------------------------------------------
+             */
+
+            vertices[offset + UV_OFFSET] =
+                    Float.floatToRawIntBits(
+                            sprite.getU(
+                                    vertexUV.u()
+                            )
+                    );
+
+            vertices[offset + UV_OFFSET + 1] =
+                    Float.floatToRawIntBits(
+                            sprite.getV(
+                                    vertexUV.v()
+                            )
+                    );
+
+            /*
+             * --------------------------------------------------------
+             * LIGHT
+             * --------------------------------------------------------
+             */
+
+            vertices[offset + LIGHT_OFFSET] =
+                    0;
+
+            /*
+             * --------------------------------------------------------
+             * NORMAL
+             * --------------------------------------------------------
+             */
+
+            vertices[offset + NORMAL_OFFSET] =
+                    packedNormal;
+        }
+
+        return List.of(
+                new BakedQuad(
+                        vertices,
+                        -1,
+                        face.direction(),
+                        sprite,
+                        true,
+                        true
+                )
+        );
+    }
+
     /*
      * ================================================================
      * SOURCE QUAD

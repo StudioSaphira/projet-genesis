@@ -202,7 +202,7 @@ public final class NeoForgeCopycatUnbakedGeometry
         if (geometryType == GeometryType.SLOPE) {
 
             NeoForgeCopycatGeometry geometry =
-                    new NeoForgeCopycatGeometrySlope();
+                    new NeoForgeCopycatGeometrySlope(copycatSprite);
 
             return new NeoForgeCopycatBakedModel(
                     geometry
