@@ -10,9 +10,7 @@ public final class NeoForgeGenesis {
 
     public NeoForgeGenesis(IEventBus modEventBus) {
         NeoForgePlatformRegistry registry =
-                new NeoForgePlatformRegistry(
-                        modEventBus
-                );
+                new NeoForgePlatformRegistry(modEventBus);
 
         registry.register();
     }

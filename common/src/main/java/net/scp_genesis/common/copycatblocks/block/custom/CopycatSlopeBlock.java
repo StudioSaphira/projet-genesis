@@ -6,21 +6,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import net.scp_genesis.common.copycatblocks.block.AbstractCopycatBlock;
 
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * A Copycat Block shaped as a 45-degree slope.
@@ -48,14 +49,14 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     /**
      * Horizontal direction toward which the slope faces.
      */
-    public static final DirectionProperty FACING =
-            BlockStateProperties.HORIZONTAL_FACING;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     /**
      * Vertical orientation of the slope.
      */
-    public static final EnumProperty<Half> HALF =
-            BlockStateProperties.HALF;
+    public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
+
+    public static final BooleanProperty OCCLUDES = BooleanProperty.create("occludes");
 
     /*
      * ================================================================
@@ -110,29 +111,165 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
      * block-face culling.
      */
 
+    private static final VoxelShape BOTTOM_OCCLUSION_SHAPE =
+            Shapes.or(
+                    Block.box(
+                            0.0D,
+                            0.0D,
+                            0.0D,
+                            16.0D,
+                            0.5D,
+                            16.0D
+                    ),
+                    Block.box(
+                            0.0D,
+                            0.5D,
+                            0.0D,
+                            16.0D,
+                            4.0D,
+                            15.5D
+                    ),
+                    Block.box(
+                            0.0D,
+                            4.0D,
+                            0.0D,
+                            16.0D,
+                            8.0D,
+                            12.0D
+                    ),
+                    Block.box(
+                            0.0D,
+                            8.0D,
+                            0.0D,
+                            16.0D,
+                            12.0D,
+                            8.0D
+                    ),
+                    Block.box(
+                            0.0D,
+                            12.0D,
+                            0.0D,
+                            16.0D,
+                            15.5D,
+                            4.0D
+                    ),
+                    Block.box(
+                            0.0D,
+                            15.5D,
+                            0.0D,
+                            16.0D,
+                            16.0D,
+                            0.5D
+                    )
+            );
+
+    private static VoxelShape rotateHorizontal(
+            @NotNull VoxelShape shape,
+            @NotNull Direction to
+    ) {
+        int rotations =
+                Math.floorMod(
+                        to.get2DDataValue()
+                                - Direction.NORTH.get2DDataValue(),
+                        4
+                );
+
+        VoxelShape result = shape;
+
+        for (int i = 0; i < rotations; i++) {
+            result = rotateClockwise(result);
+        }
+
+        return result;
+    }
+
+    private static VoxelShape rotateClockwise(
+            @NotNull VoxelShape shape
+    ) {
+        AtomicReference<VoxelShape> result = new AtomicReference<>(Shapes.empty());
+
+        shape.forAllBoxes(
+                (minX, minY, minZ, maxX, maxY, maxZ) -> result.set(Shapes.or(
+                        result.get(),
+                        Block.box(
+                                (1.0D - maxZ) * 16.0D,
+                                minY * 16.0D,
+                                minX * 16.0D,
+                                (1.0D - minZ) * 16.0D,
+                                maxY * 16.0D,
+                                maxX * 16.0D
+                        )
+                ))
+        );
+
+        return result.get();
+    }
+
     private static final VoxelShape NORTH_BOTTOM_OCCLUSION =
-            createBottomOcclusionShape(Direction.NORTH);
+            BOTTOM_OCCLUSION_SHAPE;
 
     private static final VoxelShape EAST_BOTTOM_OCCLUSION =
-            createBottomOcclusionShape(Direction.EAST);
+            rotateHorizontal(
+                    BOTTOM_OCCLUSION_SHAPE,
+                    Direction.EAST
+            );
 
     private static final VoxelShape SOUTH_BOTTOM_OCCLUSION =
-            createBottomOcclusionShape(Direction.SOUTH);
+            rotateHorizontal(
+                    BOTTOM_OCCLUSION_SHAPE,
+                    Direction.SOUTH
+            );
 
     private static final VoxelShape WEST_BOTTOM_OCCLUSION =
-            createBottomOcclusionShape(Direction.WEST);
+            rotateHorizontal(
+                    BOTTOM_OCCLUSION_SHAPE,
+                    Direction.WEST
+            );
+
+    private static VoxelShape mirrorVertical() {
+        AtomicReference<VoxelShape> result = new AtomicReference<>(Shapes.empty());
+
+        BOTTOM_OCCLUSION_SHAPE.forAllBoxes(
+                (minX, minY, minZ, maxX, maxY, maxZ) -> result.set(Shapes.or(
+                        result.get(),
+                        Block.box(
+                                minX * 16.0D,
+                                (1.0D - maxY) * 16.0D,
+                                minZ * 16.0D,
+                                maxX * 16.0D,
+                                (1.0D - minY) * 16.0D,
+                                maxZ * 16.0D
+                        )
+                ))
+        );
+
+        return result.get();
+    }
+
+    private static final VoxelShape TOP_OCCLUSION_SHAPE =
+            mirrorVertical(
+            );
 
     private static final VoxelShape NORTH_TOP_OCCLUSION =
-            createTopOcclusionShape(Direction.NORTH);
+            TOP_OCCLUSION_SHAPE;
 
     private static final VoxelShape EAST_TOP_OCCLUSION =
-            createTopOcclusionShape(Direction.EAST);
+            rotateHorizontal(
+                    TOP_OCCLUSION_SHAPE,
+                    Direction.EAST
+            );
 
     private static final VoxelShape SOUTH_TOP_OCCLUSION =
-            createTopOcclusionShape(Direction.SOUTH);
+            rotateHorizontal(
+                    TOP_OCCLUSION_SHAPE,
+                    Direction.SOUTH
+            );
 
     private static final VoxelShape WEST_TOP_OCCLUSION =
-            createTopOcclusionShape(Direction.WEST);
+            rotateHorizontal(
+                    TOP_OCCLUSION_SHAPE,
+                    Direction.WEST
+            );
 
     /*
      * ================================================================
@@ -147,14 +284,9 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
 
         registerDefaultState(
                 stateDefinition.any()
-                        .setValue(
-                                FACING,
-                                Direction.NORTH
-                        )
-                        .setValue(
-                                HALF,
-                                Half.BOTTOM
-                        )
+                        .setValue(FACING, Direction.NORTH)
+                        .setValue(HALF, Half.BOTTOM)
+                        .setValue(OCCLUDES, false)
         );
     }
 
@@ -170,7 +302,8 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     ) {
         builder.add(
                 FACING,
-                HALF
+                HALF,
+                OCCLUDES
         );
     }
 
@@ -223,7 +356,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 0.0D,
                                 4.0D,
-                                0.0D,
                                 16.0D
                         )
                 );
@@ -235,7 +367,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 4.0D,
                                 8.0D,
-                                0.0D,
                                 12.0D
                         )
                 );
@@ -247,7 +378,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 8.0D,
                                 12.0D,
-                                0.0D,
                                 8.0D
                         )
                 );
@@ -259,7 +389,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 12.0D,
                                 16.0D,
-                                0.0D,
                                 4.0D
                         )
                 );
@@ -283,7 +412,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 0.0D,
                                 4.0D,
-                                0.0D,
                                 4.0D
                         )
                 );
@@ -295,7 +423,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 4.0D,
                                 8.0D,
-                                0.0D,
                                 8.0D
                         )
                 );
@@ -307,7 +434,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 8.0D,
                                 12.0D,
-                                0.0D,
                                 12.0D
                         )
                 );
@@ -319,7 +445,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 facing,
                                 12.0D,
                                 16.0D,
-                                0.0D,
                                 16.0D
                         )
                 );
@@ -336,7 +461,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             @NotNull Direction facing,
             double zMin,
             double zMax,
-            double yMin,
             double yMax
     ) {
         return switch (facing) {
@@ -344,7 +468,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             case NORTH ->
                     Block.box(
                             0.0D,
-                            yMin,
+                            0.0,
                             zMin,
                             16.0D,
                             yMax,
@@ -354,7 +478,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             case EAST ->
                     Block.box(
                             16.0D - zMax,
-                            yMin,
+                            0.0,
                             0.0D,
                             16.0D - zMin,
                             yMax,
@@ -364,7 +488,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             case SOUTH ->
                     Block.box(
                             0.0D,
-                            yMin,
+                            0.0,
                             16.0D - zMax,
                             16.0D,
                             yMax,
@@ -374,7 +498,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             case WEST ->
                     Block.box(
                             zMin,
-                            yMin,
+                            0.0,
                             0.0D,
                             zMax,
                             yMax,
@@ -395,175 +519,62 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
      * ================================================================
      */
 
-    /**
-     * Creates the occlusion shape for a bottom slope.
-     *
-     * <p>The end caps are slightly inset so that the diagonal slope
-     * does not incorrectly behave like a full cube for face culling.</p>
-     */
-    private static VoxelShape createBottomOcclusionShape(
-            @NotNull Direction facing
+    private static IllegalStateException invalidFacing(
+            Direction facing
     ) {
-        VoxelShape shape =
-                Shapes.empty();
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                0.0D,
-                                0.5D,
-                                0.0D,
-                                0.5D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                0.5D,
-                                4.0D,
-                                0.0D,
-                                4.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                4.0D,
-                                8.0D,
-                                0.0D,
-                                8.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                8.0D,
-                                12.0D,
-                                0.0D,
-                                12.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                12.0D,
-                                15.5D,
-                                0.0D,
-                                15.5D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                15.5D,
-                                16.0D,
-                                0.0D,
-                                16.0D
-                        )
-                );
-
-        return shape;
+        return new IllegalStateException(
+                "Copycat Slope FACING must be horizontal: " + facing
+        );
     }
 
-    /**
-     * Creates the occlusion shape for a top slope.
-     */
-    private static VoxelShape createTopOcclusionShape(
-            @NotNull Direction facing
+    private static VoxelShape getDirectionalShape(
+            @NotNull BlockState state
     ) {
-        VoxelShape shape =
-                Shapes.empty();
+        Direction facing = state.getValue(FACING);
+        Half half = state.getValue(HALF);
 
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                0.0D,
-                                0.5D,
-                                15.5D,
-                                16.0D
-                        )
-                );
+        return switch (half) {
+            case BOTTOM -> switch (facing) {
+                case NORTH -> NORTH_BOTTOM_SHAPE;
+                case EAST -> EAST_BOTTOM_SHAPE;
+                case SOUTH -> SOUTH_BOTTOM_SHAPE;
+                case WEST -> WEST_BOTTOM_SHAPE;
+                default -> throw invalidFacing(facing);
+            };
 
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                0.5D,
-                                4.0D,
-                                12.0D,
-                                16.0D
-                        )
-                );
+            case TOP -> switch (facing) {
+                case NORTH -> NORTH_TOP_SHAPE;
+                case EAST -> EAST_TOP_SHAPE;
+                case SOUTH -> SOUTH_TOP_SHAPE;
+                case WEST -> WEST_TOP_SHAPE;
+                default -> throw invalidFacing(facing);
+            };
+        };
+    }
 
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                4.0D,
-                                8.0D,
-                                8.0D,
-                                16.0D
-                        )
-                );
+    private static @NotNull VoxelShape getDirectionalOcclusionShape(
+            @NotNull BlockState state
+    ) {
+        Direction facing = state.getValue(FACING);
+        Half half = state.getValue(HALF);
 
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                8.0D,
-                                12.0D,
-                                4.0D,
-                                16.0D
-                        )
-                );
+        return switch (half) {
+            case BOTTOM -> switch (facing) {
+                case NORTH -> NORTH_BOTTOM_OCCLUSION;
+                case EAST -> EAST_BOTTOM_OCCLUSION;
+                case SOUTH -> SOUTH_BOTTOM_OCCLUSION;
+                case WEST -> WEST_BOTTOM_OCCLUSION;
+                default -> throw invalidFacing(facing);
+            };
 
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                12.0D,
-                                15.5D,
-                                0.5D,
-                                16.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                15.5D,
-                                16.0D,
-                                0.0D,
-                                16.0D
-                        )
-                );
-
-        return shape;
+            case TOP -> switch (facing) {
+                case NORTH -> NORTH_TOP_OCCLUSION;
+                case EAST -> EAST_TOP_OCCLUSION;
+                case SOUTH -> SOUTH_TOP_OCCLUSION;
+                case WEST -> WEST_TOP_OCCLUSION;
+                default -> throw invalidFacing(facing);
+            };
+        };
     }
 
     /**
@@ -579,86 +590,71 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
             @NotNull BlockPos pos,
             @NotNull CollisionContext context
     ) {
-        Direction facing =
-                state.getValue(FACING);
-
-        Half half =
-                state.getValue(HALF);
-
-        if (half == Half.TOP) {
-            return switch (facing) {
-                case NORTH -> NORTH_TOP_SHAPE;
-                case EAST -> EAST_TOP_SHAPE;
-                case SOUTH -> SOUTH_TOP_SHAPE;
-                case WEST -> WEST_TOP_SHAPE;
-
-                case UP, DOWN ->
-                        throw new IllegalStateException(
-                                "Copycat Slope FACING must be horizontal: "
-                                        + facing
-                        );
-            };
-        }
-
-        return switch (facing) {
-            case NORTH -> NORTH_BOTTOM_SHAPE;
-            case EAST -> EAST_BOTTOM_SHAPE;
-            case SOUTH -> SOUTH_BOTTOM_SHAPE;
-            case WEST -> WEST_BOTTOM_SHAPE;
-
-            case UP, DOWN ->
-                    throw new IllegalStateException(
-                            "Copycat Slope FACING must be horizontal: "
-                                    + facing
-                    );
-        };
+        return getDirectionalShape(state);
     }
 
-    /**
-     * Returns the dedicated occlusion shape.
-     *
-     * <p>This is deliberately separate from {@link #getShape} so that
-     * collision/selection and face occlusion can evolve independently.</p>
-     */
+    @Override
+    protected boolean useShapeForLightOcclusion(
+            @NotNull BlockState state
+    ) {
+        return state.getValue(OCCLUDES);
+    }
+
     @Override
     protected @NotNull VoxelShape getOcclusionShape(
             @NotNull BlockState state,
             @NotNull BlockGetter level,
             @NotNull BlockPos pos
     ) {
-        Direction facing =
-                state.getValue(FACING);
+        return state.getValue(OCCLUDES)
+                ? getDirectionalOcclusionShape(state)
+                : Shapes.empty();
+    }
 
-        Half half =
-                state.getValue(HALF);
+    @Override
+    protected void afterCopy(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
+        updateOcclusionState(blockEntity);
+    }
 
-        if (half == Half.TOP) {
-            return switch (facing) {
-                case NORTH -> NORTH_TOP_OCCLUSION;
-                case EAST -> EAST_TOP_OCCLUSION;
-                case SOUTH -> SOUTH_TOP_OCCLUSION;
-                case WEST -> WEST_TOP_OCCLUSION;
+    @Override
+    protected void afterClear(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
+        updateOcclusionState(blockEntity);
+    }
 
-                case UP, DOWN ->
-                        throw new IllegalStateException(
-                                "Copycat Slope FACING must be horizontal: "
-                                        + facing
-                        );
-            };
+    @Override
+    public void updateOcclusionState(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
+        if (blockEntity.getLevel() == null) {
+            return;
         }
 
-        return switch (facing) {
-            case NORTH -> NORTH_BOTTOM_OCCLUSION;
-            case EAST -> EAST_BOTTOM_OCCLUSION;
-            case SOUTH -> SOUTH_BOTTOM_OCCLUSION;
-            case WEST -> WEST_BOTTOM_OCCLUSION;
+        Level level = blockEntity.getLevel();
+        BlockPos pos = blockEntity.getBlockPos();
 
-            case UP, DOWN ->
-                    throw new IllegalStateException(
-                            "Copycat Slope FACING must be horizontal: "
-                                    + facing
-                    );
-        };
+        BlockState currentState =
+                level.getBlockState(pos);
+
+        boolean shouldOcclude =
+                !blockEntity.getCopiedState().isAir()
+                        && blockEntity.getCopiedState().canOcclude();
+
+        if (currentState.getValue(OCCLUDES) == shouldOcclude) {
+            return;
+        }
+
+        level.setBlock(
+                pos,
+                currentState.setValue(
+                        OCCLUDES,
+                        shouldOcclude
+                ),
+                Block.UPDATE_ALL
+        );
     }
 
     /*

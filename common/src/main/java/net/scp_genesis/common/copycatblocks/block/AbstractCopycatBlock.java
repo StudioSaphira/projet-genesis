@@ -1,28 +1,28 @@
 package net.scp_genesis.common.copycatblocks.block;
 
-import net.minecraft.world.item.BlockItem;
-import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.item.CopycatRemoverItem;
-import net.scp_genesis.common.copycatblocks.util.CopycatItemHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.scp_genesis.common.copycatblocks.api.CopycatBlocksAPI;
+import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
+import net.scp_genesis.common.copycatblocks.data.CopycatPart;
+import net.scp_genesis.common.copycatblocks.item.CopycatRemoverItem;
 import net.scp_genesis.common.copycatblocks.item.CopycatScraperItem;
 import net.scp_genesis.common.copycatblocks.item.CopycatWrenchItem;
-import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
+import net.scp_genesis.common.copycatblocks.util.CopycatItemHelper;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Base class for every Copycat Block.
@@ -30,60 +30,83 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
  * <p>This class contains all gameplay logic shared by every Copycat Block.
  * Rendering is handled separately by the Copycat renderer.</p>
  */
-public abstract class AbstractCopycatBlock extends BaseEntityBlock implements EntityBlock {
+public abstract class AbstractCopycatBlock
+        extends BaseEntityBlock
+        implements EntityBlock {
 
     protected AbstractCopycatBlock(Properties properties) {
         super(properties);
     }
 
-    /**
-     * Creates the BlockEntity used by this Copycat Block.
-     */
+    // ------------------------------------------------------------------------
+    // Block Entity
+    // ------------------------------------------------------------------------
+
     @Override
-    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity newBlockEntity(
+            @NotNull BlockPos pos,
+            @NotNull BlockState state
+    ) {
         return new CopycatBlockEntity(pos, state);
     }
 
-    /**
-     * Uses the model renderer.
-     */
+    // ------------------------------------------------------------------------
+    // Rendering
+    // ------------------------------------------------------------------------
+
     @Override
-    public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
+    public @NotNull RenderShape getRenderShape(
+            @NotNull BlockState state
+    ) {
         return RenderShape.MODEL;
     }
 
-    /**
-     * Returns whether this Copycat supports the Copycat Wrench.
-     *
-     * <p>Override this method in blocks that can change their
-     * orientation or geometry.</p>
-     */
+    // ------------------------------------------------------------------------
+    // Copycat capabilities
+    // ------------------------------------------------------------------------
+
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isWrenchable() {
         return false;
     }
 
-    /**
-     * Returns whether the current BlockState represents a multipart
-     * physical state.
-     *
-     * <p>Multipart-capable blocks can override this method when only
-     * specific states represent multiple physical parts.</p>
-     */
-    protected boolean isMultipartState(@NotNull BlockState state) { return false; }
+    protected boolean isMultipartState(
+            @NotNull BlockState state
+    ) {
+        return false;
+    }
+
+    // ------------------------------------------------------------------------
+    // Occlusion
+    // ------------------------------------------------------------------------
 
     /**
-     * Called when the Copycat Wrench is used.
+     * Updates any dynamic block-state properties derived from the
+     * contents of the Copycat BlockEntity.
      *
-     * <p>Override this method in subclasses.</p>
+     * <p>Blocks that need dynamic occlusion can override this method.</p>
      */
-    public InteractionResult onWrench(Level level, BlockPos pos, BlockState state) {
+    public void updateOcclusionState(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
+    }
+
+    // ------------------------------------------------------------------------
+    // Wrench
+    // ------------------------------------------------------------------------
+
+    public InteractionResult onWrench(
+            Level level,
+            BlockPos pos,
+            BlockState state
+    ) {
         return InteractionResult.PASS;
     }
 
-    /**
-     * Clears the copied BlockState targeted by the interaction.
-     */
+    // ------------------------------------------------------------------------
+    // Scraper
+    // ------------------------------------------------------------------------
+
     public InteractionResult onScrape(
             Level level,
             BlockPos pos,
@@ -99,10 +122,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         }
 
         CopycatPart part =
-                getCopycatPart(
-                        state,
-                        hitResult
-                );
+                getCopycatPart(state, hitResult);
 
         if (!blockEntity.hasCopiedState(part)) {
             return InteractionResult.PASS;
@@ -114,19 +134,12 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                         part
                 );
 
-        /*
-         * Remove the copied state.
-         */
         CopycatBlocksAPI.clear(
                 level,
                 pos,
                 part
         );
 
-        /*
-         * Survival:
-         * return the block that provided the copied texture.
-         */
         if (player != null && !player.isCreative()) {
             CopycatItemHelper.giveOrDrop(
                     player,
@@ -147,11 +160,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         CopycatBlockEntity blockEntity =
                 getCopycatBlockEntity(level, pos);
 
-        if (blockEntity == null) {
-            return InteractionResult.PASS;
-        }
-
-        if (!blockEntity.hasCopiedState()) {
+        if (blockEntity == null || !blockEntity.hasCopiedState()) {
             return InteractionResult.PASS;
         }
 
@@ -179,6 +188,10 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return InteractionResult.SUCCESS;
     }
 
+    // ------------------------------------------------------------------------
+    // Remover
+    // ------------------------------------------------------------------------
+
     protected InteractionResult onRemovePart(
             Level level,
             BlockPos pos,
@@ -191,15 +204,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return InteractionResult.PASS;
     }
 
-    /**
-     * Removes the Copycat Block targeted by the interaction.
-     *
-     * <p>In Survival mode, the Copycat Block and its copied block,
-     * if any, are returned to the player. In Creative mode, nothing
-     * is returned.</p>
-     *
-     * <p>For multipart Copycats, only the targeted part is removed.</p>
-     */
     public InteractionResult onRemove(
             Level level,
             BlockPos pos,
@@ -215,10 +219,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         }
 
         CopycatPart part =
-                getCopycatPart(
-                        state,
-                        hitResult
-                );
+                getCopycatPart(state, hitResult);
 
         ItemStack copycatItem =
                 CopycatItemHelper.getCopycatItem(state);
@@ -229,13 +230,6 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
                         part
                 );
 
-        /*
-         * Multipart Copycat.
-         *
-         * The specialized Copycat Block is responsible for
-         * removing the targeted physical part and clearing
-         * its corresponding copied state.
-         */
         if (isMultipartState(state)) {
             return onRemovePart(
                     level,
@@ -248,25 +242,14 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             );
         }
 
-        /*
-         * Single-part Copycat.
-         *
-         * Remove the copied state and then remove the block.
-         */
         CopycatBlocksAPI.clear(
                 level,
                 pos,
                 part
         );
 
-        level.removeBlock(
-                pos,
-                false
-        );
+        level.removeBlock(pos, false);
 
-        /*
-         * Creative players receive nothing.
-         */
         if (player != null && !player.isCreative()) {
             CopycatItemHelper.giveOrDrop(
                     player,
@@ -281,11 +264,11 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
 
         return InteractionResult.SUCCESS;
     }
-    /**
-     * Copies the given BlockState into this Copycat Block.
-     *
-     * @return true if the copy operation succeeded.
-     */
+
+    // ------------------------------------------------------------------------
+    // Copying
+    // ------------------------------------------------------------------------
+
     protected boolean copyState(
             Level level,
             BlockPos pos,
@@ -311,12 +294,10 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return true;
     }
 
-    /**
-     * Returns the Copycat part targeted by the interaction.
-     *
-     * <p>Single-part Copycat Blocks use the MAIN part by default.
-     * Specialized Copycat Blocks can override this method.</p>
-     */
+    // ------------------------------------------------------------------------
+    // Parts
+    // ------------------------------------------------------------------------
+
     protected CopycatPart getCopycatPart(
             @NotNull BlockState state,
             @NotNull BlockHitResult hitResult
@@ -324,10 +305,14 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return CopycatPart.MAIN;
     }
 
+    // ------------------------------------------------------------------------
+    // Interaction
+    // ------------------------------------------------------------------------
+
     @SuppressWarnings("IfCanBeSwitch")
     @Override
     public @NotNull ItemInteractionResult useItemOn(
-            ItemStack stack,
+            @NotNull ItemStack stack,
             @NotNull BlockState state,
             @NotNull Level level,
             @NotNull BlockPos pos,
@@ -363,7 +348,12 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             if (!isWrenchable()) {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             }
-            return onWrench(level, pos, state).consumesAction()
+
+            return onWrench(
+                    level,
+                    pos,
+                    state
+            ).consumesAction()
                     ? ItemInteractionResult.SUCCESS
                     : ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
@@ -373,14 +363,15 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
 
-        BlockState copiedState = CopycatBlocksAPI.getBlockStateFromItem(stack);
+        BlockState copiedState =
+                CopycatBlocksAPI.getBlockStateFromItem(stack);
+
         if (copiedState.isAir()) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
-        CopycatPart part = getCopycatPart(
-                state,
-                hitResult
-        );
+
+        CopycatPart part =
+                getCopycatPart(state, hitResult);
 
         if (!copyState(
                 level,
@@ -390,6 +381,7 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         )) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
+
         if (!player.isCreative()) {
             stack.shrink(1);
         }
@@ -397,34 +389,30 @@ public abstract class AbstractCopycatBlock extends BaseEntityBlock implements En
         return ItemInteractionResult.SUCCESS;
     }
 
-    /**
-     * Returns the Copycat BlockEntity at the given position.
-     *
-     * @return the Copycat BlockEntity, or {@code null} if none exists.
-     */
+    // ------------------------------------------------------------------------
+    // Utilities
+    // ------------------------------------------------------------------------
+
     @Nullable
-    protected CopycatBlockEntity getCopycatBlockEntity(Level level, BlockPos pos) {
-        if (level.getBlockEntity(pos) instanceof CopycatBlockEntity blockEntity) {
+    protected CopycatBlockEntity getCopycatBlockEntity(
+            Level level,
+            BlockPos pos
+    ) {
+        if (level.getBlockEntity(pos)
+                instanceof CopycatBlockEntity blockEntity) {
             return blockEntity;
         }
 
         return null;
     }
 
-    /**
-     * Called after a successful copy.
-     */
-    @SuppressWarnings("unused")
-    protected void afterCopy(CopycatBlockEntity blockEntity) {
-
+    protected void afterCopy(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
     }
 
-    /**
-     * Called after the Copycat has been cleared.
-     */
-    @SuppressWarnings("unused")
-    protected void afterClear(CopycatBlockEntity blockEntity) {
-
+    protected void afterClear(
+            @NotNull CopycatBlockEntity blockEntity
+    ) {
     }
-
 }

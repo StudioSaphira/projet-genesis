@@ -74,7 +74,6 @@ public final class ModBlocks {
 				BlockBehaviour.Properties.of()
 						.strength(2.0F, 6.0F)
 						.sound(SoundType.METAL)
-						.requiresCorrectToolForDrops()
-						.noOcclusion()));
+						.requiresCorrectToolForDrops()));
 	}
 }
