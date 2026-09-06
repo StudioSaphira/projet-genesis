@@ -282,34 +282,6 @@ public final class CopycatGeometrySlope {
         return result;
     }
 
-    private static @NotNull CopycatUV[] transformUV(
-            @NotNull CopycatUV[] uv,
-            @NotNull Half half
-    ) {
-        CopycatUV[] result =
-                new CopycatUV[uv.length];
-
-        for (int i = 0; i < uv.length; i++) {
-
-            CopycatUV transformed =
-                    uv[i];
-
-            if (half == Half.TOP) {
-                transformed =
-                        CopycatUVMapping.flipV(
-                                transformed
-                        );
-            }
-
-            result[i] =
-                    CopycatUVMapping.clamp(
-                            transformed
-                    );
-        }
-
-        return result;
-    }
-
     /**
      * Returns the UV coordinates for the requested Slope orientation.
      *
@@ -328,30 +300,21 @@ public final class CopycatGeometrySlope {
             @NotNull Direction facing,
             @NotNull Half half
     ) {
-        CopycatFace[] faces =
-                getFaces(
-                        facing,
-                        half
-                );
+        CopycatFace[] faces = getFaces(facing, half);
 
-        CopycatUV[][] result =
-                new CopycatUV[faces.length][];
+        CopycatUV[][] result = new CopycatUV[faces.length][];
 
         for (int i = 0; i < faces.length; i++) {
 
-            CopycatFace face =
-                    faces[i];
+            CopycatFace face = faces[i];
 
-            CopycatUV[] faceUV =
-                    CopycatSlopeUV.calculate(
-                            face
-                    );
+            CopycatUV[] faceUV = CopycatSlopeUV.calculate(face);
 
-            result[i] =
-                    transformUV(
-                            faceUV,
-                            half
-                    );
+            CopycatUV[] clampedUV = new CopycatUV[faceUV.length];
+
+            for (int j = 0; j < faceUV.length; j++) {clampedUV[j] = CopycatUVMapping.clamp(faceUV[j]);}
+
+            result[i] = clampedUV;
         }
 
         return result;

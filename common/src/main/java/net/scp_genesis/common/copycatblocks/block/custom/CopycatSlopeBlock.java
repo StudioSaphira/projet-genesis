@@ -72,29 +72,21 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
      * Each step is 4 blocks high and 4 blocks deep.
      */
 
-    private static final VoxelShape NORTH_BOTTOM_SHAPE =
-            createBottomShape(Direction.NORTH);
+    private static final VoxelShape NORTH_BOTTOM_SHAPE = createShape(Direction.NORTH);
 
-    private static final VoxelShape EAST_BOTTOM_SHAPE =
-            createBottomShape(Direction.EAST);
+    private static final VoxelShape EAST_BOTTOM_SHAPE = createShape(Direction.EAST);
 
-    private static final VoxelShape SOUTH_BOTTOM_SHAPE =
-            createBottomShape(Direction.SOUTH);
+    private static final VoxelShape SOUTH_BOTTOM_SHAPE = createShape(Direction.SOUTH);
 
-    private static final VoxelShape WEST_BOTTOM_SHAPE =
-            createBottomShape(Direction.WEST);
+    private static final VoxelShape WEST_BOTTOM_SHAPE = createShape(Direction.WEST);
 
-    private static final VoxelShape NORTH_TOP_SHAPE =
-            createTopShape(Direction.NORTH);
+    private static final VoxelShape NORTH_TOP_SHAPE = mirrorVertical(NORTH_BOTTOM_SHAPE);
 
-    private static final VoxelShape EAST_TOP_SHAPE =
-            createTopShape(Direction.EAST);
+    private static final VoxelShape EAST_TOP_SHAPE = mirrorVertical(EAST_BOTTOM_SHAPE);
 
-    private static final VoxelShape SOUTH_TOP_SHAPE =
-            createTopShape(Direction.SOUTH);
+    private static final VoxelShape SOUTH_TOP_SHAPE = mirrorVertical(SOUTH_BOTTOM_SHAPE);
 
-    private static final VoxelShape WEST_TOP_SHAPE =
-            createTopShape(Direction.WEST);
+    private static final VoxelShape WEST_TOP_SHAPE = mirrorVertical(WEST_BOTTOM_SHAPE);
 
     /*
      * ================================================================
@@ -179,13 +171,10 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         for (int i = 0; i < rotations; i++) {
             result = rotateClockwise(result);
         }
-
         return result;
     }
 
-    private static VoxelShape rotateClockwise(
-            @NotNull VoxelShape shape
-    ) {
+    private static VoxelShape rotateClockwise(@NotNull VoxelShape shape) {
         AtomicReference<VoxelShape> result = new AtomicReference<>(Shapes.empty());
 
         shape.forAllBoxes(
@@ -198,15 +187,11 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 (1.0D - minZ) * 16.0D,
                                 maxY * 16.0D,
                                 maxX * 16.0D
-                        )
-                ))
-        );
-
+                        ))));
         return result.get();
     }
 
-    private static final VoxelShape NORTH_BOTTOM_OCCLUSION =
-            BOTTOM_OCCLUSION_SHAPE;
+    private static final VoxelShape NORTH_BOTTOM_OCCLUSION = BOTTOM_OCCLUSION_SHAPE;
 
     private static final VoxelShape EAST_BOTTOM_OCCLUSION =
             rotateHorizontal(
@@ -226,32 +211,28 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                     Direction.WEST
             );
 
-    private static VoxelShape mirrorVertical() {
+    private static VoxelShape mirrorVertical(@NotNull VoxelShape shape) {
         AtomicReference<VoxelShape> result = new AtomicReference<>(Shapes.empty());
 
-        BOTTOM_OCCLUSION_SHAPE.forAllBoxes(
-                (minX, minY, minZ, maxX, maxY, maxZ) -> result.set(Shapes.or(
-                        result.get(),
-                        Block.box(
-                                minX * 16.0D,
-                                (1.0D - maxY) * 16.0D,
-                                minZ * 16.0D,
-                                maxX * 16.0D,
-                                (1.0D - minY) * 16.0D,
-                                maxZ * 16.0D
-                        )
-                ))
-        );
-
+        shape.forAllBoxes(
+                (minX, minY, minZ, maxX, maxY, maxZ) ->
+                        result.set(
+                                Shapes.or(
+                                        result.get(),
+                                        Block.box(
+                                                minX * 16.0D,
+                                                (1.0D - maxY) * 16.0D,
+                                                minZ * 16.0D,
+                                                maxX * 16.0D,
+                                                (1.0D - minY) * 16.0D,
+                                                maxZ * 16.0D
+                                        ))));
         return result.get();
     }
 
-    private static final VoxelShape TOP_OCCLUSION_SHAPE =
-            mirrorVertical(
-            );
+    private static final VoxelShape TOP_OCCLUSION_SHAPE = mirrorVertical(BOTTOM_OCCLUSION_SHAPE);
 
-    private static final VoxelShape NORTH_TOP_OCCLUSION =
-            TOP_OCCLUSION_SHAPE;
+    private static final VoxelShape NORTH_TOP_OCCLUSION = TOP_OCCLUSION_SHAPE;
 
     private static final VoxelShape EAST_TOP_OCCLUSION =
             rotateHorizontal(
@@ -333,7 +314,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
      *              16  12   8   4
      * </pre>
      */
-    private static VoxelShape createBottomShape(
+    private static VoxelShape createShape(
             @NotNull Direction facing
     ) {
         VoxelShape shape =
@@ -390,62 +371,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
                                 12.0D,
                                 16.0D,
                                 4.0D
-                        )
-                );
-
-        return shape;
-    }
-
-    /**
-     * Creates the vertical mirror of the bottom slope.
-     */
-    private static VoxelShape createTopShape(
-            @NotNull Direction facing
-    ) {
-        VoxelShape shape =
-                Shapes.empty();
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                0.0D,
-                                4.0D,
-                                4.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                4.0D,
-                                8.0D,
-                                8.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                8.0D,
-                                12.0D,
-                                12.0D
-                        )
-                );
-
-        shape =
-                Shapes.or(
-                        shape,
-                        createSlice(
-                                facing,
-                                12.0D,
-                                16.0D,
-                                16.0D
                         )
                 );
 
