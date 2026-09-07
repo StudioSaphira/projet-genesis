@@ -2,6 +2,7 @@ package net.scp_genesis.neoforge.copycatblocks.renderer.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -10,7 +11,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
@@ -33,8 +33,7 @@ import java.util.List;
  */
 public final class NeoForgeCopycatOutlineRenderer {
 
-    private NeoForgeCopycatOutlineRenderer() {
-    }
+    private NeoForgeCopycatOutlineRenderer() {}
 
     /*
      * ================================================================
@@ -47,24 +46,33 @@ public final class NeoForgeCopycatOutlineRenderer {
      *
      * @param poseStack current pose stack
      * @param bufferSource render buffer source
-     * @param level block level
-     * @param pos position of the block
      * @param state block state
      * @param modelData NeoForge model data
      */
     public static void render(
             @NotNull PoseStack poseStack,
             @NotNull MultiBufferSource bufferSource,
-            @NotNull BlockGetter level,
             @NotNull BlockPos pos,
             @NotNull BlockState state,
             @NotNull ModelData modelData
     ) {
-        Minecraft minecraft =
-                Minecraft.getInstance();
+        Camera camera = Minecraft
+                        .getInstance()
+                        .gameRenderer
+                        .getMainCamera();
 
-        BakedModel model =
-                minecraft
+        double cameraX =
+                camera.getPosition().x;
+
+        double cameraY =
+                camera.getPosition().y;
+
+        double cameraZ =
+                camera.getPosition().z;
+
+        Minecraft minecraft = Minecraft.getInstance();
+
+        BakedModel model = minecraft
                         .getBlockRenderer()
                         .getBlockModelShaper()
                         .getBlockModel(state);
@@ -76,16 +84,11 @@ public final class NeoForgeCopycatOutlineRenderer {
                         modelData
                 );
 
-        if (quads.isEmpty()) {
-            return;
-        }
+        if (quads.isEmpty()) {return;}
 
-        List<Line> lines =
-                buildOutlineLines(quads);
+        List<Line> lines = buildOutlineLines(quads);
 
-        if (lines.isEmpty()) {
-            return;
-        }
+        if (lines.isEmpty()) {return;}
 
         VertexConsumer buffer =
                 bufferSource.getBuffer(
@@ -95,9 +98,9 @@ public final class NeoForgeCopycatOutlineRenderer {
         poseStack.pushPose();
 
         poseStack.translate(
-                pos.getX(),
-                pos.getY(),
-                pos.getZ()
+                pos.getX() - cameraX,
+                pos.getY() - cameraY,
+                pos.getZ() - cameraZ
         );
 
         drawLines(
@@ -120,13 +123,9 @@ public final class NeoForgeCopycatOutlineRenderer {
             @NotNull BlockState state,
             @NotNull ModelData modelData
     ) {
-        List<BakedQuad> result =
-                new ArrayList<>();
+        List<BakedQuad> result = new ArrayList<>();
 
-        RandomSource random =
-                RandomSource.create(
-                        42L
-                );
+        RandomSource random = RandomSource.create(42L);
 
         /*
          * Collect directional quads.
@@ -139,9 +138,7 @@ public final class NeoForgeCopycatOutlineRenderer {
                             direction,
                             random,
                             modelData,
-                            null
-                    )
-            );
+                            null));
         }
 
         /*
@@ -153,10 +150,7 @@ public final class NeoForgeCopycatOutlineRenderer {
                         null,
                         random,
                         modelData,
-                        null
-                )
-        );
-
+                        null));
         return result;
     }
 
@@ -166,38 +160,28 @@ public final class NeoForgeCopycatOutlineRenderer {
      * ================================================================
      */
 
-    private static @NotNull List<Line> buildOutlineLines(
-            @NotNull List<BakedQuad> quads
-    ) {
-        List<Line> lines =
-                new ArrayList<>();
+    private static @NotNull List<Line> buildOutlineLines(@NotNull List<BakedQuad> quads) {
+        List<Line> lines = new ArrayList<>();
 
         for (BakedQuad quad : quads) {
 
-            Vector[] vertices =
-                    getVertices(quad);
+            Vector[] vertices = getVertices(quad);
 
-            if (vertices.length < 3) {
-                continue;
-            }
+            if (vertices.length < 3) {continue;}
 
             /*
              * A quad contributes four edges.
              */
             for (int i = 0; i < vertices.length; i++) {
 
-                Vector start =
-                        vertices[i];
+                Vector start = vertices[i];
 
                 Vector end =
                         vertices[
-                                (i + 1)
-                                        % vertices.length
+                                (i + 1) % vertices.length
                                 ];
 
-                if (start.equals(end)) {
-                    continue;
-                }
+                if (start.equals(end)) {continue;}
 
                 lines.add(
                         new Line(
@@ -209,7 +193,7 @@ public final class NeoForgeCopycatOutlineRenderer {
             }
         }
 
-        return removeInternalLines(lines);
+        return lines;
     }
 
     /*
@@ -218,19 +202,14 @@ public final class NeoForgeCopycatOutlineRenderer {
      * ================================================================
      */
 
-    private static @NotNull Vector[] getVertices(
-            @NotNull BakedQuad quad
-    ) {
-        int[] data =
-                quad.getVertices();
+    private static @NotNull Vector[] getVertices(@NotNull BakedQuad quad) {
+        int[] data = quad.getVertices();
 
-        Vector[] vertices =
-                new Vector[4];
+        Vector[] vertices = new Vector[4];
 
         for (int i = 0; i < 4; i++) {
 
-            int offset =
-                    i * 8;
+            int offset = i * 8;
 
             float x =
                     Float.intBitsToFloat(
@@ -264,36 +243,55 @@ public final class NeoForgeCopycatOutlineRenderer {
      * ================================================================
      */
 
-    private static @NotNull List<Line> removeInternalLines(
-            @NotNull List<Line> lines
-    ) {
-        List<Line> result =
-                new ArrayList<>();
+    private static @NotNull List<Line> removeInternalLines(@NotNull List<Line> lines) {
+        List<Line> result = new ArrayList<>();
+
+        boolean[] removed = new boolean[lines.size()];
 
         for (int i = 0; i < lines.size(); i++) {
+
+            if (removed[i]) {continue;}
 
             Line current =
                     lines.get(i);
 
-            boolean internal =
-                    false;
+            for (int j = i + 1; j < lines.size(); j++) {
 
-            for (int j = 0; j < lines.size(); j++) {
-
-                if (i == j) {
+                if (removed[j]) {
                     continue;
                 }
 
                 Line other =
                         lines.get(j);
 
-                if (current.isSameSegment(other)) {
-                    internal = true;
+                if (!current.isSameSegment(other)) {
+                    continue;
+                }
+
+                /*
+                 * The same geometric segment belongs to two faces.
+                 *
+                 * If both faces have the same normal, it is usually
+                 * duplicated geometry.
+                 *
+                 * If their normals differ, the segment is an internal
+                 * shared edge and must not be rendered as an outline.
+                 */
+                if (!current.hasSameDirection(other)) {
+                    removed[i] = true;
+                    removed[j] = true;
                     break;
                 }
+
+                /*
+                 * Identical geometry generated more than once.
+                 *
+                 * Keep only one copy.
+                 */
+                removed[j] = true;
             }
 
-            if (!internal) {
+            if (!removed[i]) {
                 result.add(current);
             }
         }
@@ -312,8 +310,7 @@ public final class NeoForgeCopycatOutlineRenderer {
             @NotNull VertexConsumer buffer,
             @NotNull List<Line> lines
     ) {
-        PoseStack.Pose pose =
-                poseStack.last();
+        PoseStack.Pose pose = poseStack.last();
 
         for (Line line : lines) {
 
@@ -373,9 +370,7 @@ public final class NeoForgeCopycatOutlineRenderer {
             float z
     ) {
 
-        private boolean equals(
-                @NotNull Vector other
-        ) {
+        private boolean equals(@NotNull Vector other) {
             return Math.abs(x - other.x) < 1.0E-5F
                     && Math.abs(y - other.y) < 1.0E-5F
                     && Math.abs(z - other.z) < 1.0E-5F;
@@ -396,16 +391,16 @@ public final class NeoForgeCopycatOutlineRenderer {
             );
         }
 
-        private boolean isSameSegment(
-                @NotNull Line other
-        ) {
+        private boolean isSameSegment(@NotNull Line other) {
             return (
-                    start.equals(other.start)
-                            && end.equals(other.end)
+                    start.equals(other.start) && end.equals(other.end)
             ) || (
-                    start.equals(other.end)
-                            && end.equals(other.start)
+                    start.equals(other.end) && end.equals(other.start)
             );
+        }
+
+        private boolean hasSameDirection(@NotNull Line other) {
+            return direction == other.direction;
         }
     }
 }
