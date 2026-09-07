@@ -605,7 +605,7 @@ public final class NeoForgeCopycatSlopeHelper {
     /**
      * Returns the particle sprite of the copied block.
      */
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "unused"})
     public static @NotNull TextureAtlasSprite getParticleSprite(@NotNull ModelData modelData) {
         BlockState copiedState = getCopiedState(modelData);
 

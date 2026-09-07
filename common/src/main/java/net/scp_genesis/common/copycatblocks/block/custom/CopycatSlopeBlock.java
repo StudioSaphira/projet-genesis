@@ -627,12 +627,6 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         return true;
     }
 
-    /**
-     * Rotates the slope clockwise by 90 degrees.
-     *
-     * <p>The wrench only changes the horizontal FACING. The vertical
-     * orientation represented by {@link #HALF} is preserved.</p>
-     */
     @Override
     public net.minecraft.world.InteractionResult onWrench(
             @NotNull net.minecraft.world.level.Level level,
@@ -642,19 +636,42 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         Direction facing =
                 state.getValue(FACING);
 
-        Direction newFacing =
-                facing.getClockWise();
+        Half half =
+                state.getValue(HALF);
 
-        BlockState newState =
-                state.setValue(
-                        FACING,
-                        newFacing
-                );
+        if (facing == Direction.WEST) {
+            if (half == Half.BOTTOM) {
+                state = state
+                        .setValue(
+                                FACING,
+                                Direction.NORTH
+                        )
+                        .setValue(
+                                HALF,
+                                Half.TOP
+                        );
+            } else {
+                state = state
+                        .setValue(
+                                FACING,
+                                Direction.NORTH
+                        )
+                        .setValue(
+                                HALF,
+                                Half.BOTTOM
+                        );
+            }
+        } else {
+            state = state.setValue(
+                    FACING,
+                    facing.getClockWise()
+            );
+        }
 
         if (!level.isClientSide()) {
             level.setBlock(
                     pos,
-                    newState,
+                    state,
                     Block.UPDATE_ALL
             );
         }
