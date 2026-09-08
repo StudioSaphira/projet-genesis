@@ -4,9 +4,15 @@
 
 - Added Dirty White Tiled Block [WAS REMOVED BY MISTAKE DURING ALPHA-RELEASE 17]
 
+## Changes
+
+- NeoForge from 21.1.248 to 21.1.250
+- Fabric Loader from 0.19.3 to 0.19.5
+- Fabric API Requirement from 0.116.15+1.21.1 to 0.116.17+1.21.1
+
 ## Fixes
 
-- Fixed Copycat Slope
+- Fixed Copycat Slope for both NeoForge and Fabric
 
 ## Next Update
 
