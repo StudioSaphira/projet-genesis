@@ -12,20 +12,14 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
+import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-/**
- * Fabric rendering implementation for Copycat Slopes.
- *
- * <p>The actual Slope geometry is defined in the common module.
- * Fabric is responsible only for emitting that geometry through
- * the Fabric Renderer API.</p>
- */
 @SuppressWarnings("ClassCanBeRecord")
 public final class FabricCopycatGeometrySlope
         implements FabricCopycatGeometry {
@@ -64,6 +58,24 @@ public final class FabricCopycatGeometrySlope
 
         /*
          * ============================================================
+         * COMMON GEOMETRY
+         * ============================================================
+         */
+
+        CopycatFace[] faces =
+                CopycatGeometrySlope.getFaces(
+                        facing,
+                        half
+                );
+
+        CopycatUV[][] uv =
+                CopycatGeometrySlope.getUV(
+                        facing,
+                        half
+                );
+
+        /*
+         * ============================================================
          * COPYCAT BLOCK ENTITY
          * ============================================================
          */
@@ -81,29 +93,14 @@ public final class FabricCopycatGeometrySlope
 
         /*
          * ============================================================
-         * SLOPE GEOMETRY
-         * ============================================================
-         *
-         * The geometry itself is entirely defined by the common
-         * CopycatGeometrySlope implementation.
-         */
-
-        CopycatFace[] faces =
-                CopycatGeometrySlope.getFaces(
-                        facing,
-                        half
-                );
-
-        /*
-         * ============================================================
          * EMPTY SLOPE
          * ============================================================
          */
 
         if (copiedState == null || copiedState.isAir()) {
-
             FabricCopycatSlopeHelper.emitEmpty(
                     faces,
+                    uv,
                     particleIcon,
                     context
             );
@@ -119,6 +116,7 @@ public final class FabricCopycatGeometrySlope
 
         FabricCopycatSlopeHelper.retexture(
                 faces,
+                uv,
                 copiedState,
                 randomSupplier,
                 context,
