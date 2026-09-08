@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
@@ -149,29 +148,27 @@ public final class NeoForgeCopycatSlopeHelper {
 
         /*
          * ============================================================
-         * SOURCE QUAD
+         * BUILD ALL QUAD
          * ============================================================
          */
 
-        BakedQuad sourceQuad =
-                findBestSourceQuad(
-                        copiedQuads,
-                        face.direction()
-                );
+        List<BakedQuad> result =
+                new java.util.ArrayList<>();
 
-        if (sourceQuad == null) {return Collections.emptyList();}
+        for (BakedQuad copiedQuad : copiedQuads) {
 
-        TextureAtlasSprite sprite = sourceQuad.getSprite();
+            result.add(
+                    buildQuad(
+                            face,
+                            uv,
+                            copiedQuad,
+                            copiedQuad.getSprite(),
+                            part
+                    )
+            );
+        }
 
-        return List.of(
-                buildQuad(
-                        face,
-                        uv,
-                        sourceQuad,
-                        sprite,
-                        part
-                )
-        );
+        return result;
     }
 
     /**
@@ -325,29 +322,6 @@ public final class NeoForgeCopycatSlopeHelper {
                         true
                 )
         );
-    }
-
-    /*
-     * ================================================================
-     * SOURCE QUAD
-     * ================================================================
-     */
-
-    @Nullable
-    private static BakedQuad findBestSourceQuad(@NotNull List<BakedQuad> quads, @NotNull Direction direction) {
-        /*
-         * Prefer an exact directional match.
-         */
-        for (BakedQuad quad : quads) {
-            if (quad.getDirection() == direction) {
-                return quad;
-            }
-        }
-
-        /*
-         * Otherwise use the first available quad.
-         */
-        return quads.getFirst();
     }
 
     /*
