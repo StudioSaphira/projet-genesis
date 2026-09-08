@@ -20,7 +20,6 @@ import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -62,25 +61,28 @@ public final class FabricCopycatSlopeHelper {
             CopycatUV[] faceUv =
                     uv[i];
 
-            BakedQuad copiedQuad =
-                    findCopiedQuad(
+            List<BakedQuad> copiedQuads =
+                    findCopiedQuads(
                             copiedModel,
                             copiedState,
                             face.direction(),
                             random
                     );
 
-            if (copiedQuad == null) {
+            if (copiedQuads.isEmpty()) {
                 continue;
             }
 
-            emitRetexturedFace(
-                    emitter,
-                    face,
-                    faceUv,
-                    copiedQuad,
-                    part
-            );
+            for (BakedQuad copiedQuad : copiedQuads) {
+
+                emitRetexturedFace(
+                        emitter,
+                        face,
+                        faceUv,
+                        copiedQuad,
+                        part
+                );
+            }
         }
     }
 
@@ -90,8 +92,8 @@ public final class FabricCopycatSlopeHelper {
      * ================================================================
      */
 
-    @Nullable
-    public static BakedQuad findCopiedQuad(
+    @NotNull
+    public static List<BakedQuad> findCopiedQuads(
             @NotNull BakedModel copiedModel,
             @NotNull BlockState copiedState,
             @NotNull Direction direction,
@@ -105,21 +107,14 @@ public final class FabricCopycatSlopeHelper {
                 );
 
         if (!quads.isEmpty()) {
-            return quads.getFirst();
+            return quads;
         }
 
-        List<BakedQuad> generalQuads =
-                copiedModel.getQuads(
-                        copiedState,
-                        null,
-                        random
-                );
-
-        if (!generalQuads.isEmpty()) {
-            return generalQuads.getFirst();
-        }
-
-        return null;
+        return copiedModel.getQuads(
+                copiedState,
+                null,
+                random
+        );
     }
 
     /*
