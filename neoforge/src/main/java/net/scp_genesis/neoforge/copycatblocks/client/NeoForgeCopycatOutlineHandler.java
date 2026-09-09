@@ -1,4 +1,4 @@
-package net.scp_genesis.neoforge.copycatblocks.renderer.util;
+package net.scp_genesis.neoforge.copycatblocks.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -9,6 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
+import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatOutlineRenderer;
 import org.jetbrains.annotations.NotNull;
 
 /**

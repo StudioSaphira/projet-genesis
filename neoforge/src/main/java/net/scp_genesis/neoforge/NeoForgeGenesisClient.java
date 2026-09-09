@@ -7,7 +7,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
 import net.scp_genesis.neoforge.client.NeoForgeBlockColors;
 import net.scp_genesis.neoforge.client.NeoForgeModelLoading;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatOutlineHandler;
+import net.scp_genesis.neoforge.copycatblocks.client.NeoForgeCopycatOutlineHandler;
 
 @Mod(
         value = "scp_genesis",
