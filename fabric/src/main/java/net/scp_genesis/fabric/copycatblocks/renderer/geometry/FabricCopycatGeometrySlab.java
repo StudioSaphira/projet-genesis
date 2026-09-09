@@ -17,8 +17,7 @@ import java.util.function.Supplier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 
-public final class FabricCopycatGeometrySlab
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometrySlab implements FabricCopycatGeometry {
 
     private final BakedModel bottomModel;
     private final BakedModel topModel;
@@ -50,8 +49,7 @@ public final class FabricCopycatGeometrySlab
             Supplier<RandomSource> randomSupplier,
             RenderContext context
     ) {
-        BlockEntity blockEntity =
-                blockView.getBlockEntity(pos);
+        BlockEntity blockEntity = blockView.getBlockEntity(pos);
 
         if (!(blockEntity instanceof CopycatBlockEntity copycat)) {
             FabricCopycatQuadHelper.emitBaseModel(
@@ -64,14 +62,11 @@ public final class FabricCopycatGeometrySlab
             return;
         }
 
-        SlabType slabType =
-                CopycatGeometrySlab.getSlabType(state);
+        SlabType slabType = CopycatGeometrySlab.getSlabType(state);
 
-        for (CopycatPart part :
-                CopycatGeometrySlab.getParts(state)) {
+        for (CopycatPart part : CopycatGeometrySlab.getParts(state)) {
 
-            BlockState copiedState =
-                    copycat.getCopiedStates().get(part);
+            BlockState copiedState = copycat.getCopiedStates().get(part);
 
             BakedModel model =
                     switch (part) {

@@ -77,42 +77,27 @@ public final class FabricCopycatModelLoader {
                                 )
                 );
 
-        for (Map.Entry<ResourceLocation, Resource> entry
-                : resources.entrySet()) {
+        for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
 
-            ResourceLocation resourceLocation =
-                    entry.getKey();
+            ResourceLocation resourceLocation = entry.getKey();
 
-            Resource resource =
-                    entry.getValue();
+            Resource resource = entry.getValue();
 
-            try (Reader reader =
-                         resource.openAsReader()) {
+            try (Reader reader = resource.openAsReader()) {
 
-                JsonElement element =
-                        JsonParser.parseReader(reader);
+                JsonElement element = JsonParser.parseReader(reader);
 
-                if (!element.isJsonObject()) {
-                    continue;
-                }
+                if (!element.isJsonObject()) {continue;}
 
-                JsonObject json =
-                        element.getAsJsonObject();
+                JsonObject json = element.getAsJsonObject();
 
-                if (!isCopycatModel(json)) {
-                    continue;
-                }
+                if (!isCopycatModel(json)) {continue;}
 
-                FabricCopycatModelDefinition definition =
-                        parseDefinition(json);
+                FabricCopycatModelDefinition definition = parseDefinition(json);
 
-                ResourceLocation modelId =
-                        getModelId(resourceLocation);
+                ResourceLocation modelId = getModelId(resourceLocation);
 
-                definitions.put(
-                        modelId,
-                        definition
-                );
+                definitions.put(modelId, definition);
 
                 ModConstants.LOGGER.info(
                         "[COPYCAT] Loaded model definition: {}",
@@ -137,24 +122,16 @@ public final class FabricCopycatModelLoader {
         return definitions;
     }
 
-    private static boolean isCopycatModel(
-            JsonObject json
-    ) {
-        if (!json.has(LOADER_PROPERTY)) {
-            return false;
-        }
+    private static boolean isCopycatModel(JsonObject json) {
+        if (!json.has(LOADER_PROPERTY)) {return false;}
 
-        String loader =
-                json.get(LOADER_PROPERTY)
-                        .getAsString();
+        String loader = json.get(LOADER_PROPERTY).getAsString();
 
         return COPYCAT_LOADER.toString().equals(loader)
                 || COPYCAT_SLOPE_LOADER.toString().equals(loader);
     }
 
-    private static FabricCopycatModelDefinition parseDefinition(
-            JsonObject json
-    ) {
+    private static FabricCopycatModelDefinition parseDefinition(JsonObject json) {
         String loader =
                 json.get(LOADER_PROPERTY)
                         .getAsString();
@@ -185,8 +162,7 @@ public final class FabricCopycatModelLoader {
             );
         }
 
-        JsonElement baseModelElement =
-                json.get(BASE_MODEL_PROPERTY);
+        JsonElement baseModelElement = json.get(BASE_MODEL_PROPERTY);
 
         /*
          * ============================================================
@@ -196,14 +172,9 @@ public final class FabricCopycatModelLoader {
 
         if (baseModelElement.isJsonPrimitive()) {
 
-            ResourceLocation baseModel =
-                    ResourceLocation.parse(
-                            baseModelElement.getAsString()
-                    );
+            ResourceLocation baseModel = ResourceLocation.parse(baseModelElement.getAsString());
 
-            return FabricCopycatModelDefinition.cube(
-                    baseModel
-            );
+            return FabricCopycatModelDefinition.cube(baseModel);
         }
 
         /*
@@ -214,8 +185,7 @@ public final class FabricCopycatModelLoader {
 
         if (baseModelElement.isJsonObject()) {
 
-            JsonObject baseModels =
-                    baseModelElement.getAsJsonObject();
+            JsonObject baseModels = baseModelElement.getAsJsonObject();
 
             /*
              * --------------------------------------------------------
@@ -227,8 +197,7 @@ public final class FabricCopycatModelLoader {
                     && baseModels.has("inner")
                     && baseModels.has("outer")) {
 
-                Map<String, ResourceLocation> models =
-                        new HashMap<>();
+                Map<String, ResourceLocation> models = new HashMap<>();
 
                 models.put(
                         "straight",
@@ -273,8 +242,7 @@ public final class FabricCopycatModelLoader {
                     "double_secondary"
             };
 
-            Map<String, ResourceLocation> models =
-                    new HashMap<>();
+            Map<String, ResourceLocation> models = new HashMap<>();
 
             for (String key : requiredModels) {
 
@@ -301,33 +269,21 @@ public final class FabricCopycatModelLoader {
             );
         }
 
-        throw new IllegalStateException(
-                "Invalid \"base_model\" in Copycat model"
-        );
+        throw new IllegalStateException("Invalid \"base_model\" in Copycat model");
     }
 
     private static ResourceLocation parseModelId(
             JsonObject json,
             String key
     ) {
-        return ResourceLocation.parse(
-                json.get(key).getAsString()
-        );
+        return ResourceLocation.parse(json.get(key).getAsString());
     }
 
-    private static ResourceLocation getModelId(
-            ResourceLocation resourceLocation
-    ) {
-        String path =
-                resourceLocation.getPath();
+    private static ResourceLocation getModelId(ResourceLocation resourceLocation) {
+        String path = resourceLocation.getPath();
 
-        if (!path.startsWith(MODEL_DIRECTORY + "/")
-                || !path.endsWith(".json")) {
-
-            throw new IllegalArgumentException(
-                    "Invalid model resource path: "
-                            + resourceLocation
-            );
+        if (!path.startsWith(MODEL_DIRECTORY + "/") || !path.endsWith(".json")) {
+            throw new IllegalArgumentException("Invalid model resource path: " + resourceLocation);
         }
 
         String modelPath =

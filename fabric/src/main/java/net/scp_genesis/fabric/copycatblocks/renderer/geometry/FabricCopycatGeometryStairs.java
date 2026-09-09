@@ -19,8 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public final class FabricCopycatGeometryStairs
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometryStairs implements FabricCopycatGeometry {
 
     private static final CopycatStairsModelKey DEFAULT_MODEL_KEY =
             new CopycatStairsModelKey(
@@ -44,12 +43,9 @@ public final class FabricCopycatGeometryStairs
     private BakedModel getModel(
             @Nullable BlockState state
     ) {
-        if (state == null) {
-            return getModel();
-        }
+        if (state == null) {return getModel();}
 
-        CopycatStairsModelKey key =
-                CopycatGeometryStairs.getModelKey(state);
+        CopycatStairsModelKey key = CopycatGeometryStairs.getModelKey(state);
 
         BakedModel model = models.get(key);
 

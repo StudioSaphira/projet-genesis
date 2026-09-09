@@ -20,9 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("ClassCanBeRecord")
-public final class FabricCopycatGeometrySlope
-        implements FabricCopycatGeometry {
+public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
     private final TextureAtlasSprite defaultSprite;
 
@@ -80,8 +78,7 @@ public final class FabricCopycatGeometrySlope
          * ============================================================
          */
 
-        BlockEntity blockEntity =
-                blockView.getBlockEntity(pos);
+        BlockEntity blockEntity = blockView.getBlockEntity(pos);
 
         BlockState copiedState = null;
 
