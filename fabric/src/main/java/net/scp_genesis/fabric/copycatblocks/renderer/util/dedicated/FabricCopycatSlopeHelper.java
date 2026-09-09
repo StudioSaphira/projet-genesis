@@ -47,19 +47,15 @@ public final class FabricCopycatSlopeHelper {
                         copiedState
                 );
 
-        QuadEmitter emitter =
-                context.getEmitter();
+        QuadEmitter emitter = context.getEmitter();
 
-        RandomSource random =
-                randomSupplier.get();
+        RandomSource random = randomSupplier.get();
 
         for (int i = 0; i < faces.length; i++) {
 
-            CopycatFace face =
-                    faces[i];
+            CopycatFace face = faces[i];
 
-            CopycatUV[] faceUv =
-                    uv[i];
+            CopycatUV[] faceUv = uv[i];
 
             List<BakedQuad> copiedQuads =
                     findCopiedQuads(
@@ -69,9 +65,7 @@ public final class FabricCopycatSlopeHelper {
                             random
                     );
 
-            if (copiedQuads.isEmpty()) {
-                continue;
-            }
+            if (copiedQuads.isEmpty()) {continue;}
 
             for (BakedQuad copiedQuad : copiedQuads) {
 
@@ -106,9 +100,7 @@ public final class FabricCopycatSlopeHelper {
                         random
                 );
 
-        if (!quads.isEmpty()) {
-            return quads;
-        }
+        if (!quads.isEmpty()) {return quads;}
 
         return copiedModel.getQuads(
                 copiedState,
@@ -157,13 +149,11 @@ public final class FabricCopycatSlopeHelper {
          * ============================================================
          */
 
-        int vertexCount =
-                face.vertices().length;
+        int vertexCount = face.vertices().length;
 
         for (int i = 0; i < vertexCount; i++) {
 
-            var vertex =
-                    face.vertices()[i];
+            var vertex = face.vertices()[i];
 
             emitter.pos(
                     i,
@@ -185,8 +175,7 @@ public final class FabricCopycatSlopeHelper {
          */
         if (vertexCount == 3) {
 
-            var vertex =
-                    face.vertices()[2];
+            var vertex = face.vertices()[2];
 
             emitter.pos(
                     3,
@@ -241,9 +230,7 @@ public final class FabricCopycatSlopeHelper {
          * ============================================================
          */
 
-        emitter.nominalFace(
-                cullFace
-        );
+        emitter.nominalFace(cullFace);
 
         /*
          * ============================================================
@@ -273,19 +260,15 @@ public final class FabricCopycatSlopeHelper {
             @NotNull TextureAtlasSprite sprite,
             @NotNull RenderContext context
     ) {
-        QuadEmitter emitter =
-                context.getEmitter();
+        QuadEmitter emitter = context.getEmitter();
 
-        RenderMaterial material =
-                FabricCopycatRenderer.getCutoutMaterial();
+        RenderMaterial material = FabricCopycatRenderer.getCutoutMaterial();
 
         for (int i = 0; i < faces.length; i++) {
 
-            CopycatFace face =
-                    faces[i];
+            CopycatFace face = faces[i];
 
-            CopycatUV[] faceUv =
-                    uv[i];
+            CopycatUV[] faceUv = uv[i];
 
             emitEmptyFace(
                     emitter,
@@ -309,8 +292,7 @@ public final class FabricCopycatSlopeHelper {
                         CopycatGeometryMath.normal(face)
                 );
 
-        int vertexCount =
-                face.vertices().length;
+        int vertexCount = face.vertices().length;
 
         Direction cullFace =
                 CopycatSlopeOcclusion.supportsFaceCulling(face)
@@ -319,8 +301,7 @@ public final class FabricCopycatSlopeHelper {
 
         for (int i = 0; i < vertexCount; i++) {
 
-            var vertex =
-                    face.vertices()[i];
+            var vertex = face.vertices()[i];
 
             emitter.pos(
                     i,
@@ -345,8 +326,7 @@ public final class FabricCopycatSlopeHelper {
 
         if (vertexCount == 3) {
 
-            var vertex =
-                    face.vertices()[2];
+            var vertex = face.vertices()[2];
 
             emitter.pos(
                     3,
@@ -369,6 +349,13 @@ public final class FabricCopycatSlopeHelper {
             );
         }
 
+        emitter.color(
+                0xFFFFFFFF,
+                0xFFFFFFFF,
+                0xFFFFFFFF,
+                0xFFFFFFFF
+        );
+
         emitter.spriteBake(
                 sprite,
                 MutableQuadView.BAKE_NORMALIZED
@@ -376,9 +363,9 @@ public final class FabricCopycatSlopeHelper {
 
         emitter.material(material);
 
-        emitter.nominalFace(
-                cullFace
-        );
+        emitter.nominalFace(cullFace);
+
+        emitter.colorIndex(-1);
 
         emitter.emit();
     }

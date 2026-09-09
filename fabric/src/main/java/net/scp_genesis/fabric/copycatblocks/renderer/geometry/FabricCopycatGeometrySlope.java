@@ -24,12 +24,12 @@ import java.util.function.Supplier;
 public final class FabricCopycatGeometrySlope
         implements FabricCopycatGeometry {
 
-    private final TextureAtlasSprite particleIcon;
+    private final TextureAtlasSprite defaultSprite;
 
     public FabricCopycatGeometrySlope(
-            @NotNull TextureAtlasSprite particleIcon
+            @NotNull TextureAtlasSprite defaultSprite
     ) {
-        this.particleIcon = particleIcon;
+        this.defaultSprite = defaultSprite;
     }
 
     @Override
@@ -101,7 +101,7 @@ public final class FabricCopycatGeometrySlope
             FabricCopycatSlopeHelper.emitEmpty(
                     faces,
                     uv,
-                    particleIcon,
+                    defaultSprite,
                     context
             );
 
@@ -126,6 +126,6 @@ public final class FabricCopycatGeometrySlope
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon() {
-        return particleIcon;
+        return defaultSprite;
     }
 }

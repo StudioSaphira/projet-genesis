@@ -104,6 +104,11 @@ public final class FabricCopycatUnbakedModel
                         )
                 );
 
+        System.out.println(
+                "[Copycat Slope] copycatSprite = "
+                        + copycatSprite
+        );
+
         @SuppressWarnings("deprecation")
         TextureAtlasSprite copycatAltSprite =
                 spriteGetter.apply(
