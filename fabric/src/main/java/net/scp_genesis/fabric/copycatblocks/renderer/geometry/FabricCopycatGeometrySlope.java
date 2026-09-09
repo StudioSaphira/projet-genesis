@@ -2,6 +2,7 @@ package net.scp_genesis.fabric.copycatblocks.renderer.geometry;
 
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -22,12 +23,20 @@ import java.util.function.Supplier;
 
 public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
+    private final BakedModel baseModel;
     private final TextureAtlasSprite defaultSprite;
 
     public FabricCopycatGeometrySlope(
+            @NotNull BakedModel baseModel,
             @NotNull TextureAtlasSprite defaultSprite
     ) {
+        this.baseModel = baseModel;
         this.defaultSprite = defaultSprite;
+    }
+
+    @Override
+    public @NotNull BakedModel getModel() {
+        return baseModel;
     }
 
     @Override

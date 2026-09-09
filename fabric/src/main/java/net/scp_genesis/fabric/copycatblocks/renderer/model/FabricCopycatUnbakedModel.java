@@ -230,7 +230,22 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
         if (geometryType == GeometryType.SLOPE) {
 
-            FabricCopycatGeometry geometry = new FabricCopycatGeometrySlope(copycatSprite);
+            BakedModel baseModel =
+                    FabricCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            ResourceLocation.fromNamespaceAndPath(
+                                    "minecraft",
+                                    "block/cube_all"
+                            ),
+                            modelState,
+                            copycatSpriteGetter
+                    );
+
+            FabricCopycatGeometry geometry =
+                    new FabricCopycatGeometrySlope(
+                            baseModel,
+                            copycatSprite
+                    );
 
             return new FabricCopycatBakedModel(geometry);
         }
