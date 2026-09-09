@@ -61,8 +61,6 @@ public final class FabricCopycatBakedModel implements BakedModel, FabricBakedMod
                     geometry.getParticleIcon(),
                     context
             );
-
-            return;
         }
     }
 
@@ -76,11 +74,7 @@ public final class FabricCopycatBakedModel implements BakedModel, FabricBakedMod
 
         if (model == null) {return List.of();}
 
-        return model.getQuads(
-                state,
-                side,
-                random
-        );
+        return model.getQuads(state, side, random);
     }
 
     @Override
