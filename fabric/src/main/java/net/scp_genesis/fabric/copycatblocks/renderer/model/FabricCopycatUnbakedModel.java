@@ -19,8 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-public final class FabricCopycatUnbakedModel
-        implements UnbakedModel {
+public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
     public enum GeometryType {
         CUBE,
@@ -139,14 +138,9 @@ public final class FabricCopycatUnbakedModel
                             copycatSpriteGetter
                     );
 
-            FabricCopycatGeometry geometry =
-                    new FabricCopycatGeometryCube(
-                            bakedBaseModel
-                    );
+            FabricCopycatGeometry geometry = new FabricCopycatGeometryCube(bakedBaseModel);
 
-            return new FabricCopycatBakedModel(
-                    geometry
-            );
+            return new FabricCopycatBakedModel(geometry);
         }
 
         /*
@@ -197,9 +191,7 @@ public final class FabricCopycatUnbakedModel
                             doubleModel
                     );
 
-            return new FabricCopycatBakedModel(
-                    geometry
-            );
+            return new FabricCopycatBakedModel(geometry);
         }
 
         /*
@@ -238,18 +230,11 @@ public final class FabricCopycatUnbakedModel
 
         if (geometryType == GeometryType.SLOPE) {
 
-            FabricCopycatGeometry geometry =
-                    new FabricCopycatGeometrySlope(
-                            copycatSprite
-                    );
+            FabricCopycatGeometry geometry = new FabricCopycatGeometrySlope(copycatSprite);
 
-            return new FabricCopycatBakedModel(
-                    geometry
-            );
+            return new FabricCopycatBakedModel(geometry);
         }
 
-        throw new IllegalStateException(
-                "Copycat model has no base model"
-        );
+        throw new IllegalStateException("Copycat model has no base model");
     }
 }

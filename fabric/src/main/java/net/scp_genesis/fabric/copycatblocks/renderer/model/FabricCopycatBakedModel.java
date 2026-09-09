@@ -17,8 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-public final class FabricCopycatBakedModel
-        implements BakedModel {
+public final class FabricCopycatBakedModel implements BakedModel {
 
     private final FabricCopycatGeometry geometry;
 
@@ -29,9 +28,7 @@ public final class FabricCopycatBakedModel
     }
 
     @Override
-    public boolean isVanillaAdapter() {
-        return false;
-    }
+    public boolean isVanillaAdapter() {return false;}
 
     @Override
     public void emitBlockQuads(
@@ -58,9 +55,7 @@ public final class FabricCopycatBakedModel
     ) {
         BakedModel model = geometry.getModel();
 
-        if (model == null) {
-            return List.of();
-        }
+        if (model == null) {return List.of();}
 
         return model.getQuads(
                 state,
