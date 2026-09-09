@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 
 import net.scp_genesis.fabric.client.FabricBlockColors;
 import net.scp_genesis.fabric.client.FabricModelLoading;
+import net.scp_genesis.fabric.copycatblocks.client.FabricCopycatOutlineHandler;
 
 @SuppressWarnings("unused")
 public final class FabricGenesisClient implements ClientModInitializer {
@@ -13,5 +14,6 @@ public final class FabricGenesisClient implements ClientModInitializer {
 
         FabricBlockColors.register();
         FabricModelLoading.register();
+        FabricCopycatOutlineHandler.register();
     }
 }
