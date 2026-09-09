@@ -33,9 +33,7 @@ public interface FabricCopycatGeometry extends CopycatGeometry {
      * {@code null}.</p>
      */
     @Nullable
-    default BakedModel getModel() {
-        return null;
-    }
+    default BakedModel getModel() {return null;}
 
     @NotNull
     TextureAtlasSprite getParticleIcon();
