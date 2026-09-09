@@ -230,10 +230,31 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
         if (geometryType == GeometryType.SLOPE) {
 
-            FabricCopycatGeometry geometry = new FabricCopycatGeometrySlope(copycatSprite);
+            ResourceLocation slopeReferenceModel = ResourceLocation.fromNamespaceAndPath(
+                            "minecraft",
+                            "block/cube_all"
+                    );
+
+            BakedModel referenceModel = FabricCopycatModelBakeHelper.bakeModel(
+                            baker,
+                            slopeReferenceModel,
+                            modelState,
+                            copycatSpriteGetter
+                    );
+
+            FabricCopycatGeometry geometry = new FabricCopycatGeometrySlope(
+                            referenceModel,
+                            copycatSprite
+                    );
 
             return new FabricCopycatBakedModel(geometry);
         }
+
+        /*
+         * ============================================================
+         * IllegalStateException
+         * ============================================================
+         */
 
         throw new IllegalStateException("Copycat model has no base model");
     }

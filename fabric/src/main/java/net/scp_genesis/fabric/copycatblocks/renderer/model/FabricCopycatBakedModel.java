@@ -56,11 +56,7 @@ public final class FabricCopycatBakedModel implements BakedModel, FabricBakedMod
             RenderContext context
     ) {
         if (geometry instanceof FabricCopycatGeometrySlope) {
-
-            FabricCopycatSlopeItemModel.emit(
-                    geometry.getParticleIcon(),
-                    context
-            );
+            FabricCopycatSlopeItemModel.emit(geometry.getParticleIcon(), context);
         }
     }
 
@@ -104,6 +100,12 @@ public final class FabricCopycatBakedModel implements BakedModel, FabricBakedMod
 
     @Override
     public @NotNull ItemTransforms getTransforms() {
+        if (geometry instanceof FabricCopycatGeometrySlope slope) {return slope.getTransforms();}
+
+        BakedModel model = geometry.getModel();
+
+        if (model != null) {return model.getTransforms();}
+
         return ItemTransforms.NO_TRANSFORMS;
     }
 
