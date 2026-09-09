@@ -13,8 +13,7 @@ import java.util.function.Function;
 
 public final class FabricCopycatModelBakeHelper {
 
-    private FabricCopycatModelBakeHelper() {
-    }
+    private FabricCopycatModelBakeHelper() {}
 
     public static @NotNull BakedModel bakeModel(
             @NotNull ModelBaker baker,
@@ -22,8 +21,7 @@ public final class FabricCopycatModelBakeHelper {
             @NotNull ModelState modelState,
             @NotNull Function<Material, TextureAtlasSprite> spriteGetter
     ) {
-        UnbakedModel unbakedModel =
-                baker.getModel(modelLocation);
+        UnbakedModel unbakedModel = baker.getModel(modelLocation);
 
         BakedModel model =
                 unbakedModel.bake(
@@ -33,10 +31,7 @@ public final class FabricCopycatModelBakeHelper {
                 );
 
         if (model == null) {
-            throw new IllegalStateException(
-                    "Failed to bake Copycat base model: "
-                            + modelLocation
-            );
+            throw new IllegalStateException("Failed to bake Copycat base model: " + modelLocation);
         }
 
         return model;
