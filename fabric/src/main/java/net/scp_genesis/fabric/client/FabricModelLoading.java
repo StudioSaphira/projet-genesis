@@ -12,8 +12,7 @@ import java.util.Map;
 
 public final class FabricModelLoading {
 
-    private FabricModelLoading() {
-    }
+    private FabricModelLoading() {}
 
     public static void register() {
         PreparableModelLoadingPlugin.register(
@@ -37,25 +36,18 @@ public final class FabricModelLoading {
         );
     }
 
-    private static net.minecraft.client.resources.model.UnbakedModel
-    modifyModelBeforeBake(
+    private static net.minecraft.client.resources.model.UnbakedModel modifyModelBeforeBake(
             net.minecraft.client.resources.model.UnbakedModel model,
             ModelModifier.BeforeBake.Context context,
             Map<ResourceLocation, FabricCopycatModelDefinition> definitions
     ) {
-        ResourceLocation resourceId =
-                context.resourceId();
+        ResourceLocation resourceId = context.resourceId();
 
-        if (resourceId == null) {
-            return model;
-        }
+        if (resourceId == null) {return model;}
 
-        FabricCopycatModelDefinition definition =
-                definitions.get(resourceId);
+        FabricCopycatModelDefinition definition = definitions.get(resourceId);
 
-        if (definition == null) {
-            return model;
-        }
+        if (definition == null) {return model;}
 
         return switch (definition.geometryType()) {
             case CUBE ->
