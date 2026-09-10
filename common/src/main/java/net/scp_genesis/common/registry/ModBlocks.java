@@ -1,6 +1,9 @@
 package net.scp_genesis.common.registry;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FireBlock;
+import net.scp_genesis.common.furnitures.notmodular.room.FurnitureTableOak;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -24,6 +27,7 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> DIRTY_BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Block> WALL_BASE;
 	public static PlatformRegistryObject<Block> GREEN_TILED_FLOOR;
+    public static PlatformRegistryObject<Block> TABLE_OAK;
 
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
@@ -48,6 +52,7 @@ public final class ModBlocks {
 		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
 
 		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
+        TABLE_OAK = registry.registerBlock("table_oak", FurnitureTableOak::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
 				BlockBehaviour.Properties.of()
@@ -76,4 +81,10 @@ public final class ModBlocks {
 						.sound(SoundType.METAL)
 						.requiresCorrectToolForDrops()));
 	}
+
+    /** Call after block registration, on the main setup thread. */
+    public static void registerFlammables() {
+        // Vanilla oak planks: encouragement 5, flammability 20.
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_OAK.get(), 5, 20);
+    }
 }

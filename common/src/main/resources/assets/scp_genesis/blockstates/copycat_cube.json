@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "scp_genesis:block/copycat_cube"
-    }
+    "": {"model": "scp_genesis:block/copycat_cube"}
   }
 }

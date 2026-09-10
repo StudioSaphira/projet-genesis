@@ -14,6 +14,7 @@ public final class ModTabs {
 	public static PlatformRegistryObject<CreativeModeTab> CUSTOM_ITEMS;
 	public static PlatformRegistryObject<CreativeModeTab> BUILDING_BLOCKS;
 	public static PlatformRegistryObject<CreativeModeTab> COPYCAT_BLOCKS;
+	public static PlatformRegistryObject<CreativeModeTab> FURNITURES;
 
 	public static void register(
 			PlatformRegistry registry
@@ -187,9 +188,7 @@ public final class ModTabs {
 						BUILDING_BLOCKS.getId(),
 						() -> registry.createCreativeModeTabBuilder()
 								.title(
-										Component.translatable(
-												"item_group.scp_genesis.copycat_blocks"
-										)
+										Component.translatable("item_group.scp_genesis.copycat_blocks")
 								)
 								.icon(
 										() -> new ItemStack(
@@ -208,6 +207,29 @@ public final class ModTabs {
 										}
 								)
 								.withSearchBar()
+				);
+
+		FURNITURES =
+				registry.registerCreativeModeTab(
+						"furnitures_block",
+						COPYCAT_BLOCKS.getId(),
+						() -> registry.createCreativeModeTabBuilder()
+							.title(
+									Component.translatable("item_group.scp_genesis.furnitures")
+							)
+						    .icon(
+									() -> new ItemStack(
+											ModBlocks.TABLE_OAK.get()
+									)
+							)
+							.displayItems(
+									(parameters, tabData) -> {
+										tabData.accept(ModItems.TABLE_OAK.get());
+										tabData.accept(ModItems.TABLE_OAK.get());
+									}
+							)
+							.withSearchBar()
+
 				);
 	}
 }

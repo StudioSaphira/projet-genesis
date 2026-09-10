@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "scp_genesis:block/clean_white_wall"
-    }
+    "": {"model": "scp_genesis:block/clean_white_wall"}
   }
 }
