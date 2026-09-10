@@ -1,0 +1,9 @@
+{
+  "parent": "scp_genesis:custom/table",
+  "textures": {
+    "0": "scp_genesis:block/table_mangrove_up",
+    "1": "scp_genesis:block/table_mangrove_down",
+    "2": "scp_genesis:block/table_mangrove_side",
+    "particle": "minecraft:block/mangrove_planks"
+  }
+}

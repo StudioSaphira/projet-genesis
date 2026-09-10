@@ -88,6 +88,12 @@ public final class ModItems {
     public static PlatformRegistryObject<Item> TABLE_OAK;
 	public static PlatformRegistryObject<Item> TABLE_SPRUCE;
     public static PlatformRegistryObject<Item> TABLE_DARK_OAK;
+    public static PlatformRegistryObject<Item> TABLE_BIRCH;
+    public static PlatformRegistryObject<Item> TABLE_JUNGLE;
+    public static PlatformRegistryObject<Item> TABLE_ACACIA;
+    public static PlatformRegistryObject<Item> TABLE_MANGROVE;
+    public static PlatformRegistryObject<Item> TABLE_CHERRY;
+    public static PlatformRegistryObject<Item> TABLE_BAMBOO;
 
 	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
@@ -223,6 +229,12 @@ public final class ModItems {
         TABLE_OAK = registry.registerBlockItem("table_oak", ModBlocks.TABLE_OAK);
 		TABLE_SPRUCE = registry.registerBlockItem("table_spruce", ModBlocks.TABLE_SPRUCE);
         TABLE_DARK_OAK = registry.registerBlockItem("table_dark_oak", ModBlocks.TABLE_DARK_OAK);
+        TABLE_BIRCH = registry.registerBlockItem("table_birch", ModBlocks.TABLE_BIRCH);
+        TABLE_JUNGLE = registry.registerBlockItem("table_jungle", ModBlocks.TABLE_JUNGLE);
+        TABLE_ACACIA = registry.registerBlockItem("table_acacia", ModBlocks.TABLE_ACACIA);
+        TABLE_MANGROVE = registry.registerBlockItem("table_mangrove", ModBlocks.TABLE_MANGROVE);
+        TABLE_CHERRY = registry.registerBlockItem("table_cherry", ModBlocks.TABLE_CHERRY);
+        TABLE_BAMBOO = registry.registerBlockItem("table_bamboo", ModBlocks.TABLE_BAMBOO);
 
 		COPYCAT_CUBE = registry.registerBlockItem("copycat_cube", ModBlocks.COPYCAT_CUBE);
 		COPYCAT_STAIRS = registry.registerBlockItem("copycat_stairs", ModBlocks.COPYCAT_STAIRS);

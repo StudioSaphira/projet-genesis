@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "scp_genesis:block/table_acacia" }
+  }
+}

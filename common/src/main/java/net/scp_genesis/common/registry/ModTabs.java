@@ -227,6 +227,12 @@ public final class ModTabs {
 										tabData.accept(ModItems.TABLE_OAK.get());
 										tabData.accept(ModItems.TABLE_SPRUCE.get());
                                         tabData.accept(ModItems.TABLE_DARK_OAK.get());
+                                        tabData.accept(ModItems.TABLE_BIRCH.get());
+                                        tabData.accept(ModItems.TABLE_JUNGLE.get());
+                                        tabData.accept(ModItems.TABLE_ACACIA.get());
+                                        tabData.accept(ModItems.TABLE_MANGROVE.get());
+                                        tabData.accept(ModItems.TABLE_CHERRY.get());
+                                        tabData.accept(ModItems.TABLE_BAMBOO.get());
 									}
 							)
 							.withSearchBar()

@@ -1,0 +1,9 @@
+{
+  "parent": "scp_genesis:custom/table",
+  "textures": {
+    "0": "scp_genesis:block/table_bamboo_up",
+    "1": "scp_genesis:block/table_bamboo_down",
+    "2": "scp_genesis:block/table_bamboo_side",
+    "particle": "minecraft:block/bamboo_planks"
+  }
+}

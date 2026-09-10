@@ -1,4 +1,10 @@
 {
+  "block.scp_genesis.table_birch": "Table en bouleau",
+  "block.scp_genesis.table_jungle": "Table en acajou",
+  "block.scp_genesis.table_acacia": "Table en acacia",
+  "block.scp_genesis.table_mangrove": "Table en palétuvier",
+  "block.scp_genesis.table_cherry": "Table en cerisier",
+  "block.scp_genesis.table_bamboo": "Table en bambou",
   "block.scp_genesis.table_oak": "Table en chêne",
   "block.scp_genesis.table_spruce": "Table en sapin",
   "block.scp_genesis.table_dark_oak": "Table en chêne noir",

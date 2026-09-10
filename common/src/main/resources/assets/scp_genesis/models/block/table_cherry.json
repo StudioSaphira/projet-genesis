@@ -1,0 +1,9 @@
+{
+  "parent": "scp_genesis:custom/table",
+  "textures": {
+    "0": "scp_genesis:block/table_cherry_up",
+    "1": "scp_genesis:block/table_cherry_down",
+    "2": "scp_genesis:block/table_cherry_side",
+    "particle": "minecraft:block/cherry_planks"
+  }
+}

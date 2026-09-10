@@ -5,6 +5,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.scp_genesis.common.furnitures.notmodular.room.oak.FurnitureTableOak;
 import net.scp_genesis.common.furnitures.notmodular.room.spruce.FurnitureTableSpruce;
+import net.scp_genesis.common.furnitures.notmodular.room.birch.FurnitureTableBirch;
+import net.scp_genesis.common.furnitures.notmodular.room.jungle.FurnitureTableJungle;
+import net.scp_genesis.common.furnitures.notmodular.room.acacia.FurnitureTableAcacia;
+import net.scp_genesis.common.furnitures.notmodular.room.mangrove.FurnitureTableMangrove;
+import net.scp_genesis.common.furnitures.notmodular.room.cherry.FurnitureTableCherry;
+import net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureTableBamboo;
 import net.scp_genesis.common.furnitures.notmodular.room.darkoak.FurnitureTableDarkOak;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -33,6 +39,12 @@ public final class ModBlocks {
     public static PlatformRegistryObject<Block> TABLE_OAK;
 	public static PlatformRegistryObject<Block> TABLE_SPRUCE;
     public static PlatformRegistryObject<Block> TABLE_DARK_OAK;
+    public static PlatformRegistryObject<Block> TABLE_BIRCH;
+    public static PlatformRegistryObject<Block> TABLE_JUNGLE;
+    public static PlatformRegistryObject<Block> TABLE_ACACIA;
+    public static PlatformRegistryObject<Block> TABLE_MANGROVE;
+    public static PlatformRegistryObject<Block> TABLE_CHERRY;
+    public static PlatformRegistryObject<Block> TABLE_BAMBOO;
 
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
@@ -54,6 +66,12 @@ public final class ModBlocks {
         TABLE_OAK = registry.registerBlock("table_oak", FurnitureTableOak::new);
 		TABLE_SPRUCE = registry.registerBlock("table_spruce", FurnitureTableSpruce::new);
         TABLE_DARK_OAK = registry.registerBlock("table_dark_oak", FurnitureTableDarkOak::new);
+        TABLE_BIRCH = registry.registerBlock("table_birch", FurnitureTableBirch::new);
+        TABLE_JUNGLE = registry.registerBlock("table_jungle", FurnitureTableJungle::new);
+        TABLE_ACACIA = registry.registerBlock("table_acacia", FurnitureTableAcacia::new);
+        TABLE_MANGROVE = registry.registerBlock("table_mangrove", FurnitureTableMangrove::new);
+        TABLE_CHERRY = registry.registerBlock("table_cherry", FurnitureTableCherry::new);
+        TABLE_BAMBOO = registry.registerBlock("table_bamboo", FurnitureTableBamboo::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
 				BlockBehaviour.Properties.of()
@@ -89,5 +107,11 @@ public final class ModBlocks {
         ((FireBlock) Blocks.FIRE).setFlammable(TABLE_OAK.get(), 5, 20);
         ((FireBlock) Blocks.FIRE).setFlammable(TABLE_SPRUCE.get(), 5, 20);
         ((FireBlock) Blocks.FIRE).setFlammable(TABLE_DARK_OAK.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_BIRCH.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_JUNGLE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_ACACIA.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_MANGROVE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_CHERRY.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_BAMBOO.get(), 5, 20);
     }
 }

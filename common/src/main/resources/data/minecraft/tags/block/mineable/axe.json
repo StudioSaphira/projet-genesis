@@ -3,6 +3,12 @@
   "values": [
     "scp_genesis:table_oak",
     "scp_genesis:table_spruce",
-    "scp_genesis:table_dark_oak"
+    "scp_genesis:table_dark_oak",
+    "scp_genesis:table_birch",
+    "scp_genesis:table_jungle",
+    "scp_genesis:table_acacia",
+    "scp_genesis:table_mangrove",
+    "scp_genesis:table_cherry",
+    "scp_genesis:table_bamboo"
   ]
 }

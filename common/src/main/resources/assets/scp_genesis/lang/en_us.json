@@ -1,4 +1,10 @@
 {
+  "block.scp_genesis.table_birch": "Birch Table",
+  "block.scp_genesis.table_jungle": "Jungle Table",
+  "block.scp_genesis.table_acacia": "Acacia Table",
+  "block.scp_genesis.table_mangrove": "Mangrove Table",
+  "block.scp_genesis.table_cherry": "Cherry Table",
+  "block.scp_genesis.table_bamboo": "Bamboo Table",
   "block.scp_genesis.table_oak": "Oak Table",
   "block.scp_genesis.table_spruce": "Spruce Table",
   "block.scp_genesis.table_dark_oak": "Dark Oak Table",
