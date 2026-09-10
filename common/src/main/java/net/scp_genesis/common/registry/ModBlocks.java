@@ -3,7 +3,9 @@ package net.scp_genesis.common.registry;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
-import net.scp_genesis.common.furnitures.notmodular.room.FurnitureTableOak;
+import net.scp_genesis.common.furnitures.notmodular.room.oak.FurnitureTableOak;
+import net.scp_genesis.common.furnitures.notmodular.room.spruce.FurnitureTableSpruce;
+import net.scp_genesis.common.furnitures.notmodular.room.darkoak.FurnitureTableDarkOak;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -27,7 +29,10 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> DIRTY_BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Block> WALL_BASE;
 	public static PlatformRegistryObject<Block> GREEN_TILED_FLOOR;
+
     public static PlatformRegistryObject<Block> TABLE_OAK;
+	public static PlatformRegistryObject<Block> TABLE_SPRUCE;
+    public static PlatformRegistryObject<Block> TABLE_DARK_OAK;
 
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
@@ -38,21 +43,17 @@ public final class ModBlocks {
 			PlatformRegistry registry
 	) {
 		CLEAN_WHITE_WALL = registry.registerBlock("clean_white_wall", CleanWhiteTiledBlock::new);
-
 		DIRTY_WHITE_WALL = registry.registerBlock("dirty_white_wall", DirtyWhiteTiledBlock::new);
-
 		BROKEN_WHITE_WALL_ONE = registry.registerBlock("broken_white_wall_one", BrokenWhiteTiledOneBlock::new);
-
 		BROKEN_WHITE_WALL_TWO = registry.registerBlock("broken_white_wall_two", BrokenWhiteTiledTwoBlock::new);
-
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteTiledOneBlock::new);
-
 		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteTiledTwoBlock::new);
-
 		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
-
 		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
+
         TABLE_OAK = registry.registerBlock("table_oak", FurnitureTableOak::new);
+		TABLE_SPRUCE = registry.registerBlock("table_spruce", FurnitureTableSpruce::new);
+        TABLE_DARK_OAK = registry.registerBlock("table_dark_oak", FurnitureTableDarkOak::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
 				BlockBehaviour.Properties.of()
@@ -86,5 +87,7 @@ public final class ModBlocks {
     public static void registerFlammables() {
         // Vanilla oak planks: encouragement 5, flammability 20.
         ((FireBlock) Blocks.FIRE).setFlammable(TABLE_OAK.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_SPRUCE.get(), 5, 20);
+        ((FireBlock) Blocks.FIRE).setFlammable(TABLE_DARK_OAK.get(), 5, 20);
     }
 }

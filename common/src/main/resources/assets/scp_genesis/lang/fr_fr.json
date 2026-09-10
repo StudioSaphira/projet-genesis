@@ -1,5 +1,7 @@
 {
   "block.scp_genesis.table_oak": "Table en chêne",
+  "block.scp_genesis.table_spruce": "Table en sapin",
+  "block.scp_genesis.table_dark_oak": "Table en chêne noir",
   "block.scp_genesis.broken_white_wall_one": "Bloc de Carrelage cassé mural blanc 1",
   "block.scp_genesis.broken_white_wall_two": "Bloc de Carrelage cassé mural blanc 2",
   "block.scp_genesis.clean_white_wall": "Bloc de Carrelage mural blanc",

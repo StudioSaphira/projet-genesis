@@ -1,4 +1,4 @@
-package net.scp_genesis.common.furnitures.notmodular.room;
+package net.scp_genesis.common.furnitures.notmodular.room.oak;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;

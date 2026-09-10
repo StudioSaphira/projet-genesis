@@ -1,5 +1,7 @@
 {
   "block.scp_genesis.table_oak": "Oak Table",
+  "block.scp_genesis.table_spruce": "Spruce Table",
+  "block.scp_genesis.table_dark_oak": "Dark Oak Table",
   "block.scp_genesis.broken_white_wall_one": "Broken White Wall Block One",
   "block.scp_genesis.broken_white_wall_two": "Broken White Wall Block Two",
   "block.scp_genesis.clean_white_wall": "Clean White Wall Block",

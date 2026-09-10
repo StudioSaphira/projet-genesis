@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "scp_genesis:table_oak"
+    "scp_genesis:table_oak",
+    "scp_genesis:table_spruce",
+    "scp_genesis:table_dark_oak"
   ]
 }

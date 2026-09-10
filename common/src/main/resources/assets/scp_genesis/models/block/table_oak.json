@@ -4,6 +4,6 @@
 		"0": "scp_genesis:block/table_oak_up",
 		"1": "scp_genesis:block/table_oak_down",
 		"2": "scp_genesis:block/table_oak_side",
-		"particle": "scp_genesis:block/table_oak_up"
+		"particle": "minecraft:block/oak_planks"
 	}
 }

@@ -225,7 +225,8 @@ public final class ModTabs {
 							.displayItems(
 									(parameters, tabData) -> {
 										tabData.accept(ModItems.TABLE_OAK.get());
-										tabData.accept(ModItems.TABLE_OAK.get());
+										tabData.accept(ModItems.TABLE_SPRUCE.get());
+                                        tabData.accept(ModItems.TABLE_DARK_OAK.get());
 									}
 							)
 							.withSearchBar()
