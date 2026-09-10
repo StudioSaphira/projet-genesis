@@ -23,6 +23,7 @@ public interface PlatformCreativeModeTabBuilder {
 
     PlatformCreativeModeTabBuilder withSearchBar();
 
+    /** The supplied tab must appear before the tab being built. */
     PlatformCreativeModeTabBuilder withTabsBefore(
             ResourceLocation before
     );

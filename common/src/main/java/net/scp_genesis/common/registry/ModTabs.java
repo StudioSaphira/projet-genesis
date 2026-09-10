@@ -179,7 +179,6 @@ public final class ModTabs {
 											tabData.accept(ModItems.GREEN_TILED_FLOOR.get());
 										}
 								)
-								.withSearchBar()
 				);
 
 		COPYCAT_BLOCKS =
@@ -206,7 +205,6 @@ public final class ModTabs {
 											tabData.accept(ModItems.COPYCAT_SLAB.get());
 										}
 								)
-								.withSearchBar()
 				);
 
 		FURNITURES =
@@ -235,8 +233,6 @@ public final class ModTabs {
                                         tabData.accept(ModItems.TABLE_BAMBOO.get());
 									}
 							)
-							.withSearchBar()
-
 				);
 	}
 }

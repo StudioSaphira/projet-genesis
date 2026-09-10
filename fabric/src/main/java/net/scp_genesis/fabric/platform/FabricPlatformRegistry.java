@@ -170,6 +170,8 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
                 builder.get().build()
         );
 
+        FabricTabSettings.register(location, tab);
+
         return new FabricPlatformRegistryObject<>(
                 tab,
                 location
@@ -187,8 +189,10 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
         CreativeModeTab tab = Registry.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB,
                 location,
-                builder.get().build()
+                builder.get().withTabsBefore(before).build()
         );
+
+        FabricTabSettings.register(location, tab);
 
         return new FabricPlatformRegistryObject<>(
                 tab,

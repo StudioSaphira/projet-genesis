@@ -8,17 +8,16 @@ import net.minecraft.world.item.ItemStack;
 import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 
 import java.util.function.Supplier;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
 public final class FabricCreativeModeTabBuilder implements PlatformCreativeModeTabBuilder {
 
     private final CreativeModeTab.Builder builder;
+    private boolean searchBar;
+    private ResourceLocation predecessor;
 
     public FabricCreativeModeTabBuilder() {
-        this.builder =
-                CreativeModeTab.builder(
-                        CreativeModeTab.Row.TOP,
-                        0
-                );
+        this.builder = FabricItemGroup.builder();
     }
 
     @Override
@@ -47,11 +46,9 @@ public final class FabricCreativeModeTabBuilder implements PlatformCreativeModeT
 
     @Override
     public PlatformCreativeModeTabBuilder withSearchBar() {
-        /*
-         * Fabric 1.21.1 uses the vanilla builder.
-         * The creation of the builder with a position
-         * then allows the use of the vanilla configuration.
-         */
+        searchBar = true;
+        builder.hideTitle().backgroundTexture(ResourceLocation.withDefaultNamespace(
+                "textures/gui/container/creative_inventory/tab_item_search.png"));
         return this;
     }
 
@@ -59,18 +56,14 @@ public final class FabricCreativeModeTabBuilder implements PlatformCreativeModeT
     public PlatformCreativeModeTabBuilder withTabsBefore(
             ResourceLocation before
     ) {
-        /*
-         * Fabric 1.21.1 / vanilla does not expose
-         * withTabsBefore on CreativeModeTab.Builder.
-         *
-         * The platform abstraction keeps this method
-         * for platforms that support it.
-         */
+        predecessor = before;
         return this;
     }
 
     @Override
     public CreativeModeTab build() {
-        return builder.build();
+        CreativeModeTab tab = builder.build();
+        FabricTabSettings.configure(tab, searchBar, predecessor);
+        return tab;
     }
 }
