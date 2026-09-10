@@ -1,0 +1,10 @@
+{
+	"parent": "scp_genesis:custom/table",
+	"textures": {
+		"0": "Blocs:table_oak_up",
+		"1": "Blocs:table_oak_down",
+		"2": "Blocs:table_oak_side",
+		"particle": "Blocs:table_oak_up"
+	},
+	"render_type": "cutout"
+}

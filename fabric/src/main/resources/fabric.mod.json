@@ -1,12 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "scp_genesis",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "name": "SCP: Genesis",
-  "description": "SCP: Genesis",
-  "authors": [
-    "Saphira"
-  ],
+  "description": "SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics.",
+  "icon": "logo.png",
+  "authors": ["HeroFR","Studio Saphira"],
   "environment": "*",
 
   "entrypoints": {
@@ -19,8 +18,8 @@
   },
 
   "depends": {
-    "fabricloader": ">=0.19.3",
+    "fabricloader": ">=0.19.5",
     "minecraft": "~1.21.1",
-    "fabric-api": "*"
+    "fabric-api": ">=0.116.17+1.21.1"
   }
 }

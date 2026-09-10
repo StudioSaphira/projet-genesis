@@ -1,6 +1,6 @@
 {
   "type": "minecraft:block",
-  "random_sequence": "scp_genesis:blocks/wall_base",
+  "random_sequence": "scp_genesis:blocks/copycat_slope",
   "pools": [
     {
       "rolls": 1.0,
@@ -10,7 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scp_genesis:wall_base"
+          "name": "scp_genesis:copycat_slope"
         }
       ]
     }

@@ -4,7 +4,7 @@ license="Custom"
 
 [[mods]]
 modId="scp_genesis"
-version="0.1.4-alpha18"
+version="0.1.5"
 displayName="SCP Genesis"
 displayURL="https://saphira-studio.com"
 logoFile="logo.png"
@@ -18,7 +18,7 @@ config = "scp_genesis.neoforge.mixins.json"
 [[dependencies.scp_genesis]]
     modId="neoforge"
     type="required"
-    versionRange="[21.1.232,)"
+    versionRange="[21.1.250,)"
     ordering="AFTER"
     side="BOTH"
 
