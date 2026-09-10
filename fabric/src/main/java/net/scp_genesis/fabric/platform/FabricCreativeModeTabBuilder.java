@@ -47,7 +47,7 @@ public final class FabricCreativeModeTabBuilder implements PlatformCreativeModeT
     @Override
     public PlatformCreativeModeTabBuilder withSearchBar() {
         searchBar = true;
-        builder.hideTitle().backgroundTexture(ResourceLocation.withDefaultNamespace(
+        builder.backgroundTexture(ResourceLocation.withDefaultNamespace(
                 "textures/gui/container/creative_inventory/tab_item_search.png"));
         return this;
     }
