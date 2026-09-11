@@ -21,10 +21,14 @@ import net.scp_genesis.common.registry.ModItems;
 import net.scp_genesis.common.registry.ModTabs;
 
 import java.util.function.Supplier;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.scp_genesis.common.registry.ModEntities;
 
 public final class NeoForgePlatformRegistry
         implements PlatformRegistry {
 
+    private final DeferredRegister<EntityType<?>> entityTypes = DeferredRegister.create(Registries.ENTITY_TYPE, ModConstants.MOD_ID);
     private final IEventBus modEventBus;
 
     private final DeferredRegister.Blocks blocks;
@@ -186,14 +190,22 @@ public final class NeoForgePlatformRegistry
 
     @Override
     public void register() {
+        ModEntities.register(this);
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
         ModTabs.register(this);
 
+        entityTypes.register(modEventBus);
         blocks.register(modEventBus);
         items.register(modEventBus);
         blockEntities.register(modEventBus);
         creativeModeTabs.register(modEventBus);
+    }
+    @Override
+    public <T extends Entity> PlatformRegistryObject<EntityType<T>> registerEntityType(
+            String id, Supplier<EntityType<T>> supplier) {
+        var holder = entityTypes.register(id, supplier);
+        return new NeoForgePlatformRegistryObject<>(holder, holder::getId);
     }
 }

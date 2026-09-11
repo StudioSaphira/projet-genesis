@@ -16,6 +16,9 @@ import net.scp_genesis.neoforge.copycatblocks.client.NeoForgeCopycatOutlineHandl
 public final class NeoForgeGenesisClient {
 
     public NeoForgeGenesisClient(IEventBus modEventBus) {
+        modEventBus.addListener((net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) ->
+                event.registerEntityRenderer(net.scp_genesis.common.registry.ModEntities.CHAIR_SEAT.get(),
+                        net.minecraft.client.renderer.entity.NoopRenderer::new));
         modEventBus.addListener(NeoForgeBlockColors::register);
         modEventBus.addListener(NeoForgeModelLoading::registerGeometryLoaders);
 

@@ -12,6 +12,9 @@ public final class FabricGenesisClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
+        net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(
+                net.scp_genesis.common.registry.ModEntities.CHAIR_SEAT.get(),
+                net.minecraft.client.renderer.entity.NoopRenderer::new);
         FabricBlockColors.register();
         FabricModelLoading.register();
         FabricCopycatOutlineHandler.register();

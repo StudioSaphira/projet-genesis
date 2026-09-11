@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "scp_genesis:block/chair_jungle"
+    },
+    "facing=east": {
+      "model": "scp_genesis:block/chair_jungle",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "scp_genesis:block/chair_jungle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "scp_genesis:block/chair_jungle",
+      "y": 270
+    }
+  }
+}

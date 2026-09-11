@@ -9,6 +9,15 @@
     "scp_genesis:table_acacia",
     "scp_genesis:table_mangrove",
     "scp_genesis:table_cherry",
-    "scp_genesis:table_bamboo"
+    "scp_genesis:table_bamboo",
+    "scp_genesis:chair_oak",
+    "scp_genesis:chair_spruce",
+    "scp_genesis:chair_birch",
+    "scp_genesis:chair_jungle",
+    "scp_genesis:chair_acacia",
+    "scp_genesis:chair_dark_oak",
+    "scp_genesis:chair_mangrove",
+    "scp_genesis:chair_cherry",
+    "scp_genesis:chair_bamboo"
   ]
 }

@@ -1,0 +1,8 @@
+{
+	"parent": "scp_genesis:custom/wooden_chair",
+	"textures": {
+		"0": "scp_genesis:block/chair_acacia_back",
+		"1": "scp_genesis:block/chair_acacia_sit",
+		"particle": "scp_genesis:block/chair_acacia_sit"
+	}
+}

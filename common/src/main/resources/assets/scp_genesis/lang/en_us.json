@@ -1,4 +1,13 @@
 {
+  "block.scp_genesis.chair_bamboo": "Bamboo Chair",
+  "block.scp_genesis.chair_cherry": "Cherry Chair",
+  "block.scp_genesis.chair_mangrove": "Mangrove Chair",
+  "block.scp_genesis.chair_dark_oak": "Dark Oak Chair",
+  "block.scp_genesis.chair_acacia": "Acacia Chair",
+  "block.scp_genesis.chair_jungle": "Jungle Chair",
+  "block.scp_genesis.chair_birch": "Birch Chair",
+  "block.scp_genesis.chair_spruce": "Spruce Chair",
+  "block.scp_genesis.chair_oak": "Oak Chair",
   "block.scp_genesis.table_birch": "Birch Table",
   "block.scp_genesis.table_jungle": "Jungle Table",
   "block.scp_genesis.table_acacia": "Acacia Table",

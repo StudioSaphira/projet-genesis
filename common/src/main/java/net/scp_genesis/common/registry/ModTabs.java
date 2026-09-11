@@ -223,14 +223,23 @@ public final class ModTabs {
 							.displayItems(
 									(parameters, tabData) -> {
 										tabData.accept(ModItems.TABLE_OAK.get());
+                                        tabData.accept(ModItems.CHAIR_OAK.get());
 										tabData.accept(ModItems.TABLE_SPRUCE.get());
+                                        tabData.accept(ModItems.CHAIR_SPRUCE.get());
+										tabData.accept(ModItems.TABLE_BIRCH.get());
+                                        tabData.accept(ModItems.CHAIR_BIRCH.get());
+										tabData.accept(ModItems.TABLE_JUNGLE.get());
+                                        tabData.accept(ModItems.CHAIR_JUNGLE.get());
+										tabData.accept(ModItems.TABLE_ACACIA.get());
+                                        tabData.accept(ModItems.CHAIR_ACACIA.get());
                                         tabData.accept(ModItems.TABLE_DARK_OAK.get());
-                                        tabData.accept(ModItems.TABLE_BIRCH.get());
-                                        tabData.accept(ModItems.TABLE_JUNGLE.get());
-                                        tabData.accept(ModItems.TABLE_ACACIA.get());
+                                        tabData.accept(ModItems.CHAIR_DARK_OAK.get());
                                         tabData.accept(ModItems.TABLE_MANGROVE.get());
+                                        tabData.accept(ModItems.CHAIR_MANGROVE.get());
                                         tabData.accept(ModItems.TABLE_CHERRY.get());
+                                        tabData.accept(ModItems.CHAIR_CHERRY.get());
                                         tabData.accept(ModItems.TABLE_BAMBOO.get());
+                                        tabData.accept(ModItems.CHAIR_BAMBOO.get());
 									}
 							)
 				);

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "scp_genesis:blocks/chair_mangrove",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {"condition": "minecraft:survives_explosion"}
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scp_genesis:chair_mangrove"
+        }
+      ]
+    }
+  ]
+}

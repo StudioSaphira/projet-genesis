@@ -20,6 +20,9 @@ import net.scp_genesis.common.registry.ModItems;
 import net.scp_genesis.common.registry.ModTabs;
 
 import java.util.function.Supplier;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.scp_genesis.common.registry.ModEntities;
 
 public final class FabricPlatformRegistry implements PlatformRegistry {
 
@@ -206,9 +209,17 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
 
     @Override
     public void register() {
+        ModEntities.register(this);
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
         ModTabs.register(this);
+    }
+    @Override
+    public <T extends Entity> PlatformRegistryObject<EntityType<T>> registerEntityType(
+            String id, Supplier<EntityType<T>> supplier) {
+        ResourceLocation location = id(id);
+        EntityType<T> type = Registry.register(BuiltInRegistries.ENTITY_TYPE, location, supplier.get());
+        return new FabricPlatformRegistryObject<>(type, location);
     }
 }

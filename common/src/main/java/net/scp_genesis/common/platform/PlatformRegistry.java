@@ -10,6 +10,8 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import java.util.function.Supplier;
 
 public interface PlatformRegistry {
+    <T extends net.minecraft.world.entity.Entity> PlatformRegistryObject<net.minecraft.world.entity.EntityType<T>>
+    registerEntityType(String id, Supplier<net.minecraft.world.entity.EntityType<T>> supplier);
 
     <T extends Block> PlatformRegistryObject<T> registerBlock(
             String id,
