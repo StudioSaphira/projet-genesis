@@ -24,3 +24,13 @@ dependencies {
 
     mappings loom.officialMojangMappings()
 }
+
+tasks.register('checkFurnituresGeometry', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'net.scp_genesis.common.furnitures.client.FurnituresGeometryTest'
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('checkFurnituresGeometry')
+}

@@ -17,6 +17,7 @@ public final class FabricGenesisClient implements ClientModInitializer {
                 net.minecraft.client.renderer.entity.NoopRenderer::new);
         FabricBlockColors.register();
         FabricModelLoading.register();
+        net.scp_genesis.fabric.furnitures.FabricFurnituresModelLoader.register();
         FabricCopycatOutlineHandler.register();
     }
 }

@@ -17,7 +17,7 @@
     ]
   },
 
-  "mixins": ["scp_genesis.fabric.mixins.json"],
+  "mixins": ["scp_genesis.fabric.mixins.json", "scp_genesis.fabric.furnitures.mixins.json"],
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~1.21.1",

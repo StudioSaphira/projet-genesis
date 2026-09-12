@@ -21,6 +21,8 @@ public final class NeoForgeGenesisClient {
                         net.minecraft.client.renderer.entity.NoopRenderer::new));
         modEventBus.addListener(NeoForgeBlockColors::register);
         modEventBus.addListener(NeoForgeModelLoading::registerGeometryLoaders);
+        modEventBus.addListener(net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresModelLoader::register);
+        modEventBus.addListener(net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresParticles::register);
 
         NeoForge.EVENT_BUS.register(NeoForgeCopycatOutlineHandler.class);
     }
