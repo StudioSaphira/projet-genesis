@@ -5,7 +5,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.scp_genesis.common.furnitures.notmodular.room.WoodenChairBlock;
+
+import org.jetbrains.annotations.NotNull;
 
 /** Temporary, server-owned mount. Never saved to the world. */
 public final class ChairSeatEntity extends Entity {
@@ -25,7 +26,7 @@ public final class ChairSeatEntity extends Entity {
     public void tick() {
         super.tick();
         if (!level().isClientSide && (!isVehicle()
-                || !(level().getBlockState(blockPosition()).getBlock() instanceof WoodenChairBlock))) {
+                || !(level().getBlockState(blockPosition()).getBlock() instanceof ChairBlock))) {
             ejectPassengers();
             discard();
         }
@@ -37,13 +38,13 @@ public final class ChairSeatEntity extends Entity {
     }
 
     @Override
-    protected Vec3 getPassengerAttachmentPoint(Entity passenger, EntityDimensions dimensions, float scale) {
+    protected @NotNull Vec3 getPassengerAttachmentPoint(Entity passenger, EntityDimensions dimensions, float scale) {
         return Vec3.ZERO;
     }
 
     @Override
-    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
+    public @NotNull Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
         // Stand above the seat rather than inside its collision shape.
-        return new Vec3(getX(), blockPosition().getY() + 10.0 / 16.0, getZ());
+        return new Vec3(getX(), getY() + 1.0 / 16.0, getZ());
     }
 }

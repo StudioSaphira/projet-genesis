@@ -103,6 +103,7 @@ public final class ModItems {
     public static PlatformRegistryObject<Item> CHAIR_CHERRY;
     public static PlatformRegistryObject<Item> TABLE_BAMBOO;
     public static PlatformRegistryObject<Item> CHAIR_BAMBOO;
+    public static PlatformRegistryObject<Item> OFFICE_CHAIR;
 
 	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
@@ -253,6 +254,7 @@ public final class ModItems {
         CHAIR_CHERRY = registry.registerBlockItem("chair_cherry", ModBlocks.CHAIR_CHERRY);
         TABLE_BAMBOO = registry.registerBlockItem("table_bamboo", ModBlocks.TABLE_BAMBOO);
         CHAIR_BAMBOO = registry.registerBlockItem("chair_bamboo", ModBlocks.CHAIR_BAMBOO);
+        OFFICE_CHAIR = registry.registerBlockItem("office_chair", ModBlocks.OFFICE_CHAIR);
 
 		COPYCAT_CUBE = registry.registerBlockItem("copycat_cube", ModBlocks.COPYCAT_CUBE);
 		COPYCAT_STAIRS = registry.registerBlockItem("copycat_stairs", ModBlocks.COPYCAT_STAIRS);

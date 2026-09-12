@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "scp_genesis:blocks/office_chair",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {"condition": "minecraft:survives_explosion"}
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scp_genesis:office_chair"
+        }
+      ]
+    }
+  ]
+}

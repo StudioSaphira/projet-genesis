@@ -1,0 +1,7 @@
+{
+  "parent": "scp_genesis:custom/office_chair",
+  "textures": {
+    "0": "scp_genesis:block/chair_office",
+    "particle": "minecraft:block/iron_block"
+  }
+}

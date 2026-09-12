@@ -2,6 +2,7 @@ package net.scp_genesis.common.registry;
 
 import net.minecraft.world.level.block.Block;
 import net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureChairBamboo;
+import net.scp_genesis.common.furnitures.notmodular.office.FurnitureOfficeChair;
 import net.scp_genesis.common.furnitures.notmodular.room.cherry.FurnitureChairCherry;
 import net.scp_genesis.common.furnitures.notmodular.room.mangrove.FurnitureChairMangrove;
 import net.scp_genesis.common.furnitures.notmodular.room.darkoak.FurnitureChairDarkOak;
@@ -63,6 +64,7 @@ public final class ModBlocks {
     public static PlatformRegistryObject<Block> CHAIR_CHERRY;
     public static PlatformRegistryObject<Block> TABLE_BAMBOO;
     public static PlatformRegistryObject<Block> CHAIR_BAMBOO;
+    public static PlatformRegistryObject<Block> OFFICE_CHAIR;
 
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
@@ -99,6 +101,7 @@ public final class ModBlocks {
         CHAIR_CHERRY = registry.registerBlock("chair_cherry", FurnitureChairCherry::new);
         TABLE_BAMBOO = registry.registerBlock("table_bamboo", FurnitureTableBamboo::new);
         CHAIR_BAMBOO = registry.registerBlock("chair_bamboo", FurnitureChairBamboo::new);
+        OFFICE_CHAIR = registry.registerBlock("office_chair", FurnitureOfficeChair::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
 				BlockBehaviour.Properties.of()

@@ -240,6 +240,7 @@ public final class ModTabs {
                                         tabData.accept(ModItems.CHAIR_CHERRY.get());
                                         tabData.accept(ModItems.TABLE_BAMBOO.get());
                                         tabData.accept(ModItems.CHAIR_BAMBOO.get());
+                                        tabData.accept(ModItems.OFFICE_CHAIR.get());
 									}
 							)
 				);
