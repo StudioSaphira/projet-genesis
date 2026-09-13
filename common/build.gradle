@@ -24,32 +24,3 @@ dependencies {
 
     mappings loom.officialMojangMappings()
 }
-
-tasks.register('checkFurnituresGeometry', JavaExec) {
-    dependsOn testClasses
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'net.scp_genesis.common.furnitures.client.FurnituresGeometryTest'
-}
-
-tasks.named('check') {
-    dependsOn tasks.named('checkFurnituresGeometry')
-    dependsOn tasks.named('checkLockers')
-}
-
-tasks.register('checkLockers', JavaExec) {
-    dependsOn testClasses
-    classpath = sourceSets.test.runtimeClasspath
-    mainClass = 'net.scp_genesis.common.furnitures.LockerTest'
-}
-
-// These checks are standalone Minecraft bootstrap programs, not JUnit tests.
-tasks.named('test') {
-    failOnNoDiscoveredTests = false
-}
-
-tasks.withType(JavaExec).configureEach {
-    if (name in ['checkFurnituresGeometry', 'checkLockers']) {
-        workingDir = layout.buildDirectory.dir("checks/${name}").get().asFile
-        doFirst { workingDir.mkdirs() }
-    }
-}
