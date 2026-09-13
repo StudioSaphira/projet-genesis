@@ -1,4 +1,7 @@
 {
+  "block.scp_genesis.locker": "Locker",
+  "block.scp_genesis.locker_shelf": "Shelved Locker",
+  "container.scp_genesis.locker": "Shelved Locker",
   "block.scp_genesis.office_chair": "Office Chair",
   "block.scp_genesis.chair_bamboo": "Bamboo Chair",
   "block.scp_genesis.chair_cherry": "Cherry Chair",

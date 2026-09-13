@@ -1,4 +1,7 @@
 {
+  "block.scp_genesis.locker": "Casier",
+  "block.scp_genesis.locker_shelf": "Casier à étagères",
+  "container.scp_genesis.locker": "Casier à étagères",
   "block.scp_genesis.office_chair": "Chaise de bureau",
   "block.scp_genesis.chair_bamboo": "Chaise en bambou",
   "block.scp_genesis.chair_cherry": "Chaise en cerisier",
