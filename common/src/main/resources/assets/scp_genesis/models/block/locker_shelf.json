@@ -1,0 +1,10 @@
+{
+  "parent": "scp_genesis:custom/locker_shelf",
+  "textures": {
+    "0": "scp_genesis:block/locker",
+    "1": "scp_genesis:block/locker_shelf",
+    "2": "scp_genesis:block/locker_door_bottom",
+    "3": "scp_genesis:block/locker_door_top",
+    "particle": "scp_genesis:block/locker_shelf"
+  }
+}

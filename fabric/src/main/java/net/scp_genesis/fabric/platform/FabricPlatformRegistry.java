@@ -213,6 +213,7 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
+        net.scp_genesis.common.registry.ModMenus.register(this);
         ModTabs.register(this);
     }
     @Override
@@ -221,5 +222,18 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
         ResourceLocation location = id(id);
         EntityType<T> type = Registry.register(BuiltInRegistries.ENTITY_TYPE, location, supplier.get());
         return new FabricPlatformRegistryObject<>(type, location);
+    }
+    @Override
+    public <T extends net.minecraft.world.inventory.AbstractContainerMenu> PlatformRegistryObject<net.minecraft.world.inventory.MenuType<T>>
+    registerMenu(String id, java.util.function.BiFunction<Integer, net.minecraft.world.entity.player.Inventory, T> factory) {
+        ResourceLocation location = id(id);
+        var type = Registry.register(BuiltInRegistries.MENU, location, new net.minecraft.world.inventory.MenuType<>(factory::apply, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+        return new FabricPlatformRegistryObject<>(type, location);
+    }
+    @Override
+    public <T extends net.minecraft.world.level.block.entity.BlockEntity> PlatformRegistryObject<BlockEntityType<T>>
+    registerBlockEntity(String id, java.util.function.BiFunction<net.minecraft.core.BlockPos,
+            net.minecraft.world.level.block.state.BlockState, T> factory, Supplier<Block[]> blocks) {
+        return registerBlockEntity(id, () -> BlockEntityType.Builder.of(factory::apply, blocks.get()).build(null));
     }
 }

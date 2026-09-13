@@ -29,6 +29,7 @@ public final class NeoForgePlatformRegistry
         implements PlatformRegistry {
 
     private final DeferredRegister<EntityType<?>> entityTypes = DeferredRegister.create(Registries.ENTITY_TYPE, ModConstants.MOD_ID);
+    private final DeferredRegister<net.minecraft.world.inventory.MenuType<?>> menus = DeferredRegister.create(Registries.MENU, ModConstants.MOD_ID);
     private final IEventBus modEventBus;
 
     private final DeferredRegister.Blocks blocks;
@@ -194,12 +195,14 @@ public final class NeoForgePlatformRegistry
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
+        net.scp_genesis.common.registry.ModMenus.register(this);
         ModTabs.register(this);
 
         entityTypes.register(modEventBus);
         blocks.register(modEventBus);
         items.register(modEventBus);
         blockEntities.register(modEventBus);
+        menus.register(modEventBus);
         creativeModeTabs.register(modEventBus);
     }
     @Override
@@ -207,5 +210,17 @@ public final class NeoForgePlatformRegistry
             String id, Supplier<EntityType<T>> supplier) {
         var holder = entityTypes.register(id, supplier);
         return new NeoForgePlatformRegistryObject<>(holder, holder::getId);
+    }
+    @Override
+    public <T extends net.minecraft.world.inventory.AbstractContainerMenu> PlatformRegistryObject<net.minecraft.world.inventory.MenuType<T>>
+    registerMenu(String id, java.util.function.BiFunction<Integer, net.minecraft.world.entity.player.Inventory, T> factory) {
+        var holder = menus.register(id, () -> new net.minecraft.world.inventory.MenuType<>(factory::apply, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
+        return new NeoForgePlatformRegistryObject<>(holder, holder::getId);
+    }
+    @Override
+    public <T extends net.minecraft.world.level.block.entity.BlockEntity> PlatformRegistryObject<BlockEntityType<T>>
+    registerBlockEntity(String id, java.util.function.BiFunction<net.minecraft.core.BlockPos,
+            net.minecraft.world.level.block.state.BlockState, T> factory, Supplier<Block[]> blocks) {
+        return registerBlockEntity(id, () -> BlockEntityType.Builder.of(factory::apply, blocks.get()).build(null));
     }
 }

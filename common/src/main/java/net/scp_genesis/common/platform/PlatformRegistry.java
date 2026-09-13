@@ -49,5 +49,12 @@ public interface PlatformRegistry {
             Supplier<PlatformCreativeModeTabBuilder> builder
     );
 
+    <T extends net.minecraft.world.inventory.AbstractContainerMenu> PlatformRegistryObject<net.minecraft.world.inventory.MenuType<T>>
+    registerMenu(String id, java.util.function.BiFunction<Integer, net.minecraft.world.entity.player.Inventory, T> factory);
+
+    <T extends net.minecraft.world.level.block.entity.BlockEntity> PlatformRegistryObject<BlockEntityType<T>>
+    registerBlockEntity(String id, java.util.function.BiFunction<net.minecraft.core.BlockPos,
+            net.minecraft.world.level.block.state.BlockState, T> factory, Supplier<Block[]> blocks);
+
     void register();
 }

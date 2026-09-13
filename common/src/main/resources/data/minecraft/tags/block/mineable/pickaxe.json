@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "scp_genesis:office_chair"
+    "scp_genesis:office_chair",
+    "scp_genesis:locker",
+    "scp_genesis:locker_shelf"
   ]
 }
