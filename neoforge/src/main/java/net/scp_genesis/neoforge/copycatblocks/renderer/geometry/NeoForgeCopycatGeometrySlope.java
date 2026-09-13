@@ -181,8 +181,11 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             /*
              * Minecraft asks for one particular face when side != null.
              */
-            if (side != null
-                    && face.direction() != side) {
+            // Only boundary faces belong to a directional (culled) bucket.
+            // The diagonal is unculled; emitting it in both buckets duplicates it,
+            // and treating it as a full side hides it behind adjacent blocks.
+            Direction cullFace = boundaryDirection(face);
+            if (side != cullFace) {
                 continue;
             }
 
@@ -212,6 +215,20 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
         }
 
         return result;
+    }
+
+    static @Nullable Direction boundaryDirection(CopycatFace face) {
+        Direction direction = face.direction();
+        float boundary = direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1 : 0;
+        for (var vertex : face.vertices()) {
+            float coordinate = switch (direction.getAxis()) {
+                case X -> vertex.x();
+                case Y -> vertex.y();
+                case Z -> vertex.z();
+            };
+            if (Math.abs(coordinate - boundary) > 1.0e-5F) return null;
+        }
+        return direction;
     }
 
     /*

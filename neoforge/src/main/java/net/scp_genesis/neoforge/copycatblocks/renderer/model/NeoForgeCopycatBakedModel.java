@@ -117,6 +117,11 @@ public final class NeoForgeCopycatBakedModel implements BakedModel {
 
     @Override
     public boolean useAmbientOcclusion() {
+        // Vanilla corner ordering assumes rectangular axis-aligned faces. Slopes contain
+        // triangles and a diagonal: retain world/directional light but skip cube AO.
+        if (geometry instanceof net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlope) {
+            return false;
+        }
         BakedModel referenceModel =
                 getReferenceModel();
 
