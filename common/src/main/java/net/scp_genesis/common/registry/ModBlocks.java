@@ -65,6 +65,8 @@ public final class ModBlocks {
     public static PlatformRegistryObject<Block> TABLE_BAMBOO;
     public static PlatformRegistryObject<Block> CHAIR_BAMBOO;
     public static PlatformRegistryObject<Block> OFFICE_CHAIR;
+    public static PlatformRegistryObject<Block> LOCKER;
+    public static PlatformRegistryObject<Block> LOCKER_SHELF;
 
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
@@ -102,6 +104,8 @@ public final class ModBlocks {
         TABLE_BAMBOO = registry.registerBlock("table_bamboo", FurnitureTableBamboo::new);
         CHAIR_BAMBOO = registry.registerBlock("chair_bamboo", FurnitureChairBamboo::new);
         OFFICE_CHAIR = registry.registerBlock("office_chair", FurnitureOfficeChair::new);
+        LOCKER = registry.registerBlock("locker", net.scp_genesis.common.furnitures.notmodular.FurnitureLocker::new);
+        LOCKER_SHELF = registry.registerBlock("locker_shelf", net.scp_genesis.common.furnitures.notmodular.FurnitureLockerShelf::new);
 
 		COPYCAT_CUBE = registry.registerBlock("copycat_cube", () -> new CopycatCubeBlock(
 				BlockBehaviour.Properties.of()

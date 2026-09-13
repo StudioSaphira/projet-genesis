@@ -11,12 +11,17 @@ public final class ModBlockEntities {
 
     private ModBlockEntities() {}
 
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.LockerBlockEntity>> LOCKER;
+
     public static PlatformRegistryObject<BlockEntityType<CopycatBlockEntity>>
             COPYCAT_BLOCK_ENTITY;
 
     public static void register(
             PlatformRegistry registry
     ) {
+        LOCKER = registry.registerBlockEntity("locker",
+                net.scp_genesis.common.furnitures.storage.LockerBlockEntity::new,
+                () -> new net.minecraft.world.level.block.Block[]{ModBlocks.LOCKER.get(), ModBlocks.LOCKER_SHELF.get()});
         COPYCAT_BLOCK_ENTITY =
                 registry.registerCopycatBlockEntity(
                         CopycatConstants.BLOCK_ENTITY_ID
