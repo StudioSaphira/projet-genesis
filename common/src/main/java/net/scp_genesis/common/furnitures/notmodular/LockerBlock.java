@@ -29,6 +29,7 @@ public class LockerBlock extends BaseEntityBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     private final boolean shelves;
     private final VoxelShape[][][] shapes = new VoxelShape[2][2][4];
+    private final VoxelShape[][][] selectionShapes = new VoxelShape[2][2][4];
 
     private LockerBlock(Properties properties) { this(properties, false); }
 
@@ -56,6 +57,12 @@ public class LockerBlock extends BaseEntityBlock {
                             Shapes.box(1 - b.maxZ, b.minY, b.minX, 1 - b.minZ, b.maxY, b.maxX));
                     part = rotated.optimize();
                 }
+            }
+            for (int rotation = 0; rotation < 4; rotation++) {
+                VoxelShape selection = Shapes.or(shapes[0][open][rotation],
+                        shapes[1][open][rotation].move(0, 1, 0)).optimize();
+                selectionShapes[0][open][rotation] = selection;
+                selectionShapes[1][open][rotation] = selection.move(0, -1, 0);
             }
         }
     }
@@ -159,6 +166,12 @@ public class LockerBlock extends BaseEntityBlock {
     @Override protected RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
 
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        int facing = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
+        return selectionShapes[state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1][state.getValue(OPEN) ? 1 : 0][facing];
+    }
+
+    // Keep collision checks local to each occupied block; selection covers the entire locker.
+    @Override protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int facing = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
         return shapes[state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1][state.getValue(OPEN) ? 1 : 0][facing];
     }

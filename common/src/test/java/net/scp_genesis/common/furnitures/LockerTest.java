@@ -78,6 +78,15 @@ public final class LockerTest {
                     var state = block.defaultBlockState().setValue(LockerBlock.OPEN, open).setValue(LockerBlock.HALF, half);
                     VoxelShape expected = state.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO);
                     for (int i = 0; i < 4; i++) {
+                        var base = state.setValue(LockerBlock.HALF, DoubleBlockHalf.LOWER);
+                        var top = state.setValue(LockerBlock.HALF, DoubleBlockHalf.UPPER);
+                        VoxelShape full = base.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO);
+                        check(!Shapes.joinIsNotEmpty(full, top.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO).move(0,1,0),
+                                BooleanOp.NOT_SAME), "Both halves must select the same full locker");
+                        check(!Shapes.joinIsNotEmpty(full, Shapes.or(
+                                base.getCollisionShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO),
+                                top.getCollisionShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO).move(0,1,0)),
+                                BooleanOp.NOT_SAME), "Full selection must match both collision halves");
                         check(!Shapes.joinIsNotEmpty(expected, state.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO),
                                 BooleanOp.NOT_SAME), "Shape rotation");
                         VoxelShape rotated = Shapes.empty();
@@ -88,8 +97,8 @@ public final class LockerTest {
                     }
                 }
         var lower = basic.defaultBlockState().setValue(LockerBlock.OPEN, true);
-        VoxelShape whole = Shapes.or(lower.getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO),
-                lower.setValue(LockerBlock.HALF, DoubleBlockHalf.UPPER).getShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO).move(0,1,0));
+        VoxelShape whole = Shapes.or(lower.getCollisionShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO),
+                lower.setValue(LockerBlock.HALF, DoubleBlockHalf.UPPER).getCollisionShape(EmptyBlockGetter.INSTANCE, BlockPos.ZERO).move(0,1,0));
         VoxelShape crouched = Shapes.box(.2,3.0/16,.2,.8,3.0/16+1.5,.8);
         check(!Shapes.joinIsNotEmpty(whole,crouched,BooleanOp.AND), "Crouched player must fit inside");
         check(!Shapes.joinIsNotEmpty(whole,Shapes.box(.2,3.0/16,-.8,.8,3.0/16+1.5,.8),BooleanOp.AND),
