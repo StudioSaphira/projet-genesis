@@ -15,15 +15,11 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
-import net.scp_genesis.common.registry.ModBlockEntities;
-import net.scp_genesis.common.registry.ModBlocks;
-import net.scp_genesis.common.registry.ModItems;
-import net.scp_genesis.common.registry.ModTabs;
+import net.scp_genesis.common.registry.*;
 
 import java.util.function.Supplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.scp_genesis.common.registry.ModEntities;
 
 public final class NeoForgePlatformRegistry
         implements PlatformRegistry {
@@ -195,7 +191,7 @@ public final class NeoForgePlatformRegistry
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
-        net.scp_genesis.common.registry.ModMenus.register(this);
+        ModMenus.register(this);
         ModTabs.register(this);
 
         entityTypes.register(modEventBus);
@@ -217,6 +213,7 @@ public final class NeoForgePlatformRegistry
         var holder = menus.register(id, () -> new net.minecraft.world.inventory.MenuType<>(factory::apply, net.minecraft.world.flag.FeatureFlags.DEFAULT_FLAGS));
         return new NeoForgePlatformRegistryObject<>(holder, holder::getId);
     }
+    @SuppressWarnings("DataFlowIssue")
     @Override
     public <T extends net.minecraft.world.level.block.entity.BlockEntity> PlatformRegistryObject<BlockEntityType<T>>
     registerBlockEntity(String id, java.util.function.BiFunction<net.minecraft.core.BlockPos,

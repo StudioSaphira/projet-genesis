@@ -14,15 +14,11 @@ import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.platform.PlatformCreativeModeTabBuilder;
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
-import net.scp_genesis.common.registry.ModBlockEntities;
-import net.scp_genesis.common.registry.ModBlocks;
-import net.scp_genesis.common.registry.ModItems;
-import net.scp_genesis.common.registry.ModTabs;
+import net.scp_genesis.common.registry.*;
 
 import java.util.function.Supplier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.scp_genesis.common.registry.ModEntities;
 
 public final class FabricPlatformRegistry implements PlatformRegistry {
 
@@ -213,7 +209,7 @@ public final class FabricPlatformRegistry implements PlatformRegistry {
         ModBlocks.register(this);
         ModItems.register(this);
         ModBlockEntities.register(this);
-        net.scp_genesis.common.registry.ModMenus.register(this);
+        ModMenus.register(this);
         ModTabs.register(this);
     }
     @Override
