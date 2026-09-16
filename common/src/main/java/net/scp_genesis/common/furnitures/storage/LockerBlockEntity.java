@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.furnitures.notmodular.LockerBlock;
 import net.scp_genesis.common.registry.ModBlockEntities;
+import org.jetbrains.annotations.NotNull;
 
 public final class LockerBlockEntity extends RandomizableContainerBlockEntity {
     private NonNullList<ItemStack> items = NonNullList.withSize(LockerMenu.SIZE, ItemStack.EMPTY);
@@ -30,7 +31,7 @@ public final class LockerBlockEntity extends RandomizableContainerBlockEntity {
         openness = previousOpenness = state.getValue(LockerBlock.OPEN) ? 1 : 0;
     }
 
-    public static void clientTick(Level level, BlockPos pos, BlockState state, LockerBlockEntity locker) {
+    public static void clientTick(Level ignoredLevel, BlockPos ignoredPos, BlockState state, LockerBlockEntity locker) {
         locker.previousOpenness = locker.openness;
         locker.openness = state.getValue(LockerBlock.OPEN) ? Math.min(1, locker.openness + 0.1F) : Math.max(0, locker.openness - 0.1F);
     }
@@ -63,10 +64,10 @@ public final class LockerBlockEntity extends RandomizableContainerBlockEntity {
     @Override public int getContainerSize() {
         return ((LockerBlock) getBlockState().getBlock()).hasShelves() ? LockerMenu.SIZE : 0;
     }
-    @Override protected NonNullList<ItemStack> getItems() { return items; }
+    @Override protected @NotNull NonNullList<ItemStack> getItems() { return items; }
     @Override protected void setItems(NonNullList<ItemStack> items) { this.items = items; }
-    @Override protected Component getDefaultName() { return Component.translatable("container.scp_genesis.locker"); }
-    @Override protected AbstractContainerMenu createMenu(int id, Inventory inventory) { return new LockerMenu(id, inventory, this); }
+    @Override protected @NotNull Component getDefaultName() { return Component.translatable("container.scp_genesis.locker"); }
+    @Override protected @NotNull AbstractContainerMenu createMenu(int id, Inventory inventory) { return new LockerMenu(id, inventory, this); }
 
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);

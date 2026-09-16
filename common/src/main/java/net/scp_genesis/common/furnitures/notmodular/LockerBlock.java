@@ -21,6 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.*;
 import net.scp_genesis.common.furnitures.storage.LockerBlockEntity;
 import net.scp_genesis.common.registry.ModBlockEntities;
+import org.jetbrains.annotations.NotNull;
 
 public class LockerBlock extends BaseEntityBlock {
     public static final MapCodec<LockerBlock> CODEC = simpleCodec(LockerBlock::new);
@@ -69,7 +70,7 @@ public class LockerBlock extends BaseEntityBlock {
 
     public boolean hasShelves() { return shelves; }
 
-    @Override protected MapCodec<? extends LockerBlock> codec() { return CODEC; }
+    @Override protected @NotNull MapCodec<? extends LockerBlock> codec() { return CODEC; }
 
     @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, HALF, OPEN);
@@ -91,7 +92,7 @@ public class LockerBlock extends BaseEntityBlock {
         return level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP);
     }
 
-    @Override protected BlockState updateShape(BlockState state, Direction direction, BlockState neighbor,
+    @Override protected @NotNull BlockState updateShape(BlockState state, Direction direction, BlockState neighbor,
                                                LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         boolean lower = state.getValue(HALF) == DoubleBlockHalf.LOWER;
         if (direction == (lower ? Direction.UP : Direction.DOWN)) {
@@ -103,7 +104,7 @@ public class LockerBlock extends BaseEntityBlock {
         return super.updateShape(state, direction, neighbor, level, pos, neighborPos);
     }
 
-    @Override public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    @Override public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && state.getValue(HALF) == DoubleBlockHalf.UPPER
                 && (player.isCreative() || !player.hasCorrectToolForDrops(state))) {
             BlockPos base = pos.below();
@@ -131,7 +132,7 @@ public class LockerBlock extends BaseEntityBlock {
         level.gameEvent(null, open ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
     }
 
-    @Override protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
+    @Override protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
                                                           Player player, BlockHitResult hit) {
         if (!level.isClientSide) {
             BlockPos base = bottom(state, pos);
@@ -163,23 +164,23 @@ public class LockerBlock extends BaseEntityBlock {
         super.onRemove(state, level, pos, replacement, moving);
     }
 
-    @Override protected RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
+    @Override protected @NotNull RenderShape getRenderShape(BlockState state) { return RenderShape.MODEL; }
 
-    @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    @Override protected @NotNull VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int facing = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
         return selectionShapes[state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1][state.getValue(OPEN) ? 1 : 0][facing];
     }
 
     // Keep collision checks local to each occupied block; selection covers the entire locker.
-    @Override protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    @Override protected @NotNull VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         int facing = switch (state.getValue(FACING)) { case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0; };
         return shapes[state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1][state.getValue(OPEN) ? 1 : 0][facing];
     }
 
-    @Override protected BlockState rotate(BlockState state, Rotation rotation) {
+    @Override protected @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    @Override protected BlockState mirror(BlockState state, Mirror mirror) { return state.rotate(mirror.getRotation(state.getValue(FACING))); }
+    @Override protected @NotNull BlockState mirror(BlockState state, Mirror mirror) { return state.rotate(mirror.getRotation(state.getValue(FACING))); }
     @Override protected boolean isPathfindable(BlockState state, PathComputationType type) { return false; }
 }

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.*;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.scp_genesis.common.registry.ModMenus;
+import org.jetbrains.annotations.NotNull;
 
 public final class LockerMenu extends AbstractContainerMenu {
     public static final int SIZE = 18;
@@ -27,7 +28,7 @@ public final class LockerMenu extends AbstractContainerMenu {
 
     @Override public boolean stillValid(Player player) { return container.stillValid(player); }
 
-    @Override public ItemStack quickMoveStack(Player player, int index) {
+    @Override public @NotNull ItemStack quickMoveStack(Player player, int index) {
         Slot slot = slots.get(index);
         if (!slot.hasItem()) return ItemStack.EMPTY;
         ItemStack stack = slot.getItem(), copy = stack.copy();
