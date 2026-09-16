@@ -1,6 +1,15 @@
-# Pre-Alpha-Release 19 - 0.1.4.1
+# Alpha-Release 19 - 0.1.5
+
+*This changelog also contains the additions, changes and fixes of the previous Pre-Alpha update's changelog.*
 
 ## Additions
+
+- Added Wooden Table (All overworld wood type)
+- Added Wooden Chairs (All overworld wood type)
+- Added Wooden Drawers (All overworld wood type)
+- Added Storage Locker
+- Added Hiding Locker
+- Added Office Chairs
 
 - Added Dirty White Tiled Block [WAS REMOVED BY MISTAKE DURING ALPHA-RELEASE 17]
 
@@ -16,7 +25,7 @@
 
 ## Next Update
 
-_The next update will add the first furnitures in the mod !_
+_The next update will add more construction blocks !_
 
 ------------------------------------------------------------------
 
