@@ -54,6 +54,11 @@ public final class FabricFurnituresModelLoader {
             Map<ResourceLocation, Definition> definitions = new HashMap<>();
             models.forEach((id, json) -> {
                 if (!json.has("loader") || !LOADER.equals(json.get("loader").getAsString())) return;
+                // Keep non-vanilla rotations nested so the vanilla model parser ignores them.
+                if (json.has("geometry") && json.get("geometry").isJsonObject()) {
+                    definitions.put(id, new Definition(json.getAsJsonObject("geometry"), json));
+                    return;
+                }
                 ResourceLocation geometry = ResourceLocation.parse(json.get("geometry").getAsString());
                 ResourceLocation file = geometry.withPath(path -> "furnitures/" + path + ".json");
                 try (var reader = resources.getResourceOrThrow(file).openAsReader()) {

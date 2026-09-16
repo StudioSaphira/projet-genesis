@@ -18,6 +18,10 @@ public final class NeoForgeFurnituresModelLoader implements IGeometryLoader<NeoF
 
     @Override
     public NeoForgeFurnituresGeometry read(JsonObject json, JsonDeserializationContext context) {
+        // Root elements are parsed by vanilla before this loader runs; nested geometry is safe.
+        if (json.has("geometry") && json.get("geometry").isJsonObject()) {
+            return new NeoForgeFurnituresGeometry(new FurnituresGeometry(json.getAsJsonObject("geometry"), json));
+        }
         ResourceLocation geometry = ResourceLocation.parse(json.get("geometry").getAsString());
         ResourceLocation file = geometry.withPath(path -> "furnitures/" + path + ".json");
         try (var reader = Minecraft.getInstance().getResourceManager().getResourceOrThrow(file).openAsReader()) {
