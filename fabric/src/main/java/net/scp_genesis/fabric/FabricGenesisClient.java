@@ -16,6 +16,7 @@ public final class FabricGenesisClient implements ClientModInitializer {
                 net.scp_genesis.common.registry.ModEntities.CHAIR_SEAT.get(),
                 net.minecraft.client.renderer.entity.NoopRenderer::new);
         net.scp_genesis.fabric.furnitures.FabricFurnituresLockers.register();
+        net.scp_genesis.fabric.furnitures.FabricFurnituresDrawers.register();
         FabricBlockColors.register();
         FabricModelLoading.register();
         net.scp_genesis.fabric.furnitures.FabricFurnituresModelLoader.register();

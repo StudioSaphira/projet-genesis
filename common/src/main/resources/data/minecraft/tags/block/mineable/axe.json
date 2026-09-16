@@ -1,6 +1,15 @@
 {
   "replace": false,
   "values": [
+    "scp_genesis:drawer_oak",
+    "scp_genesis:drawer_spruce",
+    "scp_genesis:drawer_dark_oak",
+    "scp_genesis:drawer_birch",
+    "scp_genesis:drawer_jungle",
+    "scp_genesis:drawer_acacia",
+    "scp_genesis:drawer_mangrove",
+    "scp_genesis:drawer_cherry",
+    "scp_genesis:drawer_bamboo",
     "scp_genesis:table_oak",
     "scp_genesis:table_spruce",
     "scp_genesis:table_dark_oak",

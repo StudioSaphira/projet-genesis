@@ -1,0 +1,10 @@
+{
+  "parent": "scp_genesis:custom/drawer",
+  "textures": {
+    "0": "scp_genesis:block/table_mangrove_down",
+    "1": "scp_genesis:block/drawer_mangrove",
+    "2": "scp_genesis:block/table_mangrove_up",
+    "3": "minecraft:block/mangrove_log",
+    "particle": "minecraft:block/mangrove_planks"
+  }
+}

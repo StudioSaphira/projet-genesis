@@ -8,6 +8,7 @@ import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 
 public final class ModBlockEntities {
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.DrawerBlockEntity>> DRAWER;
 
     private ModBlockEntities() {}
 
@@ -19,6 +20,11 @@ public final class ModBlockEntities {
     public static void register(
             PlatformRegistry registry
     ) {
+        DRAWER = registry.registerBlockEntity("drawer",
+                net.scp_genesis.common.furnitures.storage.DrawerBlockEntity::new,
+                () -> new net.minecraft.world.level.block.Block[]{ModBlocks.DRAWER_OAK.get(), ModBlocks.DRAWER_SPRUCE.get(),
+                        ModBlocks.DRAWER_DARK_OAK.get(), ModBlocks.DRAWER_BIRCH.get(), ModBlocks.DRAWER_JUNGLE.get(),
+                        ModBlocks.DRAWER_ACACIA.get(), ModBlocks.DRAWER_MANGROVE.get(), ModBlocks.DRAWER_CHERRY.get(), ModBlocks.DRAWER_BAMBOO.get()});
         LOCKER = registry.registerBlockEntity("locker",
                 net.scp_genesis.common.furnitures.storage.LockerBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.LOCKER.get(), ModBlocks.LOCKER_SHELF.get()});

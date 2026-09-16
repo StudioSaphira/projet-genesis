@@ -1,0 +1,10 @@
+{
+  "parent": "scp_genesis:custom/drawer",
+  "textures": {
+    "0": "scp_genesis:block/table_cherry_down",
+    "1": "scp_genesis:block/drawer_cherry",
+    "2": "scp_genesis:block/table_cherry_up",
+    "3": "minecraft:block/cherry_log",
+    "particle": "minecraft:block/cherry_planks"
+  }
+}
