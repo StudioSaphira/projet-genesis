@@ -140,8 +140,14 @@ public class CopycatBlockEntity extends BlockEntity {
      */
     private void updateBlock() {
         setChanged();
+        refreshBlock();
+    }
 
+    private void refreshBlock() {
         if (level != null) {
+            // Invalidate cached model data before scheduling the section rebuild.
+            // On the server, sendBlockUpdated instead sends the new NBT to clients.
+            if (level.isClientSide) PlatformServices.requestModelDataUpdate(this);
             level.sendBlockUpdated(
                     worldPosition,
                     getBlockState(),
@@ -150,7 +156,6 @@ public class CopycatBlockEntity extends BlockEntity {
             );
         }
 
-        PlatformServices.requestModelDataUpdate(this);
     }
 
     // ------------------------------------------------------------------------
@@ -175,6 +180,9 @@ public class CopycatBlockEntity extends BlockEntity {
         super.loadAdditional(tag, provider);
 
         readUpdateTag(tag, provider);
+        // Both chunk data and block-entity update packets pass through here.
+        // Setters only run on the server, so they cannot refresh a client's ModelData.
+        if (level != null && level.isClientSide) refreshBlock();
     }
 
     /**
