@@ -11,6 +11,8 @@ import net.scp_genesis.neoforge.platform.NeoForgePlatformRegistry;
 public final class NeoForgeGenesis {
 
     public NeoForgeGenesis(IEventBus modEventBus) {
+        net.scp_genesis.common.platform.PlatformServices.initialize(
+                new net.scp_genesis.neoforge.platform.NeoForgePlatformServices());
         NeoForgePlatformRegistry registry = new NeoForgePlatformRegistry(modEventBus);
 
         registry.register();
