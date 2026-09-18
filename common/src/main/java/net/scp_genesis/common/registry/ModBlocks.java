@@ -44,6 +44,10 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> DIRTY_BROKEN_WHITE_WALL_ONE;
 	public static PlatformRegistryObject<Block> DIRTY_BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Block> WALL_BASE;
+	public static PlatformRegistryObject<Block> BARE_CONCRETE_A;
+	public static PlatformRegistryObject<Block> BARE_CONCRETE_B;
+	public static PlatformRegistryObject<Block> BARE_CONCRETE_C;
+	public static PlatformRegistryObject<Block> BARE_CONCRETE_D;
 	public static PlatformRegistryObject<Block> GREEN_TILED_FLOOR;
 
     public static PlatformRegistryObject<Block> TABLE_OAK;
@@ -92,6 +96,10 @@ public final class ModBlocks {
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteTiledOneBlock::new);
 		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteTiledTwoBlock::new);
 		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
+		BARE_CONCRETE_A = registry.registerBlock("bare_concrete_a", BareConcreteABlock::new);
+		BARE_CONCRETE_B = registry.registerBlock("bare_concrete_b", BareConcreteBBlock::new);
+		BARE_CONCRETE_C = registry.registerBlock("bare_concrete_c", BareConcreteCBlock::new);
+		BARE_CONCRETE_D = registry.registerBlock("bare_concrete_d", BareConcreteDBlock::new);
 		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
 
         TABLE_OAK = registry.registerBlock("table_oak", FurnitureTableOak::new);

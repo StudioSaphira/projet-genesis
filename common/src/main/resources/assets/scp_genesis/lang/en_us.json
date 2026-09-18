@@ -1,4 +1,8 @@
 {
+  "block.scp_genesis.bare_concrete_a": "Bare Concrete A",
+  "block.scp_genesis.bare_concrete_b": "Bare Concrete B",
+  "block.scp_genesis.bare_concrete_c": "Bare Concrete C",
+  "block.scp_genesis.bare_concrete_d": "Bare Concrete D",
   "block.scp_genesis.drawer_oak": "Oak Drawers",
   "block.scp_genesis.drawer_spruce": "Spruce Drawers",
   "block.scp_genesis.drawer_dark_oak": "Dark Oak Drawers",

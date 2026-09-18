@@ -176,7 +176,11 @@ public final class ModTabs {
 											tabData.accept(ModItems.DIRTY_BROKEN_WHITE_WALL_ONE.get());
 											tabData.accept(ModItems.DIRTY_BROKEN_WHITE_WALL_TWO.get());
 											tabData.accept(ModItems.WALL_BASE.get());
-											tabData.accept(ModItems.GREEN_TILED_FLOOR.get());
+											tabData.accept(ModItems.BARE_CONCRETE_A.get());
+                                        	tabData.accept(ModItems.BARE_CONCRETE_B.get());
+                                        	tabData.accept(ModItems.BARE_CONCRETE_C.get());
+                                        	tabData.accept(ModItems.BARE_CONCRETE_D.get());
+                                        	tabData.accept(ModItems.GREEN_TILED_FLOOR.get());
 										}
 								)
 				);

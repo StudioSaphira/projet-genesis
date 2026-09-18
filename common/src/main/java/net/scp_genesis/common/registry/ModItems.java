@@ -84,6 +84,10 @@ public final class ModItems {
 	public static PlatformRegistryObject<Item> DIRTY_BROKEN_WHITE_WALL_ONE;
 	public static PlatformRegistryObject<Item> DIRTY_BROKEN_WHITE_WALL_TWO;
 	public static PlatformRegistryObject<Item> WALL_BASE;
+	public static PlatformRegistryObject<Item> BARE_CONCRETE_A;
+	public static PlatformRegistryObject<Item> BARE_CONCRETE_B;
+	public static PlatformRegistryObject<Item> BARE_CONCRETE_C;
+	public static PlatformRegistryObject<Item> BARE_CONCRETE_D;
 	public static PlatformRegistryObject<Item> GREEN_TILED_FLOOR;
     public static PlatformRegistryObject<Item> TABLE_OAK;
     public static PlatformRegistryObject<Item> CHAIR_OAK;
@@ -245,6 +249,10 @@ public final class ModItems {
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("dirty_broken_white_wall_one", ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
 		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlockItem("dirty_broken_white_wall_two", ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
 		WALL_BASE = registry.registerBlockItem("wall_base", ModBlocks.WALL_BASE);
+		BARE_CONCRETE_A = registry.registerBlockItem("bare_concrete_a", ModBlocks.BARE_CONCRETE_A);
+		BARE_CONCRETE_B = registry.registerBlockItem("bare_concrete_b", ModBlocks.BARE_CONCRETE_B);
+		BARE_CONCRETE_C = registry.registerBlockItem("bare_concrete_c", ModBlocks.BARE_CONCRETE_C);
+		BARE_CONCRETE_D = registry.registerBlockItem("bare_concrete_d", ModBlocks.BARE_CONCRETE_D);
 		GREEN_TILED_FLOOR = registry.registerBlockItem("green_tiled_floor", ModBlocks.GREEN_TILED_FLOOR);
 
         TABLE_OAK = registry.registerBlockItem("table_oak", ModBlocks.TABLE_OAK);

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "scp_genesis:blocks/bare_concrete_c",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scp_genesis:bare_concrete_c"
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,8 @@
 {
+  "block.scp_genesis.bare_concrete_a": "Béton brut A",
+  "block.scp_genesis.bare_concrete_b": "Béton brut B",
+  "block.scp_genesis.bare_concrete_c": "Béton brut C",
+  "block.scp_genesis.bare_concrete_d": "Béton brut D",
   "block.scp_genesis.drawer_oak": "Meuble à tiroirs en chêne",
   "block.scp_genesis.drawer_spruce": "Meuble à tiroirs en sapin",
   "block.scp_genesis.drawer_dark_oak": "Meuble à tiroirs en chêne noir",
