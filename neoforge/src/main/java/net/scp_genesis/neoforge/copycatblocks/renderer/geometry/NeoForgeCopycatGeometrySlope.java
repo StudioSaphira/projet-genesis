@@ -15,6 +15,7 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
+import net.scp_genesis.common.copycatblocks.geometry.CopycatFaceBounds;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
@@ -63,6 +64,7 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
     private final BakedModel referenceModel;
     private final TextureAtlasSprite defaultSprite;
 
+    /** Stores the reference model and the sprite used before a material is copied. */
     public NeoForgeCopycatGeometrySlope(
             @NotNull BakedModel referenceModel,
             @NotNull TextureAtlasSprite defaultSprite
@@ -75,12 +77,6 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
     public @NotNull BakedModel getModel() {
         return referenceModel;
     }
-
-    /*
-     * ================================================================
-     * QUADS
-     * ================================================================
-     */
 
     @Override
     public @NotNull List<BakedQuad> getQuads(
@@ -99,15 +95,9 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
                 return Collections.emptyList();
             }
 
-            facing =
-                    state.getValue(
-                            CopycatSlopeBlock.FACING
-                    );
+            facing = state.getValue(CopycatSlopeBlock.FACING);
 
-            half =
-                    state.getValue(
-                            CopycatSlopeBlock.HALF
-                    );
+            half = state.getValue(CopycatSlopeBlock.HALF);
 
         } else {
 
@@ -121,62 +111,21 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             half = Half.BOTTOM;
         }
 
-        /*
-         * ============================================================
-         * COPYCAT PART
-         * ============================================================
-         */
+        CopycatPart part = CopycatPart.MAIN;
 
-        CopycatPart part =
-                CopycatPart.MAIN;
+        BlockState copiedState = NeoForgeCopycatBlockStateHelper.getCopiedState(modelData, part);
 
-        /*
-         * ============================================================
-         * COPIED STATE
-         * ============================================================
-         */
+        boolean hasCopiedState = copiedState != null && !copiedState.isAir();
 
-        BlockState copiedState =
-                NeoForgeCopycatBlockStateHelper.getCopiedState(
-                        modelData,
-                        part
-                );
+        CopycatFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
 
-        boolean hasCopiedState =
-                copiedState != null
-                        && !copiedState.isAir();
+        CopycatUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
 
-        /*
-         * ============================================================
-         * COMMON GEOMETRY
-         * ============================================================
-         */
-
-        CopycatFace[] faces =
-                CopycatGeometrySlope.getFaces(
-                        facing,
-                        half
-                );
-
-        CopycatUV[][] uv =
-                CopycatGeometrySlope.getUV(
-                        facing,
-                        half
-                );
-
-        /*
-         * ============================================================
-         * NEOFORGE QUADS
-         * ============================================================
-         */
-
-        List<BakedQuad> result =
-                new java.util.ArrayList<>();
+        List<BakedQuad> result = new java.util.ArrayList<>();
 
         for (int i = 0; i < faces.length; i++) {
 
-            CopycatFace face =
-                    faces[i];
+            CopycatFace face = faces[i];
 
             /*
              * Minecraft asks for one particular face when side != null.
@@ -184,7 +133,7 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             // Only boundary faces belong to a directional (culled) bucket.
             // The diagonal is unculled; emitting it in both buckets duplicates it,
             // and treating it as a full side hides it behind adjacent blocks.
-            Direction cullFace = boundaryDirection(face);
+            Direction cullFace = CopycatFaceBounds.boundaryDirection(face);
             if (side != cullFace) {
                 continue;
             }
@@ -192,59 +141,23 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             if (hasCopiedState) {
 
                 result.addAll(
-                        NeoForgeCopycatSlopeHelper.buildQuads(
-                                face,
-                                uv[i],
-                                copiedState,
-                                part,
-                                random,
-                                renderType
-                        )
-                );
+                        NeoForgeCopycatSlopeHelper.buildQuads(face, uv[i], copiedState, part, random, renderType));
 
             } else {
 
-                result.addAll(
-                        NeoForgeCopycatSlopeHelper.buildDefaultQuads(
-                                face,
-                                uv[i],
-                                defaultSprite
-                        )
-                );
+                result.addAll(NeoForgeCopycatSlopeHelper.buildDefaultQuads(face, uv[i], defaultSprite));
             }
         }
 
         return result;
     }
 
-    static @Nullable Direction boundaryDirection(CopycatFace face) {
-        Direction direction = face.direction();
-        float boundary = direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1 : 0;
-        for (var vertex : face.vertices()) {
-            float coordinate = switch (direction.getAxis()) {
-                case X -> vertex.x();
-                case Y -> vertex.y();
-                case Z -> vertex.z();
-            };
-            if (Math.abs(coordinate - boundary) > 1.0e-5F) return null;
-        }
-        return direction;
-    }
-
-    /*
-     * ================================================================
-     * Item Transforms
-     * ================================================================
-     */
-
     @SuppressWarnings("deprecation")
     @Override
     public @NotNull ItemTransforms getTransforms() {
-        ItemTransforms referenceTransforms =
-                referenceModel.getTransforms();
+        ItemTransforms referenceTransforms = referenceModel.getTransforms();
 
-        ItemTransform gui =
-                referenceTransforms.gui;
+        ItemTransform gui = referenceTransforms.gui;
 
         ItemTransform rotatedGui =
                 new ItemTransform(
@@ -252,29 +165,15 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
                                 gui.rotation.x(),
                                 gui.rotation.y() + 180.0F,
                                 gui.rotation.z()
-                        ),
-                        new Vector3f(gui.translation),
-                        new Vector3f(gui.scale),
-                        new Vector3f(gui.rightRotation)
-                );
+                        ), new Vector3f(gui.translation), new Vector3f(gui.scale), new Vector3f(gui.rightRotation));
 
         return new ItemTransforms(
                 referenceTransforms.thirdPersonLeftHand,
                 referenceTransforms.thirdPersonRightHand,
                 referenceTransforms.firstPersonLeftHand,
                 referenceTransforms.firstPersonRightHand,
-                referenceTransforms.head,
-                rotatedGui,
-                referenceTransforms.ground,
-                referenceTransforms.fixed
-        );
+                referenceTransforms.head, rotatedGui, referenceTransforms.ground, referenceTransforms.fixed);
     }
-
-    /*
-     * ================================================================
-     * RENDER TYPES
-     * ================================================================
-     */
 
     @Override
     public @NotNull ChunkRenderTypeSet getRenderTypes(
@@ -282,33 +181,19 @@ public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeomet
             @NotNull RandomSource random,
             @NotNull ModelData modelData
     ) {
-        return ChunkRenderTypeSet.of(
-                RenderType.cutout()
-        );
+        return ChunkRenderTypeSet.of(RenderType.cutout());
     }
-
-    /*
-     * ================================================================
-     * PARTICLE
-     * ================================================================
-     */
 
     @Override
     public @NotNull TextureAtlasSprite getParticleIcon(
             @NotNull ModelData modelData
     ) {
-        BlockState copiedState =
-                NeoForgeCopycatBlockStateHelper.getCopiedState(
-                        modelData,
-                        CopycatPart.MAIN
-                );
+        BlockState copiedState = NeoForgeCopycatBlockStateHelper.getCopiedState(modelData, CopycatPart.MAIN);
 
         if (copiedState == null || copiedState.isAir()) {
             return defaultSprite;
         }
 
-        return CopycatModelProvider
-                .getModel(copiedState)
-                .getParticleIcon(modelData);
+        return CopycatModelProvider.getModel(copiedState).getParticleIcon(modelData);
     }
 }

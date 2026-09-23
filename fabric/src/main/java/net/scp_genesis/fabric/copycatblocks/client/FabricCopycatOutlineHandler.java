@@ -8,11 +8,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatOutlineRenderer;
 
+/** Registers Fabric selection events and replaces the slope collision outline with its visual mesh. */
 public final class FabricCopycatOutlineHandler {
 
     private FabricCopycatOutlineHandler() {
     }
 
+    /** Installs the client outline callback once during client initialization. */
     public static void register() {
         WorldRenderEvents.BLOCK_OUTLINE.register(
                 FabricCopycatOutlineHandler::onRenderOutline

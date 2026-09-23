@@ -24,11 +24,13 @@ import org.joml.Vector3f;
 
 import java.util.function.Supplier;
 
+/** Connects common slope geometry to Fabric materials, inventory transforms and block rendering. */
 public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
     private final BakedModel referenceModel;
     private final TextureAtlasSprite defaultSprite;
 
+    /** Stores the reference model and the sprite used before a material is copied. */
     public FabricCopycatGeometrySlope(
             @NotNull BakedModel referenceModel,
             @NotNull TextureAtlasSprite defaultSprite
@@ -38,33 +40,23 @@ public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
     }
 
     public @NotNull ItemTransforms getTransforms() {
-        ItemTransforms referenceTransforms =
-                referenceModel.getTransforms();
+        ItemTransforms referenceTransforms = referenceModel.getTransforms();
 
-        ItemTransform gui =
-                referenceTransforms.gui;
+        ItemTransform gui = referenceTransforms.gui;
 
         ItemTransform rotatedGui =
                 new ItemTransform(
                         new Vector3f(
                                 gui.rotation.x(),
                                 gui.rotation.y() + 180.0F,
-                                gui.rotation.z()
-                        ),
-                        new Vector3f(gui.translation),
-                        new Vector3f(gui.scale)
-                );
+                                gui.rotation.z()), new Vector3f(gui.translation), new Vector3f(gui.scale));
 
         return new ItemTransforms(
                 referenceTransforms.thirdPersonLeftHand,
                 referenceTransforms.thirdPersonRightHand,
                 referenceTransforms.firstPersonLeftHand,
                 referenceTransforms.firstPersonRightHand,
-                referenceTransforms.head,
-                rotatedGui,
-                referenceTransforms.ground,
-                referenceTransforms.fixed
-        );
+                referenceTransforms.head, rotatedGui, referenceTransforms.ground, referenceTransforms.fixed);
     }
 
     @Override
@@ -75,87 +67,30 @@ public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
             Supplier<RandomSource> randomSupplier,
             RenderContext context
     ) {
-        /*
-         * ============================================================
-         * SLOPE ORIENTATION
-         * ============================================================
-         */
 
-        Direction facing =
-                state.getValue(
-                        BlockStateProperties.HORIZONTAL_FACING
-                );
+        Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
-        Half half =
-                state.getValue(
-                        BlockStateProperties.HALF
-                );
+        Half half = state.getValue(BlockStateProperties.HALF);
 
-        /*
-         * ============================================================
-         * COMMON GEOMETRY
-         * ============================================================
-         */
+        CopycatFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
 
-        CopycatFace[] faces =
-                CopycatGeometrySlope.getFaces(
-                        facing,
-                        half
-                );
-
-        CopycatUV[][] uv =
-                CopycatGeometrySlope.getUV(
-                        facing,
-                        half
-                );
-
-        /*
-         * ============================================================
-         * COPYCAT BLOCK ENTITY
-         * ============================================================
-         */
+        CopycatUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
 
         BlockEntity blockEntity = blockView.getBlockEntity(pos);
 
         BlockState copiedState = null;
 
         if (blockEntity instanceof CopycatBlockEntity copycat) {
-            copiedState =
-                    copycat.getCopiedStates()
-                            .get(CopycatPart.MAIN);
+            copiedState = copycat.getCopiedStates() .get(CopycatPart.MAIN);
         }
 
-        /*
-         * ============================================================
-         * EMPTY SLOPE
-         * ============================================================
-         */
-
         if (copiedState == null || copiedState.isAir()) {
-            FabricCopycatSlopeHelper.emitEmpty(
-                    faces,
-                    uv,
-                    defaultSprite,
-                    context
-            );
+            FabricCopycatSlopeHelper.emitEmpty(faces, uv, defaultSprite, context);
 
             return;
         }
 
-        /*
-         * ============================================================
-         * RETEXTURED SLOPE
-         * ============================================================
-         */
-
-        FabricCopycatSlopeHelper.retexture(
-                faces,
-                uv,
-                copiedState,
-                randomSupplier,
-                context,
-                CopycatPart.MAIN
-        );
+        FabricCopycatSlopeHelper.retexture(faces, uv, copiedState, randomSupplier, context, CopycatPart.MAIN);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package net.scp_genesis.common.copycatblocks.geometry;
 
+import net.minecraft.core.Direction;
+
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,6 +18,21 @@ import org.jetbrains.annotations.NotNull;
 public final class CopycatUVMapping {
 
     private CopycatUVMapping() {
+    }
+
+    /**
+     * Projects a vertex along a nominal face direction using the Copycat slope convention.
+     * Horizontal faces use X/Z; side faces use height and a direction-dependent horizontal axis.
+     * Returned coordinates are not clamped, allowing callers to choose their own UV bounds.
+     */
+    public static CopycatUV project(Direction direction, CopycatVertex vertex) {
+        return switch (direction) {
+            case DOWN, UP -> new CopycatUV(vertex.x(), vertex.z());
+            case NORTH -> new CopycatUV(vertex.x(), 1.0F - vertex.y());
+            case SOUTH -> new CopycatUV(1.0F - vertex.x(), 1.0F - vertex.y());
+            case EAST -> new CopycatUV(1.0F - vertex.z(), 1.0F - vertex.y());
+            case WEST -> new CopycatUV(vertex.z(), 1.0F - vertex.y());
+        };
     }
 
     /**
