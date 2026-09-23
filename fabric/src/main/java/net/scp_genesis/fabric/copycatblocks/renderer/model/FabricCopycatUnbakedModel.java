@@ -248,9 +248,9 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
             if (geometryType != GeometryType.SLOPE) {
                 var form = switch (geometryType) {
-                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.HORIZONTAL;
-                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.VERTICAL;
-                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE;
+                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.HORIZONTAL;
+                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.VERTICAL;
+                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE;
                 };
                 return new FabricCopycatBakedModel(new net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryHalfSlope(
                         referenceModel, copycatSprite, copycatAltSprite, form));

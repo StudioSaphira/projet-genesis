@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.data.*;
-import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatHalfSlopeGeometry;
+import net.scp_genesis.common.copycatblocks.geometry.slope.half.CopycatHalfSlopeGeometry;
 import net.scp_genesis.common.registry.ModBlocks;
 
 import net.minecraft.client.renderer.RenderType;
@@ -23,9 +23,9 @@ import java.util.List;
 public final class NeoForgeCopycatGeometryHalfSlope extends NeoForgeCopycatGeometrySlope {
     private final TextureAtlasSprite sprite;
     private final TextureAtlasSprite alternate;
-    private final CopycatHalfSlopeForm form;
+    private final CopycatHalfForm form;
     public NeoForgeCopycatGeometryHalfSlope(BakedModel reference, TextureAtlasSprite sprite,
-                                            TextureAtlasSprite alternate, CopycatHalfSlopeForm form) {
+                                            TextureAtlasSprite alternate, CopycatHalfForm form) {
         super(reference, sprite);
         this.sprite = sprite;
         this.alternate = alternate;

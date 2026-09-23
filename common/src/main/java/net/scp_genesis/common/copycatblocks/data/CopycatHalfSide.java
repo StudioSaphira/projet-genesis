@@ -1,9 +1,9 @@
 package net.scp_genesis.common.copycatblocks.data;
 import net.minecraft.util.StringRepresentable;
 /** Lateral half in the canonical NORTH frame: LEFT occupies X=0..0.5. */
-public enum CopycatSlopeSide implements StringRepresentable {
+public enum CopycatHalfSide implements StringRepresentable {
     LEFT, RIGHT;
     @Override public String getSerializedName() { return name().toLowerCase(java.util.Locale.ROOT); }
     /** Returns the other lateral half. */
-    public CopycatSlopeSide opposite() { return this == LEFT ? RIGHT : LEFT; }
+    public CopycatHalfSide opposite() { return this == LEFT ? RIGHT : LEFT; }
 }

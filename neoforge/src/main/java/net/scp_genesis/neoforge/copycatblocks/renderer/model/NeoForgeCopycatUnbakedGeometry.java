@@ -206,9 +206,9 @@ public final class NeoForgeCopycatUnbakedGeometry
 
             if (geometryType != GeometryType.SLOPE) {
                 var form = switch (geometryType) {
-                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.HORIZONTAL;
-                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.VERTICAL;
-                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE;
+                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.HORIZONTAL;
+                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.VERTICAL;
+                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE;
                 };
                 return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryHalfSlope(
                         referenceModel, copycatSprite, copycatAltSprite, form));

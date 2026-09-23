@@ -1,26 +1,26 @@
-package net.scp_genesis.common.copycatblocks.geometry.slope;
+package net.scp_genesis.common.copycatblocks.util.abstracts;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.Vec3;
-import net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock;
-import net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm;
-import net.scp_genesis.common.copycatblocks.data.CopycatSlopeSide;
-import static net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock.*;
+import net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock;
+import net.scp_genesis.common.copycatblocks.data.CopycatHalfForm;
+import net.scp_genesis.common.copycatblocks.data.CopycatHalfSide;
+import static net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock.*;
 
-/** Shared orientation rules for placement, rendering, targeting and wrench rotation. */
-public final class CopycatHalfSlopeState {
-    private CopycatHalfSlopeState() {}
+/** Generic HALF/FACING/SIDE orientation rules shared by half-block families. */
+public final class CopycatHalfState {
+    private CopycatHalfState() {}
     /** Returns the physical arrangement represented by this block. */
-    public static CopycatHalfSlopeForm form(BlockState state) {
-        return ((AbstractCopycatHalfSlopeBlock) state.getBlock()).form();
+    public static CopycatHalfForm form(BlockState state) {
+        return ((AbstractCopycatHalfBlock) state.getBlock()).form();
     }
     /** Vertical doubles deliberately have no HALF property. */
     public static Half half(BlockState state) { return state.hasProperty(HALF) ? state.getValue(HALF) : Half.BOTTOM; }
     /** Horizontal doubles deliberately have no SIDE property. */
-    public static CopycatSlopeSide side(BlockState state) {
-        return state.hasProperty(SIDE) ? state.getValue(SIDE) : CopycatSlopeSide.LEFT;
+    public static CopycatHalfSide side(BlockState state) {
+        return state.hasProperty(SIDE) ? state.getValue(SIDE) : CopycatHalfSide.LEFT;
     }
     /** Inverse horizontal rotation from block-local coordinates into the NORTH frame. */
     public static Vec3 local(Vec3 point, Direction facing) {
@@ -34,10 +34,10 @@ public final class CopycatHalfSlopeState {
     }
     /** Advances LEFT, RIGHT, then facing, then HALF; absent properties are skipped. */
     public static BlockState next(BlockState state) {
-        if (state.hasProperty(SIDE) && state.getValue(SIDE) == CopycatSlopeSide.LEFT) {
-            return state.setValue(SIDE, CopycatSlopeSide.RIGHT);
+        if (state.hasProperty(SIDE) && state.getValue(SIDE) == CopycatHalfSide.LEFT) {
+            return state.setValue(SIDE, CopycatHalfSide.RIGHT);
         }
-        if (state.hasProperty(SIDE)) state = state.setValue(SIDE, CopycatSlopeSide.LEFT);
+        if (state.hasProperty(SIDE)) state = state.setValue(SIDE, CopycatHalfSide.LEFT);
         Direction facing = state.getValue(FACING);
         state = state.setValue(FACING, facing.getClockWise());
         if (facing == Direction.WEST && state.hasProperty(HALF)) {

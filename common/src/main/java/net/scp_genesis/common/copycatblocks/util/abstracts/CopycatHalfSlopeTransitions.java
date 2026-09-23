@@ -1,5 +1,6 @@
-package net.scp_genesis.common.copycatblocks.util;
+package net.scp_genesis.common.copycatblocks.util.abstracts;
 
+import net.scp_genesis.common.copycatblocks.util.CopycatItemHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -15,10 +16,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.*;
-import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatHalfSlopeState;
 import net.scp_genesis.common.registry.*;
 import org.jetbrains.annotations.Nullable;
-import static net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock.*;
+import static net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock.*;
 
 /** Server-side merges and removal, preserving material identity across block-entity replacement. */
 public final class CopycatHalfSlopeTransitions {
@@ -29,7 +29,7 @@ public final class CopycatHalfSlopeTransitions {
         Direction facing = state.getValue(FACING);
         var side = state.getValue(SIDE);
         var half = state.getValue(HALF);
-        Direction freeSide = side == CopycatSlopeSide.LEFT ? facing.getClockWise() : facing.getCounterClockWise();
+        Direction freeSide = side == CopycatHalfSide.LEFT ? facing.getClockWise() : facing.getCounterClockWise();
         if (clicked == freeSide) {
             return ModBlocks.COPYCAT_HORIZONTAL_HALF_SLOPE.get().defaultBlockState()
                     .setValue(FACING, facing).setValue(HALF, half);
@@ -45,8 +45,8 @@ public final class CopycatHalfSlopeTransitions {
 
     /** Maps the original single prism to a stable slot in the merged geometry. */
     public static CopycatPart originalPart(BlockState original, BlockState merged) {
-        boolean first = CopycatHalfSlopeState.form(merged) == CopycatHalfSlopeForm.HORIZONTAL
-                ? original.getValue(SIDE) == CopycatSlopeSide.LEFT : original.getValue(HALF) == Half.BOTTOM;
+        boolean first = CopycatHalfState.form(merged) == CopycatHalfForm.HORIZONTAL
+                ? original.getValue(SIDE) == CopycatHalfSide.LEFT : original.getValue(HALF) == Half.BOTTOM;
         return first ? CopycatPart.BOTTOM : CopycatPart.TOP;
     }
 
@@ -54,9 +54,9 @@ public final class CopycatHalfSlopeTransitions {
     public static BlockState remainingState(BlockState state, CopycatPart remaining) {
         var single = ModBlocks.COPYCAT_HALF_SLOPE.get().defaultBlockState();
         Direction facing = state.getValue(FACING);
-        if (CopycatHalfSlopeState.form(state) == CopycatHalfSlopeForm.HORIZONTAL) {
+        if (CopycatHalfState.form(state) == CopycatHalfForm.HORIZONTAL) {
             return single.setValue(FACING, facing).setValue(HALF, state.getValue(HALF))
-                    .setValue(SIDE, remaining == CopycatPart.BOTTOM ? CopycatSlopeSide.LEFT : CopycatSlopeSide.RIGHT);
+                    .setValue(SIDE, remaining == CopycatPart.BOTTOM ? CopycatHalfSide.LEFT : CopycatHalfSide.RIGHT);
         }
         boolean upper = remaining == CopycatPart.TOP;
         return single.setValue(FACING, upper ? facing.getOpposite() : facing)

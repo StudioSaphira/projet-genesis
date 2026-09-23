@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
+import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatSlopeBlock;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFaceBounds;

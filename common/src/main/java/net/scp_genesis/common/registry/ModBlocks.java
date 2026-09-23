@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import net.scp_genesis.common.block.*;
-import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
+import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatSlopeBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatCubeBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatSlabBlock;
 import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatStairsBlock;

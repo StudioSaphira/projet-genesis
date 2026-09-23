@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.block.custom;
+package net.scp_genesis.common.copycatblocks.block.custom.basic;
 
 import com.mojang.serialization.MapCodec;
 

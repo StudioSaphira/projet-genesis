@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.scp_genesis.common.copycatblocks.api.CopycatBlocksAPI;
+import net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,8 +55,8 @@ public final class CopycatBlockColor implements BlockColor {
             int tintIndex
     ) {
 
-        if (state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock block
-                && block.form() != net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE) {
+        if (state.getBlock() instanceof AbstractCopycatHalfBlock block
+                && block.form() != net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE) {
             return tintIndex >= 2000 ? CopycatPart.TOP : CopycatPart.BOTTOM;
         }
 

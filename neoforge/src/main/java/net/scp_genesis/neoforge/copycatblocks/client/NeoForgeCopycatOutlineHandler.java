@@ -8,7 +8,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.model.data.ModelData;
-import net.scp_genesis.common.copycatblocks.block.custom.CopycatSlopeBlock;
+import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatSlopeBlock;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatOutlineRenderer;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,7 +49,7 @@ public final class NeoForgeCopycatOutlineHandler {
          */
 
         if (!(state.getBlock() instanceof CopycatSlopeBlock)
-                && !(state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock)) {return;}
+                && !(net.scp_genesis.common.copycatblocks.util.abstracts.CopycatHalfSlopeBehavior.isSlope(state))) {return;}
 
         /*
          * ============================================================
