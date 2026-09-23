@@ -131,6 +131,13 @@ public class CopycatBlockEntity extends BlockEntity {
         updateBlock();
     }
 
+    /** Replaces all material slots atomically and schedules one client/model-data update. */
+    public void replaceCopiedStates(java.util.Map<CopycatPart, BlockState> states) {
+        data.clear();
+        states.forEach(data::setCopiedState);
+        updateBlock();
+    }
+
     // ------------------------------------------------------------------------
     // Block Updates
     // ------------------------------------------------------------------------

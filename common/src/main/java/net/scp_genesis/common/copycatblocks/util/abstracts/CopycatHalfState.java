@@ -14,7 +14,7 @@ public final class CopycatHalfState {
     private CopycatHalfState() {}
     /** Returns the physical arrangement represented by this block. */
     public static CopycatHalfForm form(BlockState state) {
-        return ((AbstractCopycatHalfBlock) state.getBlock()).form();
+        return ((AbstractCopycatHalfBlock) state.getBlock()).form(state);
     }
     /** Vertical doubles deliberately have no HALF property. */
     public static Half half(BlockState state) { return state.hasProperty(HALF) ? state.getValue(HALF) : Half.BOTTOM; }

@@ -56,7 +56,7 @@ public final class CopycatBlockColor implements BlockColor {
     ) {
 
         if (state.getBlock() instanceof AbstractCopycatHalfBlock block
-                && block.form() != net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE) {
+                && block.form(state) != net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE) {
             return tintIndex >= 2000 ? CopycatPart.TOP : CopycatPart.BOTTOM;
         }
 

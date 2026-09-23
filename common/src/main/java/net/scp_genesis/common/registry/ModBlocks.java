@@ -1,6 +1,7 @@
 package net.scp_genesis.common.registry;
 
 import net.minecraft.world.level.block.Block;
+import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatPanelBlock;
 import net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureChairBamboo;
 import net.scp_genesis.common.furnitures.notmodular.office.FurnitureOfficeChair;
 import net.scp_genesis.common.furnitures.notmodular.room.cherry.FurnitureChairCherry;
@@ -85,6 +86,7 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
 	public static PlatformRegistryObject<Block> COPYCAT_SLAB;
 	public static PlatformRegistryObject<Block> COPYCAT_SLOPE;
+    public static PlatformRegistryObject<Block> COPYCAT_PANEL;
     public static PlatformRegistryObject<Block> COPYCAT_HALF_SLOPE;
     public static PlatformRegistryObject<Block> COPYCAT_HORIZONTAL_HALF_SLOPE;
     public static PlatformRegistryObject<Block> COPYCAT_VERTICAL_HALF_SLOPE;
@@ -162,6 +164,8 @@ public final class ModBlocks {
 						.strength(2.0F, 6.0F)
 						.sound(SoundType.METAL)
 						.requiresCorrectToolForDrops()));
+        COPYCAT_PANEL = registry.registerBlock("copycat_panel", () -> new CopycatPanelBlock(
+                BlockBehaviour.Properties.of().strength(2F, 6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
         COPYCAT_HALF_SLOPE = registry.registerBlock("copycat_half_slope", () -> new net.scp_genesis.common.copycatblocks.block.custom.half.CopycatHalfSlopeBlock(
                 BlockBehaviour.Properties.of().strength(2.0F, 6.0F).sound(SoundType.METAL)
                         .requiresCorrectToolForDrops().noOcclusion()));

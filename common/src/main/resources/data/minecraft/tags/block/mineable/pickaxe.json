@@ -10,6 +10,7 @@
     "scp_genesis:locker_shelf",
     "scp_genesis:copycat_half_slope",
     "scp_genesis:copycat_horizontal_half_slope",
-    "scp_genesis:copycat_vertical_half_slope"
+    "scp_genesis:copycat_vertical_half_slope",
+    "scp_genesis:copycat_panel"
   ]
 }

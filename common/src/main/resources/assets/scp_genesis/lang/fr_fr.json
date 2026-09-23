@@ -152,5 +152,6 @@
   "item_group.scp_genesis.furnitures": "SCP: G - Mobiliers",
   "item_group.scp_genesis.mobs": "SCP: G - Créatures",
   "item_group.scp_genesis.posters": "SCP: G - Affiches",
-  "item_group.scp_genesis.weapons": "SCP: G - Armes"
+  "item_group.scp_genesis.weapons": "SCP: G - Armes",
+  "block.scp_genesis.copycat_panel": "Panneau Copycat"
 }

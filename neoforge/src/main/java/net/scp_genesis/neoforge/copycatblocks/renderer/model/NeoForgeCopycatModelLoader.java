@@ -75,6 +75,10 @@ public final class NeoForgeCopycatModelLoader
                 "[COPYCAT] Loading Copycat Geometry"
         );
 
+        if (json.has("shape") && "panel".equals(json.get("shape").getAsString())) {
+            return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.PANEL, Map.of());
+        }
+
         if (!json.has("base_model")) {
             throw new JsonParseException(
                     "Copycat model is missing required property: \"base_model\""

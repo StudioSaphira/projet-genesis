@@ -33,6 +33,8 @@ public abstract class AbstractCopycatHalfBlock extends AbstractCopycatBlock {
     }
     /** Returns the arrangement; concrete classes only register the properties used by that form. */
     public final CopycatHalfForm form() { return form; }
+    /** Resolves families whose single/double arrangement is stored in a block-state property. */
+    public CopycatHalfForm form(BlockState state) { return form; }
     /** Returns the shape-family strategy, also used to select a compatible custom renderer. */
     public final CopycatHalfBehavior behavior() { return behavior; }
 
@@ -46,7 +48,7 @@ public abstract class AbstractCopycatHalfBlock extends AbstractCopycatBlock {
         return Shapes.empty();
     }
     @Override public boolean isWrenchable() { return true; }
-    @Override protected boolean isMultipartState(@NotNull BlockState state) { return form != CopycatHalfForm.SINGLE; }
+    @Override protected boolean isMultipartState(@NotNull BlockState state) { return form(state) != CopycatHalfForm.SINGLE; }
     @Override public InteractionResult onWrench(Level level, BlockPos pos, BlockState state) {
         return CopycatHalfActions.wrench(behavior, level, pos, state);
     }
@@ -56,7 +58,7 @@ public abstract class AbstractCopycatHalfBlock extends AbstractCopycatBlock {
     @Override public @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state,
             @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand,
             @NotNull BlockHitResult hit) {
-        return CopycatHalfActions.use(behavior, form, stack, state, level, pos, player, hit,
+        return CopycatHalfActions.use(behavior, form(state), stack, state, level, pos, player, hit,
                 () -> getCopycatBlockEntity(level, pos), () -> getCopycatPart(state, hit),
                 () -> super.useItemOn(stack, state, level, pos, player, hand, hit));
     }

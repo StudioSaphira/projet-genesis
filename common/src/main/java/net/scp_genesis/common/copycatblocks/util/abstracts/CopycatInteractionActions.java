@@ -23,9 +23,10 @@ public final class CopycatInteractionActions {
     private CopycatInteractionActions() {}
 
     /** Uses callbacks so protected subclass hooks need not become public APIs. */
+    @SuppressWarnings("IfCanBeSwitch")
     public static ItemInteractionResult use(AbstractCopycatBlock block, ItemStack stack, BlockState state,
-            Level level, BlockPos pos, Player player, BlockHitResult hit, Supplier<CopycatPart> target,
-            BiPredicate<CopycatPart, BlockState> copy) {
+                                            Level level, BlockPos pos, Player player, BlockHitResult hit, Supplier<CopycatPart> target,
+                                            BiPredicate<CopycatPart, BlockState> copy) {
         if (stack.getItem() instanceof CopycatScraperItem) return result(block.onScrape(level, pos, state, hit, player));
         if (stack.getItem() instanceof CopycatRemoverItem) return result(block.onRemove(level, pos, state, hit, player));
         if (stack.getItem() instanceof CopycatWrenchItem) {
