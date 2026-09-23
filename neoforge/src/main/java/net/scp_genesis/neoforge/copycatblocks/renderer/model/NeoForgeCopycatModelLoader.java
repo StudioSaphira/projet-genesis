@@ -226,7 +226,12 @@ public final class NeoForgeCopycatModelLoader
             );
 
             return new NeoForgeCopycatUnbakedGeometry(
-                    NeoForgeCopycatUnbakedGeometry.GeometryType.SLOPE,
+                    switch (json.has("shape") ? json.get("shape").getAsString() : "slope") {
+                        case "half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_SLOPE;
+                        case "horizontal_half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.HORIZONTAL_HALF_SLOPE;
+                        case "vertical_half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.VERTICAL_HALF_SLOPE;
+                        default -> NeoForgeCopycatUnbakedGeometry.GeometryType.SLOPE;
+                    },
                     Map.of()
             );
         }

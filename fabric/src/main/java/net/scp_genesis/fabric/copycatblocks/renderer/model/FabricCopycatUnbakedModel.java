@@ -25,7 +25,10 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
         CUBE,
         SLAB,
         STAIRS,
-        SLOPE
+        SLOPE,
+        HALF_SLOPE,
+        HORIZONTAL_HALF_SLOPE,
+        VERTICAL_HALF_SLOPE
     }
 
     private final ResourceLocation baseModel;
@@ -228,7 +231,8 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
          * ============================================================
          */
 
-        if (geometryType == GeometryType.SLOPE) {
+        if (geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+                || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             ResourceLocation slopeReferenceModel = ResourceLocation.fromNamespaceAndPath(
                             "minecraft",
@@ -241,6 +245,16 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                             modelState,
                             copycatSpriteGetter
                     );
+
+            if (geometryType != GeometryType.SLOPE) {
+                var form = switch (geometryType) {
+                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.HORIZONTAL;
+                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.VERTICAL;
+                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE;
+                };
+                return new FabricCopycatBakedModel(new net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryHalfSlope(
+                        referenceModel, copycatSprite, copycatAltSprite, form));
+            }
 
             FabricCopycatGeometry geometry = new FabricCopycatGeometrySlope(
                             referenceModel,

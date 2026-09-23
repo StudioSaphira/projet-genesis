@@ -147,7 +147,13 @@ public final class FabricCopycatModelLoader {
          */
 
         if (COPYCAT_SLOPE_LOADER.toString().equals(loader)) {
-            return FabricCopycatModelDefinition.slope();
+            var type = switch (json.has("shape") ? json.get("shape").getAsString() : "slope") {
+                case "half" -> FabricCopycatUnbakedModel.GeometryType.HALF_SLOPE;
+                case "horizontal_half" -> FabricCopycatUnbakedModel.GeometryType.HORIZONTAL_HALF_SLOPE;
+                case "vertical_half" -> FabricCopycatUnbakedModel.GeometryType.VERTICAL_HALF_SLOPE;
+                default -> FabricCopycatUnbakedModel.GeometryType.SLOPE;
+            };
+            return FabricCopycatModelDefinition.multipart(type, Map.of());
         }
 
         /*

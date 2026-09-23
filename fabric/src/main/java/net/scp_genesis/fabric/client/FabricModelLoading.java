@@ -47,6 +47,10 @@ public final class FabricModelLoading {
                             "item/copycat_slope"
                     );
 
+            if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_half_slope"))) {
+                return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_SLOPE, null);
+            }
+
             if (id.equals(slopeItemModel)) {
                 return new FabricCopycatUnbakedModel(
                         FabricCopycatUnbakedModel.GeometryType.SLOPE,
@@ -107,9 +111,9 @@ public final class FabricModelLoading {
                                 definition.baseModels()
                         );
 
-                case SLOPE ->
+                case SLOPE, HALF_SLOPE, HORIZONTAL_HALF_SLOPE, VERTICAL_HALF_SLOPE ->
                         new FabricCopycatUnbakedModel(
-                                FabricCopycatUnbakedModel.GeometryType.SLOPE,
+                                definition.geometryType(),
                                 null
                         );
             };
@@ -137,6 +141,11 @@ public final class FabricModelLoading {
                                 "copycat_slope"
                         )
                 );
+
+        if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(
+                ModConstants.MOD_ID, "copycat_half_slope")))) {
+            return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_SLOPE, null);
+        }
 
         if (topLevelId.equals(slopeItemModel)) {
             return new FabricCopycatUnbakedModel(

@@ -17,8 +17,10 @@ public final class FabricCopycatOutlineRenderer {
     /** Draws the slope's exact mesh rather than its stepped collision shape. */
     public static void render(WorldRenderContext context, WorldRenderContext.BlockOutlineContext outline) {
         BlockState state = outline.blockState();
-        if (!(state.getBlock() instanceof CopycatSlopeBlock)) return;
-        var faces = CopycatGeometrySlope.getFaces(state.getValue(CopycatSlopeBlock.FACING),
+        boolean halfSlope = state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock;
+        if (!(state.getBlock() instanceof CopycatSlopeBlock) && !halfSlope) return;
+        var faces = halfSlope ? net.scp_genesis.common.copycatblocks.geometry.slope.CopycatHalfSlopeGeometry.faces(state)
+                : CopycatGeometrySlope.getFaces(state.getValue(CopycatSlopeBlock.FACING),
                 state.getValue(CopycatSlopeBlock.HALF));
         var lines = CopycatOutlineGeometry.lines(faces);
         @SuppressWarnings("deprecation") VertexConsumer buffer = outline.vertexConsumer();

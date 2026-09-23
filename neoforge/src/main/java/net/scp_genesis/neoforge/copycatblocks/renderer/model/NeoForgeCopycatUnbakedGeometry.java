@@ -30,7 +30,10 @@ public final class NeoForgeCopycatUnbakedGeometry
         CUBE,
         SLAB,
         STAIRS,
-        SLOPE
+        SLOPE,
+        HALF_SLOPE,
+        HORIZONTAL_HALF_SLOPE,
+        VERTICAL_HALF_SLOPE
     }
 
     private final ResourceLocation baseModel;
@@ -190,7 +193,8 @@ public final class NeoForgeCopycatUnbakedGeometry
          * ============================================================
          */
 
-        if (geometryType == GeometryType.SLOPE) {
+        if (geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+                || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             BakedModel referenceModel =
                     NeoForgeCopycatModelBakeHelper.bakeModel(
@@ -199,6 +203,16 @@ public final class NeoForgeCopycatUnbakedGeometry
                             modelState,
                             copycatSpriteGetter
                     );
+
+            if (geometryType != GeometryType.SLOPE) {
+                var form = switch (geometryType) {
+                    case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.HORIZONTAL;
+                    case VERTICAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.VERTICAL;
+                    default -> net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE;
+                };
+                return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryHalfSlope(
+                        referenceModel, copycatSprite, copycatAltSprite, form));
+            }
 
             NeoForgeCopycatGeometry geometry =
                     new NeoForgeCopycatGeometrySlope(

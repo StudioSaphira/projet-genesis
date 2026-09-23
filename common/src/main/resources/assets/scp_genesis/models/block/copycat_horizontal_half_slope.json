@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "scp_genesis:copycat_slope",
+  "shape": "horizontal_half",
+  "textures": {
+    "all": "scp_genesis:block/copycat_block",
+    "all_alt": "scp_genesis:block/copycat_block_alt",
+    "particle": "scp_genesis:block/copycat_block"
+  },
+  "render_type": "cutout"
+}

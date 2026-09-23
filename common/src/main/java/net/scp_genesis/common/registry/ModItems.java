@@ -124,6 +124,7 @@ public final class ModItems {
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
 	public static PlatformRegistryObject<Item> COPYCAT_SLAB;
 	public static PlatformRegistryObject<Item> COPYCAT_SLOPE;
+    public static PlatformRegistryObject<Item> COPYCAT_HALF_SLOPE;
 
 	public static void register(PlatformRegistry registry) {
 		COPYCAT_WRENCH = registry.registerItem("copycat_wrench", CopycatWrenchItem::new);
@@ -290,5 +291,6 @@ public final class ModItems {
 		COPYCAT_STAIRS = registry.registerBlockItem("copycat_stairs", ModBlocks.COPYCAT_STAIRS);
 		COPYCAT_SLAB = registry.registerBlockItem("copycat_slab", ModBlocks.COPYCAT_SLAB);
 		COPYCAT_SLOPE = registry.registerBlockItem("copycat_slope", ModBlocks.COPYCAT_SLOPE);
+        COPYCAT_HALF_SLOPE = registry.registerBlockItem("copycat_half_slope", ModBlocks.COPYCAT_HALF_SLOPE);
 	}
 }

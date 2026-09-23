@@ -54,6 +54,11 @@ public final class CopycatBlockColor implements BlockColor {
             int tintIndex
     ) {
 
+        if (state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock block
+                && block.form() != net.scp_genesis.common.copycatblocks.data.CopycatHalfSlopeForm.SINGLE) {
+            return tintIndex >= 2000 ? CopycatPart.TOP : CopycatPart.BOTTOM;
+        }
+
         /*
          * ============================================================
          * SLAB

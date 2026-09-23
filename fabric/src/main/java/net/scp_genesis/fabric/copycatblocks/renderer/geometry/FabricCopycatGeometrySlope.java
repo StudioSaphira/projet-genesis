@@ -25,7 +25,7 @@ import org.joml.Vector3f;
 import java.util.function.Supplier;
 
 /** Connects common slope geometry to Fabric materials, inventory transforms and block rendering. */
-public final class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
+public class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
     private final BakedModel referenceModel;
     private final TextureAtlasSprite defaultSprite;

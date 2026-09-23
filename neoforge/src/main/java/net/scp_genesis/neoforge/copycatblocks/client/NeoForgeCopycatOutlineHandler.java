@@ -48,7 +48,8 @@ public final class NeoForgeCopycatOutlineHandler {
          * ============================================================
          */
 
-        if (!(state.getBlock() instanceof CopycatSlopeBlock)) {return;}
+        if (!(state.getBlock() instanceof CopycatSlopeBlock)
+                && !(state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock)) {return;}
 
         /*
          * ============================================================

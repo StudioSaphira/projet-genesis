@@ -27,7 +27,8 @@ public final class FabricCopycatOutlineHandler {
     ) {
         BlockState state = outline.blockState();
 
-        if (!(state.getBlock() instanceof CopycatSlopeBlock)) {
+        if (!(state.getBlock() instanceof CopycatSlopeBlock)
+                && !(state.getBlock() instanceof net.scp_genesis.common.copycatblocks.block.custom.half.AbstractCopycatHalfSlopeBlock)) {
             return true;
         }
 

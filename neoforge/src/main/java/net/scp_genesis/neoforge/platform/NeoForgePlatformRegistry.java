@@ -118,7 +118,10 @@ public final class NeoForgePlatformRegistry
                         ModBlocks.COPYCAT_CUBE.get(),
                         ModBlocks.COPYCAT_SLAB.get(),
                         ModBlocks.COPYCAT_STAIRS.get(),
-                        ModBlocks.COPYCAT_SLOPE.get()
+                        ModBlocks.COPYCAT_SLOPE.get(),
+                        ModBlocks.COPYCAT_HALF_SLOPE.get(),
+                        ModBlocks.COPYCAT_HORIZONTAL_HALF_SLOPE.get(),
+                        ModBlocks.COPYCAT_VERTICAL_HALF_SLOPE.get()
                 ).build(null)
         );
 

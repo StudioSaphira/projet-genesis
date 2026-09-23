@@ -7,6 +7,9 @@
     "scp_genesis:bare_concrete_d",
     "scp_genesis:office_chair",
     "scp_genesis:locker",
-    "scp_genesis:locker_shelf"
+    "scp_genesis:locker_shelf",
+    "scp_genesis:copycat_half_slope",
+    "scp_genesis:copycat_horizontal_half_slope",
+    "scp_genesis:copycat_vertical_half_slope"
   ]
 }

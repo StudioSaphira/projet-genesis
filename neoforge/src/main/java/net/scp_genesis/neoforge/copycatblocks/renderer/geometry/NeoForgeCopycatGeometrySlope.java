@@ -59,7 +59,7 @@ import java.util.List;
  * BakedQuad
  * </pre>
  */
-public final class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
+public class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
     private final BakedModel referenceModel;
     private final TextureAtlasSprite defaultSprite;
