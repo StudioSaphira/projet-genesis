@@ -13,6 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import net.scp_genesis.common.copycatblocks.client.CopycatOutlineDrawing;
 import net.scp_genesis.common.copycatblocks.geometry.*;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,8 @@
 package net.scp_genesis.common.copycatblocks.geometry;
 
 import net.minecraft.core.Direction;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 import org.jetbrains.annotations.Nullable;
 
 /** Geometric boundary queries for custom Copycat faces, independent of a renderer's culling policy. */

@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.geometry;
+package net.scp_genesis.common.copycatblocks.util.records;
 
 import net.minecraft.core.Direction;
 

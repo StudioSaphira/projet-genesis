@@ -1,4 +1,4 @@
-package net.scp_genesis.common.copycatblocks.geometry;
+package net.scp_genesis.common.copycatblocks.util.records;
 
 /**
  * Represents a mathematical vector used by Copycat Slope geometry

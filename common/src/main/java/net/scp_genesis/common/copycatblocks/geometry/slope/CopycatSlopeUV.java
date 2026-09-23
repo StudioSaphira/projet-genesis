@@ -1,9 +1,9 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope;
 
-import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatUV;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatUVMapping;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatVertex;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 
 /** Selects nominal-face UV projection for the slope, independently of texture sprites and loaders. */
 public final class CopycatSlopeUV {

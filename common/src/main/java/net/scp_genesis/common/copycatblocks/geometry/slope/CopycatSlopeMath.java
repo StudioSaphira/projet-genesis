@@ -1,7 +1,7 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope;
 
 import net.scp_genesis.common.copycatblocks.geometry.CopycatGeometryMath;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatVertex;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 import org.jetbrains.annotations.NotNull;
 
 /**

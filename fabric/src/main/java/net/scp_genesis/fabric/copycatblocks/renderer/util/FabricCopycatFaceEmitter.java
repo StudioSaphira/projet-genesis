@@ -8,6 +8,10 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.*;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVector;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 import org.jetbrains.annotations.Nullable;
 
 /** Emits triangular or quadrilateral Copycat faces; callers supply their own culling policy. */

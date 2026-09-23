@@ -2,9 +2,9 @@ package net.scp_genesis.common.copycatblocks.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatOutlineLine;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatVector;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatVertex;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatOutlineLine;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVector;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 import java.util.List;
 
 /** Client-only outline drawing using vanilla APIs; no loader-specific dependencies. */

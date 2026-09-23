@@ -4,6 +4,10 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.*;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVector;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 import org.jetbrains.annotations.Nullable;
 
 /** Packs custom triangular or quadrilateral faces into NeoForge's baked vertex format. */

@@ -2,6 +2,8 @@ package net.scp_genesis.common.copycatblocks.geometry;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 
 /** Transforms custom Copycat meshes without depending on a block or rendering API. */
 public final class CopycatGeometryTransforms {

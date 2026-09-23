@@ -1,7 +1,7 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope;
 
 import net.minecraft.core.Direction;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
 import net.scp_genesis.common.copycatblocks.geometry.CopycatFaceBounds;
 import org.jetbrains.annotations.Nullable;
 

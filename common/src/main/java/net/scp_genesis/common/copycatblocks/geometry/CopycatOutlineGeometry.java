@@ -1,5 +1,9 @@
 package net.scp_genesis.common.copycatblocks.geometry;
 
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatOutlineLine;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
+
 import java.util.ArrayList;
 import java.util.List;
 

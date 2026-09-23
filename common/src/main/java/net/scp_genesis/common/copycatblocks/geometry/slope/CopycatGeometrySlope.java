@@ -3,6 +3,9 @@ package net.scp_genesis.common.copycatblocks.geometry.slope;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.scp_genesis.common.copycatblocks.geometry.*;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
+import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
 
 /**
  * Triangular prism bounded by Y = 1 - Z in its NORTH/BOTTOM orientation.
