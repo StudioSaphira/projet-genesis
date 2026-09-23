@@ -1,178 +1,84 @@
-# Alpha-Release 19 - 0.1.5
+# Beta-Release 2 - 0.2 - Construction Blocks Update, Part 1
 
-*This changelog also contains the additions, changes and fixes of the previous Pre-Alpha update's changelog.*
-
-## Additions
-
-- Added Wooden Table (All overworld wood type)
-- Added Wooden Chairs (All overworld wood type)
-- Added Wooden Drawers (All overworld wood type)
-- Added Storage Locker
-- Added Hiding Locker
-- Added Office Chairs
-
-- Added Dirty White Tiled Block [WAS REMOVED BY MISTAKE DURING ALPHA-RELEASE 17]
-
-## Changes
-
-- NeoForge from 21.1.248 to 21.1.250
-- Fabric Loader from 0.19.3 to 0.19.5
-- Fabric API Requirement from 0.116.15+1.21.1 to 0.116.17+1.21.1
-
-## Fixes
-
-- Fixed Copycat Slope for both NeoForge and Fabric
-
-## Next Update
-
-_The next update will add more construction blocks !_
-
-------------------------------------------------------------------
-
-# Alpha-Release 18 - 0.1.4
+**THIS IS A SUMMARY OF ALL ADDITIONS BETWEEN, AND INCLUDING ALPHA-RELEASE 15 AND ALPHA-RELEASE 19.**
 
 ## Additions
 
-- Copycat Remover [WORKING]
-- Added Copycat Slab
-- Added Copycat Stairs
-- The mod is now working on multi-loaders, working on both NeoForge and Fabric
-- [EXPERIMENTAL] Added Copycat Slope [NOT PROPERLY WORKING]
-
-## Changes
-
-- Former Copycat Remover (Added during 0.1.3) has been renamed to Copycat Scraper
-
-## Fixes
-
-- Fixed issue about Copycat Blocks
-    - Being able to use any blocks on the basic Copycat Cube Block
-    - Incorrect Texture for Default Copycat Block
-    - Incorrect Texture for Grass Block
-    - Fixed issue about Copycat Blocks
-    - Can't put blocks using Copycat Block as support
-    - Copycat Block were not saving the copied block
-- Fixed Copycat Wrench [NOW WORKING]
-- Fixed Copycat Scraper [NOW WORKING]
-
-## Next Update
-
-_The next update will fix the Copycat Slope !_
-
-------------------------------------------------------------------
-
-# Alpha-Release 17 - 0.1.3
-
-***This is a summary and an update of the 2 previous Pre-Alpha Release.***
-
-## Additions
-
-- A GitHub Repositories
-- In the .jar file, there's now 4 new sub-files :
+- Added the following blocks :
+  - Added White Tiled Block
+  - Added White Dirty Tiled Block
+  - Added Dirty Broken White Tiled Block - Version One
+  - Added Dirty Broken White Tiled Block - Version Two
+  - Added Broken White Tiled Block - Version One
+  - Added Broken White Tiled Block - Version Two
+  - Added Green Tiled Floor
+  - Added Wood Wall base
+- Added a GitHub Repositories. The code is now free-access. In complementary :
+    - Added licenses to the mod. It is shared in 4 licenses.
+- Added 4 information files inside the .jar mod. 
     - README.md
-    - LICENSE.md
-    - NOTICE.md - Currently, this file is blank. The content in this file will be added in 0.1.3.
-    - CHANGELOG.md
-- Added Java classes
-- Added Copycat Block
-- Added Copycat Wrench [NOT WORKING]
-- Added Copycat Remover [NOT WORKING]
+  - LICENSE.md
+  - NOTICE.md
+  - CHANGELOG.md
+- Added Copycat Blocks
+    - Added Copycat Cube
+  - Added Copycat Stairs
+  - Added Copycat Slab
+  - Added Copycat Slope
+- Added Copycat Tools
+    - Added Copycat Remover
+  - Added Copycat Wrench
+  - Added Copycat Scraper
+- Added Furnitures :
+  - Added Wooden Table (All overworld wood type)
+  - Added Wooden Chairs (All overworld wood type)
+  - Added Wooden Drawers (All overworld wood type)
+  - Added Storage Locker
+  - Added Hiding Locker
+  - Added Office Chairs
 
 ## Changes
 
 - We're leaving MCreator
+- Fabric is now supported ! It is included in the same .jar as the NeoForge version.
+  - Fabric is supported with the last updated version (0.19.5) and also need the last API version (0.116.17+1.21.1)
+  - NeoForge needed version has been updated (21.1.251)
 
 ## Fixes
 
-- Fixed incorrect translations for the english tabs in game
+- Fixed incorrect translations, translations for both French and English versions have been remade.
 
-## Deletions
+## Changes from the last Alpha-Release.
 
-- Removed White Tiled Stairs
-- Removed White Tiled Slab
-- Removed White Tiled Vertical Slab
-- Removed White Tiled Half-Panel
-
-- Removed Dirty White Tiled Stairs
-- Removed Dirty White Tiled Slab
-- Removed Dirty White Tiled Vertical Slab
-
-- Removed Broken White Tiled Stairs - Version One
-- Removed Broken White Tiled Slab - Version One
-- Removed Broken White Tiled Vertical Slab - Version One
-
-- Removed Broken White Tiled Stairs - Version Two
-- Removed Broken White Tiled Slab - Version Two
-- Removed Broken White Tiled Vertical Slab - Version Two
-
-- Removed Dirty Broken White Tiled Stairs - Version One
-- Removed Dirty Broken White Tiled Slab - Version One
-- Removed Dirty Broken White Tiled Vertical Slab - Version One
-
-- Removed Dirty Broken White Tiled Stairs - Version Two
-- Removed Dirty Broken White Tiled Slab - Version Two
-- Removed Dirty Broken White Tiled Vertical Slab - Version Two
-
-## Next Update
-
-_The next update will be more custom Copycat blocks, including slab, stairs and more !_
-
-------------------------------------------------------------------
-
-# Alpha-Release 16 - 0.1.2
-
-***This is a small update compared to what's coming. Please Don't expect an update until this weekend. This will be a "big" update for the Alpha-Release 17 - 0.1.3.***
-
-## Additions
-
-- Added White Tiled Half-Panel
-- Added Wood Wall base
-- Added Green Tiled Floor
+### Additions
+- Added Construction Blocks
+  - Bare Concrete A Block
+  - Bare Concrete B Block
+  - Bare Concrete C Block
+  - Bare Concrete D Block
+- Added Copycat Blocks
+  - Added Copycat Panel
+  - Added Copycat Double Slope
+  - Added Copycat Half-Slope
+    - Added Copycat Vertical/Horizontal Double Half-Slope
+  - Added Copycat Half-Panel
+    - Added Copycat Double Half-Panel
+  - Added Copycat Half-Slab
+    - Added Copycat Vertical/Horizontal Double Half-Slab
+  - Added Copycat Half-Stairs
+    - Added Copycat Vertical/Horizontal Double Half-Stairs
+  - Added Copycat Vertical Slope
+    - Added Copycat Double Vertical Slope
+  - Added Copycat Half-Vertical Slope
+    - Added Copycat Vertical/Horizontal Double Half-Slope
+- Added Furnitures :
+  - Computer, currently only decorative
+  - Cookie jar, we can put 16 cookies inside it.
+  - Plate, act as an item frame. We automatically eat what's on the plate if it's food. We can't put anything else. If done anyway, the item simply disappear.
 
 ## Next Update
 
-_The next update will be custom Copycat blocks, working like FramedBlocks or Create: Copycats._
-
-------------------------------------------------------------------
-
-# Alpha-Release 15 - 0.1.1
-
-## Additions
-
-- Added White Tiled Block
-- Added White Tiled Stairs
-- Added White Tiled Slab
-- Added White Tiled Vertical Slab
-
-- Added Dirty White Tiled Block
-- Added Dirty White Tiled Stairs
-- Added Dirty White Tiled Slab
-- Added Dirty White Tiled Vertical Slab
-
-- Added Broken White Tiled Block - Version One
-- Added Broken White Tiled Stairs - Version One
-- Added Broken White Tiled Slab - Version One
-- Added Broken White Tiled Vertical Slab - Version One
-
-- Added Broken White Tiled Block - Version Two
-- Added Broken White Tiled Stairs - Version Two
-- Added Broken White Tiled Slab - Version Two
-- Added Broken White Tiled Vertical Slab - Version Two
-
-- Added Dirty Broken White Tiled Block - Version One
-- Added Dirty Broken White Tiled Stairs - Version One
-- Added Dirty Broken White Tiled Slab - Version One
-- Added Dirty Broken White Tiled Vertical Slab - Version One
-
-- Added Dirty Broken White Tiled Block - Version Two
-- Added Dirty Broken White Tiled Stairs - Version Two
-- Added Dirty Broken White Tiled Slab - Version Two
-- Added Dirty Broken White Tiled Vertical Slab - Version Two
-
-## Next Update
-
-_Currently, there are no detailed plans for the Alpha-Release 16 - 0.1.2 - and above._
-_The whole Beta-Release 0.2 is focused on Construction Blocks._
+_Currently, there are no detailed plans for the Alpha-Release 16 - 0.2.1 - and above._
 
 ------------------------------------------------------------------
 
@@ -183,29 +89,29 @@ _The whole Beta-Release 0.2 is focused on Construction Blocks._
 ## Additions
 
 - Added the following keycards :
-    - Administrative Keycards from Level 1 to Level 6
-    - Added Ethics Committee Keycards from Level 1 to Level 6
-    - Added RAISA Keycards from Level 2 to Level 6
-    - Added MTF Keycards
-        - Added Rank-1 [Highest] MTF Keycards from Level 2 to Level 6
-        - Added Rank-2 MTF Keycards from Level 2 to Level 5
-        - Added Rank-3 [Lowest] MTF Keycards from Level 1 to Level 4
-        - Added Resh-1 MTF Keycard from Level 4 to Level 6
-        - Added Alpha-1 MTF Keycard from Level 4 to Level 6
-        - Added Omega-1 MTF Keycard from Level 1 to Level 6
-        - Added Antheia-5 MTF Keycard from Level 3 to Level 4
-        - Added Umbra-6 MTF Keycard from Level 1 to Level 2
-        - Added Epsilon-11 MTF Keycard from Level 2 to Level 6
-        - Added Gamma-8 MTF Keycard from Level 3 to Level 6
-        - Added  Nu-7 MTF Keycard from Level 2 to Level 6
-        - Added Zeta-19 MTF Keycard from Level 2 to Level 5
-    - Added Internal Intelligence Agency Keycards from Level 1 to Level 6
-    - Added Internal Keycards from Level 1 to Level 6
-    - Added D-Class/E-Class Keycard Level 0
-    - Added O5 Keycard Level X
-    - Added Logistics Keycard from Level 0 to Level 3
-    - Added External Keycard Level 0
-    - Added Maintenance and Janitorial Keycard from Level 1 to Level 3
+  - Administrative Keycards from Level 1 to Level 6
+  - Added Ethics Committee Keycards from Level 1 to Level 6
+  - Added RAISA Keycards from Level 2 to Level 6
+  - Added MTF Keycards
+    - Added Rank-1 [Highest] MTF Keycards from Level 2 to Level 6
+    - Added Rank-2 MTF Keycards from Level 2 to Level 5
+    - Added Rank-3 [Lowest] MTF Keycards from Level 1 to Level 4
+    - Added Resh-1 MTF Keycard from Level 4 to Level 6
+    - Added Alpha-1 MTF Keycard from Level 4 to Level 6
+    - Added Omega-1 MTF Keycard from Level 1 to Level 6
+    - Added Antheia-5 MTF Keycard from Level 3 to Level 4
+    - Added Umbra-6 MTF Keycard from Level 1 to Level 2
+    - Added Epsilon-11 MTF Keycard from Level 2 to Level 6
+    - Added Gamma-8 MTF Keycard from Level 3 to Level 6
+    - Added  Nu-7 MTF Keycard from Level 2 to Level 6
+    - Added Zeta-19 MTF Keycard from Level 2 to Level 5
+  - Added Internal Intelligence Agency Keycards from Level 1 to Level 6
+  - Added Internal Keycards from Level 1 to Level 6
+  - Added D-Class/E-Class Keycard Level 0
+  - Added O5 Keycard Level X
+  - Added Logistics Keycard from Level 0 to Level 3
+  - Added External Keycard Level 0
+  - Added Maintenance and Janitorial Keycard from Level 1 to Level 3
 - ID Card, only decorative
 
 ## Changes from the last Alpha-Release.
@@ -214,18 +120,18 @@ _The whole Beta-Release 0.2 is focused on Construction Blocks._
 
 - Removed item Reader Configurator
 - Removed Reader
-    - Removed ID Card Reader
-    - Removed Code Reader
-    - Removed Keycard Reader Level X
-    - Removed Keycard Reader Level 5
-    - Removed Keycard Reader Level 4
-    - Removed Keycard Reader Level 3
-    - Removed Keycard Reader Level 2
-    - Removed Keycard Reader Level 1
-    - Removed Keycard Reader Level 0
-    - Removed Button
-      *They will all be in one block. Later all configurable with the Reader Configurator.*
-      **They both will be re-added during the development of Beta-Release 0.3.
+  - Removed ID Card Reader
+  - Removed Code Reader
+  - Removed Keycard Reader Level X
+  - Removed Keycard Reader Level 5
+  - Removed Keycard Reader Level 4
+  - Removed Keycard Reader Level 3
+  - Removed Keycard Reader Level 2
+  - Removed Keycard Reader Level 1
+  - Removed Keycard Reader Level 0
+  - Removed Button
+  *They will all be in one block. Later all configurable with the Reader Configurator.*
+  **They both will be re-added during the development of Beta-Release 0.3.**
 
 ## Next Update
 
