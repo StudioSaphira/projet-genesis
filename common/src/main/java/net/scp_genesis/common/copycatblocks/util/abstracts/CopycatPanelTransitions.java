@@ -14,15 +14,14 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.*;
 import net.scp_genesis.common.copycatblocks.util.CopycatItemHelper;
-import net.scp_genesis.common.registry.ModItems;
 import java.util.Map;
 import org.jetbrains.annotations.Nullable;
-import static net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatPanelBlock.*;
+import static net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock.*;
 
 /** Reversible same-block transitions; material slots are replaced together to prevent stale copies. */
 public final class CopycatPanelTransitions {
     private CopycatPanelTransitions() {}
-    /** Only the exposed middle face accepts another Panel; exterior faces place adjacent blocks. */
+    /** Only the exposed middle face accepts another component; exterior faces place adjacent blocks. */
     public static @Nullable BlockState mergedState(BlockState state, Direction clicked) {
         if (state.getValue(DOUBLE)) return null;
         Direction facing = state.getValue(FACING);
@@ -37,7 +36,7 @@ public final class CopycatPanelTransitions {
     public static BlockState remainingState(BlockState state, CopycatPart remaining) {
         return state.setValue(DOUBLE,false).setValue(SIDE,remaining == CopycatPart.BOTTOM ? CopycatHalfSide.LEFT : CopycatHalfSide.RIGHT);
     }
-    /** Completes a Panel after permission/collision checks, consuming one item only on success. */
+    /** Completes a half block after permission/collision checks, consuming one item only on success. */
     public static ItemInteractionResult merge(Level level, BlockPos pos, BlockState state,
             Player player, ItemStack stack, BlockHitResult hit) {
         var target = mergedState(state,hit.getDirection());
@@ -63,7 +62,7 @@ public final class CopycatPanelTransitions {
         var material = entity.getCopiedState(remaining);
         if (!replace(level,pos,remainingState(state,remaining),CopycatPart.MAIN,material)) return InteractionResult.FAIL;
         if (player != null && !player.isCreative()) {
-            CopycatItemHelper.giveOrDrop(player,new ItemStack(ModItems.COPYCAT_PANEL.get()));
+            CopycatItemHelper.giveOrDrop(player,new ItemStack(((net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock) state.getBlock()).behavior().componentItem()));
             CopycatItemHelper.giveOrDrop(player,copied);
         }
         return InteractionResult.SUCCESS;
@@ -71,7 +70,7 @@ public final class CopycatPanelTransitions {
     private static boolean replace(Level level, BlockPos pos, BlockState target, CopycatPart part, BlockState material) {
         if (!level.setBlock(pos,target,Block.UPDATE_ALL)) return false;
         if (!(level.getBlockEntity(pos) instanceof CopycatBlockEntity entity)) {
-            throw new IllegalStateException("Panel is missing its Copycat block entity");
+            throw new IllegalStateException("Half block is missing its Copycat block entity");
         }
         entity.replaceCopiedStates(Map.of(part,material));
         return true;

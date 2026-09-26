@@ -75,6 +75,9 @@ public final class NeoForgeCopycatModelLoader
                 "[COPYCAT] Loading Copycat Geometry"
         );
 
+        if (json.has("shape") && "half_stairs".equals(json.get("shape").getAsString())) {
+            return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_STAIRS, Map.of());
+        }
         if (json.has("shape") && "panel".equals(json.get("shape").getAsString())) {
             return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.PANEL, Map.of());
         }

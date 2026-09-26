@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.*;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.Vec3;
 import net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock;
 import net.scp_genesis.common.copycatblocks.data.*;
@@ -15,7 +14,6 @@ import net.scp_genesis.common.copycatblocks.util.abstracts.CopycatPanelBehavior;
 /** Vertical slab with eight single orientations and four double orientations. */
 public final class CopycatPanelBlock extends AbstractCopycatHalfBlock {
     public static final MapCodec<CopycatPanelBlock> CODEC = simpleCodec(CopycatPanelBlock::new);
-    public static final BooleanProperty DOUBLE = BooleanProperty.create("double");
     public CopycatPanelBlock(Properties properties) {
         super(properties, CopycatHalfForm.SINGLE, CopycatPanelBehavior.INSTANCE);
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)

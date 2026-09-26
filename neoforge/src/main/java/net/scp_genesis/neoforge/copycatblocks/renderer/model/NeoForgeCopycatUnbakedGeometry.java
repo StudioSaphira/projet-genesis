@@ -27,6 +27,7 @@ public final class NeoForgeCopycatUnbakedGeometry
         implements IUnbakedGeometry<NeoForgeCopycatUnbakedGeometry> {
 
     public enum GeometryType {
+        HALF_STAIRS,
         PANEL,
         CUBE,
         SLAB,
@@ -194,7 +195,7 @@ public final class NeoForgeCopycatUnbakedGeometry
          * ============================================================
          */
 
-        if (geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+        if (geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
                 || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             BakedModel referenceModel =
@@ -205,6 +206,9 @@ public final class NeoForgeCopycatUnbakedGeometry
                             copycatSpriteGetter
                     );
 
+            if (geometryType == GeometryType.HALF_STAIRS) {
+                return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryHalfStairs(referenceModel, copycatSprite, copycatAltSprite));
+            }
             if (geometryType == GeometryType.PANEL) {
                 return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryPanel(referenceModel, copycatSprite, copycatAltSprite));
             }

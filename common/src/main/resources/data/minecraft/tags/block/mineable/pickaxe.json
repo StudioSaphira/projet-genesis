@@ -1,16 +1,9 @@
 {
   "replace": false,
   "values": [
-    "scp_genesis:bare_concrete_a",
-    "scp_genesis:bare_concrete_b",
-    "scp_genesis:bare_concrete_c",
-    "scp_genesis:bare_concrete_d",
+    "scp_genesis:bare_concrete",
     "scp_genesis:office_chair",
     "scp_genesis:locker",
-    "scp_genesis:locker_shelf",
-    "scp_genesis:copycat_half_slope",
-    "scp_genesis:copycat_horizontal_half_slope",
-    "scp_genesis:copycat_vertical_half_slope",
-    "scp_genesis:copycat_panel"
+    "scp_genesis:locker_shelf"
   ]
 }

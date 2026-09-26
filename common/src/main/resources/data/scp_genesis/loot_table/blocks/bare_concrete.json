@@ -1,6 +1,6 @@
 {
   "type": "minecraft:block",
-  "random_sequence": "scp_genesis:blocks/bare_concrete_c",
+  "random_sequence": "scp_genesis:blocks/bare_concrete",
   "pools": [
     {
       "rolls": 1,
@@ -12,7 +12,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scp_genesis:bare_concrete_c"
+          "name": "scp_genesis:bare_concrete"
         }
       ]
     }

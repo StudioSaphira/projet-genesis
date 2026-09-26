@@ -1,8 +1,5 @@
 {
-  "block.scp_genesis.bare_concrete_a": "Bare Concrete A",
-  "block.scp_genesis.bare_concrete_b": "Bare Concrete B",
-  "block.scp_genesis.bare_concrete_c": "Bare Concrete C",
-  "block.scp_genesis.bare_concrete_d": "Bare Concrete D",
+  "block.scp_genesis.bare_concrete": "Bare Concrete",
   "block.scp_genesis.drawer_oak": "Oak Drawers",
   "block.scp_genesis.drawer_spruce": "Spruce Drawers",
   "block.scp_genesis.drawer_dark_oak": "Dark Oak Drawers",
@@ -153,5 +150,6 @@
   "item_group.scp_genesis.mobs": "SCP: G - Mobs",
   "item_group.scp_genesis.posters": "SCP: G - Posters",
   "item_group.scp_genesis.weapons": "SCP: G - Weapons",
-  "block.scp_genesis.copycat_panel": "Copycat Panel"
+  "block.scp_genesis.copycat_panel": "Copycat Panel",
+  "block.scp_genesis.copycat_half_stairs": "Copycat Half-Stairs"
 }

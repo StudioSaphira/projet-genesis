@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "scp_genesis:block/bare_concrete_d"
-  }
-}

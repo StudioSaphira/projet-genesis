@@ -18,6 +18,7 @@ public final class NeoForgeBlockColors {
                 ModBlocks.COPYCAT_SLAB.get(),
                 ModBlocks.COPYCAT_SLOPE.get(),
                         ModBlocks.COPYCAT_PANEL.get(),
+                        ModBlocks.COPYCAT_HALF_STAIRS.get(),
                         ModBlocks.COPYCAT_HALF_SLOPE.get(),
                         ModBlocks.COPYCAT_HORIZONTAL_HALF_SLOPE.get(),
                         ModBlocks.COPYCAT_VERTICAL_HALF_SLOPE.get()

@@ -22,6 +22,7 @@ import java.util.function.Function;
 public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
     public enum GeometryType {
+        HALF_STAIRS,
         PANEL,
         CUBE,
         SLAB,
@@ -232,7 +233,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
          * ============================================================
          */
 
-        if (geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+        if (geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
                 || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             ResourceLocation slopeReferenceModel = ResourceLocation.fromNamespaceAndPath(
@@ -247,6 +248,9 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                             copycatSpriteGetter
                     );
 
+            if (geometryType == GeometryType.HALF_STAIRS) {
+                return new FabricCopycatBakedModel(new FabricCopycatGeometryHalfStairs(referenceModel, copycatSprite, copycatAltSprite));
+            }
             if (geometryType == GeometryType.PANEL) {
                 return new FabricCopycatBakedModel(new FabricCopycatGeometryPanel(referenceModel, copycatSprite, copycatAltSprite));
             }

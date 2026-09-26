@@ -20,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
  * shape-family strategy; this base has no slope geometry, item registry or platform dependency.
  */
 public abstract class AbstractCopycatHalfBlock extends AbstractCopycatBlock {
+    /** Shared property instance for families that combine within the same block ID. */
+    public static final BooleanProperty DOUBLE = BooleanProperty.create("double");
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
     public static final EnumProperty<CopycatHalfSide> SIDE = EnumProperty.create("side", CopycatHalfSide.class);

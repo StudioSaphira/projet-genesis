@@ -162,6 +162,9 @@ public final class FabricCopycatModelLoader {
          * ============================================================
          */
 
+        if (json.has("shape") && "half_stairs".equals(json.get("shape").getAsString())) {
+            return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.HALF_STAIRS, Map.of());
+        }
         if (json.has("shape") && "panel".equals(json.get("shape").getAsString())) {
             return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.PANEL, Map.of());
         }
