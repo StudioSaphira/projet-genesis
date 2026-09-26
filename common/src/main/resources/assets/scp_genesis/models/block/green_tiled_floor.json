@@ -1,5 +1,5 @@
 {
-  "parent": "block/cube",
+  "parent": "minecraft:block/cube_all",
   "textures": {"all": "scp_genesis:block/green_tiled_floor"},
   "render_type": "solid"
 }

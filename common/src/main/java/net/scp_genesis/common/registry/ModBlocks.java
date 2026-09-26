@@ -99,7 +99,7 @@ public final class ModBlocks {
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlock("dirty_broken_white_wall_one", DirtyBrokenWhiteTiledOneBlock::new);
 		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlock("dirty_broken_white_wall_two", DirtyBrokenWhiteTiledTwoBlock::new);
 		WALL_BASE = registry.registerBlock("wall_base", WallBaseBlock::new);
-		BARE_CONCRETE = registry.registerBlock("bare_concrete_a", BareConcreteBlock::new);
+		BARE_CONCRETE = registry.registerBlock("bare_concrete", BareConcreteBlock::new);
 		GREEN_TILED_FLOOR = registry.registerBlock("green_tiled_floor", GreenTiledFloorBlock::new);
 
         TABLE_OAK = registry.registerBlock("table_oak", FurnitureTableOak::new);

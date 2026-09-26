@@ -249,7 +249,7 @@ public final class ModItems {
 		DIRTY_BROKEN_WHITE_WALL_ONE = registry.registerBlockItem("dirty_broken_white_wall_one", ModBlocks.DIRTY_BROKEN_WHITE_WALL_ONE);
 		DIRTY_BROKEN_WHITE_WALL_TWO = registry.registerBlockItem("dirty_broken_white_wall_two", ModBlocks.DIRTY_BROKEN_WHITE_WALL_TWO);
 		WALL_BASE = registry.registerBlockItem("wall_base", ModBlocks.WALL_BASE);
-		BARE_CONCRETE = registry.registerBlockItem("bare_concrete_a", ModBlocks.BARE_CONCRETE);
+		BARE_CONCRETE = registry.registerBlockItem("bare_concrete", ModBlocks.BARE_CONCRETE);
 		GREEN_TILED_FLOOR = registry.registerBlockItem("green_tiled_floor", ModBlocks.GREEN_TILED_FLOOR);
 
         TABLE_OAK = registry.registerBlockItem("table_oak", ModBlocks.TABLE_OAK);
