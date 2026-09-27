@@ -151,5 +151,8 @@
   "item_group.scp_genesis.posters": "SCP: G - Posters",
   "item_group.scp_genesis.weapons": "SCP: G - Weapons",
   "block.scp_genesis.copycat_panel": "Copycat Panel",
-  "block.scp_genesis.copycat_half_stairs": "Copycat Half-Stairs"
+  "block.scp_genesis.copycat_half_stairs": "Copycat Half-Stairs",
+  "block.scp_genesis.copycat_vertical_slope": "Copycat Vertical Slope",
+  "block.scp_genesis.copycat_half_panel": "Copycat Half-Panel",
+  "block.scp_genesis.copycat_half_slab": "Copycat Half-Slab"
 }

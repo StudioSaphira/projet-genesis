@@ -6,17 +6,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scp_genesis:copycat_slope",
+          "name": "scp_genesis:copycat_half_slab",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": 2,
               "conditions": [
                 {
-                  "condition": "minecraft:block_state_property",
-                  "block": "scp_genesis:copycat_slope",
-                  "properties": {
-                    "double": "true"
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:block_state_property",
+                    "block": "scp_genesis:copycat_half_slab",
+                    "properties": {
+                      "double": "none"
+                    }
                   }
                 }
               ]

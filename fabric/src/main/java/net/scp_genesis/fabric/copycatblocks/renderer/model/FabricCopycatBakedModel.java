@@ -55,7 +55,15 @@ public final class FabricCopycatBakedModel implements BakedModel, FabricBakedMod
             Supplier<RandomSource> randomSupplier,
             RenderContext context
     ) {
+        if (geometry instanceof net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryFullSlope slope) {
+            slope.emitItem(context);
+            return;
+        }
         if (geometry instanceof net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryHalfStairs panel) {
+            panel.emitItem(context);
+            return;
+        }
+        if (geometry instanceof net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryQuarter panel) {
             panel.emitItem(context);
             return;
         }

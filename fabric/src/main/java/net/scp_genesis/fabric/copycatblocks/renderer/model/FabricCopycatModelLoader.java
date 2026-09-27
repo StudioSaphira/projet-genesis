@@ -148,6 +148,7 @@ public final class FabricCopycatModelLoader {
 
         if (COPYCAT_SLOPE_LOADER.toString().equals(loader)) {
             var type = switch (json.has("shape") ? json.get("shape").getAsString() : "slope") {
+                case "vertical" -> FabricCopycatUnbakedModel.GeometryType.VERTICAL_SLOPE;
                 case "half" -> FabricCopycatUnbakedModel.GeometryType.HALF_SLOPE;
                 case "horizontal_half" -> FabricCopycatUnbakedModel.GeometryType.HORIZONTAL_HALF_SLOPE;
                 case "vertical_half" -> FabricCopycatUnbakedModel.GeometryType.VERTICAL_HALF_SLOPE;
@@ -164,6 +165,12 @@ public final class FabricCopycatModelLoader {
 
         if (json.has("shape") && "half_stairs".equals(json.get("shape").getAsString())) {
             return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.HALF_STAIRS, Map.of());
+        }
+        if (json.has("shape") && "half_panel".equals(json.get("shape").getAsString())) {
+            return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.HALF_PANEL, Map.of());
+        }
+        if (json.has("shape") && "half_slab".equals(json.get("shape").getAsString())) {
+            return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.HALF_SLAB, Map.of());
         }
         if (json.has("shape") && "panel".equals(json.get("shape").getAsString())) {
             return FabricCopycatModelDefinition.multipart(FabricCopycatUnbakedModel.GeometryType.PANEL, Map.of());

@@ -21,8 +21,7 @@ public final class FabricCopycatOutlineRenderer {
         boolean halfSlope = net.scp_genesis.common.copycatblocks.util.abstracts.CopycatHalfSlopeBehavior.isSlope(state);
         if (!(state.getBlock() instanceof CopycatSlopeBlock) && !halfSlope) return;
         var faces = halfSlope ? CopycatHalfSlopeGeometry.faces(state)
-                : CopycatGeometrySlope.getFaces(state.getValue(CopycatSlopeBlock.FACING),
-                state.getValue(CopycatSlopeBlock.HALF));
+                : net.scp_genesis.common.copycatblocks.geometry.slope.CopycatFullSlopeGeometry.faces(state);
         var lines = CopycatOutlineGeometry.lines(faces);
         @SuppressWarnings("deprecation") VertexConsumer buffer = outline.vertexConsumer();
         PoseStack stack = context.matrixStack();

@@ -82,8 +82,11 @@ public final class ModBlocks {
 	public static PlatformRegistryObject<Block> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Block> COPYCAT_STAIRS;
 	public static PlatformRegistryObject<Block> COPYCAT_SLAB;
-	public static PlatformRegistryObject<Block> COPYCAT_SLOPE;
+	public static PlatformRegistryObject<Block> COPYCAT_VERTICAL_SLOPE;
+    public static PlatformRegistryObject<Block> COPYCAT_SLOPE;
     public static PlatformRegistryObject<Block> COPYCAT_HALF_STAIRS;
+    public static PlatformRegistryObject<Block> COPYCAT_HALF_PANEL;
+    public static PlatformRegistryObject<Block> COPYCAT_HALF_SLAB;
     public static PlatformRegistryObject<Block> COPYCAT_PANEL;
     public static PlatformRegistryObject<Block> COPYCAT_HALF_SLOPE;
     public static PlatformRegistryObject<Block> COPYCAT_HORIZONTAL_HALF_SLOPE;
@@ -154,13 +157,19 @@ public final class ModBlocks {
 						.requiresCorrectToolForDrops()
 						.noOcclusion()));
 
-		COPYCAT_SLOPE = registry.registerBlock("copycat_slope", () -> new CopycatSlopeBlock(
+		COPYCAT_VERTICAL_SLOPE = registry.registerBlock("copycat_vertical_slope", () -> new net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatVerticalSlopeBlock(
+                BlockBehaviour.Properties.of().strength(2F, 6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+        COPYCAT_SLOPE = registry.registerBlock("copycat_slope", () -> new CopycatSlopeBlock(
 				BlockBehaviour.Properties.of()
 						.strength(2.0F, 6.0F)
 						.sound(SoundType.METAL)
 						.requiresCorrectToolForDrops()));
         COPYCAT_HALF_STAIRS = registry.registerBlock("copycat_half_stairs", () -> new net.scp_genesis.common.copycatblocks.block.custom.half.CopycatHalfStairsBlock(
                 BlockBehaviour.Properties.of().strength(2F, 6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+        COPYCAT_HALF_PANEL = registry.registerBlock("copycat_half_panel", () -> new net.scp_genesis.common.copycatblocks.block.custom.half.CopycatHalfPanelBlock(
+                BlockBehaviour.Properties.of().strength(2F,6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
+        COPYCAT_HALF_SLAB = registry.registerBlock("copycat_half_slab", () -> new net.scp_genesis.common.copycatblocks.block.custom.half.CopycatHalfSlabBlock(
+                BlockBehaviour.Properties.of().strength(2F,6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
         COPYCAT_PANEL = registry.registerBlock("copycat_panel", () -> new CopycatPanelBlock(
                 BlockBehaviour.Properties.of().strength(2F, 6F).sound(SoundType.METAL).requiresCorrectToolForDrops().noOcclusion()));
         COPYCAT_HALF_SLOPE = registry.registerBlock("copycat_half_slope", () -> new net.scp_genesis.common.copycatblocks.block.custom.half.CopycatHalfSlopeBlock(

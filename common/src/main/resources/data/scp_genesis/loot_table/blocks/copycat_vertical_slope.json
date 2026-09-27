@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scp_genesis:copycat_slope",
+          "name": "scp_genesis:copycat_vertical_slope",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -14,7 +14,7 @@
               "conditions": [
                 {
                   "condition": "minecraft:block_state_property",
-                  "block": "scp_genesis:copycat_slope",
+                  "block": "scp_genesis:copycat_vertical_slope",
                   "properties": {
                     "double": "true"
                   }

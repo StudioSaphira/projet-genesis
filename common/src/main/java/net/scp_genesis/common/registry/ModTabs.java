@@ -202,7 +202,10 @@ public final class ModTabs {
 											tabData.accept(ModItems.COPYCAT_REMOVER.get());
 											tabData.accept(ModItems.COPYCAT_CUBE.get());
 											tabData.accept(ModItems.COPYCAT_SLOPE.get());
+                                            tabData.accept(ModItems.COPYCAT_VERTICAL_SLOPE.get());
                                             tabData.accept(ModItems.COPYCAT_PANEL.get());
+                                            tabData.accept(ModItems.COPYCAT_HALF_PANEL.get());
+                                            tabData.accept(ModItems.COPYCAT_HALF_SLAB.get());
                                             tabData.accept(ModItems.COPYCAT_HALF_STAIRS.get());
                                             tabData.accept(ModItems.COPYCAT_HALF_SLOPE.get());
 											tabData.accept(ModItems.COPYCAT_STAIRS.get());

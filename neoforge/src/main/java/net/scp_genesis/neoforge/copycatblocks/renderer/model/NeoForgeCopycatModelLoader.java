@@ -78,6 +78,12 @@ public final class NeoForgeCopycatModelLoader
         if (json.has("shape") && "half_stairs".equals(json.get("shape").getAsString())) {
             return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_STAIRS, Map.of());
         }
+        if (json.has("shape") && "half_panel".equals(json.get("shape").getAsString())) {
+            return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_PANEL, Map.of());
+        }
+        if (json.has("shape") && "half_slab".equals(json.get("shape").getAsString())) {
+            return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_SLAB, Map.of());
+        }
         if (json.has("shape") && "panel".equals(json.get("shape").getAsString())) {
             return new NeoForgeCopycatUnbakedGeometry(NeoForgeCopycatUnbakedGeometry.GeometryType.PANEL, Map.of());
         }
@@ -234,7 +240,8 @@ public final class NeoForgeCopycatModelLoader
 
             return new NeoForgeCopycatUnbakedGeometry(
                     switch (json.has("shape") ? json.get("shape").getAsString() : "slope") {
-                        case "half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_SLOPE;
+                        case "vertical" -> NeoForgeCopycatUnbakedGeometry.GeometryType.VERTICAL_SLOPE;
+                case "half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.HALF_SLOPE;
                         case "horizontal_half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.HORIZONTAL_HALF_SLOPE;
                         case "vertical_half" -> NeoForgeCopycatUnbakedGeometry.GeometryType.VERTICAL_HALF_SLOPE;
                         default -> NeoForgeCopycatUnbakedGeometry.GeometryType.SLOPE;

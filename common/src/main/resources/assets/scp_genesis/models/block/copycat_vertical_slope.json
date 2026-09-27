@@ -1,5 +1,7 @@
 {
+  "parent": "minecraft:block/block",
   "loader": "scp_genesis:copycat_slope",
+  "shape": "vertical",
   "textures": {
     "all": "scp_genesis:block/copycat_block",
     "all_alt": "scp_genesis:block/copycat_block_alt"

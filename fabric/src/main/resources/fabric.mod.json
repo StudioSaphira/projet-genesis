@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "scp_genesis",
-  "version": "0.1.5",
+  "version": "0.2",
   "name": "SCP: Genesis",
   "description": "SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics.",
   "icon": "logo.png",

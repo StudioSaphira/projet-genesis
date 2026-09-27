@@ -50,6 +50,15 @@ public final class FabricModelLoading {
             if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_half_stairs"))) {
                 return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_STAIRS, null);
             }
+            if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_vertical_slope"))) {
+                return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.VERTICAL_SLOPE, null);
+            }
+            if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_half_panel"))) {
+                return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_PANEL, null);
+            }
+            if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_half_slab"))) {
+                return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_SLAB, null);
+            }
             if (id.equals(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "item/copycat_panel"))) {
                 return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.PANEL, null);
             }
@@ -117,7 +126,7 @@ public final class FabricModelLoading {
                                 definition.baseModels()
                         );
 
-                case HALF_STAIRS, PANEL, SLOPE, HALF_SLOPE, HORIZONTAL_HALF_SLOPE, VERTICAL_HALF_SLOPE ->
+                case HALF_PANEL, HALF_SLAB, VERTICAL_SLOPE, HALF_STAIRS, PANEL, SLOPE, HALF_SLOPE, HORIZONTAL_HALF_SLOPE, VERTICAL_HALF_SLOPE ->
                         new FabricCopycatUnbakedModel(
                                 definition.geometryType(),
                                 null
@@ -155,6 +164,15 @@ public final class FabricModelLoading {
 
         if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "copycat_half_stairs")))) {
             return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_STAIRS, null);
+        }
+        if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "copycat_vertical_slope")))) {
+            return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.VERTICAL_SLOPE, null);
+        }
+        if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "copycat_half_panel")))) {
+            return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_PANEL, null);
+        }
+        if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "copycat_half_slab")))) {
+            return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.HALF_SLAB, null);
         }
         if (topLevelId.equals(ModelResourceLocation.inventory(ResourceLocation.fromNamespaceAndPath(ModConstants.MOD_ID, "copycat_panel")))) {
             return new FabricCopycatUnbakedModel(FabricCopycatUnbakedModel.GeometryType.PANEL, null);

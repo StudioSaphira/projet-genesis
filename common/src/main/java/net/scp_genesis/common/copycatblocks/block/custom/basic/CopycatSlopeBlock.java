@@ -27,7 +27,7 @@ import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeShapes;
  * A material-copying 45-degree slope with eight orientations.
  * Gameplay is independent of loaders; collision and render geometry have separate owners.
  */
-public class CopycatSlopeBlock extends AbstractCopycatBlock {
+public class CopycatSlopeBlock extends net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock {
     public static final MapCodec<CopycatSlopeBlock> CODEC = Block.simpleCodec(CopycatSlopeBlock::new);
     /** Horizontal direction of the high edge in the bottom orientation. */
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -37,22 +37,34 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     public static final BooleanProperty OCCLUDES = BooleanProperty.create("occludes");
 
     /** Creates a NORTH/BOTTOM slope without an occluding copied material. */
-    public CopycatSlopeBlock(BlockBehaviour.Properties properties) {
-        super(properties);
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH)
-                .setValue(HALF, Half.BOTTOM).setValue(OCCLUDES, false));
+    public CopycatSlopeBlock(BlockBehaviour.Properties properties) { this(properties, false); }
+
+    /** Selects horizontal or vertical geometry while preserving the existing Slope ID. */
+    protected CopycatSlopeBlock(BlockBehaviour.Properties properties, boolean vertical) {
+        super(properties, net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE,
+                net.scp_genesis.common.copycatblocks.util.abstracts.CopycatFullSlopeBehavior.forVertical(vertical));
+        BlockState initial = stateDefinition.any().setValue(FACING, Direction.NORTH)
+                .setValue(DOUBLE, false).setValue(OCCLUDES, false);
+        if (initial.hasProperty(HALF)) initial = initial.setValue(HALF, Half.BOTTOM);
+        registerDefaultState(initial);
+    }
+
+    /** Doubles expose two independent material slots. */
+    @Override public net.scp_genesis.common.copycatblocks.data.CopycatHalfForm form(BlockState state) {
+        return state.getValue(DOUBLE) ? net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.VERTICAL
+                : net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.SINGLE;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, HALF, OCCLUDES);
+        builder.add(FACING, HALF, OCCLUDES, DOUBLE);
     }
 
     /** Uses the four-step physical approximation, independently of the rendered diagonal. */
     @Override
     protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level,
                                           @NotNull BlockPos pos, @NotNull CollisionContext context) {
-        return CopycatSlopeShapes.collision(state.getValue(FACING), state.getValue(HALF));
+        return behavior().shape(state);
     }
 
     @Override
@@ -64,7 +76,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     @Override
     protected @NotNull VoxelShape getOcclusionShape(@NotNull BlockState state,
                                                    @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return state.getValue(OCCLUDES)
+        return state.getValue(DOUBLE) || this instanceof CopycatVerticalSlopeBlock ? Shapes.empty() : state.getValue(OCCLUDES)
                 ? CopycatSlopeShapes.occlusion(state.getValue(FACING), state.getValue(HALF)) : Shapes.empty();
     }
 
@@ -85,7 +97,8 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
         if (level == null) return;
         BlockPos pos = blockEntity.getBlockPos();
         BlockState state = level.getBlockState(pos);
-        boolean occludes = !blockEntity.getCopiedState().isAir() && blockEntity.getCopiedState().canOcclude();
+        boolean occludes = !state.getValue(DOUBLE) && !(this instanceof CopycatVerticalSlopeBlock)
+                && !blockEntity.getCopiedState().isAir() && blockEntity.getCopiedState().canOcclude();
         if (state.getValue(OCCLUDES) != occludes) {
             level.setBlock(pos, state.setValue(OCCLUDES, occludes), Block.UPDATE_ALL);
         }
@@ -108,15 +121,7 @@ public class CopycatSlopeBlock extends AbstractCopycatBlock {
     @Override
     public net.minecraft.world.InteractionResult onWrench(@NotNull Level level, @NotNull BlockPos pos,
                                                          @NotNull BlockState state) {
-        Direction facing = state.getValue(FACING);
-        if (facing == Direction.WEST) {
-            state = state.setValue(FACING, Direction.NORTH)
-                    .setValue(HALF, state.getValue(HALF) == Half.BOTTOM ? Half.TOP : Half.BOTTOM);
-        } else {
-            state = state.setValue(FACING, facing.getClockWise());
-        }
-        if (!level.isClientSide()) level.setBlock(pos, state, Block.UPDATE_ALL);
-        return net.minecraft.world.InteractionResult.SUCCESS;
+        return super.onWrench(level, pos, state);
     }
 
     @Override

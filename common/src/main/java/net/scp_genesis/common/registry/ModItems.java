@@ -120,8 +120,11 @@ public final class ModItems {
 	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
 	public static PlatformRegistryObject<Item> COPYCAT_SLAB;
-	public static PlatformRegistryObject<Item> COPYCAT_SLOPE;
+	public static PlatformRegistryObject<Item> COPYCAT_VERTICAL_SLOPE;
+    public static PlatformRegistryObject<Item> COPYCAT_SLOPE;
     public static PlatformRegistryObject<Item> COPYCAT_HALF_STAIRS;
+    public static PlatformRegistryObject<Item> COPYCAT_HALF_PANEL;
+    public static PlatformRegistryObject<Item> COPYCAT_HALF_SLAB;
     public static PlatformRegistryObject<Item> COPYCAT_PANEL;
     public static PlatformRegistryObject<Item> COPYCAT_HALF_SLOPE;
 
@@ -286,8 +289,11 @@ public final class ModItems {
 		COPYCAT_CUBE = registry.registerBlockItem("copycat_cube", ModBlocks.COPYCAT_CUBE);
 		COPYCAT_STAIRS = registry.registerBlockItem("copycat_stairs", ModBlocks.COPYCAT_STAIRS);
 		COPYCAT_SLAB = registry.registerBlockItem("copycat_slab", ModBlocks.COPYCAT_SLAB);
-		COPYCAT_SLOPE = registry.registerBlockItem("copycat_slope", ModBlocks.COPYCAT_SLOPE);
+		COPYCAT_VERTICAL_SLOPE = registry.registerBlockItem("copycat_vertical_slope", ModBlocks.COPYCAT_VERTICAL_SLOPE);
+        COPYCAT_SLOPE = registry.registerBlockItem("copycat_slope", ModBlocks.COPYCAT_SLOPE);
         COPYCAT_HALF_STAIRS = registry.registerBlockItem("copycat_half_stairs", ModBlocks.COPYCAT_HALF_STAIRS);
+        COPYCAT_HALF_PANEL = registry.registerBlockItem("copycat_half_panel", ModBlocks.COPYCAT_HALF_PANEL);
+        COPYCAT_HALF_SLAB = registry.registerBlockItem("copycat_half_slab", ModBlocks.COPYCAT_HALF_SLAB);
         COPYCAT_PANEL = registry.registerBlockItem("copycat_panel", ModBlocks.COPYCAT_PANEL);
         COPYCAT_HALF_SLOPE = registry.registerBlockItem("copycat_half_slope", ModBlocks.COPYCAT_HALF_SLOPE);
 	}

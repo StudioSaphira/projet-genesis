@@ -23,10 +23,13 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
     public enum GeometryType {
         HALF_STAIRS,
+        HALF_PANEL,
+        HALF_SLAB,
         PANEL,
         CUBE,
         SLAB,
         STAIRS,
+        VERTICAL_SLOPE,
         SLOPE,
         HALF_SLOPE,
         HORIZONTAL_HALF_SLOPE,
@@ -233,7 +236,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
          * ============================================================
          */
 
-        if (geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+        if (geometryType == GeometryType.HALF_PANEL || geometryType == GeometryType.HALF_SLAB || geometryType == GeometryType.VERTICAL_SLOPE || geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
                 || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             ResourceLocation slopeReferenceModel = ResourceLocation.fromNamespaceAndPath(
@@ -251,10 +254,18 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
             if (geometryType == GeometryType.HALF_STAIRS) {
                 return new FabricCopycatBakedModel(new FabricCopycatGeometryHalfStairs(referenceModel, copycatSprite, copycatAltSprite));
             }
+            if (geometryType == GeometryType.HALF_PANEL || geometryType == GeometryType.HALF_SLAB) {
+                return new FabricCopycatBakedModel(new net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryQuarter(
+                        referenceModel,copycatSprite,copycatAltSprite,geometryType == GeometryType.HALF_SLAB));
+            }
             if (geometryType == GeometryType.PANEL) {
                 return new FabricCopycatBakedModel(new FabricCopycatGeometryPanel(referenceModel, copycatSprite, copycatAltSprite));
             }
 
+            if (geometryType == GeometryType.SLOPE || geometryType == GeometryType.VERTICAL_SLOPE) {
+                return new FabricCopycatBakedModel(new net.scp_genesis.fabric.copycatblocks.renderer.geometry.FabricCopycatGeometryFullSlope(
+                        referenceModel, copycatSprite, copycatAltSprite, geometryType == GeometryType.VERTICAL_SLOPE));
+            }
             if (geometryType != GeometryType.SLOPE) {
                 var form = switch (geometryType) {
                     case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.HORIZONTAL;

@@ -28,10 +28,13 @@ public final class NeoForgeCopycatUnbakedGeometry
 
     public enum GeometryType {
         HALF_STAIRS,
+        HALF_PANEL,
+        HALF_SLAB,
         PANEL,
         CUBE,
         SLAB,
         STAIRS,
+        VERTICAL_SLOPE,
         SLOPE,
         HALF_SLOPE,
         HORIZONTAL_HALF_SLOPE,
@@ -195,7 +198,7 @@ public final class NeoForgeCopycatUnbakedGeometry
          * ============================================================
          */
 
-        if (geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
+        if (geometryType == GeometryType.HALF_PANEL || geometryType == GeometryType.HALF_SLAB || geometryType == GeometryType.VERTICAL_SLOPE || geometryType == GeometryType.HALF_STAIRS || geometryType == GeometryType.PANEL || geometryType == GeometryType.SLOPE || geometryType == GeometryType.HALF_SLOPE
                 || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             BakedModel referenceModel =
@@ -209,10 +212,18 @@ public final class NeoForgeCopycatUnbakedGeometry
             if (geometryType == GeometryType.HALF_STAIRS) {
                 return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryHalfStairs(referenceModel, copycatSprite, copycatAltSprite));
             }
+            if (geometryType == GeometryType.HALF_PANEL || geometryType == GeometryType.HALF_SLAB) {
+                return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryQuarter(
+                        referenceModel,copycatSprite,copycatAltSprite,geometryType == GeometryType.HALF_SLAB));
+            }
             if (geometryType == GeometryType.PANEL) {
                 return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryPanel(referenceModel, copycatSprite, copycatAltSprite));
             }
 
+            if (geometryType == GeometryType.SLOPE || geometryType == GeometryType.VERTICAL_SLOPE) {
+                return new NeoForgeCopycatBakedModel(new net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryFullSlope(
+                        referenceModel, copycatSprite, copycatAltSprite, geometryType == GeometryType.VERTICAL_SLOPE));
+            }
             if (geometryType != GeometryType.SLOPE) {
                 var form = switch (geometryType) {
                     case HORIZONTAL_HALF_SLOPE -> net.scp_genesis.common.copycatblocks.data.CopycatHalfForm.HORIZONTAL;
