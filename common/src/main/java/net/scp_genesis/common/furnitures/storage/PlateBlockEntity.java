@@ -46,7 +46,8 @@ public final class PlateBlockEntity extends BlockEntity {
     }
     @Override protected void saveAdditional(CompoundTag tag,HolderLookup.Provider registries){
         super.saveAdditional(tag,registries);
-        if(!food.isEmpty())tag.put("Food",food.save(registries));
+        // The client ignores completely empty update tags: explicitly transmit an empty serving.
+        tag.put("Food",food.isEmpty()?new CompoundTag():food.save(registries));
     }
     @Override protected void loadAdditional(CompoundTag tag,HolderLookup.Provider registries){
         super.loadAdditional(tag,registries);
