@@ -154,5 +154,6 @@
   "block.scp_genesis.copycat_half_stairs": "Demi-escalier Copycat",
   "block.scp_genesis.copycat_vertical_slope": "Pente verticale Copycat",
   "block.scp_genesis.copycat_half_panel": "Demi-panneau Copycat",
-  "block.scp_genesis.copycat_half_slab": "Demi-dalle Copycat"
+  "block.scp_genesis.copycat_half_slab": "Demi-dalle Copycat",
+  "block.scp_genesis.plate": "Assiette"
 }

@@ -8,6 +8,7 @@ import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 
 public final class ModBlockEntities {
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.PlateBlockEntity>> PLATE;
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.DrawerBlockEntity>> DRAWER;
 
     private ModBlockEntities() {}
@@ -20,6 +21,8 @@ public final class ModBlockEntities {
     public static void register(
             PlatformRegistry registry
     ) {
+        PLATE = registry.registerBlockEntity("plate", net.scp_genesis.common.furnitures.storage.PlateBlockEntity::new,
+                () -> new net.minecraft.world.level.block.Block[]{ModBlocks.PLATE.get()});
         DRAWER = registry.registerBlockEntity("drawer",
                 net.scp_genesis.common.furnitures.storage.DrawerBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.DRAWER_OAK.get(), ModBlocks.DRAWER_SPRUCE.get(),

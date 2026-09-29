@@ -257,7 +257,8 @@ public final class ModTabs {
                                         tabData.accept(ModItems.CHAIR_BAMBOO.get());
                     tabData.accept(ModItems.DRAWER_BAMBOO.get());
                                         tabData.accept(ModItems.OFFICE_CHAIR.get());
-                                        tabData.accept(ModItems.LOCKER.get());
+                                        tabData.accept(ModItems.PLATE.get());
+                                            tabData.accept(ModItems.LOCKER.get());
                                         tabData.accept(ModItems.LOCKER_SHELF.get());
 									}
 							)
