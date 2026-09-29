@@ -69,7 +69,7 @@
   - Added Copycat Half-Vertical Slope
     - Added Copycat Vertical/Horizontal Double Half-Slope
 - Added Furnitures :
-  - Plate, act as an item frame. We automatically eat what's on the plate if it's food. We can't put anything else. If done anyway, the item simply disappear.
+  - Plate, act as an item frame. You automatically eat what's on the plate if it's food. You can't put anything else.
 
 ## Next Update
 
