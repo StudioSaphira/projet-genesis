@@ -3,7 +3,7 @@
   "textures": {
     "logo": "scp_genesis:block/keycard_logo_o5",
     "chip": "scp_genesis:block/keycard_chip_two",
-    "lvltxt": "scp_genesis:block/keycard_text_level_X",
+    "lvltxt": "scp_genesis:block/keycard_text_level_o5",
     "lvl": "scp_genesis:block/keycard_color_black",
     "access": "scp_genesis:block/keycard_text_three",
     "border": "scp_genesis:block/keycard_border",
