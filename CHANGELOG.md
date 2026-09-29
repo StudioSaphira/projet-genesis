@@ -52,10 +52,7 @@
 
 ### Additions
 - Added Construction Blocks
-  - Bare Concrete A Block
-  - Bare Concrete B Block
-  - Bare Concrete C Block
-  - Bare Concrete D Block
+  - Bare Concrete Block
 - Added Copycat Blocks
   - Added Copycat Panel
   - Added Copycat Double Slope
@@ -72,8 +69,6 @@
   - Added Copycat Half-Vertical Slope
     - Added Copycat Vertical/Horizontal Double Half-Slope
 - Added Furnitures :
-  - Computer, currently only decorative
-  - Cookie jar, we can put 16 cookies inside it.
   - Plate, act as an item frame. We automatically eat what's on the plate if it's food. We can't put anything else. If done anyway, the item simply disappear.
 
 ## Next Update
