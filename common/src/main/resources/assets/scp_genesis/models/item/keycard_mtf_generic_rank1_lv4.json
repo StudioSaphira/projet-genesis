@@ -1,7 +1,14 @@
 {
-  "parent": "scp_genesis:custom/mtf-r1_l4-keycard",
+  "parent": "scp_genesis:custom/keycard_lvl4",
   "textures": {
-    "0": "scp_genesis:block/keycardtexturestaskforces",
-    "particle": "scp_genesis:item/mtf-r1_keycard_item"
+    "logo": "scp_genesis:block/keycard_logo_mtf",
+    "chip": "scp_genesis:block/keycard_chip_two",
+    "lvltxt": "scp_genesis:block/keycard_text_level_4",
+    "lvl": "scp_genesis:block/keycard_level_4",
+    "access": "scp_genesis:block/keycard_text_three",
+    "border": "scp_genesis:block/keycard_border",
+    "status": "scp_genesis:block/keycard_text_two",
+    "custom": "scp_genesis:block/keycard_color_rank1",
+    "back": "scp_genesis:block/keycard_back"
   }
 }

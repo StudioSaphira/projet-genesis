@@ -1,6 +1,5 @@
 {
-  "format_version": "1.21.11",
-  "credit": "Made with Blockbench",
+  "parent": "scp_genesis:custom/card",
   "elements": [
     {
       "from": [
@@ -1703,111 +1702,6 @@
       }
     }
   ],
-  "display": {
-    "thirdperson_righthand": {
-      "rotation": [
-        0,
-        -180,
-        0
-      ],
-      "translation": [
-        0,
-        2.25,
-        3.25
-      ],
-      "scale": [
-        0.5,
-        0.5,
-        0.5
-      ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [
-        0,
-        -180,
-        0
-      ],
-      "translation": [
-        0,
-        2.25,
-        3.25
-      ],
-      "scale": [
-        0.5,
-        0.5,
-        0.5
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        133.99,
-        10.65,
-        -169.19
-      ],
-      "translation": [
-        6.75,
-        2,
-        0
-      ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [
-        134.05,
-        10.47,
-        -169.35
-      ],
-      "translation": [
-        6.75,
-        2,
-        0
-      ]
-    },
-    "ground": {
-      "translation": [
-        0,
-        2.25,
-        -6
-      ]
-    },
-    "gui": {
-      "rotation": [
-        -180,
-        30,
-        -180
-      ],
-      "translation": [
-        -3.25,
-        0,
-        0
-      ]
-    },
-    "head": {
-      "translation": [
-        0,
-        12.5,
-        -6.5
-      ]
-    },
-    "fixed": {
-      "translation": [
-        0,
-        0,
-        -5.75
-      ]
-    },
-    "on_shelf": {
-      "rotation": [
-        0,
-        -180,
-        0
-      ],
-      "translation": [
-        0,
-        0,
-        4
-      ]
-    }
-  },
   "groups": [
     {
       "name": "screen",

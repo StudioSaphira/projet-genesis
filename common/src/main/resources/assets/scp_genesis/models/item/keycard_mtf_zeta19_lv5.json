@@ -1,7 +1,14 @@
 {
-  "parent": "scp_genesis:custom/zeta19_l5_keycard",
+  "parent": "scp_genesis:custom/keycard_lvl5",
   "textures": {
-    "0": "scp_genesis:block/keycardtexturestaskforces",
-    "particle": "scp_genesis:item/zeta19_keycard_item"
+    "logo": "scp_genesis:block/keycard_logo_mtf_zeta19",
+    "chip": "scp_genesis:block/keycard_chip_two",
+    "lvltxt": "scp_genesis:block/keycard_text_level_5",
+    "lvl": "scp_genesis:block/keycard_level_5",
+    "access": "scp_genesis:block/keycard_text_three",
+    "border": "scp_genesis:block/keycard_border",
+    "status": "scp_genesis:block/keycard_text_two",
+    "custom": "scp_genesis:block/keycard_color_purple_dark",
+    "back": "scp_genesis:block/keycard_back"
   }
 }

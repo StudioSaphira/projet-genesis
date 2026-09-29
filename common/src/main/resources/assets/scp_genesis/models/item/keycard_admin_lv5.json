@@ -1,8 +1,14 @@
 {
-  "parent": "scp_genesis:custom/admin_l5_keycard",
+  "parent": "scp_genesis:custom/keycard_lvl5",
   "textures": {
-    "0": "scp_genesis:block/keycardtexturesgeneral",
-    "1": "scp_genesis:block/keycardtexturesgeneral2",
-    "particle": "scp_genesis:item/admin_keycard_item"
+    "logo": "scp_genesis:block/keycard_logo_administrative",
+    "chip": "scp_genesis:block/keycard_chip_one",
+    "lvltxt": "scp_genesis:block/keycard_text_level_5",
+    "lvl": "scp_genesis:block/keycard_level_5",
+    "access": "scp_genesis:block/keycard_text_three",
+    "border": "scp_genesis:block/keycard_border",
+    "status": "scp_genesis:block/keycard_text_one_alt",
+    "custom": "scp_genesis:block/keycard_color_red_pure",
+    "back": "scp_genesis:block/keycard_back"
   }
 }

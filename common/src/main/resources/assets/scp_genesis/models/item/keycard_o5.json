@@ -1,8 +1,14 @@
 {
-  "parent": "scp_genesis:custom/o5_lx_keycard",
+  "parent": "scp_genesis:custom/keycard_lvl6",
   "textures": {
-    "0": "scp_genesis:block/keycardtexturesgeneral",
-    "1": "scp_genesis:block/keycardtexturesgeneral2",
-    "particle": "scp_genesis:item/o5_keycard_item"
+    "logo": "scp_genesis:block/keycard_logo_o5",
+    "chip": "scp_genesis:block/keycard_chip_two",
+    "lvltxt": "scp_genesis:block/keycard_text_level_X",
+    "lvl": "scp_genesis:block/keycard_color_black",
+    "access": "scp_genesis:block/keycard_text_three",
+    "border": "scp_genesis:block/keycard_border",
+    "status": "scp_genesis:block/keycard_text_two",
+    "custom": "scp_genesis:block/keycard_color_black_alt",
+    "back": "scp_genesis:block/keycard_back"
   }
 }

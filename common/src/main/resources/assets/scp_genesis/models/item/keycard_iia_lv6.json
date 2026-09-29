@@ -1,8 +1,14 @@
 {
-  "parent": "scp_genesis:custom/iia_l6_keycard",
+  "parent": "scp_genesis:custom/keycard_lvl6",
   "textures": {
-    "0": "scp_genesis:block/keycardtexturesgeneral",
-    "1": "scp_genesis:block/keycardtexturesgeneral2",
-    "particle": "scp_genesis:item/iia_keycard_item"
+    "logo": "scp_genesis:block/keycard_logo_iia",
+    "chip": "scp_genesis:block/keycard_chip_one",
+    "lvltxt": "scp_genesis:block/keycard_text_level_6",
+    "lvl": "scp_genesis:block/keycard_level_6",
+    "access": "scp_genesis:block/keycard_text_three",
+    "border": "scp_genesis:block/keycard_border",
+    "status": "scp_genesis:block/keycard_text_one",
+    "custom": "scp_genesis:block/keycard_color_purple_darkblue",
+    "back": "scp_genesis:block/keycard_back"
   }
 }
