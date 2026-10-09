@@ -87,6 +87,11 @@ public final class ModTabs {
 											tabData.accept(ModItems.KEYCARD_IIA_LV5.get());
 											tabData.accept(ModItems.KEYCARD_IIA_LV6.get());
 
+											tabData.accept(ModItems.KEYCARD_EIA_LV2.get());
+											tabData.accept(ModItems.KEYCARD_EIA_LV3.get());
+											tabData.accept(ModItems.KEYCARD_EIA_LV4.get());
+											tabData.accept(ModItems.KEYCARD_EIA_LV5.get());
+
 											tabData.accept(ModItems.KEYCARD_MTF_ANTHEIA5_LV3.get());
 											tabData.accept(ModItems.KEYCARD_MTF_ANTHEIA5_LV4.get());
 											tabData.accept(ModItems.KEYCARD_MTF_ANTHEIA5_LV5.get());

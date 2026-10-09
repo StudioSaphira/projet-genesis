@@ -13,39 +13,21 @@ import net.scp_genesis.common.scps.item.cards.keycards.O5KeycardItem;
 import net.scp_genesis.common.scps.item.cards.keycards.admin.*;
 import net.scp_genesis.common.scps.item.cards.keycards.ethics.*;
 import net.scp_genesis.common.scps.item.cards.keycards.iia.*;
+import net.scp_genesis.common.scps.item.cards.keycards.eia.*;
 import net.scp_genesis.common.scps.item.cards.keycards.internal.*;
-import net.scp_genesis.common.scps.item.cards.keycards.logistics.LogisticsKeycardLv0Item;
-import net.scp_genesis.common.scps.item.cards.keycards.logistics.LogisticsKeycardLv1Item;
-import net.scp_genesis.common.scps.item.cards.keycards.logistics.LogisticsKeycardLv2Item;
-import net.scp_genesis.common.scps.item.cards.keycards.logistics.LogisticsKeycardLv3Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mjd.MJDKeycardLv1Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mjd.MJDKeycardLv2Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mjd.MJDKeycardLv3Item;
+import net.scp_genesis.common.scps.item.cards.keycards.logistics.*;
+import net.scp_genesis.common.scps.item.cards.keycards.mjd.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.*;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.alpha1.MTFAlpha1KeycardLv4Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.alpha1.MTFAlpha1KeycardLv5Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.alpha1.MTFAlpha1KeycardLv6Item;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.alpha1.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.epsilon11.*;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.gamma8.MTFGamma8KeycardLv3Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.gamma8.MTFGamma8KeycardLv4Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.gamma8.MTFGamma8KeycardLv5Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.gamma8.MTFGamma8KeycardLv6Item;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.gamma8.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.nu7.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.omega1.*;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.resh1.MTFResh1KeycardLv4Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.resh1.MTFResh1KeycardLv5Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.resh1.MTFResh1KeycardLv6Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.umbra6.MTFUmbra6KeycardLv1Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.umbra6.MTFUmbra6KeycardLv2Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.umbra6.MTFUmbra6KeycardLv3Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.MTFZeta19KeycardLv2Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.MTFZeta19KeycardLv3Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.MTFZeta19KeycardLv4Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.MTFZeta19KeycardLv5Item;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.resh1.*;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.umbra6.*;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.*;
 import net.scp_genesis.common.scps.item.cards.keycards.raisa.*;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv3Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv4Item;
-import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.MTFAntheia5KeycardLv5Item;
+import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.*;
 
 public final class ModItems {
 
@@ -57,6 +39,7 @@ public final class ModItems {
 	public static PlatformRegistryObject<Item> KEYCARD_EC_LV6, KEYCARD_EC_LV5, KEYCARD_EC_LV4, KEYCARD_EC_LV3, KEYCARD_EC_LV2, KEYCARD_EC_LV1;
 	public static PlatformRegistryObject<Item> KEYCARD_EXTERNAL_LV0;
 	public static PlatformRegistryObject<Item> KEYCARD_IIA_LV6, KEYCARD_IIA_LV5, KEYCARD_IIA_LV4, KEYCARD_IIA_LV3, KEYCARD_IIA_LV2, KEYCARD_IIA_LV1;
+	public static PlatformRegistryObject<Item> KEYCARD_EIA_LV5, KEYCARD_EIA_LV4, KEYCARD_EIA_LV3, KEYCARD_EIA_LV2;
 	public static PlatformRegistryObject<Item> KEYCARD_INTERNAL_LV6, KEYCARD_INTERNAL_LV5, KEYCARD_INTERNAL_LV4, KEYCARD_INTERNAL_LV3, KEYCARD_INTERNAL_LV2, KEYCARD_INTERNAL_LV1;
 	public static PlatformRegistryObject<Item> KEYCARD_LOGISTICS_LV3, KEYCARD_LOGISTICS_LV2, KEYCARD_LOGISTICS_LV1, KEYCARD_LOGISTICS_LV0;
 	public static PlatformRegistryObject<Item> KEYCARD_MJD_LV3, KEYCARD_MJD_LV2, KEYCARD_MJD_LV1;
@@ -160,6 +143,11 @@ public final class ModItems {
 		KEYCARD_IIA_LV3 = registry.registerItem("keycard_iia_lv3", IIAKeycardLv3Item::new);
 		KEYCARD_IIA_LV2 = registry.registerItem("keycard_iia_lv2", IIAKeycardLv2Item::new);
 		KEYCARD_IIA_LV1 = registry.registerItem("keycard_iia_lv1", IIAKeycardLv1Item::new);
+
+		KEYCARD_EIA_LV5 = registry.registerItem("keycard_eia_lv5", IIAKeycardLv5Item::new);
+		KEYCARD_EIA_LV4 = registry.registerItem("keycard_eia_lv4", IIAKeycardLv4Item::new);
+		KEYCARD_EIA_LV3 = registry.registerItem("keycard_eia_lv3", IIAKeycardLv3Item::new);
+		KEYCARD_EIA_LV2 = registry.registerItem("keycard_eia_lv2", IIAKeycardLv2Item::new);
 
 		KEYCARD_INTERNAL_LV6 = registry.registerItem("keycard_internal_lv6", InternalKeycardLv6Item::new);
 		KEYCARD_INTERNAL_LV5 = registry.registerItem("keycard_internal_lv5", InternalKeycardLv5Item::new);
