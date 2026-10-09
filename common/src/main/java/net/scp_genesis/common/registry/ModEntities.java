@@ -12,7 +12,7 @@ public final class ModEntities {
 
     public static void register(PlatformRegistry registry) {
         CHAIR_SEAT = registry.registerEntityType("chair_seat", () ->
-                EntityType.Builder.<ChairSeatEntity>of(ChairSeatEntity::new, MobCategory.MISC)
+                EntityType.Builder.of(ChairSeatEntity::new, MobCategory.MISC)
                         .sized(0.01F, 0.01F).clientTrackingRange(8).updateInterval(20)
                         .noSave().noSummon().build("scp_genesis:chair_seat"));
     }
