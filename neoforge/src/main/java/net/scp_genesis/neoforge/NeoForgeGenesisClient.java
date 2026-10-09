@@ -19,6 +19,7 @@ public final class NeoForgeGenesisClient {
         modEventBus.addListener((net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) ->
                 event.registerEntityRenderer(net.scp_genesis.common.registry.ModEntities.CHAIR_SEAT.get(),
                         net.minecraft.client.renderer.entity.NoopRenderer::new));
+        net.scp_genesis.neoforge.scps.doors.NeoForgeScpDoors.register(modEventBus);
         net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresPlates.register(modEventBus);
         net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresLockers.register(modEventBus);
         net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresDrawers.register(modEventBus);

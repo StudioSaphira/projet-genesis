@@ -155,5 +155,6 @@
   "block.scp_genesis.copycat_vertical_slope": "Pente verticale Copycat",
   "block.scp_genesis.copycat_half_panel": "Demi-panneau Copycat",
   "block.scp_genesis.copycat_half_slab": "Demi-dalle Copycat",
-  "block.scp_genesis.plate": "Assiette"
+  "block.scp_genesis.plate": "Assiette",
+  "block.scp_genesis.scp_sliding_door": "Porte coulissante SCP"
 }

@@ -7,6 +7,7 @@
     "scp_genesis:locker",
     "scp_genesis:locker_shelf",
     "scp_genesis:copycat_half_panel",
-    "scp_genesis:copycat_half_slab"
+    "scp_genesis:copycat_half_slab",
+    "scp_genesis:scp_sliding_door"
   ]
 }

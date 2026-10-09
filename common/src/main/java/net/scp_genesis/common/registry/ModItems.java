@@ -98,6 +98,7 @@ public final class ModItems {
     public static PlatformRegistryObject<Item> DRAWER_BAMBOO;
     public static PlatformRegistryObject<Item> OFFICE_CHAIR;
     public static PlatformRegistryObject<Item> PLATE;
+    public static PlatformRegistryObject<Item> SCP_SLIDING_DOOR;
     public static PlatformRegistryObject<Item> LOCKER;
     public static PlatformRegistryObject<Item> LOCKER_SHELF;
 
@@ -273,6 +274,7 @@ public final class ModItems {
         DRAWER_BAMBOO = registry.registerBlockItem("drawer_bamboo", ModBlocks.DRAWER_BAMBOO);
         OFFICE_CHAIR = registry.registerBlockItem("office_chair", ModBlocks.OFFICE_CHAIR);
         PLATE = registry.registerBlockItem("plate", ModBlocks.PLATE);
+        SCP_SLIDING_DOOR = registry.registerBlockItem("scp_sliding_door", ModBlocks.SCP_SLIDING_DOOR);
         LOCKER = registry.registerBlockItem("locker", ModBlocks.LOCKER);
         LOCKER_SHELF = registry.registerBlockItem("locker_shelf", ModBlocks.LOCKER_SHELF);
 

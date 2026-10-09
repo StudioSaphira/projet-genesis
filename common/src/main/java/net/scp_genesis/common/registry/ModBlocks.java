@@ -77,6 +77,7 @@ public final class ModBlocks {
     public static PlatformRegistryObject<Block> DRAWER_BAMBOO;
     public static PlatformRegistryObject<Block> OFFICE_CHAIR;
     public static PlatformRegistryObject<Block> PLATE;
+    public static PlatformRegistryObject<Block> SCP_SLIDING_DOOR;
     public static PlatformRegistryObject<Block> LOCKER;
     public static PlatformRegistryObject<Block> LOCKER_SHELF;
 
@@ -135,6 +136,7 @@ public final class ModBlocks {
         DRAWER_BAMBOO = registry.registerBlock("drawer_bamboo", net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureDrawerBamboo::new);
         OFFICE_CHAIR = registry.registerBlock("office_chair", FurnitureOfficeChair::new);
         PLATE = registry.registerBlock("plate", net.scp_genesis.common.furnitures.notmodular.FurniturePlate::new);
+        SCP_SLIDING_DOOR = registry.registerBlock("scp_sliding_door", net.scp_genesis.common.scps.doors.ScpSlidingDoorBlock::new);
         LOCKER = registry.registerBlock("locker", net.scp_genesis.common.furnitures.notmodular.FurnitureLocker::new);
         LOCKER_SHELF = registry.registerBlock("locker_shelf", net.scp_genesis.common.furnitures.notmodular.FurnitureLockerShelf::new);
 

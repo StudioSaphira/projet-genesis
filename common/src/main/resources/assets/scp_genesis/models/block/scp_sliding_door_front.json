@@ -1,0 +1,580 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "metal": "scp_genesis:block/scp_sliding_door",
+    "particle": "scp_genesis:block/scp_sliding_door"
+  },
+  "elements": [
+    {
+      "name": "Exterior plate",
+      "from": [
+        0,
+        0.5,
+        6
+      ],
+      "to": [
+        16,
+        31.5,
+        7
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            8,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Left stile",
+      "from": [
+        0,
+        0.5,
+        7
+      ],
+      "to": [
+        1,
+        31.5,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Right stile",
+      "from": [
+        15,
+        0.5,
+        7
+      ],
+      "to": [
+        16,
+        31.5,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Bottom frame",
+      "from": [
+        1,
+        0.5,
+        7
+      ],
+      "to": [
+        15,
+        1.5,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Top frame",
+      "from": [
+        1,
+        30.5,
+        7
+      ],
+      "to": [
+        15,
+        31.5,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Middle crossmember",
+      "from": [
+        1,
+        15.5,
+        7
+      ],
+      "to": [
+        15,
+        16.5,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "Diagonal brace",
+      "from": [
+        -1.4,
+        8.15,
+        7
+      ],
+      "to": [
+        17.4,
+        8.85,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8.5,
+          7.5
+        ],
+        "axis": "z",
+        "angle": 45
+      }
+    },
+    {
+      "name": "Diagonal brace",
+      "from": [
+        -1.4,
+        23.15,
+        7
+      ],
+      "to": [
+        17.4,
+        23.85,
+        8
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          23.5,
+          7.5
+        ],
+        "axis": "z",
+        "angle": -45
+      }
+    }
+  ]
+}

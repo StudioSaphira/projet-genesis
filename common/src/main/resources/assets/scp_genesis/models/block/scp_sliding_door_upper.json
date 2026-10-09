@@ -1,0 +1,79 @@
+{
+  "parent": "minecraft:block/block",
+  "ambientocclusion": false,
+  "textures": {
+    "metal": "scp_genesis:block/scp_sliding_door",
+    "particle": "scp_genesis:block/scp_sliding_door"
+  },
+  "elements": [
+    {
+      "name": "upper fixed rail",
+      "from": [
+        0,
+        15.5,
+        6
+      ],
+      "to": [
+        16,
+        16.0,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            9,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    }
+  ]
+}

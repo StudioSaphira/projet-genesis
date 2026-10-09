@@ -11,6 +11,8 @@ public final class ModBlockEntities {
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.PlateBlockEntity>> PLATE;
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.DrawerBlockEntity>> DRAWER;
 
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity>> SCP_SLIDING_DOOR;
+
     private ModBlockEntities() {}
 
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.LockerBlockEntity>> LOCKER;
@@ -21,6 +23,9 @@ public final class ModBlockEntities {
     public static void register(
             PlatformRegistry registry
     ) {
+        SCP_SLIDING_DOOR = registry.registerBlockEntity("scp_sliding_door",
+                net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity::new,
+                () -> new net.minecraft.world.level.block.Block[]{ModBlocks.SCP_SLIDING_DOOR.get()});
         PLATE = registry.registerBlockEntity("plate", net.scp_genesis.common.furnitures.storage.PlateBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.PLATE.get()});
         DRAWER = registry.registerBlockEntity("drawer",
