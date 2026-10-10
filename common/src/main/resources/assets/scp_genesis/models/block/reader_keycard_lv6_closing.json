@@ -1,0 +1,7 @@
+{
+  "parent": "scp_genesis:custom/reader_closing",
+  "textures": {
+    "level": "scp_genesis:block/reader_level_6",
+    "type": "scp_genesis:block/reader_type_keycard"
+  }
+}

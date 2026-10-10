@@ -1,0 +1,6 @@
+{
+  "parent": "scp_genesis:custom/reader",
+  "textures": {
+    "color": "scp_genesis:block/reader_color_green"
+  }
+}
