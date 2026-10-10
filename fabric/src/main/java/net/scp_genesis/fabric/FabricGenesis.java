@@ -15,6 +15,7 @@ public final class FabricGenesis implements ModInitializer {
         FabricPlatformRegistry registry = new FabricPlatformRegistry();
 
         registry.register();
+        net.scp_genesis.fabric.scps.readers.FabricReaders.register();
         ModBlocks.registerFlammables();
     }
 }

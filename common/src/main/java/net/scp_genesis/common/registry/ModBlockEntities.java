@@ -13,6 +13,8 @@ public final class ModBlockEntities {
 
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity>> SCP_SLIDING_DOOR;
 
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.readers.ReaderBlockEntity>> READER;
+
     private ModBlockEntities() {}
 
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.LockerBlockEntity>> LOCKER;
@@ -23,6 +25,8 @@ public final class ModBlockEntities {
     public static void register(
             PlatformRegistry registry
     ) {
+        READER = registry.registerBlockEntity("reader", net.scp_genesis.common.scps.readers.ReaderBlockEntity::new,
+                () -> new net.minecraft.world.level.block.Block[]{ModBlocks.READER.get()});
         SCP_SLIDING_DOOR = registry.registerBlockEntity("scp_sliding_door",
                 net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.SCP_SLIDING_DOOR.get()});

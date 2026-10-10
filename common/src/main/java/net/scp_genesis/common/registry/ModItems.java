@@ -103,6 +103,7 @@ public final class ModItems {
 
 	public static PlatformRegistryObject<Item> SCP_SLIDING_DOOR;
 	public static PlatformRegistryObject<Item> READER;
+    public static PlatformRegistryObject<Item> READER_CONFIGURATOR;
 
 	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
@@ -116,6 +117,8 @@ public final class ModItems {
     public static PlatformRegistryObject<Item> COPYCAT_HALF_SLOPE;
 
 	public static void register(PlatformRegistry registry) {
+        READER = registry.registerBlockItem("reader", ModBlocks.READER);
+        READER_CONFIGURATOR = registry.registerItem("reader_configurator", net.scp_genesis.common.scps.readers.ReaderConfiguratorItem::new);
 		COPYCAT_WRENCH = registry.registerItem("copycat_wrench", CopycatWrenchItem::new);
 		COPYCAT_SCRAPER = registry.registerItem("copycat_scraper", CopycatScraperItem::new);
 		COPYCAT_REMOVER = registry.registerItem("copycat_remover", CopycatRemoverItem::new);

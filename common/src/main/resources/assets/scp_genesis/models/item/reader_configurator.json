@@ -1,0 +1,7 @@
+{
+  "parent": "scp_genesis:custom/reader_configurator",
+  "textures": {
+    "0": "scp_genesis:item/readerconfiguratortexture",
+    "particle": "scp_genesis:item/readerconfiguratortexture"
+  }
+}

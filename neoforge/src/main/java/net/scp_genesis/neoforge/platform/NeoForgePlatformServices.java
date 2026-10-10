@@ -9,6 +9,11 @@ import net.scp_genesis.common.platform.PlatformServicesImpl;
 public final class NeoForgePlatformServices
         implements PlatformServicesImpl {
 
+    @Override public void sendReader(net.minecraft.server.level.ServerPlayer player,
+                                      net.scp_genesis.common.scps.readers.ReaderPacket packet) {
+        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,packet);
+    }
+
     private static final PlatformModelData<NeoForgePlatformModelData.Data>
             MODEL_DATA =
             new NeoForgePlatformModelData();

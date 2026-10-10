@@ -281,6 +281,8 @@ public final class ModTabs {
 							.displayItems(
 									(parameters, tabData) -> {
 										tabData.accept(ModItems.READER.get());
+                                        tabData.accept(ModItems.READER_CONFIGURATOR.get());
+                                        tabData.accept(ModItems.SCP_SLIDING_DOOR.get());
 									}
 							)
 				);

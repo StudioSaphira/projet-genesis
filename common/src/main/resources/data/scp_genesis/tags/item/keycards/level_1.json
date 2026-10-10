@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "scp_genesis:keycard_admin_lv1",
+    "scp_genesis:keycard_ec_lv1",
+    "scp_genesis:keycard_iia_lv1",
+    "scp_genesis:keycard_internal_lv1",
+    "scp_genesis:keycard_logistics_lv1",
+    "scp_genesis:keycard_mjd_lv1",
+    "scp_genesis:keycard_mtf_omega1_lv1",
+    "scp_genesis:keycard_mtf_generic_rank3_lv1",
+    "scp_genesis:keycard_mtf_umbra6_lv1"
+  ]
+}

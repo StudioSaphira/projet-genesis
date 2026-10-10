@@ -36,8 +36,21 @@ public final class ScpSlidingDoorBlock extends DoorBlock implements EntityBlock 
 
     @Override protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
                                                          Player player, BlockHitResult hit) {
-        if (!level.isClientSide) setOpen(player, level, state, pos, !state.getValue(OPEN));
+        if (net.scp_genesis.common.scps.readers.ReaderConfiguratorItem.isHeld(player)) return InteractionResult.PASS;
+        if (level instanceof net.minecraft.server.level.ServerLevel server) {
+            BlockPos base = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+            if (net.scp_genesis.common.scps.readers.ReaderDirectory.get(server).controls(base)) return InteractionResult.SUCCESS;
+            setOpen(player, level, state, pos, !state.getValue(OPEN));
+        }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    /** Linked doors accept reader commands rather than direct redstone bypasses. */
+    @Override protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block source, BlockPos sourcePos, boolean moving) {
+        BlockPos base = state.getValue(HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos;
+        if (level instanceof net.minecraft.server.level.ServerLevel server
+                && net.scp_genesis.common.scps.readers.ReaderDirectory.get(server).controls(base)) return;
+        super.neighborChanged(state,level,pos,source,sourcePos,moving);
     }
 
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -53,7 +66,12 @@ public final class ScpSlidingDoorBlock extends DoorBlock implements EntityBlock 
     }
 
     @Override public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide && type == ModBlockEntities.SCP_SLIDING_DOOR.get()
-                ? (world, pos, current, entity) -> ScpSlidingDoorBlockEntity.tick((ScpSlidingDoorBlockEntity) entity) : null;
+        if (type != ModBlockEntities.SCP_SLIDING_DOOR.get()) return null;
+        return (world,pos,current,entity) -> {
+            if (world.isClientSide) ScpSlidingDoorBlockEntity.tick((ScpSlidingDoorBlockEntity)entity);
+            else if (world instanceof net.minecraft.server.level.ServerLevel server
+                    && net.scp_genesis.common.scps.readers.ReaderDirectory.get(server).controls(pos))
+                net.scp_genesis.common.scps.readers.ReaderDoorController.refresh(server,pos);
+        };
     }
 }

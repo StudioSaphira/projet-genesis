@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "scp_genesis:keycard_admin_lv3",
+    "scp_genesis:keycard_ec_lv3",
+    "scp_genesis:keycard_iia_lv3",
+    "scp_genesis:keycard_eia_lv3",
+    "scp_genesis:keycard_internal_lv3",
+    "scp_genesis:keycard_logistics_lv3",
+    "scp_genesis:keycard_mjd_lv3",
+    "scp_genesis:keycard_mtf_antheia5_lv3",
+    "scp_genesis:keycard_mtf_epsilon11_lv3",
+    "scp_genesis:keycard_mtf_gamma8_lv3",
+    "scp_genesis:keycard_mtf_nu7_lv3",
+    "scp_genesis:keycard_mtf_omega1_lv3",
+    "scp_genesis:keycard_mtf_generic_rank1_lv3",
+    "scp_genesis:keycard_mtf_generic_rank2_lv3",
+    "scp_genesis:keycard_mtf_generic_rank3_lv3",
+    "scp_genesis:keycard_mtf_umbra6_lv3",
+    "scp_genesis:keycard_mtf_zeta19_lv3",
+    "scp_genesis:keycard_raisa_lv3"
+  ]
+}

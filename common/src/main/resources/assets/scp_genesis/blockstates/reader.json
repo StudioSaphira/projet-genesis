@@ -1,0 +1,1916 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "type": "id",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "id",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "id",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "id",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "code",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "code",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "code",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "code",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "button",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "button",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "button",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "button",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "base",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "opening",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_opening",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "closing",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_closing",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "keycard",
+        "status": "error",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_error",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "north",
+        "type": "locked"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_locked",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "id",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "id",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "id",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "id",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "code",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "code",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "code",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "code",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "button",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "button",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "button",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "button",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "base",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "opening",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_opening",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "closing",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_closing",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "keycard",
+        "status": "error",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_error",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "east",
+        "type": "locked"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_locked",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "id",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "id",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "id",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "id",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "code",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "code",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "code",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "code",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "button",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "button",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "button",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "button",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "base",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "opening",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_opening",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "closing",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_closing",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "keycard",
+        "status": "error",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_error",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "south",
+        "type": "locked"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_locked",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "id",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "id",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "id",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "id",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_id_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "code",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "code",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "code",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "code",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_code_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "button",
+        "status": "base"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "button",
+        "status": "opening"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "button",
+        "status": "closing"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "button",
+        "status": "error"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_button_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "blank|0"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv0_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "1"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv1_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "2"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv2_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "3"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv3_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "4"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv4_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "5"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv5_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "base",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "opening",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_opening",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "closing",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_closing",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "keycard",
+        "status": "error",
+        "level": "6"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_keycard_lv6_error",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "facing": "west",
+        "type": "locked"
+      },
+      "apply": {
+        "model": "scp_genesis:block/reader_locked",
+        "y": 270
+      }
+    }
+  ]
+}

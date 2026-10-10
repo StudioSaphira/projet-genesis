@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "scp_genesis:keycard_dclass_lv0",
+    "scp_genesis:keycard_external_lv0",
+    "scp_genesis:keycard_logistics_lv0"
+  ]
+}

@@ -16,6 +16,7 @@ public final class NeoForgeGenesis {
         NeoForgePlatformRegistry registry = new NeoForgePlatformRegistry(modEventBus);
 
         registry.register();
+        net.scp_genesis.neoforge.scps.readers.NeoForgeReaders.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
     }
 
