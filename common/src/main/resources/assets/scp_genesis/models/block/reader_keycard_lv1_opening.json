@@ -2,6 +2,6 @@
   "parent": "scp_genesis:custom/reader_opening",
   "textures": {
     "level": "scp_genesis:block/reader_level_1",
-    "type": "scp_genesis:block/reader_type_keycard"
+    "type": "scp_genesis:block/reader_type_keycard_opening"
   }
 }

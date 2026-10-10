@@ -15,6 +15,7 @@ public final class ModTabs {
 	public static PlatformRegistryObject<CreativeModeTab> BUILDING_BLOCKS;
 	public static PlatformRegistryObject<CreativeModeTab> COPYCAT_BLOCKS;
 	public static PlatformRegistryObject<CreativeModeTab> FURNITURES;
+	public static PlatformRegistryObject<CreativeModeTab> DOORS;
 
 	public static void register(
 			PlatformRegistry registry
@@ -197,9 +198,7 @@ public final class ModTabs {
 										Component.translatable("item_group.scp_genesis.copycat_blocks")
 								)
 								.icon(
-										() -> new ItemStack(
-												ModBlocks.COPYCAT_CUBE.get()
-										)
+										() -> new ItemStack(ModBlocks.COPYCAT_CUBE.get())
 								)
 								.displayItems(
 										(parameters, tabData) -> {
@@ -229,43 +228,59 @@ public final class ModTabs {
 									Component.translatable("item_group.scp_genesis.furnitures")
 							)
 						    .icon(
-									() -> new ItemStack(
-											ModBlocks.TABLE_OAK.get()
-									)
+									() -> new ItemStack(ModItems.TABLE_OAK.get())
 							)
 							.displayItems(
 									(parameters, tabData) -> {
 										tabData.accept(ModItems.TABLE_OAK.get());
                                         tabData.accept(ModItems.CHAIR_OAK.get());
-                    tabData.accept(ModItems.DRAWER_OAK.get());
+                    					tabData.accept(ModItems.DRAWER_OAK.get());
 										tabData.accept(ModItems.TABLE_SPRUCE.get());
                                         tabData.accept(ModItems.CHAIR_SPRUCE.get());
-                    tabData.accept(ModItems.DRAWER_SPRUCE.get());
+                    					tabData.accept(ModItems.DRAWER_SPRUCE.get());
 										tabData.accept(ModItems.TABLE_BIRCH.get());
                                         tabData.accept(ModItems.CHAIR_BIRCH.get());
-                    tabData.accept(ModItems.DRAWER_BIRCH.get());
+                    					tabData.accept(ModItems.DRAWER_BIRCH.get());
 										tabData.accept(ModItems.TABLE_JUNGLE.get());
                                         tabData.accept(ModItems.CHAIR_JUNGLE.get());
-                    tabData.accept(ModItems.DRAWER_JUNGLE.get());
+                    					tabData.accept(ModItems.DRAWER_JUNGLE.get());
 										tabData.accept(ModItems.TABLE_ACACIA.get());
                                         tabData.accept(ModItems.CHAIR_ACACIA.get());
-                    tabData.accept(ModItems.DRAWER_ACACIA.get());
+                    					tabData.accept(ModItems.DRAWER_ACACIA.get());
                                         tabData.accept(ModItems.TABLE_DARK_OAK.get());
                                         tabData.accept(ModItems.CHAIR_DARK_OAK.get());
-                    tabData.accept(ModItems.DRAWER_DARK_OAK.get());
+                    					tabData.accept(ModItems.DRAWER_DARK_OAK.get());
                                         tabData.accept(ModItems.TABLE_MANGROVE.get());
                                         tabData.accept(ModItems.CHAIR_MANGROVE.get());
-                    tabData.accept(ModItems.DRAWER_MANGROVE.get());
+                    					tabData.accept(ModItems.DRAWER_MANGROVE.get());
                                         tabData.accept(ModItems.TABLE_CHERRY.get());
                                         tabData.accept(ModItems.CHAIR_CHERRY.get());
-                    tabData.accept(ModItems.DRAWER_CHERRY.get());
+                    					tabData.accept(ModItems.DRAWER_CHERRY.get());
                                         tabData.accept(ModItems.TABLE_BAMBOO.get());
                                         tabData.accept(ModItems.CHAIR_BAMBOO.get());
-                    tabData.accept(ModItems.DRAWER_BAMBOO.get());
+                    					tabData.accept(ModItems.DRAWER_BAMBOO.get());
                                         tabData.accept(ModItems.OFFICE_CHAIR.get());
                                         tabData.accept(ModItems.PLATE.get());
-                                            tabData.accept(ModItems.LOCKER.get());
+										tabData.accept(ModItems.LOCKER.get());
                                         tabData.accept(ModItems.LOCKER_SHELF.get());
+									}
+							)
+				);
+
+		DOORS =
+				registry.registerCreativeModeTab(
+						"doors",
+						FURNITURES.getId(),
+						() -> registry.createCreativeModeTabBuilder()
+							.title(
+									Component.translatable("item_group.scp_genesis.doors")
+							)
+							.icon(
+									() -> new ItemStack(ModBlocks.READER.get())
+							)
+							.displayItems(
+									(parameters, tabData) -> {
+										tabData.accept(ModItems.READER.get());
 									}
 							)
 				);

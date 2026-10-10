@@ -2,6 +2,6 @@
   "parent": "scp_genesis:custom/reader_closing",
   "textures": {
     "level": "scp_genesis:block/reader_level_blank",
-    "type": "scp_genesis:block/reader_type_code"
+    "type": "scp_genesis:block/reader_type_code_closing"
   }
 }

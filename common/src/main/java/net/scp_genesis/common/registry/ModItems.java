@@ -98,9 +98,11 @@ public final class ModItems {
     public static PlatformRegistryObject<Item> DRAWER_BAMBOO;
     public static PlatformRegistryObject<Item> OFFICE_CHAIR;
     public static PlatformRegistryObject<Item> PLATE;
-    public static PlatformRegistryObject<Item> SCP_SLIDING_DOOR;
     public static PlatformRegistryObject<Item> LOCKER;
     public static PlatformRegistryObject<Item> LOCKER_SHELF;
+
+	public static PlatformRegistryObject<Item> SCP_SLIDING_DOOR;
+	public static PlatformRegistryObject<Item> READER;
 
 	public static PlatformRegistryObject<Item> COPYCAT_CUBE;
 	public static PlatformRegistryObject<Item> COPYCAT_STAIRS;
