@@ -1,5 +1,9 @@
 {
   "parent": "scp_genesis:custom/card",
+  "textures": {
+    "border": "scp_genesis:block/keycard_border",
+    "back": "scp_genesis:block/keycard_back"
+  },
   "elements": [
     {
       "name": "access card",

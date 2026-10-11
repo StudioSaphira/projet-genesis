@@ -6,9 +6,7 @@
     "lvltxt": "scp_genesis:block/keycard_text_level_3",
     "lvl": "scp_genesis:block/keycard_level_3",
     "access": "scp_genesis:block/keycard_text_three",
-    "border": "scp_genesis:block/keycard_border",
     "status": "scp_genesis:block/keycard_text_two",
-    "custom": "scp_genesis:block/keycard_color_orange",
-    "back": "scp_genesis:block/keycard_back"
+    "custom": "scp_genesis:block/keycard_color_orange"
   }
 }

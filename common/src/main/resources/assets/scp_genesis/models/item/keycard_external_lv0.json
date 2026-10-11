@@ -1,14 +1,12 @@
 {
   "parent": "scp_genesis:custom/keycard_lvl0",
   "textures": {
-    "logo": "scp_genesis:block/keycard_logo_de-class",
+    "logo": "scp_genesis:block/keycard_logo_basic",
     "chip": "scp_genesis:block/keycard_chip_one",
     "lvltxt": "scp_genesis:block/keycard_text_level_0",
     "lvl": "scp_genesis:block/keycard_level_0",
     "access": "scp_genesis:block/keycard_text_four",
-    "border": "scp_genesis:block/keycard_border",
     "status": "scp_genesis:block/keycard_text_two",
-    "custom": "scp_genesis:block/keycard_color_black",
-    "back": "scp_genesis:block/keycard_back"
+    "custom": "scp_genesis:block/keycard_color_black"
   }
 }
