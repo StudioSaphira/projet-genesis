@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public interface PlatformServicesImpl {
     /** Sends a private reader-menu snapshot to its authorized player. */
-    void sendReader(net.minecraft.server.level.ServerPlayer player, net.scp_genesis.common.scps.readers.ReaderPacket packet);
+    void sendReader(net.minecraft.server.level.ServerPlayer player, net.scp_genesis.common.scps.readers.network.ReaderPacket packet);
 
 
     /**

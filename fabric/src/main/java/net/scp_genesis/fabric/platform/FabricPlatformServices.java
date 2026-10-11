@@ -8,7 +8,7 @@ import net.scp_genesis.common.platform.PlatformServicesImpl;
 public final class FabricPlatformServices implements PlatformServicesImpl {
 
     @Override public void sendReader(net.minecraft.server.level.ServerPlayer player,
-                                      net.scp_genesis.common.scps.readers.ReaderPacket packet) {
+                                      net.scp_genesis.common.scps.readers.network.ReaderPacket packet) {
         net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.send(player,packet);
     }
 

@@ -11,9 +11,9 @@ public final class ModBlockEntities {
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.PlateBlockEntity>> PLATE;
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.DrawerBlockEntity>> DRAWER;
 
-    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity>> SCP_SLIDING_DOOR;
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.doors.blockentity.ScpSlidingDoorBlockEntity>> SCP_SLIDING_DOOR;
 
-    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.readers.ReaderBlockEntity>> READER;
+    public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.scps.readers.blockentity.ReaderBlockEntity>> READER;
 
     private ModBlockEntities() {}
 
@@ -25,10 +25,10 @@ public final class ModBlockEntities {
     public static void register(
             PlatformRegistry registry
     ) {
-        READER = registry.registerBlockEntity("reader", net.scp_genesis.common.scps.readers.ReaderBlockEntity::new,
+        READER = registry.registerBlockEntity("reader", net.scp_genesis.common.scps.readers.blockentity.ReaderBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.READER.get()});
         SCP_SLIDING_DOOR = registry.registerBlockEntity("scp_sliding_door",
-                net.scp_genesis.common.scps.doors.ScpSlidingDoorBlockEntity::new,
+                net.scp_genesis.common.scps.doors.blockentity.ScpSlidingDoorBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.SCP_SLIDING_DOOR.get()});
         PLATE = registry.registerBlockEntity("plate", net.scp_genesis.common.furnitures.storage.PlateBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.PLATE.get()});
