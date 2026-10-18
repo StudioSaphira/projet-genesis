@@ -1,3 +1,25 @@
+# Beta-Release 3 - 0.3 - Doors & Cards Update, Part 2
+
+## Additions
+
+- Added back the Reader. It is one item that can be configured to work with as Code Reader, as a Keycard Reader, as a Button, or in a Locked state.
+- Added a basic Door [2x1]
+
+## Changes
+
+- NeoForge required version has been updated (21.1.263)
+- Major Optimization for the Keycards
+
+## Fixes
+
+- Fixed incorrect translations, translations for both French and English versions have been remade.
+
+## Next Update
+
+_The next update may directly be the Beta-Release 4. In this case, it'll contain a lot of new content, including foods, drinks and ores._
+
+------------------------------------------------------------------
+
 # Beta-Release 2 - 0.2 - Construction Blocks Update, Part 1
 
 **THIS IS A SUMMARY OF ALL ADDITIONS BETWEEN, AND INCLUDING ALPHA-RELEASE 15 AND ALPHA-RELEASE 19.**
