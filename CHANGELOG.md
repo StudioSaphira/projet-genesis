@@ -10,10 +10,6 @@
 - NeoForge required version has been updated (21.1.263)
 - Major Optimization for the Keycards
 
-## Fixes
-
-- Fixed incorrect translations, translations for both French and English versions have been remade.
-
 ## Next Update
 
 _The next update may directly be the Beta-Release 4. In this case, it'll contain a lot of new content, including foods, drinks and ores._
