@@ -4,6 +4,7 @@
 
 - Added back the Reader. It is one item that can be configured to work with as Code Reader, as a Keycard Reader, as a Button, or in a Locked state.
 - Added a basic Door [2x1]
+- Added back the Reader Configurator.
 
 ## Changes
 
