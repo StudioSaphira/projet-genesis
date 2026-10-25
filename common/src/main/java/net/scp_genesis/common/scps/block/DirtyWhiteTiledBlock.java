@@ -1,4 +1,4 @@
-package net.scp_genesis.common.block;
+package net.scp_genesis.common.scps.block;
 
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.BlockBehaviour;

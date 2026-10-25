@@ -4,6 +4,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
+
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 

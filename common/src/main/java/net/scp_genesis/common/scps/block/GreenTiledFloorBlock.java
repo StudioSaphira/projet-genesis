@@ -1,11 +1,11 @@
-package net.scp_genesis.common.block;
+package net.scp_genesis.common.scps.block;
 
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.Block;
 
-public class CleanWhiteTiledBlock extends Block {
-	public CleanWhiteTiledBlock() {
+public class GreenTiledFloorBlock extends Block {
+	public GreenTiledFloorBlock() {
 		super(BlockBehaviour.Properties.of().strength(1f, 10f).instrument(NoteBlockInstrument.BASEDRUM));
 	}
 }

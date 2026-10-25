@@ -2,11 +2,8 @@ package net.scp_genesis.common.registry;
 
 import net.minecraft.world.item.Item;
 
-import net.scp_genesis.common.copycatblocks.item.CopycatRemoverItem;
-import net.scp_genesis.common.copycatblocks.item.CopycatScraperItem;
-import net.scp_genesis.common.copycatblocks.item.CopycatWrenchItem;
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.scp_genesis.common.copycatblocks.item.*;
+
 import net.scp_genesis.common.scps.item.cards.id.IDCardItem;
 import net.scp_genesis.common.scps.item.cards.keycards.ExternalKeycardLv0Item;
 import net.scp_genesis.common.scps.item.cards.keycards.O5KeycardItem;
@@ -28,6 +25,9 @@ import net.scp_genesis.common.scps.item.cards.keycards.mtf.umbra6.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.*;
 import net.scp_genesis.common.scps.item.cards.keycards.raisa.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.*;
+
+import net.scp_genesis.common.platform.PlatformRegistry;
+import net.scp_genesis.common.platform.PlatformRegistryObject;
 
 public final class ModItems {
 

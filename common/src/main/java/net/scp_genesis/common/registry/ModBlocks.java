@@ -1,36 +1,28 @@
 package net.scp_genesis.common.registry;
 
 import net.minecraft.world.level.block.Block;
-import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatPanelBlock;
-import net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureChairBamboo;
-import net.scp_genesis.common.furnitures.notmodular.office.FurnitureOfficeChair;
-import net.scp_genesis.common.furnitures.notmodular.room.cherry.FurnitureChairCherry;
-import net.scp_genesis.common.furnitures.notmodular.room.mangrove.FurnitureChairMangrove;
-import net.scp_genesis.common.furnitures.notmodular.room.darkoak.FurnitureChairDarkOak;
-import net.scp_genesis.common.furnitures.notmodular.room.acacia.FurnitureChairAcacia;
-import net.scp_genesis.common.furnitures.notmodular.room.jungle.FurnitureChairJungle;
-import net.scp_genesis.common.furnitures.notmodular.room.birch.FurnitureChairBirch;
-import net.scp_genesis.common.furnitures.notmodular.room.spruce.FurnitureChairSpruce;
-import net.scp_genesis.common.furnitures.notmodular.room.oak.FurnitureChairOak;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
-import net.scp_genesis.common.furnitures.notmodular.room.oak.FurnitureTableOak;
-import net.scp_genesis.common.furnitures.notmodular.room.spruce.FurnitureTableSpruce;
-import net.scp_genesis.common.furnitures.notmodular.room.birch.FurnitureTableBirch;
-import net.scp_genesis.common.furnitures.notmodular.room.jungle.FurnitureTableJungle;
-import net.scp_genesis.common.furnitures.notmodular.room.acacia.FurnitureTableAcacia;
-import net.scp_genesis.common.furnitures.notmodular.room.mangrove.FurnitureTableMangrove;
-import net.scp_genesis.common.furnitures.notmodular.room.cherry.FurnitureTableCherry;
-import net.scp_genesis.common.furnitures.notmodular.room.bamboo.FurnitureTableBamboo;
-import net.scp_genesis.common.furnitures.notmodular.room.darkoak.FurnitureTableDarkOak;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import net.scp_genesis.common.furnitures.notmodular.office.FurnitureOfficeChair;
+import net.scp_genesis.common.furnitures.notmodular.room.oak.*;
+import net.scp_genesis.common.furnitures.notmodular.room.spruce.*;
+import net.scp_genesis.common.furnitures.notmodular.room.birch.*;
+import net.scp_genesis.common.furnitures.notmodular.room.jungle.*;
+import net.scp_genesis.common.furnitures.notmodular.room.acacia.*;
+import net.scp_genesis.common.furnitures.notmodular.room.mangrove.*;
+import net.scp_genesis.common.furnitures.notmodular.room.cherry.*;
+import net.scp_genesis.common.furnitures.notmodular.room.bamboo.*;
+import net.scp_genesis.common.furnitures.notmodular.room.darkoak.*;
+
 import net.scp_genesis.common.block.*;
-import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatSlopeBlock;
-import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatCubeBlock;
-import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatSlabBlock;
-import net.scp_genesis.common.copycatblocks.block.vanilla.CopycatStairsBlock;
+import net.scp_genesis.common.scps.block.*;
+
+import net.scp_genesis.common.copycatblocks.block.vanilla.*;
+import net.scp_genesis.common.copycatblocks.block.custom.basic.*;
+
 import net.scp_genesis.common.platform.PlatformRegistry;
 import net.scp_genesis.common.platform.PlatformRegistryObject;
 
