@@ -13,8 +13,7 @@ public final class FabricPlatformServices implements PlatformServicesImpl {
     }
 
     private static final PlatformModelData<FabricPlatformModelData.Data>
-            MODEL_DATA =
-            new FabricPlatformModelData();
+            MODEL_DATA = new FabricPlatformModelData();
 
     @Override
     public PlatformModelData<?> modelData() {
