@@ -23,8 +23,8 @@ import net.scp_genesis.common.scps.block.*;
 import net.scp_genesis.common.copycatblocks.block.vanilla.*;
 import net.scp_genesis.common.copycatblocks.block.custom.basic.*;
 
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModBlocks {
 

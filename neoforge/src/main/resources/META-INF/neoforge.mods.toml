@@ -28,3 +28,10 @@ config = "scp_genesis.neoforge.mixins.json"
     versionRange="[1.21.1]"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.scp_genesis]]
+    modId="saphyra"
+    type="required"
+    versionRange="[0.1-beta1,)"
+    ordering="AFTER"
+    side="BOTH"

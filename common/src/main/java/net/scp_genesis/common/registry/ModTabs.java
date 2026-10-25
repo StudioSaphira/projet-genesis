@@ -4,8 +4,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.network.chat.Component;
 
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModTabs {
 

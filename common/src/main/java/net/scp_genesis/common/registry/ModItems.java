@@ -26,8 +26,8 @@ import net.scp_genesis.common.scps.item.cards.keycards.mtf.zeta19.*;
 import net.scp_genesis.common.scps.item.cards.keycards.raisa.*;
 import net.scp_genesis.common.scps.item.cards.keycards.mtf.antheia5.*;
 
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModItems {
 

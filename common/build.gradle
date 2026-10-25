@@ -84,3 +84,10 @@ class VanillaCommonSpec implements MinecraftJarProcessor.Spec {
 }
 
 loom.addMinecraftJarProcessor(VanillaCommonMinecraftProcessor)
+
+
+dependencies {
+    compileOnly("net.saphyra:saphyra-common-${rootProject.minecraft_version}:${rootProject.saphyra_version}") {
+        transitive = false
+    }
+}

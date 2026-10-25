@@ -3,7 +3,8 @@ package net.scp_genesis.common.registry;
 import net.minecraft.world.inventory.MenuType;
 
 import net.scp_genesis.common.furnitures.storage.LockerMenu;
-import net.scp_genesis.common.platform.*;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModMenus {
     public static PlatformRegistryObject<MenuType<net.scp_genesis.common.furnitures.storage.DrawerMenu>> DRAWER;

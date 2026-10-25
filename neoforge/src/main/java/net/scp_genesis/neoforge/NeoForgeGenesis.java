@@ -5,16 +5,15 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.scp_genesis.common.registry.ModBlocks;
 
-import net.scp_genesis.neoforge.platform.NeoForgePlatformRegistry;
+import net.saphyra.neoforge.platform.NeoForgePlatformRegistry;
 
 @Mod("scp_genesis")
 public final class NeoForgeGenesis {
 
     public NeoForgeGenesis(IEventBus modEventBus) {
-        net.scp_genesis.common.platform.PlatformServices.initialize(
-                new net.scp_genesis.neoforge.platform.NeoForgePlatformServices());
-        NeoForgePlatformRegistry registry = new NeoForgePlatformRegistry(modEventBus);
+        NeoForgePlatformRegistry registry = new NeoForgePlatformRegistry("scp_genesis", modEventBus);
 
+        net.scp_genesis.common.registry.ModRegistries.register(registry);
         registry.register();
         net.scp_genesis.neoforge.scps.readers.NeoForgeReaders.register(modEventBus);
         modEventBus.addListener(this::commonSetup);

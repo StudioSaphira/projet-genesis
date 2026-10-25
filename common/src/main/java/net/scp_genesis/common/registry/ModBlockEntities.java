@@ -5,8 +5,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
 
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModBlockEntities {
     public static PlatformRegistryObject<BlockEntityType<net.scp_genesis.common.furnitures.storage.PlateBlockEntity>> PLATE;
@@ -42,8 +42,23 @@ public final class ModBlockEntities {
                 net.scp_genesis.common.furnitures.storage.LockerBlockEntity::new,
                 () -> new net.minecraft.world.level.block.Block[]{ModBlocks.LOCKER.get(), ModBlocks.LOCKER_SHELF.get()});
         COPYCAT_BLOCK_ENTITY =
-                registry.registerCopycatBlockEntity(
-                        CopycatConstants.BLOCK_ENTITY_ID
+                registry.registerBlockEntity(
+                        CopycatConstants.BLOCK_ENTITY_ID,
+                        CopycatBlockEntity::new,
+                        () -> new net.minecraft.world.level.block.Block[] {
+                            ModBlocks.COPYCAT_CUBE.get(),
+                            ModBlocks.COPYCAT_SLAB.get(),
+                            ModBlocks.COPYCAT_STAIRS.get(),
+                            ModBlocks.COPYCAT_SLOPE.get(),
+                            ModBlocks.COPYCAT_VERTICAL_SLOPE.get(),
+                            ModBlocks.COPYCAT_PANEL.get(),
+                            ModBlocks.COPYCAT_HALF_PANEL.get(),
+                            ModBlocks.COPYCAT_HALF_SLAB.get(),
+                            ModBlocks.COPYCAT_HALF_STAIRS.get(),
+                            ModBlocks.COPYCAT_HALF_SLOPE.get(),
+                            ModBlocks.COPYCAT_HORIZONTAL_HALF_SLOPE.get(),
+                            ModBlocks.COPYCAT_VERTICAL_HALF_SLOPE.get()
+                        }
                 );
     }
 }

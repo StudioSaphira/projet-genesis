@@ -3,7 +3,7 @@ package net.scp_genesis.common.scps.readers.network;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.scp_genesis.common.platform.PlatformServices;
+import net.saphyra.common.platform.PlatformServices;
 import net.scp_genesis.common.scps.readers.data.ReaderConfiguration;
 import net.scp_genesis.common.scps.readers.data.ReaderType;
 import net.scp_genesis.common.scps.readers.item.ReaderConfiguratorItem;
@@ -187,7 +187,7 @@ public final class ReaderServer {
     }
 
     private static void send(ServerPlayer player, CompoundTag data) {
-        PlatformServices.get().sendReader(player, new ReaderPacket(data));
+        PlatformServices.get().sendToPlayer(player, new ReaderPacket(data));
     }
 
     private static void reply(ServerPlayer player, ReaderMenu menu, String message) {

@@ -5,8 +5,8 @@ import net.minecraft.world.entity.MobCategory;
 
 import net.scp_genesis.common.furnitures.seating.ChairSeatEntity;
 
-import net.scp_genesis.common.platform.PlatformRegistry;
-import net.scp_genesis.common.platform.PlatformRegistryObject;
+import net.saphyra.common.platform.PlatformRegistry;
+import net.saphyra.common.platform.PlatformRegistryObject;
 
 public final class ModEntities {
     private ModEntities() {}

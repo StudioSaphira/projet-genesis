@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.scp_genesis.common.copycatblocks.data.CopycatData;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.util.CopycatConstants;
-import net.scp_genesis.common.platform.PlatformServices;
+import net.saphyra.common.platform.PlatformServices;
 import net.scp_genesis.common.registry.ModBlockEntities;
 import org.jetbrains.annotations.NotNull;
 

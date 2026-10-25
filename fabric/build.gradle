@@ -35,3 +35,26 @@ dependencies {
 tasks.named("processResources") {
     from(project(":common").sourceSets.main.resources)
 }
+
+dependencies {
+    modImplementation("net.saphyra:saphyra-fabric-${rootProject.minecraft_version}:${rootProject.saphyra_version}") {
+        transitive = false
+    }
+}
+
+
+// Loader artifacts include Genesis Common, but never embed Saphyra.
+tasks.named('jar') {
+    from(project(':common').sourceSets.main.output)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+
+loom {
+    mods {
+        scp_genesis {
+            sourceSet sourceSets.main
+            sourceSet project(':common').sourceSets.main
+        }
+    }
+}

@@ -57,3 +57,25 @@ tasks.register('buildJar', Jar) {
 tasks.register('buildAll') {
     dependsOn 'buildJar'
 }
+
+subprojects {
+    repositories {
+        def saphyraRepository = providers.gradleProperty('saphyraRepository')
+        if (saphyraRepository.isPresent()) {
+            exclusiveContent {
+                forRepository {
+                    maven {
+                        name = 'Saphyra'
+                        url = uri(saphyraRepository.get())
+                    }
+                }
+                filter { includeGroup 'net.saphyra' }
+            }
+        } else {
+            exclusiveContent {
+                forRepository { mavenLocal() }
+                filter { includeGroup 'net.saphyra' }
+            }
+        }
+    }
+}
