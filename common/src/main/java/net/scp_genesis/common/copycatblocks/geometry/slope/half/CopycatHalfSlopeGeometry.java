@@ -1,17 +1,20 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope.half;
 
-import net.scp_genesis.common.copycatblocks.util.abstracts.CopycatHalfState;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.saphyra.common.api.geometry.GeometryFace;
+import net.saphyra.common.api.geometry.GeometryUV;
+import net.saphyra.common.api.geometry.GeometryVertex;
+import net.saphyra.common.api.geometry.UVMapping;
 import net.scp_genesis.common.copycatblocks.data.*;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatGeometryTransforms;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatUVMapping;
+import net.saphyra.common.api.geometry.GeometryTransforms;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeUV;
+import net.scp_genesis.common.copycatblocks.util.abstracts.CopycatHalfState;
 import net.scp_genesis.common.copycatblocks.util.records.*;
-import java.util.ArrayList;
-import java.util.List;
 import static net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock.FACING;
 
 /** Builds the exact half-width prisms and removes their shared internal faces before rendering. */
@@ -38,30 +41,30 @@ public final class CopycatHalfSlopeGeometry {
 
     private static CopycatMeshPart mesh(CopycatPart part, CopycatHalfSide side, Half half,
                                         Direction facing, boolean complement, Direction omitted) {
-        List<CopycatFace> faces = new ArrayList<>();
-        for (CopycatFace face : CopycatGeometrySlope.getDefaultFaces()) {
+        List<GeometryFace> faces = new ArrayList<>();
+        for (GeometryFace face : CopycatGeometrySlope.getDefaultFaces()) {
             if (face.direction() == omitted) continue;
-            CopycatVertex[] vertices = new CopycatVertex[face.vertices().length];
+            GeometryVertex[] vertices = new GeometryVertex[face.vertices().length];
             for (int i = 0; i < vertices.length; i++) {
                 var v = face.vertices()[i];
-                vertices[i] = new CopycatVertex(v.x() * 0.5F + (side == CopycatHalfSide.RIGHT ? 0.5F : 0),
+                vertices[i] = new GeometryVertex(v.x() * 0.5F + (side == CopycatHalfSide.RIGHT ? 0.5F : 0),
                         complement ? 1 - v.y() : v.y(), complement ? 1 - v.z() : v.z());
             }
             Direction direction = face.direction();
             if (complement && direction.getAxis() != Direction.Axis.X) direction = direction.getOpposite();
-            faces.add(new CopycatFace(direction, vertices));
+            faces.add(new GeometryFace(direction, vertices));
         }
-        var oriented = CopycatGeometryTransforms.orient(faces.toArray(CopycatFace[]::new), facing, half);
-        CopycatUV[][] uv = new CopycatUV[oriented.length][];
+        var oriented = GeometryTransforms.orient(faces.toArray(GeometryFace[]::new), facing, half);
+        GeometryUV[][] uv = new GeometryUV[oriented.length][];
         for (int i = 0; i < oriented.length; i++) {
             uv[i] = CopycatSlopeUV.calculate(oriented[i]);
-            for (int j = 0; j < uv[i].length; j++) uv[i][j] = CopycatUVMapping.clamp(uv[i][j]);
+            for (int j = 0; j < uv[i].length; j++) uv[i][j] = UVMapping.clamp(uv[i][j]);
         }
         return new CopycatMeshPart(part, oriented, uv);
     }
 
     /** Returns all exterior polygons for selection outlines. */
-    public static CopycatFace[] faces(BlockState state) {
-        return parts(state).stream().flatMap(p -> java.util.Arrays.stream(p.faces())).toArray(CopycatFace[]::new);
+    public static GeometryFace[] faces(BlockState state) {
+        return parts(state).stream().flatMap(p -> java.util.Arrays.stream(p.faces())).toArray(GeometryFace[]::new);
     }
 }

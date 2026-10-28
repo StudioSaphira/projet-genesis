@@ -1,5 +1,8 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
@@ -10,14 +13,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.model.SimpleModelState;
+import net.saphyra.common.api.rendering.SaphyraRendering;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatGeometryStairs;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsRotation;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 public final class NeoForgeCopycatStairsHelper {
 
@@ -56,7 +55,7 @@ public final class NeoForgeCopycatStairsHelper {
                             );
 
                     BakedModel model =
-                            NeoForgeCopycatModelBakeHelper.bakeModel(
+                            SaphyraRendering.bakeModel(
                                     baker,
                                     baseModels.get(modelName),
                                     modelState,

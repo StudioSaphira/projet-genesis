@@ -7,7 +7,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.common.NeoForge;
 import net.scp_genesis.neoforge.client.NeoForgeBlockColors;
 import net.scp_genesis.neoforge.client.NeoForgeModelLoading;
-import net.scp_genesis.neoforge.copycatblocks.client.NeoForgeCopycatOutlineHandler;
 
 @Mod(
         value = "scp_genesis",
@@ -29,6 +28,6 @@ public final class NeoForgeGenesisClient {
         modEventBus.addListener(net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresModelLoader::register);
         modEventBus.addListener(net.scp_genesis.neoforge.furnitures.NeoForgeFurnituresParticles::register);
 
-        NeoForge.EVENT_BUS.register(NeoForgeCopycatOutlineHandler.class);
+        net.scp_genesis.common.copycatblocks.client.CopycatRendering.register();
     }
 }

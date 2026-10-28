@@ -1,5 +1,6 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
+import java.util.List;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -9,14 +10,12 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.saphyra.common.api.rendering.BlockModelProvider;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
  * Geometry implementation for standard Copycat Cubes.
@@ -91,7 +90,7 @@ public final class NeoForgeCopycatGeometryCube implements NeoForgeCopycatGeometr
             );
         }
 
-        return CopycatModelProvider
+        return BlockModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -114,7 +113,7 @@ public final class NeoForgeCopycatGeometryCube implements NeoForgeCopycatGeometr
             return baseModel.getParticleIcon(modelData);
         }
 
-        return CopycatModelProvider
+        return BlockModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(modelData);
     }

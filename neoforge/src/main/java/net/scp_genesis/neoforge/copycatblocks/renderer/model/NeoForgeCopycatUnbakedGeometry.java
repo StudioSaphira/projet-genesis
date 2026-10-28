@@ -1,5 +1,8 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.model;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -9,19 +12,15 @@ import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
 import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import net.saphyra.common.api.rendering.SaphyraRendering;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometry;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryCube;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlab;
-import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryStairs;
 import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometrySlope;
-import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatModelBakeHelper;
+import net.scp_genesis.neoforge.copycatblocks.renderer.geometry.NeoForgeCopycatGeometryStairs;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
 
 public final class NeoForgeCopycatUnbakedGeometry
         implements IUnbakedGeometry<NeoForgeCopycatUnbakedGeometry> {
@@ -104,7 +103,7 @@ public final class NeoForgeCopycatUnbakedGeometry
         if (geometryType == GeometryType.CUBE) {
 
             BakedModel bakedBaseModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             baseModel,
                             modelState,
@@ -126,7 +125,7 @@ public final class NeoForgeCopycatUnbakedGeometry
         if (geometryType == GeometryType.SLAB) {
 
             BakedModel bottomModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("bottom"),
                             modelState,
@@ -134,7 +133,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             BakedModel topModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("top"),
                             modelState,
@@ -142,7 +141,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                     );
 
             BakedModel doubleModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("double"),
                             modelState,
@@ -153,7 +152,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                     Objects.requireNonNull(baseModels).get("double_secondary");
 
             BakedModel doubleSecondaryModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             doubleSecondaryLocation,
                             modelState,
@@ -202,7 +201,7 @@ public final class NeoForgeCopycatUnbakedGeometry
                 || geometryType == GeometryType.HORIZONTAL_HALF_SLOPE || geometryType == GeometryType.VERTICAL_HALF_SLOPE) {
 
             BakedModel referenceModel =
-                    NeoForgeCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             SLOPE_REFERENCE_MODEL,
                             modelState,

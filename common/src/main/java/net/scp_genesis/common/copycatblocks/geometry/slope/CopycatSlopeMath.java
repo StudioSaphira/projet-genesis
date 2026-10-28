@@ -1,7 +1,7 @@
 package net.scp_genesis.common.copycatblocks.geometry.slope;
 
-import net.scp_genesis.common.copycatblocks.geometry.CopycatGeometryMath;
-import net.scp_genesis.common.copycatblocks.util.records.CopycatVertex;
+import net.saphyra.common.api.geometry.GeometryMath;
+import net.saphyra.common.api.geometry.GeometryVertex;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -51,11 +51,11 @@ public final class CopycatSlopeMath {
      * @param z normalized Z coordinate
      * @return the point on the diagonal plane
      */
-    public static @NotNull CopycatVertex diagonalPoint(
+    public static @NotNull GeometryVertex diagonalPoint(
             float x,
             float z
     ) {
-        return new CopycatVertex(
+        return new GeometryVertex(
                 x,
                 diagonalHeight(z),
                 z
@@ -80,7 +80,7 @@ public final class CopycatSlopeMath {
      * @param z normalized Z coordinate of the edge
      * @return the intersection point
      */
-    public static @NotNull CopycatVertex cutVerticalEdge(
+    public static @NotNull GeometryVertex cutVerticalEdge(
             float x,
             float z
     ) {
@@ -102,9 +102,9 @@ public final class CopycatSlopeMath {
      * @param top the upper endpoint of the edge
      * @return the intersection point with the diagonal plane
      */
-    public static @NotNull CopycatVertex cutVerticalEdge(
-            @NotNull CopycatVertex bottom,
-            @NotNull CopycatVertex top
+    public static @NotNull GeometryVertex cutVerticalEdge(
+            @NotNull GeometryVertex bottom,
+            @NotNull GeometryVertex top
     ) {
         float targetY =
                 diagonalHeight(
@@ -122,7 +122,7 @@ public final class CopycatSlopeMath {
                 (targetY - bottom.y())
                         / dy;
 
-        return CopycatGeometryMath.lerp(
+        return GeometryMath.lerp(
                 bottom,
                 top,
                 t

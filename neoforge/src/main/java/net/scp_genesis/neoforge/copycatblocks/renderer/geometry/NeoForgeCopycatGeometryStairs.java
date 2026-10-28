@@ -1,5 +1,7 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
+import java.util.List;
+import java.util.Map;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -11,17 +13,14 @@ import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.saphyra.common.api.rendering.BlockModelProvider;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatGeometryStairs;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatQuadHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.Map;
 
 public final class NeoForgeCopycatGeometryStairs
         implements NeoForgeCopycatGeometry {
@@ -133,7 +132,7 @@ public final class NeoForgeCopycatGeometryStairs
             );
         }
 
-        return CopycatModelProvider
+        return BlockModelProvider
                 .getModel(copiedState)
                 .getRenderTypes(
                         copiedState,
@@ -157,7 +156,7 @@ public final class NeoForgeCopycatGeometryStairs
                     .getParticleIcon(modelData);
         }
 
-        return CopycatModelProvider
+        return BlockModelProvider
                 .getModel(copiedState)
                 .getParticleIcon(modelData);
     }

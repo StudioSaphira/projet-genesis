@@ -1,5 +1,7 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransform;
@@ -12,21 +14,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import net.saphyra.common.api.geometry.FaceBounds;
+import net.saphyra.common.api.geometry.GeometryFace;
+import net.saphyra.common.api.geometry.GeometryUV;
+import net.saphyra.common.api.rendering.BlockModelProvider;
 import net.scp_genesis.common.copycatblocks.block.custom.basic.CopycatSlopeBlock;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatFaceBounds;
-import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * NeoForge renderer geometry for the Copycat Slope.
@@ -52,7 +51,7 @@ import java.util.List;
  *      ↓
  * CopycatGeometrySlope
  *      ↓
- * CopycatFace + CopycatUV
+ * GeometryFace + GeometryUV
  *      ↓
  * NeoForgeCopycatSlopeHelper
  *      ↓
@@ -117,15 +116,15 @@ public class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
 
         boolean hasCopiedState = copiedState != null && !copiedState.isAir();
 
-        CopycatFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
+        GeometryFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
 
-        CopycatUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
+        GeometryUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
 
         List<BakedQuad> result = new java.util.ArrayList<>();
 
         for (int i = 0; i < faces.length; i++) {
 
-            CopycatFace face = faces[i];
+            GeometryFace face = faces[i];
 
             /*
              * Minecraft asks for one particular face when side != null.
@@ -133,7 +132,7 @@ public class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
             // Only boundary faces belong to a directional (culled) bucket.
             // The diagonal is unculled; emitting it in both buckets duplicates it,
             // and treating it as a full side hides it behind adjacent blocks.
-            Direction cullFace = CopycatFaceBounds.boundaryDirection(face);
+            Direction cullFace = FaceBounds.boundaryDirection(face);
             if (side != cullFace) {
                 continue;
             }
@@ -194,6 +193,6 @@ public class NeoForgeCopycatGeometrySlope implements NeoForgeCopycatGeometry {
             return defaultSprite;
         }
 
-        return CopycatModelProvider.getModel(copiedState).getParticleIcon(modelData);
+        return BlockModelProvider.getModel(copiedState).getParticleIcon(modelData);
     }
 }

@@ -1,12 +1,17 @@
 package net.scp_genesis.common.copycatblocks.geometry;
+
+import net.saphyra.common.api.geometry.GeometryTransforms;
+
+import java.util.*;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.shapes.*;
+import net.saphyra.common.api.geometry.BoxGeometry;
+import net.saphyra.common.api.geometry.GeometryUV;
+import net.saphyra.common.api.geometry.UVMapping;
 import net.scp_genesis.common.copycatblocks.data.*;
 import net.scp_genesis.common.copycatblocks.util.abstracts.*;
 import net.scp_genesis.common.copycatblocks.util.records.*;
-import java.util.*;
 import static net.scp_genesis.common.copycatblocks.block.custom.AbstractCopycatHalfBlock.*;
 /** Rectangular quarter meshes shared by both loaders, with the joined internal faces omitted. */
 public final class CopycatQuarterGeometry {
@@ -23,10 +28,10 @@ public final class CopycatQuarterGeometry {
                 part(state,CopycatPart.TOP,x,y,z,x+.5F,y+height,z+depth,seam.getOpposite()));
     }
     private static CopycatMeshPart part(BlockState state,CopycatPart slot,float x,float y,float z,float x2,float y2,float z2,Direction seam) {
-        var faces=CopycatGeometryTransforms.orient(CopycatBoxGeometry.faces(x,y,z,x2,y2,z2,seam),state.getValue(FACING),CopycatHalfState.half(state));
-        var uv=new CopycatUV[faces.length][];
+        var faces=GeometryTransforms.orient(BoxGeometry.faces(x,y,z,x2,y2,z2,seam),state.getValue(FACING),CopycatHalfState.half(state));
+        var uv=new GeometryUV[faces.length][];
         for(int i=0;i<faces.length;i++) {
-            var face=faces[i];uv[i]=Arrays.stream(face.vertices()).map(v->CopycatUVMapping.project(face.direction(),v)).toArray(CopycatUV[]::new);
+            var face=faces[i];uv[i]=Arrays.stream(face.vertices()).map(v->UVMapping.project(face.direction(),v)).toArray(GeometryUV[]::new);
         }
         return new CopycatMeshPart(slot,faces,uv);
     }

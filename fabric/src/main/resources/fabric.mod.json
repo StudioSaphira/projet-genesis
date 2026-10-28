@@ -25,6 +25,6 @@
     "fabricloader": ">=0.19.5",
     "minecraft": "~1.21.1",
     "fabric-api": ">=0.116.17+1.21.1",
-    "saphyra": ">=0.1-beta1"
+    "saphyra": ">=0.1-beta2"
   }
 }

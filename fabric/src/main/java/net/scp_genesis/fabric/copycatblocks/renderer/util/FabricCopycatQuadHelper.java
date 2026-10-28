@@ -1,161 +1,69 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.util;
 
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
-import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.mesh.QuadEmitter;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
-
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-
+import net.saphyra.fabric.client.rendering.FabricQuadRetexturing;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
-import net.scp_genesis.fabric.copycatblocks.renderer.FabricCopycatRenderer;
-
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.function.Supplier;
-
+/** Maps Genesis material slots to Saphyra rendering parameters. */
 public final class FabricCopycatQuadHelper {
+    private FabricCopycatQuadHelper() {}
 
-    private FabricCopycatQuadHelper() {
+    private static int tintOffset(CopycatPart part) {
+        return switch (part) {
+            case BOTTOM -> 1000;
+            case TOP -> 2000;
+            default -> 0;
+        };
     }
 
-    /**
-     * Encodes the tint index of a Copycat part.
-     */
+    /** Delegates rendering to Saphyra with Genesis material-slot values. */
     public static int encodeCopycatTintIndex(
             int tintIndex,
             @NotNull CopycatPart part
     ) {
-        if (tintIndex < 0) {
-            return tintIndex;
-        }
-
-        return switch (part) {
-            case BOTTOM -> tintIndex + 1000;
-            case TOP -> tintIndex + 2000;
-            default -> tintIndex;
-        };
+        return FabricQuadRetexturing.encodeTintIndex(tintIndex, tintOffset(part));
     }
 
-    /**
-     * Emits a vanilla BakedQuad through the Fabric Renderer API.
-     */
+    /** Delegates rendering to Saphyra with Genesis material-slot values. */
     public static void emitQuad(
             @NotNull QuadEmitter emitter,
             @NotNull BakedQuad quad,
             @NotNull RenderMaterial material
     ) {
-        emitter.fromVanilla(
-                quad,
-                material,
-                null
-        );
-
-        emitter.emit();
+        FabricQuadRetexturing.emitQuad(emitter, quad, material);
     }
 
-    /**
-     * Emits a geometry quad retextured using the sprite of a copied quad.
-     *
-     * <p>This is the Fabric equivalent of NeoForge's
-     * {@code remapQuad()}.</p>
-     *
-     * <p>The geometry itself always comes from {@code geometryQuad}.
-     * Only its UV coordinates are remapped from the geometry sprite
-     * to the copied sprite.</p>
-     */
+    /** Delegates rendering to Saphyra with Genesis material-slot values. */
     public static void emitRetexturedQuad(
             @NotNull QuadEmitter emitter,
             @NotNull BakedQuad geometryQuad,
             @NotNull BakedQuad copiedQuad,
             @NotNull CopycatPart part
     ) {
-        emitter.fromVanilla(
-                geometryQuad,
-                FabricCopycatRenderer.getCutoutMaterial(),
-                geometryQuad.getDirection()
-        );
-
-        emitter.spriteBake(
-                copiedQuad.getSprite(),
-                MutableQuadView.BAKE_LOCK_UV
-        );
-
-        emitter.colorIndex(
-                encodeCopycatTintIndex(
-                        copiedQuad.getTintIndex(),
-                        part
-                )
-        );
-
-        emitter.emit();
+        FabricQuadRetexturing.emitRetexturedQuad(emitter, geometryQuad, copiedQuad, tintOffset(part));
     }
 
-    private static List<BakedQuad> getAllGeometryQuads(
-            @NotNull BakedModel model,
-            @NotNull BlockState state,
-            @NotNull RandomSource random
-    ) {
-
-        List<BakedQuad> result = new java.util.ArrayList<>(model.getQuads(
-                state,
-                null,
-                random
-        ));
-
-        for (Direction direction : Direction.values()) {
-            result.addAll(
-                    model.getQuads(
-                            state,
-                            direction,
-                            random
-                    )
-            );
-        }
-
-        return result;
-    }
-
+    /** Delegates rendering to Saphyra with Genesis material-slot values. */
     public static void emitBaseModel(
             @NotNull BakedModel model,
             @NotNull BlockState state,
             @NotNull Supplier<RandomSource> randomSupplier,
             @NotNull RenderContext context
     ) {
-        RandomSource random = randomSupplier.get();
-
-        QuadEmitter emitter = context.getEmitter();
-
-        RenderMaterial material =
-                FabricCopycatRenderer.getCutoutMaterial();
-
-        List<BakedQuad> quads =
-                getAllGeometryQuads(
-                        model,
-                        state,
-                        random
-                );
-
-        for (BakedQuad quad : quads) {
-            emitQuad(
-                    emitter,
-                    quad,
-                    material
-            );
-        }
+        FabricQuadRetexturing.emitBaseModel(model, state, randomSupplier, context);
     }
 
-    /**
-     * Emits a retextured Copycat model through Fabric Renderer.
-     */
+    /** Delegates rendering to Saphyra with Genesis material-slot values. */
     public static void retextureModel(
             @NotNull BakedModel geometryModel,
             @SuppressWarnings("unused") @NotNull BlockAndTintGetter blockView,
@@ -166,58 +74,6 @@ public final class FabricCopycatQuadHelper {
             @NotNull RenderContext context,
             @NotNull CopycatPart part
     ) {
-        BakedModel copiedModel =
-                CopycatModelProvider.getModel(copiedState);
-
-        QuadEmitter emitter =
-                context.getEmitter();
-
-        RandomSource random =
-                randomSupplier.get();
-
-        List<BakedQuad> geometryQuads =
-                getAllGeometryQuads(
-                        geometryModel,
-                        copycatState,
-                        random
-                );
-
-        if (geometryQuads.isEmpty()) {
-            return;
-        }
-
-        for (BakedQuad geometryQuad : geometryQuads) {
-
-            Direction direction =
-                    geometryQuad.getDirection();
-
-            List<BakedQuad> copiedQuads =
-                    FabricCopycatModelHelper.findMatchingCopiedQuads(
-                            copiedModel,
-                            copiedState,
-                            direction,
-                            geometryQuad,
-                            random
-                    );
-
-            if (copiedQuads.isEmpty()) {
-                emitQuad(
-                        emitter,
-                        geometryQuad,
-                        FabricCopycatRenderer.getCutoutMaterial()
-                );
-
-                continue;
-            }
-
-            for (BakedQuad copiedQuad : copiedQuads) {
-                emitRetexturedQuad(
-                        emitter,
-                        geometryQuad,
-                        copiedQuad,
-                        part
-                );
-            }
-        }
+        FabricQuadRetexturing.retextureModel(geometryModel, blockView, copycatState, pos, copiedState, randomSupplier, context, tintOffset(part));
     }
 }

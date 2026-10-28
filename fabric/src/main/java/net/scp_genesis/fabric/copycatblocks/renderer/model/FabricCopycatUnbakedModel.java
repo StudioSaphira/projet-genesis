@@ -1,5 +1,10 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
@@ -7,17 +12,11 @@ import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.saphyra.common.api.rendering.SaphyraRendering;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.fabric.copycatblocks.renderer.geometry.*;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatStairsHelper;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
 
 public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
@@ -139,7 +138,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
 
             @SuppressWarnings("DataFlowIssue")
             BakedModel bakedBaseModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             baseModel,
                             modelState,
@@ -160,7 +159,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
         if (geometryType == GeometryType.SLAB) {
 
             BakedModel bottomModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("bottom"),
                             modelState,
@@ -168,7 +167,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                     );
 
             BakedModel topModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("top"),
                             modelState,
@@ -176,7 +175,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                     );
 
             BakedModel doubleModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("double"),
                             modelState,
@@ -184,7 +183,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                     );
 
             BakedModel doubleSecondaryModel =
-                    FabricCopycatModelBakeHelper.bakeModel(
+                    SaphyraRendering.bakeModel(
                             baker,
                             Objects.requireNonNull(baseModels).get("double_secondary"),
                             modelState,
@@ -244,7 +243,7 @@ public final class FabricCopycatUnbakedModel implements UnbakedModel {
                             "block/cube_all"
                     );
 
-            BakedModel referenceModel = FabricCopycatModelBakeHelper.bakeModel(
+            BakedModel referenceModel = SaphyraRendering.bakeModel(
                             baker,
                             slopeReferenceModel,
                             modelState,

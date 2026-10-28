@@ -1,5 +1,8 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
@@ -9,15 +12,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.block.state.properties.StairsShape;
+import net.saphyra.common.api.rendering.GeometryModelState;
+import net.saphyra.common.api.rendering.SaphyraRendering;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatGeometryStairs;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsModelKey;
 import net.scp_genesis.common.copycatblocks.geometry.stairs.CopycatStairsRotation;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelBakeHelper;
-import net.scp_genesis.fabric.copycatblocks.renderer.util.FabricCopycatModelState;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 public final class FabricCopycatStairsHelper {
 
@@ -50,13 +49,13 @@ public final class FabricCopycatStairsHelper {
                             CopycatGeometryStairs.getModelName(key.shape());
 
                     ModelState modelState =
-                            new FabricCopycatModelState(
+                            new GeometryModelState(
                                     rotation.getRotation().getRotation(),
                                     true
                             );
 
                     BakedModel model =
-                            FabricCopycatModelBakeHelper.bakeModel(
+                            SaphyraRendering.bakeModel(
                                     baker,
                                     baseModels.get(modelName),
                                     modelState,

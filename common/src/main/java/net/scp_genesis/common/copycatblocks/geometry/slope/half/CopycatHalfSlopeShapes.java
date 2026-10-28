@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.phys.shapes.*;
 import net.scp_genesis.common.copycatblocks.data.*;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatShapeTransforms;
+import net.saphyra.common.api.geometry.ShapeTransforms;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatSlopeShapes;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,8 +30,8 @@ public final class CopycatHalfSlopeShapes {
             for (int i = 0; i < 4; i++) {
                 shape = Shapes.or(shape, Shapes.box(x, 0, i * 0.25, x + 0.5, 1 - i * 0.25, (i + 1) * 0.25));
             }
-            if (CopycatHalfState.half(state) == Half.TOP) shape = CopycatShapeTransforms.mirrorVertical(shape);
+            if (CopycatHalfState.half(state) == Half.TOP) shape = ShapeTransforms.mirrorVertical(shape);
         }
-        return CopycatShapeTransforms.rotateHorizontal(shape, facing);
+        return ShapeTransforms.rotateHorizontal(shape, facing);
     }
 }

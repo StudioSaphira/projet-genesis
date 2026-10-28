@@ -1,5 +1,6 @@
 package net.scp_genesis.fabric.copycatblocks.renderer.geometry;
 
+import java.util.function.Supplier;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -13,16 +14,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.saphyra.common.api.geometry.GeometryFace;
+import net.saphyra.common.api.geometry.GeometryUV;
 import net.scp_genesis.common.copycatblocks.blockentity.CopycatBlockEntity;
 import net.scp_genesis.common.copycatblocks.data.CopycatPart;
-import net.scp_genesis.common.copycatblocks.util.records.CopycatFace;
-import net.scp_genesis.common.copycatblocks.util.records.CopycatUV;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatGeometrySlope;
 import net.scp_genesis.fabric.copycatblocks.renderer.util.dedicated.FabricCopycatSlopeHelper;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
-
-import java.util.function.Supplier;
 
 /** Connects common slope geometry to Fabric materials, inventory transforms and block rendering. */
 public class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
@@ -72,9 +71,9 @@ public class FabricCopycatGeometrySlope implements FabricCopycatGeometry {
 
         Half half = state.getValue(BlockStateProperties.HALF);
 
-        CopycatFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
+        GeometryFace[] faces = CopycatGeometrySlope.getFaces(facing, half);
 
-        CopycatUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
+        GeometryUV[][] uv = CopycatGeometrySlope.getUV(facing, half);
 
         BlockEntity blockEntity = blockView.getBlockEntity(pos);
 

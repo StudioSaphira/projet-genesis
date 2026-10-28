@@ -1,23 +1,22 @@
 package net.scp_genesis.neoforge.copycatblocks.renderer.geometry;
 
+import java.util.ArrayList;
+import java.util.List;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.saphyra.common.api.geometry.FaceBounds;
+import net.saphyra.common.api.rendering.BlockModelProvider;
 import net.scp_genesis.common.copycatblocks.data.*;
 import net.scp_genesis.common.copycatblocks.geometry.slope.CopycatFullSlopeGeometry;
 import net.scp_genesis.common.registry.ModBlocks;
-
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.neoforged.neoforge.client.model.data.ModelData;
-import net.scp_genesis.common.copycatblocks.geometry.CopycatFaceBounds;
-import net.scp_genesis.common.copycatblocks.provider.CopycatModelProvider;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.NeoForgeCopycatBlockStateHelper;
 import net.scp_genesis.neoforge.copycatblocks.renderer.util.dedicated.NeoForgeCopycatSlopeHelper;
-import java.util.ArrayList;
-import java.util.List;
 
 /** Bakes independently tinted parts, retaining the full slope's lighting and culling rules. */
 public final class NeoForgeCopycatGeometryFullSlope extends NeoForgeCopycatGeometrySlope {
@@ -39,7 +38,7 @@ public final class NeoForgeCopycatGeometryFullSlope extends NeoForgeCopycatGeome
             var copied = NeoForgeCopycatBlockStateHelper.getCopiedState(data, part.part());
             for (int i = 0; i < part.faces().length; i++) {
                 var face = part.faces()[i];
-                if (side != CopycatFaceBounds.boundaryDirection(face)) continue;
+                if (side != FaceBounds.boundaryDirection(face)) continue;
                 if (copied == null || copied.isAir()) {
                     result.addAll(NeoForgeCopycatSlopeHelper.buildDefaultQuads(face, part.uv()[i],
                             part.part() == CopycatPart.TOP ? alternate : sprite));
@@ -54,7 +53,7 @@ public final class NeoForgeCopycatGeometryFullSlope extends NeoForgeCopycatGeome
     @Override public TextureAtlasSprite getParticleIcon(ModelData data) {
         for (CopycatPart part : new CopycatPart[]{CopycatPart.MAIN, CopycatPart.BOTTOM, CopycatPart.TOP}) {
             var copied = NeoForgeCopycatBlockStateHelper.getCopiedState(data, part);
-            if (copied != null && !copied.isAir()) return CopycatModelProvider.getModel(copied).getParticleIcon(data);
+            if (copied != null && !copied.isAir()) return BlockModelProvider.getModel(copied).getParticleIcon(data);
         }
         return sprite;
     }
