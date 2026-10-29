@@ -1,3 +1,23 @@
+# Beta-Release 4 - 0.4 - Consumables & Money Update
+
+## Additions
+
+-
+
+## Changes
+
+- 
+
+## Deletions
+
+- Copycat render system was removed, cleaned, and was put in Saphyra, our new core mod for all our mods
+
+## Next Update
+
+_The next update may directly be the Beta-Release 4. In this case, it'll contain a lot of new content, including foods, drinks and ores._
+
+------------------------------------------------------------------
+
 # Beta-Release 3 - 0.3 - Doors & Cards Update, Part 2
 
 ## Additions

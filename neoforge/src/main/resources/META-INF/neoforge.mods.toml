@@ -4,11 +4,11 @@ license="Custom"
 
 [[mods]]
 modId="scp_genesis"
-version="0.3"
+version="${version}"
 displayName="SCP Genesis"
 displayURL="https://saphira-studio.com"
 logoFile="logo.png"
-credits="Developed by Studio Saphira for the SCP: Genesis project"
+credits="Developed by Studio Saphira"
 authors="HeroFR, Studio Saphira"
 description="SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics."
 
@@ -32,6 +32,6 @@ config = "scp_genesis.neoforge.mixins.json"
 [[dependencies.scp_genesis]]
     modId="saphyra"
     type="required"
-    versionRange="[0.1-beta2,)"
+    versionRange="[0.3,)"
     ordering="AFTER"
     side="BOTH"

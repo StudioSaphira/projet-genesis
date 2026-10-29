@@ -1,15 +1,39 @@
 {
   "schemaVersion": 1,
   "id": "scp_genesis",
-  "version": "0.3",
+  "version": "${version}",
+  "icon": "logo.png",
   "name": "SCP: Genesis",
   "description": "SCP Genesis expands Minecraft with a complete SCP-inspired experience, advanced security systems, SCP entities, Copycat Blocks and many immersive gameplay mechanics.",
-  "icon": "logo.png",
+  "license": "All Right Reserved",
+
   "authors": [
     "HeroFR",
     "Studio Saphira"
   ],
+  "contributors": [
+    ""
+  ],
+
+  "contact": {
+    "homepage": "https://saphira-studio.com",
+    "sources": "https://github.com/StudioSaphira/projet-genesis",
+    "issues": "https://github.com/StudioSaphira/projet-genesis/issues"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/zxkCtEm2YQ",
+        "modmenu.modrinth": "https://modrinth.com/mod/scp-genesis",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/scp-genesis",
+        "modmenu.kofi": "https://ko-fi.com/studiosaphira"
+      }
+    }
+  },
+
   "environment": "*",
+
   "entrypoints": {
     "main": [
       "net.scp_genesis.fabric.FabricGenesis"
@@ -21,10 +45,11 @@
   "mixins": [
     "scp_genesis.fabric.furnitures.mixins.json"
   ],
+
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": "~1.21.1",
     "fabric-api": ">=0.116.17+1.21.1",
-    "saphyra": ">=0.1-beta2"
+    "saphyra": ">=0.3"
   }
 }
